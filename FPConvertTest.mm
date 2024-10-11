@@ -9,7 +9,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-9 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-7.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -103,7 +103,9 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Form-Fields" ID="ID_861642195" CREATED="1728223219756" MODIFIED="1728232618809"><richcontent TYPE="NOTE">
+<node TEXT="Form-Fields" ID="ID_861642195" CREATED="1728223219756" MODIFIED="1728649890853">
+<icon BUILTIN="links/file/generic"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -147,7 +149,9 @@
 <node TEXT="Allowed Values: A-Z, a-z, 0-9, - +" ID="ID_213268044" CREATED="1728223285078" MODIFIED="1728463331516"/>
 </node>
 </node>
-<node TEXT="Buttons" ID="ID_303877642" CREATED="1728484729243" MODIFIED="1728484853081"><richcontent TYPE="NOTE">
+<node TEXT="Buttons" ID="ID_303877642" CREATED="1728484729243" MODIFIED="1728654308255">
+<icon BUILTIN="list"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -159,14 +163,32 @@
   </body>
 </html></richcontent>
 <node TEXT="Register" ID="ID_1572971016" CREATED="1728484737443" MODIFIED="1728484741806">
-<node TEXT="Normal Flow: Create new user-account, if possible." ID="ID_1542674567" CREATED="1728484759566" MODIFIED="1728484876096"/>
-<node TEXT="Exception Flow: Show validation errors, if any." ID="ID_69944687" CREATED="1728484877434" MODIFIED="1728484898261"/>
+<node TEXT="Normal Flow" ID="ID_1542674567" CREATED="1728484759566" MODIFIED="1728654582881">
+<node TEXT="System validates supplied data before creating user-account." ID="ID_471928457" CREATED="1728656564915" MODIFIED="1728656583247"/>
+<node TEXT="If everything is in order, then system create new user-account." ID="ID_1249360283" CREATED="1728654582891" MODIFIED="1728656654148"/>
+</node>
+<node TEXT="Exception Flow" ID="ID_69944687" CREATED="1728484877434" MODIFIED="1728656862084"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      If one or more validations fail, then system displays validation error with following details.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="If email address is associated with any existing user-account, then system notifies that no new account can be created with same email address." POSITION="bottom_or_right" ID="ID_1669244318" CREATED="1728656693319" MODIFIED="1728656775711"/>
+<node TEXT="If mobile number is associated with any existing user-account, then system notifies the user that no new account can be created with the same mobile number." POSITION="bottom_or_right" ID="ID_1696597003" CREATED="1728656735499" MODIFIED="1728656767953"/>
+</node>
 </node>
 <node TEXT="Reset" ID="ID_1737270551" CREATED="1728484744929" MODIFIED="1728484746990">
 <node TEXT="Normal Flow: Clean-up contents of all fields." ID="ID_1022856176" CREATED="1728484908510" MODIFIED="1728484926971"/>
 </node>
 </node>
-<node TEXT="Links" ID="ID_1390704400" CREATED="1728484941031" MODIFIED="1728484962381"><richcontent TYPE="NOTE">
+<node TEXT="Links" ID="ID_1390704400" CREATED="1728484941031" MODIFIED="1728649965911">
+<icon BUILTIN="list"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -181,7 +203,9 @@
 <node TEXT="Normal Flow: If account is present, click to sign-in." ID="ID_1683460292" CREATED="1728484982735" MODIFIED="1728485250957"/>
 </node>
 </node>
-<node TEXT="Wireframes" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1728486383431"><richcontent TYPE="NOTE">
+<node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1728648746839">
+<icon BUILTIN="image"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -194,6 +218,9 @@
 </html></richcontent>
 <node TEXT="User-registration Screen" ID="ID_571525042" CREATED="1728485097681" MODIFIED="1728485144207">
 <hook URI="images/user_register.png" SIZE="1.0" NAME="ExternalObject"/>
+</node>
+<node TEXT="Record exists already" ID="ID_1641632316" CREATED="1728647143642" MODIFIED="1728647354249">
+<hook URI="images/user_exists_already.png" SIZE="1.0" NAME="ExternalObject"/>
 </node>
 </node>
 </node>
