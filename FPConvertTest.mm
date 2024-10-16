@@ -9,7 +9,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-7.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-5.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -162,7 +162,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Register" ID="ID_1572971016" CREATED="1728484737443" MODIFIED="1728484741806">
+<node TEXT="Register: Registers the new user." ID="ID_1572971016" CREATED="1728484737443" MODIFIED="1728976216429">
 <node TEXT="Normal Flow" ID="ID_1542674567" CREATED="1728484759566" MODIFIED="1728654582881">
 <node TEXT="System validates supplied data before creating user-account." ID="ID_471928457" CREATED="1728656564915" MODIFIED="1728656583247"/>
 <node TEXT="If everything is in order, then system create new user-account." ID="ID_1249360283" CREATED="1728654582891" MODIFIED="1728656654148"/>
@@ -182,8 +182,10 @@
 <node TEXT="If mobile number is associated with any existing user-account, then system notifies the user that no new account can be created with the same mobile number." POSITION="bottom_or_right" ID="ID_1696597003" CREATED="1728656735499" MODIFIED="1728656767953"/>
 </node>
 </node>
-<node TEXT="Reset" ID="ID_1737270551" CREATED="1728484744929" MODIFIED="1728484746990">
-<node TEXT="Normal Flow: Clean-up contents of all fields." ID="ID_1022856176" CREATED="1728484908510" MODIFIED="1728484926971"/>
+<node TEXT="Reset: Reset all fields of the registration form." ID="ID_1737270551" CREATED="1728484744929" MODIFIED="1728976236701">
+<node TEXT="Normal Flow" ID="ID_1022856176" CREATED="1728484908510" MODIFIED="1728987975240">
+<node TEXT="Clean-up contents of all fields." ID="ID_1807251594" CREATED="1728987976694" MODIFIED="1728987979576"/>
+</node>
 </node>
 </node>
 <node TEXT="Links" ID="ID_1390704400" CREATED="1728484941031" MODIFIED="1728649965911">
@@ -199,9 +201,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Login Here" ID="ID_1580478443" CREATED="1728484963264" MODIFIED="1728485234450">
-<node TEXT="Normal Flow: If account is present, click to sign-in." ID="ID_1683460292" CREATED="1728484982735" MODIFIED="1728485250957"/>
-</node>
+<node TEXT="Login Here: If account is present, click to sign-in." ID="ID_1580478443" CREATED="1728484963264" MODIFIED="1728988130742"/>
 </node>
 <node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1728648746839">
 <icon BUILTIN="image"/>
@@ -216,8 +216,34 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="User-registration Screen" ID="ID_571525042" CREATED="1728485097681" MODIFIED="1728485144207">
+<node TEXT="User-registration Screen" ID="ID_571525042" CREATED="1728485097681" MODIFIED="1728891670401">
+<icon BUILTIN="list"/>
 <hook URI="images/user_register.png" SIZE="1.0" NAME="ExternalObject"/>
+<node TEXT="API Endpoint: /api/v1/users/register" ID="ID_843038164" CREATED="1728891616936" MODIFIED="1728918373973"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Please note that API version number is included as part of the URL used to invoke that API. This allows multiple versions of the API to co-exist together.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Method: POST" ID="ID_1268680316" CREATED="1728891936747" MODIFIED="1728891948802"/>
+<node TEXT="Input" ID="ID_399010225" CREATED="1728891653686" MODIFIED="1728893258783">
+<icon BUILTIN="links/file/json"/>
+<node TEXT="{&#xa;  &quot;fullname&quot;: &quot;Bob Jenson&quot;,&#xa;  &quot;emailaddress&quot;: &quot;bob.jenson@example.com&quot;,&#xa;  &quot;mobilenumber&quot;: &quot;1234567890&quot;,&#xa;  &quot;address&quot;: &quot;72, B street, Park Avenue, Sonpat,&#xa;  Hryana, INDIA&quot;&#xa;}" ID="ID_463301939" CREATED="1728893260493" MODIFIED="1728999955621"/>
+</node>
+<node TEXT="Normal Output" ID="ID_362544910" CREATED="1728893112229" MODIFIED="1728893458415">
+<icon BUILTIN="links/file/json"/>
+<node TEXT="{&#xa;  &quot;status&quot;: 200&#xa;  &quot;message&quot;: &quot;Created&quot;&#xa;}" ID="ID_21800491" CREATED="1728893232975" MODIFIED="1728920655499"/>
+</node>
+<node TEXT="Exception Output" ID="ID_1159276885" CREATED="1728891979919" MODIFIED="1728893471634">
+<icon BUILTIN="links/file/json"/>
+<node TEXT="{&#xa;  &quot;status&quot;: 421,&#xa;  &quot;message&quot;: &quot;Invalid field supplied&quot;&#xa;}" ID="ID_641988819" CREATED="1728891986317" MODIFIED="1728920669937"/>
+</node>
 </node>
 <node TEXT="Record exists already" ID="ID_1641632316" CREATED="1728647143642" MODIFIED="1728647354249">
 <hook URI="images/user_exists_already.png" SIZE="1.0" NAME="ExternalObject"/>
