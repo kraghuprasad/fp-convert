@@ -103,7 +103,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Form-Fields" ID="ID_861642195" CREATED="1728223219756" MODIFIED="1728649890853">
+<node TEXT="Form-Fields" ID="ID_861642195" CREATED="1728223219756" MODIFIED="1729102832427">
 <icon BUILTIN="links/file/generic"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -112,7 +112,7 @@
   </head>
   <body>
     <p>
-      Following form-fields are presented to the user for self-registration.
+      Following form-fields are expected to be presented to the user for self-registration.
     </p>
   </body>
 </html></richcontent>
@@ -132,7 +132,17 @@
 <node TEXT="Allowed Values: .a-z0-9-_+@" ID="ID_877938460" CREATED="1728223285078" MODIFIED="1728232688902"/>
 <node TEXT="Unique: Yes" ID="ID_635656157" CREATED="1728463051601" MODIFIED="1728463057397"/>
 </node>
-<node TEXT="Mobile Number" POSITION="bottom_or_right" ID="ID_1429610052" CREATED="1727283888886" MODIFIED="1728237626000">
+<node TEXT="Mobile Number" POSITION="bottom_or_right" ID="ID_1429610052" CREATED="1727283888886" MODIFIED="1729100593178"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Mobile number should be unique across the application. No two users can have same mobile number.
+    </p>
+  </body>
+</html></richcontent>
 <node TEXT="Required: Yes" ID="ID_1469988345" CREATED="1728223557700" MODIFIED="1728463422290"/>
 <node TEXT="Max Size: char(12)" ID="ID_1156785736" CREATED="1728223253339" MODIFIED="1728237665058"/>
 <node TEXT="Allowed Values: +-0123456789" ID="ID_707937760" CREATED="1728223285078" MODIFIED="1728237796496"/>
@@ -149,7 +159,7 @@
 <node TEXT="Allowed Values: A-Z, a-z, 0-9, - +" ID="ID_213268044" CREATED="1728223285078" MODIFIED="1728463331516"/>
 </node>
 </node>
-<node TEXT="Buttons" ID="ID_303877642" CREATED="1728484729243" MODIFIED="1728654308255">
+<node TEXT="Buttons" ID="ID_303877642" CREATED="1728484729243" MODIFIED="1729102851466">
 <icon BUILTIN="list"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -158,7 +168,7 @@
   </head>
   <body>
     <p>
-      Following buttons are available on the screen.
+      Following buttons are expected to be made available on the screen.
     </p>
   </body>
 </html></richcontent>
@@ -188,7 +198,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Links" ID="ID_1390704400" CREATED="1728484941031" MODIFIED="1728649965911">
+<node TEXT="Links" ID="ID_1390704400" CREATED="1728484941031" MODIFIED="1729102861240">
 <icon BUILTIN="list"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -197,13 +207,13 @@
   </head>
   <body>
     <p>
-      Following hyperlinks are present on the screen.
+      Following hyperlinks are expected to be present on the screen.
     </p>
   </body>
 </html></richcontent>
 <node TEXT="Login Here: If account is present, click to sign-in." ID="ID_1580478443" CREATED="1728484963264" MODIFIED="1728988130742"/>
 </node>
-<node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1728648746839">
+<node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1729085691974">
 <icon BUILTIN="image"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -212,14 +222,39 @@
   </head>
   <body>
     <p>
-      Following wireframe is proposed for the user-registration screen.
+      Following wireframes are proposed for the user-registration screen.
     </p>
   </body>
 </html></richcontent>
-<node TEXT="User-registration Screen" ID="ID_571525042" CREATED="1728485097681" MODIFIED="1728891670401">
+<node TEXT="User-registration Screen" ID="ID_571525042" CREATED="1728485097681" MODIFIED="1729066844184">
 <icon BUILTIN="list"/>
 <hook URI="images/user_register.png" SIZE="1.0" NAME="ExternalObject"/>
-<node TEXT="API Endpoint: /api/v1/users/register" ID="ID_843038164" CREATED="1728891616936" MODIFIED="1728918373973"><richcontent TYPE="NOTE">
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This screen is displayed to a new user whose user-account is yet to be created.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Buttons" ID="ID_1584182760" CREATED="1729102327449" MODIFIED="1729102330552">
+<node TEXT="Register" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1729102690807">
+<arrowlink DESTINATION="ID_1572971016"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      On-click it submits the registration form using HTTP POST.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="API Endpoint: /api/v1/users/register" POSITION="bottom_or_right" ID="ID_843038164" CREATED="1728891616936" MODIFIED="1728918373973"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -231,22 +266,77 @@
   </body>
 </html></richcontent>
 </node>
-<node TEXT="Method: POST" ID="ID_1268680316" CREATED="1728891936747" MODIFIED="1728891948802"/>
-<node TEXT="Input" ID="ID_399010225" CREATED="1728891653686" MODIFIED="1728893258783">
+<node TEXT="Method: POST" POSITION="bottom_or_right" ID="ID_1268680316" CREATED="1728891936747" MODIFIED="1728891948802"/>
+<node TEXT="Input" POSITION="bottom_or_right" ID="ID_399010225" CREATED="1728891653686" MODIFIED="1728893258783">
 <icon BUILTIN="links/file/json"/>
-<node TEXT="{&#xa;  &quot;fullname&quot;: &quot;Bob Jenson&quot;,&#xa;  &quot;emailaddress&quot;: &quot;bob.jenson@example.com&quot;,&#xa;  &quot;mobilenumber&quot;: &quot;1234567890&quot;,&#xa;  &quot;address&quot;: &quot;72, B street, Park Avenue, Sonpat,&#xa;  Hryana, INDIA&quot;&#xa;}" ID="ID_463301939" CREATED="1728893260493" MODIFIED="1728999955621"/>
+<node TEXT="{&#xa;  &quot;fullname&quot;: &quot;Bob Jenson&quot;,&#xa;  &quot;emailaddress&quot;: &quot;bob.jenson@example.com&quot;,&#xa;  &quot;mobilenumber&quot;: &quot;1234567890&quot;,&#xa;  &quot;address&quot;: &quot;72, B street, Park Avenue, Sonpat,&#xa;  Hryana, INDIA&quot;&#xa;}" ID="ID_463301939" CREATED="1728893260493" MODIFIED="1729089597525"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This is the JSON format of input.
+    </p>
+  </body>
+</html></richcontent>
 </node>
-<node TEXT="Normal Output" ID="ID_362544910" CREATED="1728893112229" MODIFIED="1728893458415">
+</node>
+<node TEXT="Normal Output" POSITION="bottom_or_right" ID="ID_362544910" CREATED="1728893112229" MODIFIED="1728893458415">
 <icon BUILTIN="links/file/json"/>
 <node TEXT="{&#xa;  &quot;status&quot;: 200&#xa;  &quot;message&quot;: &quot;Created&quot;&#xa;}" ID="ID_21800491" CREATED="1728893232975" MODIFIED="1728920655499"/>
 </node>
-<node TEXT="Exception Output" ID="ID_1159276885" CREATED="1728891979919" MODIFIED="1728893471634">
+<node TEXT="Exception Output" POSITION="bottom_or_right" ID="ID_1159276885" CREATED="1728891979919" MODIFIED="1728893471634">
 <icon BUILTIN="links/file/json"/>
 <node TEXT="{&#xa;  &quot;status&quot;: 421,&#xa;  &quot;message&quot;: &quot;Invalid field supplied&quot;&#xa;}" ID="ID_641988819" CREATED="1728891986317" MODIFIED="1728920669937"/>
 </node>
 </node>
-<node TEXT="Record exists already" ID="ID_1641632316" CREATED="1728647143642" MODIFIED="1728647354249">
+<node TEXT="Reset" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1729102709362">
+<arrowlink DESTINATION="ID_1737270551"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      On-click, it empties all the fields of the form.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Method: Javascript function to reset all form-fields." ID="ID_1283640522" CREATED="1729102506519" MODIFIED="1729102529764"/>
+</node>
+</node>
+<node TEXT="Links" ID="ID_417855629" CREATED="1729102371564" MODIFIED="1729102376231">
+<node TEXT="Login" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1729102773882">
+<arrowlink DESTINATION="ID_1580478443"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This hyperlink takes the user to the login page.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+</node>
+<node TEXT="Message Box for Existing Record" ID="ID_1641632316" CREATED="1728647143642" MODIFIED="1729085881694">
 <hook URI="images/user_exists_already.png" SIZE="1.0" NAME="ExternalObject"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This screen is displayed, when one or more fields which are unique across the application is supplied as part of user-registration, but the same had been supplied earlier for another user-account too.
+    </p>
+  </body>
+</html></richcontent>
 </node>
 </node>
 </node>
@@ -285,6 +375,87 @@
 <arrowlink DESTINATION="ID_160398903"/>
 </node>
 <node TEXT="Level 1.2.3.3" ID="ID_741612139" CREATED="1727283975921" MODIFIED="1727283980921"/>
+</node>
+</node>
+<node TEXT="Level 1.3" POSITION="bottom_or_right" ID="ID_1334495193" CREATED="1729067965944" MODIFIED="1729067993723">
+<node TEXT="Sample Table" ID="ID_380908046" CREATED="1728223219756" MODIFIED="1729068421880">
+<icon BUILTIN="links/file/generic"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      A Sample table is given below.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Row 1" POSITION="bottom_or_right" ID="ID_420502897" CREATED="1727283880479" MODIFIED="1729074600061"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      First note for Row 1.
+    </p>
+    <p>
+      Second note for Row1.
+    </p>
+    <p>
+      Third note for Row1.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Header 1: 1.1" ID="ID_1744829504" CREATED="1728223557700" MODIFIED="1729068072577"/>
+<node TEXT="Header 2: 1.2" ID="ID_1293349410" CREATED="1728223253339" MODIFIED="1729068087505"/>
+<node TEXT="Header 3: 1.3" ID="ID_1165278408" CREATED="1728223285078" MODIFIED="1729068096155"/>
+<node TEXT="Header 4: 1.4" ID="ID_1094725328" CREATED="1728463051601" MODIFIED="1729068104885"/>
+</node>
+<node TEXT="Row 2" POSITION="bottom_or_right" ID="ID_398741834" CREATED="1727283888886" MODIFIED="1729068039891">
+<node TEXT="Header 1: 2.1" ID="ID_1442058181" CREATED="1728223557700" MODIFIED="1729068149224"/>
+<node TEXT="Header 2: 2.2" ID="ID_1264376687" CREATED="1728223253339" MODIFIED="1729068155207"/>
+<node TEXT="Header 3: 2.3" ID="ID_704670966" CREATED="1728223285078" MODIFIED="1729068163385"/>
+<node TEXT="Header 4: 2.4" ID="ID_1237494604" CREATED="1728463051601" MODIFIED="1729068170026"/>
+</node>
+<node TEXT="Row 3" POSITION="bottom_or_right" ID="ID_59339138" CREATED="1727283895955" MODIFIED="1729075487394"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      First note for Row 3.
+    </p>
+    <p>
+      Second note for Row 3.
+    </p>
+    <p>
+      Third note for Row 3.
+    </p>
+    <p>
+      Fourth note for Row 3.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Header 1: 3.1" ID="ID_1323387877" CREATED="1728223557700" MODIFIED="1729068174936"/>
+<node TEXT="Header 2: 3.2" ID="ID_1804861774" CREATED="1728223253339" MODIFIED="1729068180547"/>
+<node TEXT="Header 3: 3.3" ID="ID_1219827303" CREATED="1728223285078" MODIFIED="1729068185859"/>
+<node TEXT="Header 4: 3.4" ID="ID_364534120" CREATED="1728463051601" MODIFIED="1729068191342"/>
+</node>
+<node TEXT="Row 4" POSITION="bottom_or_right" ID="ID_1979086283" CREATED="1728223164574" MODIFIED="1729068055259">
+<node TEXT="Header 1: 4.1" ID="ID_1041448954" CREATED="1728223557700" MODIFIED="1729068198157"/>
+<node TEXT="Header 2: 4.2" ID="ID_1934932066" CREATED="1728223253339" MODIFIED="1729068202322"/>
+<node TEXT="Header 3: 4.3" ID="ID_444017546" CREATED="1728223285078" MODIFIED="1729068207461"/>
+<node TEXT="Header 4: 4.4" ID="ID_295475780" CREATED="1728463051601" MODIFIED="1729068213464"/>
+</node>
+<node TEXT="Row 5" ID="ID_1999442722" CREATED="1728223164574" MODIFIED="1729068226339">
+<node TEXT="Header 1: 5.1" ID="ID_1587946401" CREATED="1728223557700" MODIFIED="1729068231474"/>
+<node TEXT="Header 2: 5.2" ID="ID_19115582" CREATED="1728223253339" MODIFIED="1729068238262"/>
+<node TEXT="Header 3: 5.3" ID="ID_117214824" CREATED="1728223285078" MODIFIED="1729068242406"/>
+<node TEXT="Header 4: 5.4" ID="ID_747637555" CREATED="1728463051601" MODIFIED="1729068247064"/>
+</node>
 </node>
 </node>
 </node>
