@@ -1,6 +1,6 @@
 <map version="freeplane 1.12.1">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
-<node TEXT="Functional Specifications of Blooper" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1728222010462"><hook NAME="MapStyle" background="#f5f5dcff">
+<node TEXT="Specifications of Blooper" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1729268893145"><hook NAME="MapStyle" background="#f5f5dcff" zoom="0.6830134">
     <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1724074216000" fit_to_viewport="false"/>
     <tags category_separator="::"/>
 
@@ -9,7 +9,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-5.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-3.75 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -81,6 +81,7 @@
 </hook>
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <font BOLD="true"/>
+<node TEXT="Functional Specifications" POSITION="bottom_or_right" ID="ID_997066569" CREATED="1729268896352" MODIFIED="1729268907158">
 <node TEXT="User Registration" POSITION="bottom_or_right" ID="ID_86526980" CREATED="1727287685882" MODIFIED="1728222198294"><richcontent TYPE="NOTE">
 <html>
   <head>
@@ -92,18 +93,54 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="User Registration Form" POSITION="bottom_or_right" ID="ID_310393498" CREATED="1727283864138" MODIFIED="1728222425650"><richcontent TYPE="NOTE">
+<node TEXT="Requirement Specifications" POSITION="bottom_or_right" ID="ID_1923086954" CREATED="1729333913220" MODIFIED="1729334132347">
+<icon BUILTIN="list"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
   </head>
   <body>
     <p>
-      Using a specified URL, anonymous users would be able to fetch a web-form to fill-up.
+      Following requrements specifications are applicable to the user-registration module of the application.
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Form-Fields" ID="ID_861642195" CREATED="1728223219756" MODIFIED="1729102832427">
+<node TEXT="New user should be able to self-register to the Blooper application. Using a specified URL, anonymous users would be able to fetch a web-form to fill-up." ID="ID_259818684" CREATED="1729333927471" MODIFIED="1729336352426"/>
+<node TEXT="User should be able to register from all over the world. There would be no geographical restrictions to be implemented." ID="ID_126424451" CREATED="1729333976758" MODIFIED="1729334010925"/>
+<node TEXT="Users with an email address and mobile number should be able to create an account in Blooper." ID="ID_1261303219" CREATED="1729334012753" MODIFIED="1729334034634"/>
+<node TEXT="No two user-accounts should be possible to be created using same email address." ID="ID_1788704556" CREATED="1729334067473" MODIFIED="1729334081625"/>
+<node TEXT="No two user-accounts should be possible to be created using same mobile number." ID="ID_647373762" CREATED="1729334041734" MODIFIED="1729334066543"/>
+</node>
+<node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1729239554221"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Following wireframes are proposed for the user-registration screen.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="User-registration Form" ID="ID_571525042" CREATED="1728485097681" MODIFIED="1729333681853">
+<icon BUILTIN="image"/>
+<hook URI="images/user_register.png" SIZE="1.0" NAME="ExternalObject"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This screen is displayed to a new user whose user-account is yet to be created.
+    </p>
+    <p>
+      Initially, all fields turn out empty. The user needs to fill the required fields in this form.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Form-Fields" POSITION="bottom_or_right" ID="ID_861642195" CREATED="1728223219756" MODIFIED="1729102832427">
 <icon BUILTIN="links/file/generic"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -116,14 +153,17 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Email Address" POSITION="bottom_or_right" ID="ID_1704485931" CREATED="1727283880479" MODIFIED="1728223490967"><richcontent TYPE="NOTE">
+<node TEXT="Email Address" POSITION="bottom_or_right" ID="ID_1704485931" CREATED="1727283880479" MODIFIED="1729250488112"><richcontent TYPE="NOTE">
 <html>
   <head>
     
   </head>
   <body>
     <p>
-      It would be unique across the user-database. That means, no two users can have same email address.
+      It would be unique across the user-database.
+    </p>
+    <p>
+      That means, no two users can have same email address.
     </p>
   </body>
 </html></richcontent>
@@ -132,14 +172,17 @@
 <node TEXT="Allowed Values: .a-z0-9-_+@" ID="ID_877938460" CREATED="1728223285078" MODIFIED="1728232688902"/>
 <node TEXT="Unique: Yes" ID="ID_635656157" CREATED="1728463051601" MODIFIED="1728463057397"/>
 </node>
-<node TEXT="Mobile Number" POSITION="bottom_or_right" ID="ID_1429610052" CREATED="1727283888886" MODIFIED="1729100593178"><richcontent TYPE="NOTE">
+<node TEXT="Mobile Number" POSITION="bottom_or_right" ID="ID_1429610052" CREATED="1727283888886" MODIFIED="1729251096234"><richcontent TYPE="NOTE">
 <html>
   <head>
     
   </head>
   <body>
     <p>
-      Mobile number should be unique across the application. No two users can have same mobile number.
+      Mobile number should be unique across the application-database.
+    </p>
+    <p>
+      No two users using this application can have same mobile number.
     </p>
   </body>
 </html></richcontent>
@@ -159,7 +202,7 @@
 <node TEXT="Allowed Values: A-Z, a-z, 0-9, - +" ID="ID_213268044" CREATED="1728223285078" MODIFIED="1728463331516"/>
 </node>
 </node>
-<node TEXT="Buttons" ID="ID_303877642" CREATED="1728484729243" MODIFIED="1729102851466">
+<node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_303877642" CREATED="1728484729243" MODIFIED="1729102851466">
 <icon BUILTIN="list"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -198,7 +241,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Links" ID="ID_1390704400" CREATED="1728484941031" MODIFIED="1729102861240">
+<node TEXT="Links" POSITION="bottom_or_right" ID="ID_1390704400" CREATED="1728484941031" MODIFIED="1729102861240">
 <icon BUILTIN="list"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -213,118 +256,9 @@
 </html></richcontent>
 <node TEXT="Login Here: If account is present, click to sign-in." ID="ID_1580478443" CREATED="1728484963264" MODIFIED="1728988130742"/>
 </node>
-<node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1729085691974">
+</node>
+<node TEXT="Message Box for Existing Record" ID="ID_1641632316" CREATED="1728647143642" MODIFIED="1729333558678">
 <icon BUILTIN="image"/>
-<richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Following wireframes are proposed for the user-registration screen.
-    </p>
-  </body>
-</html></richcontent>
-<node TEXT="User-registration Screen" ID="ID_571525042" CREATED="1728485097681" MODIFIED="1729066844184">
-<icon BUILTIN="list"/>
-<hook URI="images/user_register.png" SIZE="1.0" NAME="ExternalObject"/>
-<richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      This screen is displayed to a new user whose user-account is yet to be created.
-    </p>
-  </body>
-</html></richcontent>
-<node TEXT="Buttons" ID="ID_1584182760" CREATED="1729102327449" MODIFIED="1729102330552">
-<node TEXT="Register" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1729102690807">
-<arrowlink DESTINATION="ID_1572971016"/>
-<richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      On-click it submits the registration form using HTTP POST.
-    </p>
-  </body>
-</html></richcontent>
-<node TEXT="API Endpoint: /api/v1/users/register" POSITION="bottom_or_right" ID="ID_843038164" CREATED="1728891616936" MODIFIED="1728918373973"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Please note that API version number is included as part of the URL used to invoke that API. This allows multiple versions of the API to co-exist together.
-    </p>
-  </body>
-</html></richcontent>
-</node>
-<node TEXT="Method: POST" POSITION="bottom_or_right" ID="ID_1268680316" CREATED="1728891936747" MODIFIED="1728891948802"/>
-<node TEXT="Input" POSITION="bottom_or_right" ID="ID_399010225" CREATED="1728891653686" MODIFIED="1728893258783">
-<icon BUILTIN="links/file/json"/>
-<node TEXT="{&#xa;  &quot;fullname&quot;: &quot;Bob Jenson&quot;,&#xa;  &quot;emailaddress&quot;: &quot;bob.jenson@example.com&quot;,&#xa;  &quot;mobilenumber&quot;: &quot;1234567890&quot;,&#xa;  &quot;address&quot;: &quot;72, B street, Park Avenue, Sonpat,&#xa;  Hryana, INDIA&quot;&#xa;}" ID="ID_463301939" CREATED="1728893260493" MODIFIED="1729089597525"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      This is the JSON format of input.
-    </p>
-  </body>
-</html></richcontent>
-</node>
-</node>
-<node TEXT="Normal Output" POSITION="bottom_or_right" ID="ID_362544910" CREATED="1728893112229" MODIFIED="1728893458415">
-<icon BUILTIN="links/file/json"/>
-<node TEXT="{&#xa;  &quot;status&quot;: 200&#xa;  &quot;message&quot;: &quot;Created&quot;&#xa;}" ID="ID_21800491" CREATED="1728893232975" MODIFIED="1728920655499"/>
-</node>
-<node TEXT="Exception Output" POSITION="bottom_or_right" ID="ID_1159276885" CREATED="1728891979919" MODIFIED="1728893471634">
-<icon BUILTIN="links/file/json"/>
-<node TEXT="{&#xa;  &quot;status&quot;: 421,&#xa;  &quot;message&quot;: &quot;Invalid field supplied&quot;&#xa;}" ID="ID_641988819" CREATED="1728891986317" MODIFIED="1728920669937"/>
-</node>
-</node>
-<node TEXT="Reset" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1729102709362">
-<arrowlink DESTINATION="ID_1737270551"/>
-<richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      On-click, it empties all the fields of the form.
-    </p>
-  </body>
-</html></richcontent>
-<node TEXT="Method: Javascript function to reset all form-fields." ID="ID_1283640522" CREATED="1729102506519" MODIFIED="1729102529764"/>
-</node>
-</node>
-<node TEXT="Links" ID="ID_417855629" CREATED="1729102371564" MODIFIED="1729102376231">
-<node TEXT="Login" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1729102773882">
-<arrowlink DESTINATION="ID_1580478443"/>
-<richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      This hyperlink takes the user to the login page.
-    </p>
-  </body>
-</html></richcontent>
-</node>
-</node>
-</node>
-<node TEXT="Message Box for Existing Record" ID="ID_1641632316" CREATED="1728647143642" MODIFIED="1729085881694">
 <hook URI="images/user_exists_already.png" SIZE="1.0" NAME="ExternalObject"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -335,49 +269,19 @@
     <p>
       This screen is displayed, when one or more fields which are unique across the application is supplied as part of user-registration, but the same had been supplied earlier for another user-account too.
     </p>
-  </body>
-</html></richcontent>
-</node>
-</node>
-</node>
-<node TEXT="Level 1.2" POSITION="bottom_or_right" ID="ID_96957053" CREATED="1727283870685" MODIFIED="1728463124219">
-<node TEXT="Level 1.2.1" ID="ID_510466081" CREATED="1727283908987" MODIFIED="1727283914056">
-<node TEXT="Level 1.2.1.1" ID="ID_1292557226" CREATED="1727283928074" MODIFIED="1727283934859"/>
-<node TEXT="Level 1.2.1.2" ID="ID_564502373" CREATED="1727283935329" MODIFIED="1727288416338"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
     <p>
-      This is a note for Level 1.2.1.2.
+      This could be a pop-up window.
     </p>
   </body>
 </html></richcontent>
-</node>
-<node TEXT="Level 1.2.1.3" ID="ID_1966068569" CREATED="1727283940505" MODIFIED="1727283945052"/>
-<node TEXT="Level 1.2.1.4" ID="ID_487666157" CREATED="1727283945578" MODIFIED="1727283950585"/>
-</node>
-<node TEXT="Level 1.2.2" ID="ID_678241742" CREATED="1727283914534" MODIFIED="1728463127701"/>
-<node TEXT="Level 1.2.3" ID="ID_148633457" CREATED="1727283955346" MODIFIED="1727288403030"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      This is a note for Level 1.2.3
-    </p>
-  </body>
-</html></richcontent>
-<node TEXT="Level 1.2.3.1" ID="ID_160398903" CREATED="1727283965046" MODIFIED="1727283970034"/>
-<node TEXT="Level 1.2.3.2" ID="ID_1123035921" CREATED="1727283970408" MODIFIED="1727284013651">
-<arrowlink DESTINATION="ID_160398903"/>
-</node>
-<node TEXT="Level 1.2.3.3" ID="ID_741612139" CREATED="1727283975921" MODIFIED="1727283980921"/>
+<node TEXT="Buttons" ID="ID_1060834135" CREATED="1729333753862" MODIFIED="1729333850251">
+<icon BUILTIN="list"/>
+<node TEXT="Try Again: Re-submit the form by going to the registration form and by modifying its form-fields." ID="ID_1484951126" CREATED="1729333757372" MODIFIED="1729333812613"/>
+<node TEXT="Login Instead: If an account exists already, proceed to the login form." ID="ID_753064438" CREATED="1729333815755" MODIFIED="1729333843169"/>
 </node>
 </node>
-<node TEXT="Level 1.3" POSITION="bottom_or_right" ID="ID_1334495193" CREATED="1729067965944" MODIFIED="1729067993723">
+</node>
+<node TEXT="Level 1.1.3" POSITION="bottom_or_right" ID="ID_1334495193" CREATED="1729067965944" MODIFIED="1729334685300">
 <node TEXT="Sample Table" ID="ID_380908046" CREATED="1728223219756" MODIFIED="1729068421880">
 <icon BUILTIN="links/file/generic"/>
 <richcontent TYPE="NOTE">
@@ -459,8 +363,155 @@
 </node>
 </node>
 </node>
-<node TEXT="Level 2" POSITION="bottom_or_right" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1727287700795">
-<node TEXT="Level 2.1" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1727287738476"/>
+</node>
+<node TEXT="Program Specifications" POSITION="bottom_or_right" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1729268956151">
+<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1729334302957"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This section elaborates on the program specifications of implementation of user-registration module of Blooper.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Screens" ID="ID_851413676" CREATED="1729333342328" MODIFIED="1729334316120">
+<node TEXT="User-registration Screen" POSITION="bottom_or_right" ID="ID_169009377" CREATED="1729333488273" MODIFIED="1729334163777">
+<arrowlink DESTINATION="ID_571525042"/>
+<node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1584182760" CREATED="1729102327449" MODIFIED="1729333455076">
+<icon BUILTIN="list"/>
+<node TEXT="Register" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1729102690807">
+<arrowlink DESTINATION="ID_1572971016"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      On-click it submits the registration form using HTTP POST.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="API Endpoint: /api/v1/users/register" POSITION="bottom_or_right" ID="ID_843038164" CREATED="1728891616936" MODIFIED="1729255431659"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Please note that API version number is included as part of the URL used to invoke that API.
+    </p>
+    <p>
+      This allows multiple versions of the API to co-exist together.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Method: POST" POSITION="bottom_or_right" ID="ID_1268680316" CREATED="1728891936747" MODIFIED="1729255316105"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      HTTP POST method is used on this API endpoint for the intended result.
+    </p>
+    <p>
+      POST method requires input data to be sent in HTTP request-body itself.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Input" POSITION="bottom_or_right" ID="ID_399010225" CREATED="1728891653686" MODIFIED="1728893258783">
+<icon BUILTIN="links/file/json"/>
+<node TEXT="{&#xa;  &quot;fullname&quot;: &quot;Bob Jenson&quot;,&#xa;  &quot;emailaddress&quot;: &quot;bob.jenson@example.com&quot;,&#xa;  &quot;mobilenumber&quot;: &quot;1234567890&quot;,&#xa;  &quot;address&quot;: &quot;72, B street, Park Avenue, Sonpat,&#xa;  Hryana, INDIA&quot;&#xa;}" ID="ID_463301939" CREATED="1728893260493" MODIFIED="1729089597525"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This is the JSON format of input.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="Normal Output" POSITION="bottom_or_right" ID="ID_362544910" CREATED="1728893112229" MODIFIED="1728893458415">
+<icon BUILTIN="links/file/json"/>
+<node TEXT="{&#xa;  &quot;status&quot;: 200&#xa;  &quot;message&quot;: &quot;Created&quot;&#xa;}" ID="ID_21800491" CREATED="1728893232975" MODIFIED="1728920655499"/>
+</node>
+<node TEXT="Exception Output" POSITION="bottom_or_right" ID="ID_1159276885" CREATED="1728891979919" MODIFIED="1728893471634">
+<icon BUILTIN="links/file/json"/>
+<node TEXT="{&#xa;  &quot;status&quot;: 421,&#xa;  &quot;message&quot;: &quot;Invalid field supplied&quot;&#xa;}" ID="ID_641988819" CREATED="1728891986317" MODIFIED="1728920669937"/>
+</node>
+</node>
+<node TEXT="Reset" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1729102709362">
+<arrowlink DESTINATION="ID_1737270551"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      On-click, it empties all the fields of the form.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Method: Javascript function to reset all form-fields." ID="ID_1283640522" CREATED="1729102506519" MODIFIED="1729102529764"/>
+</node>
+</node>
+<node TEXT="Links" POSITION="bottom_or_right" ID="ID_417855629" CREATED="1729102371564" MODIFIED="1729253968114">
+<node TEXT="Login" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1729102773882">
+<arrowlink DESTINATION="ID_1580478443"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This hyperlink takes the user to the login page.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+</node>
+<node TEXT="Error-Message Box for Existing Record" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1729333597078">
+<arrowlink DESTINATION="ID_1641632316"/>
+<node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1767876160" CREATED="1729254100795" MODIFIED="1729254200956">
+<node TEXT="Try Again" ID="ID_1751968326" CREATED="1729254118908" MODIFIED="1729254224249"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clicking on this button takes the user to the pre-populated user-registration page.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Login Instead" ID="ID_179044637" CREATED="1729254152283" MODIFIED="1729254236188"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clicking on this button takes the user to the login page.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+</node>
+</node>
+</node>
 <node TEXT="Level 2.2" ID="ID_1722806927" CREATED="1727287739014" MODIFIED="1727287742024">
 <node TEXT="Level 2.2.1" ID="ID_1376132053" CREATED="1727287742535" MODIFIED="1727287746603"/>
 <node TEXT="Level 2.2.2" ID="ID_684849006" CREATED="1727287747054" MODIFIED="1727287750531"/>
