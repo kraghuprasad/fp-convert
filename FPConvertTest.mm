@@ -1,6 +1,6 @@
 <map version="freeplane 1.12.1">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
-<node TEXT="Specifications of Blooper" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1729268893145"><hook NAME="MapStyle" background="#f5f5dcff" zoom="0.6830134">
+<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1729496652483"><hook NAME="MapStyle" background="#f5f5dcff" zoom="1.1">
     <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1724074216000" fit_to_viewport="false"/>
     <tags category_separator="::"/>
 
@@ -9,7 +9,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-3.75 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;0 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -106,13 +106,29 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="New user should be able to self-register to the Blooper application. Using a specified URL, anonymous users would be able to fetch a web-form to fill-up." ID="ID_259818684" CREATED="1729333927471" MODIFIED="1729336352426"/>
-<node TEXT="User should be able to register from all over the world. There would be no geographical restrictions to be implemented." ID="ID_126424451" CREATED="1729333976758" MODIFIED="1729334010925"/>
+<node TEXT="New user should be able to self-register to the Blooper application. Using a specified URL, anonymous users would be able to fetch a web-form to fill-up." ID="ID_259818684" CREATED="1729333927471" MODIFIED="1729676424306"/>
+<node TEXT="User should be able to register from certain geographical regions only." ID="ID_126424451" CREATED="1729333976758" MODIFIED="1730799196363">
+<icon BUILTIN="stop-sign"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Q: How to prevent people from using VPN to beat geographical restrictions?
+    </p>
+    <p>
+      Q: Is there any third party service, which provides such facilities?
+    </p>
+  </body>
+</html></richcontent>
+</node>
 <node TEXT="Users with an email address and mobile number should be able to create an account in Blooper." ID="ID_1261303219" CREATED="1729334012753" MODIFIED="1729334034634"/>
 <node TEXT="No two user-accounts should be possible to be created using same email address." ID="ID_1788704556" CREATED="1729334067473" MODIFIED="1729334081625"/>
 <node TEXT="No two user-accounts should be possible to be created using same mobile number." ID="ID_647373762" CREATED="1729334041734" MODIFIED="1729334066543"/>
 </node>
-<node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1729239554221"><richcontent TYPE="NOTE">
+<node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1730794172232"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -276,12 +292,40 @@
 </html></richcontent>
 <node TEXT="Buttons" ID="ID_1060834135" CREATED="1729333753862" MODIFIED="1729333850251">
 <icon BUILTIN="list"/>
-<node TEXT="Try Again: Re-submit the form by going to the registration form and by modifying its form-fields." ID="ID_1484951126" CREATED="1729333757372" MODIFIED="1729333812613"/>
+<node TEXT="Try Again: Re-submit the form by going to the registration form and by modifying its form-fields." ID="ID_1484951126" CREATED="1729333757372" MODIFIED="1730800518536">
+<icon BUILTIN="stop-sign"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Q: Is re-executing the GET request on the form required here?
+    </p>
+    <p>
+      Q: Is it not sufficient enough to handle it locally, by rendering the cached form itself?
+    </p>
+  </body>
+</html></richcontent>
+</node>
 <node TEXT="Login Instead: If an account exists already, proceed to the login form." ID="ID_753064438" CREATED="1729333815755" MODIFIED="1729333843169"/>
 </node>
 </node>
 </node>
-<node TEXT="Level 1.1.3" POSITION="bottom_or_right" ID="ID_1334495193" CREATED="1729067965944" MODIFIED="1729334685300">
+<node TEXT="Level 1.1.3" POSITION="bottom_or_right" ID="ID_1334495193" CREATED="1729067965944" MODIFIED="1730799164841">
+<icon BUILTIN="stop-sign"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Q: How can Level 1.1.3 be used as a section heading?
+    </p>
+  </body>
+</html></richcontent>
 <node TEXT="Sample Table" ID="ID_380908046" CREATED="1728223219756" MODIFIED="1729068421880">
 <icon BUILTIN="links/file/generic"/>
 <richcontent TYPE="NOTE">
@@ -319,7 +363,18 @@
 </node>
 <node TEXT="Row 2" POSITION="bottom_or_right" ID="ID_398741834" CREATED="1727283888886" MODIFIED="1729068039891">
 <node TEXT="Header 1: 2.1" ID="ID_1442058181" CREATED="1728223557700" MODIFIED="1729068149224"/>
-<node TEXT="Header 2: 2.2" ID="ID_1264376687" CREATED="1728223253339" MODIFIED="1729068155207"/>
+<node TEXT="Header 2: 2.2" ID="ID_1264376687" CREATED="1728223253339" MODIFIED="1730793900719"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Q: How can X be considered equal to Y?
+    </p>
+  </body>
+</html></richcontent>
+</node>
 <node TEXT="Header 3: 2.3" ID="ID_704670966" CREATED="1728223285078" MODIFIED="1729068163385"/>
 <node TEXT="Header 4: 2.4" ID="ID_1237494604" CREATED="1728463051601" MODIFIED="1729068170026"/>
 </node>
@@ -365,7 +420,9 @@
 </node>
 </node>
 <node TEXT="Program Specifications" POSITION="bottom_or_right" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1729268956151">
-<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1729334302957"><richcontent TYPE="NOTE">
+<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1730748324393">
+<arrowlink DESTINATION="ID_86526980"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -374,15 +431,14 @@
     <p>
       This section elaborates on the program specifications of implementation of user-registration module of Blooper.
     </p>
+    <p>
+      The functional requirements of this module is described in %secref%.<br/>
+    </p>
   </body>
 </html></richcontent>
 <node TEXT="Screens" ID="ID_851413676" CREATED="1729333342328" MODIFIED="1729334316120">
-<node TEXT="User-registration Screen" POSITION="bottom_or_right" ID="ID_169009377" CREATED="1729333488273" MODIFIED="1729334163777">
+<node TEXT="User-registration Screen" POSITION="bottom_or_right" ID="ID_169009377" CREATED="1729333488273" MODIFIED="1730748280051">
 <arrowlink DESTINATION="ID_571525042"/>
-<node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1584182760" CREATED="1729102327449" MODIFIED="1729333455076">
-<icon BUILTIN="list"/>
-<node TEXT="Register" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1729102690807">
-<arrowlink DESTINATION="ID_1572971016"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -390,25 +446,27 @@
   </head>
   <body>
     <p>
-      On-click it submits the registration form using HTTP POST.
+      Please refer %figref% of user-registration screen.
     </p>
   </body>
 </html></richcontent>
-<node TEXT="API Endpoint: /api/v1/users/register" POSITION="bottom_or_right" ID="ID_843038164" CREATED="1728891616936" MODIFIED="1729255431659"><richcontent TYPE="NOTE">
+<node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1584182760" CREATED="1729102327449" MODIFIED="1729333455076">
+<icon BUILTIN="list"/>
+<node TEXT="Register" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1730748887283">
+<arrowlink DESTINATION="ID_1572971016"/>
+<arrowlink DESTINATION="ID_1923086954"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
   </head>
   <body>
     <p>
-      Please note that API version number is included as part of the URL used to invoke that API.
-    </p>
-    <p>
-      This allows multiple versions of the API to co-exist together.
+      %secref% provides functional specs of the action to be taken when this button is clicked.
     </p>
   </body>
 </html></richcontent>
-</node>
+<node TEXT="API Endpoint: /api/v1/users/register" POSITION="bottom_or_right" ID="ID_843038164" CREATED="1728891616936" MODIFIED="1730748787456"/>
 <node TEXT="Method: POST" POSITION="bottom_or_right" ID="ID_1268680316" CREATED="1728891936747" MODIFIED="1729255316105"><richcontent TYPE="NOTE">
 <html>
   <head>
@@ -424,9 +482,20 @@
   </body>
 </html></richcontent>
 </node>
-<node TEXT="Input" POSITION="bottom_or_right" ID="ID_399010225" CREATED="1728891653686" MODIFIED="1728893258783">
+<node TEXT="Input" POSITION="bottom_or_right" ID="ID_399010225" CREATED="1728891653686" MODIFIED="1729672272051">
 <icon BUILTIN="links/file/json"/>
-<node TEXT="{&#xa;  &quot;fullname&quot;: &quot;Bob Jenson&quot;,&#xa;  &quot;emailaddress&quot;: &quot;bob.jenson@example.com&quot;,&#xa;  &quot;mobilenumber&quot;: &quot;1234567890&quot;,&#xa;  &quot;address&quot;: &quot;72, B street, Park Avenue, Sonpat,&#xa;  Hryana, INDIA&quot;&#xa;}" ID="ID_463301939" CREATED="1728893260493" MODIFIED="1729089597525"><richcontent TYPE="NOTE">
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Input formats are described below.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="{&#xa;  &quot;fullname&quot;: &quot;Jagmeet Chautala&quot;,&#xa;  &quot;emailaddress&quot;: &quot;jagmeetc@example.com&quot;,&#xa;  &quot;mobilenumber&quot;: &quot;1234567890&quot;,&#xa;  &quot;address&quot;: &quot;72, B street, Park Avenue, Sonpat,&#xa;  Hryana, INDIA&quot;&#xa;}" ID="ID_463301939" CREATED="1728893260493" MODIFIED="1729608710831"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -434,6 +503,18 @@
   <body>
     <p>
       This is the JSON format of input.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="{&#xa;  &quot;fullname&quot;: &quot;Jagmeet Chautala&quot;,&#xa;  &quot;emailaddress&quot;: &quot;jagmeetc@example.com&quot;,&#xa;  &quot;mobilenumber&quot;: &quot;1234567890&quot;&#xa;}" ID="ID_307633826" CREATED="1728893260493" MODIFIED="1729584053470"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      It is also possible that some partial data is supplied by ignoring optional details.
     </p>
   </body>
 </html></richcontent>
@@ -481,8 +562,19 @@
 </node>
 </node>
 </node>
-<node TEXT="Error-Message Box for Existing Record" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1729333597078">
+<node TEXT="Error-Message Box for Existing Record" FOLDED="true" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1730748530573">
 <arrowlink DESTINATION="ID_1641632316"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      %figref% shows the wireframe containing the error message described in this section.
+    </p>
+  </body>
+</html></richcontent>
 <node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1767876160" CREATED="1729254100795" MODIFIED="1729254200956">
 <node TEXT="Try Again" ID="ID_1751968326" CREATED="1729254118908" MODIFIED="1729254224249"><richcontent TYPE="NOTE">
 <html>
