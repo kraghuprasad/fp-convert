@@ -1,36 +1,42 @@
+from exceptions import BaseException
+
 """
 Custom exceptions for the fp-convert package.
 """
-from exceptions import BaseException
 
 
 class IncorrectInitialization(BaseException):
     """
     Object was initialized incorrectly.
     """
+
     def __init__(self, message):
-        raise message
+        super().__init__(message)
 
 
 class InvalidRefException(BaseException):
     """Raised when a reference is invalid or cannot be resolved."""
-    def __init__(self, msg):
-        super().__init__(msg)
+
+    def __init__(self, message):
+        super().__init__(message)
 
 
 class InvalidRefTypeException(BaseException):
     """Raised when a reference type is not supported or invalid."""
-    def __init__(self, msg):
-        super().__init__(msg)
+
+    def __init__(self, message):
+        super().__init__(message)
 
 
 class MissingFileException(BaseException):
     """Raised when a required file is missing."""
-    def __init__(self, msg):
-        super().__init__(msg)
+
+    def __init__(self, message):
+        super().__init__(message)
 
 
-class InvalidDocinfoKey(BaseException):
+class InvalidDocInfoKey(BaseException):
     """Raised when an invalid DocInfo key is supplied to set value."""
-    def __init__(self, msg):
-        super().__init__(msg)
+
+    def __init__(self, message):
+        super().__init__(message)

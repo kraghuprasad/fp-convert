@@ -1,11 +1,11 @@
 import re
 from typing import Optional
-from pylatex import NoEscape
+
+from pylatex import Command, Foot, Head, NoEscape, PageStyle
 
 from .. import FPDoc
-from ..errors import InvalidRefException, IncorrectInitialization
+from ..errors import IncorrectInitialization, InvalidRefException
 from ..helpers import DocInfo, get_label
-
 
 """
 Following classes specify the default values for various parameters of Program
@@ -20,18 +20,25 @@ class Config:
     """
     Following controls the document-specific configuration parameters.
     """
+
     toc_depth = 3  # Maximum depth required for the table of contents listing
     sec_depth = 5  # Maximum depth allowed while sectioning this document
-    par_title_format = r"[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}"  # noqa
+    par_title_format = (
+        r"[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}"  # noqa
+    )
     par_title_spacing = r"{0pt}{3.25ex plus 1ex minus .2ex}{.75em}"
-    subpar_title_format = r"[hang]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}"  # noqa
+    subpar_title_format = (
+        r"[hang]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}"  # noqa
+    )
     subpar_title_spacing = r"{0pt}{3.25ex plus 1ex minus .2ex}{.75em}"
-    sf_outer_line_width = "1pt"    # Stop-Frame outer line-width size
-    sf_round_corner_size = "3pt"   # Stop-Frame rounded corner's size
-    sf_outer_left_margin = "5pt"   # Stop-Frame outer left margin width
-    sf_inner_left_margin = "5pt"   # Stop-Frame inner left margin width
+    sf_outer_line_width = "1pt"  # Stop-Frame outer line-width size
+    sf_round_corner_size = "3pt"  # Stop-Frame rounded corner's size
+    sf_outer_left_margin = "5pt"  # Stop-Frame outer left margin width
+    sf_inner_left_margin = "5pt"  # Stop-Frame inner left margin width
     sf_outer_right_margin = "5pt"  # Stop-Frame outer right margin width
     sf_inner_right_margin = "5pt"  # Stop-Frame inner right margin width
+    header_thickness = "0.4pt"  # Header line thickness
+    footer_thickness = "0.4pt"  # Footer line thickness
 
 
 class Geometry:
@@ -39,6 +46,7 @@ class Geometry:
     Following attributes define various geometry specific parameters of the
     page.
     """
+
     left_margin = "1.3in"
     inner_margin = "1.3in"  # Applicable only in twosided mode
     right_margin = "1.5in"
@@ -47,13 +55,15 @@ class Geometry:
     bottom_margin = "1.5in"
     head_height = "20pt"
     par_indent = "0pt"
+    l_header_image_height = "0.5cm"
 
 
 class Table:
     """
     Following colors are defined for the default tables laid out in PSD.
     """
-    header_color = "Apricot",
+
+    header_color = ("Apricot",)
     rowcolor_1 = "gray!25"
     rowcolor_2 = "white"
     line_color = "red"
@@ -63,11 +73,14 @@ class Color:
     """
     Following colours are defined for styling the PSD.
     """
+
+    header_line_color = "red"
+    footer_line_color = "red"
     # link_color = "{rgb}{0.63, 0.79, 0.95}"
     link_color = "gray"
     file_color = "magenta"
     mc_color = "{rgb}{0,0.5,0}"  # Color of margin comments
-    sf_line_color = "red"        # Stop-Frame line-color
+    sf_line_color = "red"  # Stop-Frame line-color
     sf_background_color = "red!5!white"  # Stop-Frame background-color
 
 
@@ -75,13 +88,20 @@ class Theme:
     """
     A class to hold the overall theme of the document.
     """
-    def __init__(self, config: Config = Config(),
-                 geometry: Geometry = Geometry(),
-                 table: Table = Table(), color: Color = Color()):
-        self.config = config
-        self.geometry = geometry
-        self.table = table
-        self.color = color
+
+    def __init__(
+        self,
+        config: Optional[Config] = None,
+        geometry: Optional[Geometry] = None,
+        table: Optional[Table] = None,
+        color: Optional[Color] = None,
+    ):
+        # Use default values of respective paramaters, if supplied ones
+        # are None.
+        self.config = Config() if not config else config
+        self.geometry = Geometry() if not geometry else geometry
+        self.table = Table() if not table else table
+        self.color = Color() if not color else color
 
 
 class PSDoc(FPDoc):
@@ -90,18 +110,18 @@ class PSDoc(FPDoc):
     document.
     """
 
-    # Reference patterns which match %ref%, and %refN% where N is a number.
-    # These are used in the node as well as in their note-texts, whenever a
-    # reference is needed to another node via an arrow-link.
-    ref_pat = re.compile('%(ref[0-9]*)%')
+    # Reference patterns which match %ref%, and %refN% in mindmap-text where
+    # N is a number. These are used in the node as well as in their note-texts
+    # whenever a reference is needed to another node via an arrow-links.
+    ref_pat = re.compile("%(ref[0-9]*)%")
 
-    def __init__(self, mm_file: Optional[str] = None,
-                 docinfo: Optional[DocInfo] = None,
-                 theme: Theme = Theme(config=Config(),
-                                      geometry=Geometry(),
-                                      table=Table(),
-                                      color=Color()),
-                 lmodern: bool = False):
+    def __init__(
+        self,
+        mm_file: Optional[str] = None,
+        docinfo: Optional[DocInfo] = None,
+        theme: Optional[Theme] = None,
+        lmodern: bool = False,
+    ):
         """
         The argument mm_file should be a path to a Freeplane Mindmap file.
         The argument docinfo should be a DocInfo object, containing the details
@@ -125,53 +145,64 @@ class PSDoc(FPDoc):
             fonts in the resultant LaTeX document. Default value of it is
             False.
         """
-        if not mm_file and not docinfo:
-            raise IncorrectInitialization(
-                "Supply either path to a mindmap file (mm_file), or DocInfo"
-                "object (docinfo) while initializing the PSDoc template.")
+        super().__init__(lmodern=lmodern)
+        if theme is None:  # If user-supplied theme is absent, use default
+            theme = Theme()
 
         self.theme = theme
+        if not docinfo and not mm_file:  # At least one of them is required
+            raise IncorrectInitialization(
+                "Either mindmap file path or DocInfo object should be supplied"
+            )
+
+        if docinfo and mm_file:
+            pass
 
         self.packages = (
-            ('geometry', tuple()),
-            ('amssymb', tuple()),
-            ('xcolor', ("dvipsnames", "table")),
-            ('tcolorbox', ("most", )),
-            ('placeins', ("section", )),
-            ('titlesec', tuple()),
-            ('fontenc', ("T1", )),
-            ('hyperref', tuple()),
-            ('mdframed', ("framemethod=TikZ", )),
-            ('ragged2e', ("raggedrightboxes", )),
+            ("geometry", tuple()),
+            ("amssymb", tuple()),
+            ("xcolor", ("dvipsnames", "table")),
+            ("tcolorbox", ("most",)),
+            ("placeins", ("section",)),
+            ("titlesec", tuple()),
+            ("fontenc", ("T1",)),
+            ("hyperref", tuple()),
+            ("mdframed", ("framemethod=TikZ",)),
+            ("ragged2e", ("raggedrightboxes",)),
         )
 
         self.preambletexts = (
+            NoEscape(rf"\setcounter{{secnumdepth}}{{{theme.config.sec_depth}}}"),
+            NoEscape(rf"\setcounter{{tocdepth}}{{{theme.config.toc_depth}}}"),
+            NoEscape(rf"\setlength{{\parindent}}{{{theme.geometry.par_indent}}}"),
+            NoEscape(rf"\titleformat{{\paragraph}}{theme.config.par_title_format}"),
             NoEscape(
-                fr"\setcounter{{secnumdepth}}{{{theme.config.sec_depth}}}"),
+                rf"\titlespacing*{{\paragraph}}{theme.config.par_title_spacing}"
+            ),  # noqa
             NoEscape(
-                fr"\setcounter{{tocdepth}}{{{theme.config.toc_depth}}}"),
+                rf"\titleformat{{\subparagraph}}{theme.config.subpar_title_format}"
+            ),  # noqa
             NoEscape(
-                fr"\setlength{{\parindent}}{{{theme.geometry.par_indent}}}"),
-            NoEscape(
-                fr"\titleformat{{\paragraph}}{theme.config.par_title_format}"),
-            NoEscape(fr"\titlespacing*{{\paragraph}}{theme.config.par_title_spacing}"),  # noqa
-            NoEscape(fr"\titleformat{{\subparagraph}}{theme.config.subpar_title_format}"),  # noqa
-            NoEscape(fr"\titlespacing*{{\subparagraph}}{theme.config.subpar_title_spacing}"),  # noqa
-            NoEscape(fr"\definecolor{{mccol}}{theme.color.mc_color}"),
+                rf"\titlespacing*{{\subparagraph}}{theme.config.subpar_title_spacing}"
+            ),  # noqa
+            NoEscape(rf"\definecolor{{mccol}}{theme.color.mc_color}"),
             NoEscape(
                 r"\newcommand\margincomment[1]{\RaggedRight{"
-                r"\marginpar{\hsize1.7in\tiny\color{mccol}{#1}}}}"),
+                r"\marginpar{\hsize1.7in\tiny\color{mccol}{#1}}}}"
+            ),
             NoEscape(
                 r"\mdfdefinestyle{{StopFrame}}{{linecolor="
-                fr"{theme.color.sf_line_color}, outerlinewidth="
-                fr"{theme.config.sf_outer_line_width}, "
-                fr"roundcorner={theme.config.sf_round_corner_size},"
-                fr"rightmargin={theme.config.sf_outer_right_margin},"
-                fr"innerrightmargin={theme.config.sf_inner_right_margin},"
-                fr"leftmargin={theme.config.sf_outer_left_margin},"
-                fr"innerleftmargin={theme.config.sf_inner_left_margin},"
-                fr"backgroundcolor={theme.color.sf_background_color}}}"),
-            NoEscape(fr"""
+                rf"{theme.color.sf_line_color}, outerlinewidth="
+                rf"{theme.config.sf_outer_line_width}, "
+                rf"roundcorner={theme.config.sf_round_corner_size},"
+                rf"rightmargin={theme.config.sf_outer_right_margin},"
+                rf"innerrightmargin={theme.config.sf_inner_right_margin},"
+                rf"leftmargin={theme.config.sf_outer_left_margin},"
+                rf"innerleftmargin={theme.config.sf_inner_left_margin},"
+                rf"backgroundcolor={theme.color.sf_background_color}}}"
+            ),
+            NoEscape(
+                rf"""
 \hypersetup{{
 %pdftitle={{Project Specifications Document}},
 %pdfpagemode=FullScreen,
@@ -179,14 +210,14 @@ colorlinks=true,
 linkcolor={theme.color.link_color},
 filecolor={theme.color.file_color},
 urlcolor={theme.color.url_color}
-}}"""),
+}}"""
+            ),
             # Setting headheight
-            NoEscape(
-                fr"\setlength\headheight{{{theme.geometry.head_height}}}"),
-
+            NoEscape(rf"\setlength\headheight{{{theme.geometry.head_height}}}"),
             # Styling the geometry of the document
             #
-            NoEscape(fr"""
+            NoEscape(
+                rf"""
 \geometry{{
 a4paper,
 %total={{170mm,257mm}},
@@ -196,10 +227,9 @@ right={theme.geometry.right_margin},
 outer={theme.geometry.outer_margin},
 top={theme.geometry.top_margin},
 bottom={theme.geometry.bottom_margin},
-}}"""),
+}}"""
+            ),
         )  # End of tuple preambletexts
-
-        super().__init__(lmodern=lmodern)
 
     def _emr(self, text, node):
         """
@@ -224,16 +254,54 @@ bottom={theme.geometry.bottom_margin},
                     labels.append(get_label(node_to.id))
             else:
                 raise InvalidRefException(
-                        f"Node [{str(node)}(ID: {node.id})] without any"
-                        "outgoing arrow-link is using a node-reference.")
+                    f"Node [{str(node)}(ID: {node.id})] without any"
+                    "outgoing arrow-link is using a node-reference."
+                )
 
             if len(labels) == 1:
-                text = text.replace('%ref%', fr'\autoref{{{labels[0]}}}')
+                text = text.replace("%ref%", rf"\autoref{{{labels[0]}}}")
             else:
                 for idx, label in enumerate(labels):
-                    text = text.replace(f"%ref{idx+1}%",
-                                        fr'\autoref{{{label}}}')
+                    text = text.replace(f"%ref{idx+1}%", rf"\autoref{{{label}}}")
 
             # Add a label to this node for back reference
-            text = text + NoEscape(fr"\label{{{get_label(node.id)}}}")
+            text = text + NoEscape(rf"\label{{{get_label(node.id)}}}")
         return text
+
+    def generate_pdf(self, output_file: str):
+        """
+        Generate PDF document from the supplied content of the mindmap.
+
+        Parameters
+        ----------
+        output_file : str
+            The file name (with path if required) to which the generated PDF
+            is to be saved.
+        """
+
+        # Start buidling the LaTeX document
+        self.preamble.append(Command("title", self.docinfo.title))
+        self.preamble.append(Command("author", self.docinfo.author))
+        self.preamble.append(Command("date", self.docinfo.date))
+        header = PageStyle(
+            "header",
+            header_thickness=self.theme.config.header_thickness,
+            footer_thickness=self.theme.config.footer_thickness,
+            data=NoEscape(
+                rf"""
+\renewcommand{{\headrule}}{{\color{{{self.theme.color.header_line_color }}}\hrule width \headwidth height \headrulewidth}}%
+\renewcommand{{\footrule}}{{\color{{{self.theme.color.footer_line_color}}}\hrule width \headwidth height \footrulewidth}}%
+                """
+            ),
+        )
+        if self.docinfo.get("l_header_image", None):
+            lheader = NoEscape(
+                rf"\includegraphics[height={self.theme.geometry.l_header_image_height}]{{{self.docinfo['l_header_image']}}}"
+            )
+        elif self.docinfo.get("l_header_text", None):
+            lheader = NoEscape(rf"{self.docinfo['l_header_text']}")
+        if lheader:
+            with header.create(Head("L")):
+                header.append(lheader)
+xxxxx
+        super().generate_pdf(output_file)

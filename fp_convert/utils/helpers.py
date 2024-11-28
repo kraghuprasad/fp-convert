@@ -1,11 +1,12 @@
 import re
 
+from freeplane import Node
+
+from ..errors import InvalidDocInfoKey
+
 """
 Utility functions used for FreePlane mindmap to PDF conversion.
 """
-from freeplane import Node
-
-from ..errors import InvalidDocinfoKey
 
 
 def get_label(id: str):
@@ -75,7 +76,16 @@ class DocInfo:
     The DocInfo class collects the document related information from the text
     content supplied while initializing it. Usually this text is stored in the
     root node of the Freeplane mindmap. It is used by document templates while
-    building the document.
+    building the document. It mimics a standard dictionary, with keys as
+    ``doc_version``, ``doc_date`` and ``doc_author`` etc.
+
+    The storage, deletion, and contains-check of a is done via proxy keys which
+    are not actually present in the storage container. But the values are
+    retrieved via actual keys against which they are stored. The proxy and
+    actual keys are mapped via class variable ``docinfo_tpl``. The retrievals
+    are done only via document template classes, and hence actual keys are used
+    from within its code only, while the storage keys are obtained from mindmap
+    and hence, they are passed through stricter checks.
 
     Parameters
     ----------
@@ -86,6 +96,7 @@ class DocInfo:
         A boolean indicating whether to preserve the LaTeX file generated as
         part of building the PDF document. It is set to ``True`` by default.
     """
+
     docinfo_tpl = {  # Statically defined field converter template for docinfo
         "Version": "doc_version",
         "Date": "doc_date",
@@ -111,15 +122,38 @@ class DocInfo:
 
     def __init__(self, info_text: str, preserve_latex: bool = True):
         self.preserve_latex = preserve_latex
-        self.docinfo = {v: None for v in DocInfo.docinfo_tpl.values()}
+        self._data = {v: None for v in DocInfo.docinfo_tpl.values()}
         if info_text:
             for line in retrieve_note_lines(info_text):
                 mpats = DocInfo.compiled_pat.search(line)
                 if mpats:
-                    self.docinfo[DocInfo.docinfo_tpl[str.strip(mpats[1])]] = \
-                        str.strip(mpats[2])
+                    self._data[DocInfo.docinfo_tpl[str.strip(mpats[1])]] = str.strip(
+                        mpats[2]
+                    )
 
-    def set_info(self, key: str, value: str):
+    def __getitem__(self, key: str):
+        """
+        Get the value for a valid key from the DocInfo object.
+
+        Parameters
+        ----------
+        key : str
+            The key for which the value is to be retrieved.
+
+        Returns
+        -------
+        str
+            The value associated with the key.
+
+        Raises
+        ------
+        KeyError
+            If supplied key is not found in the DocInfo object.
+        """
+
+        return self._data[key]
+
+    def __setitem__(self, key: str, value: str):
         """
         Set the value for a valid key in the DocInfo object.
 
@@ -136,7 +170,100 @@ class DocInfo:
             If supplied key is not found to be a valid one.
         """
         if DocInfo.docinfo_tpl.get(key, None):
-            self.docinfo[DocInfo.docinfo_tpl[key]] = value
+            self._data[DocInfo.docinfo_tpl[key]] = value
         else:
-            raise InvalidDocinfoKey(f"Invalid DocInfo key: {key}")
+            raise InvalidDocInfoKey(f"Invalid DocInfo key: {key}")
 
+    def __delitem__(self, key: str):
+        """
+        Delete the value associated with a valid key from the DocInfo object.
+
+        Parameters
+        ----------
+        key : str
+            The key for which the value is to be deleted.
+
+        Raises
+        ------
+        KeyError
+            If supplied key is not found in the DocInfo object.
+        """
+
+        del self._data[DocInfo.docinfo_tpl[key]]
+
+    def __contains__(self, key: str):
+        if DocInfo.docinfo_tpl.get(key, None):
+            return DocInfo.docinfo_tpl[key] in self._data
+        return False
+
+    def __len__(self):
+        """
+        Return the number of items in the DocInfo object.
+
+        Returns
+        -------
+        int
+            The number of items in the DocInfo object.
+        """
+
+        return len(self._data)
+
+    def __str__(self):
+        """
+        Return the string representation of the DocInfo object.
+
+        Returns
+        -------
+        str
+            The string representation of the DocInfo object.
+        """
+
+        return str(self._data)
+
+    def __repr__(self):
+        """
+        Return the string representation of the DocInfo object.
+
+        Returns
+        -------
+        str
+            The string representation of the DocInfo object.
+        """
+
+        return str(self._data)
+
+    def keys(self):
+        """
+        Return the actual keys as maintained in the DocInfo object.
+
+        Returns
+        -------
+        list[str]
+            The list of actual keys of the DocInfo object.
+        """
+
+        return self._data.keys()
+
+    def values(self):
+        """
+        Return the values as maintained in the DocInfo object.
+
+        Returns
+        -------
+        list[str]
+            The list of values stored in the DocInfo object.
+        """
+
+        return self._data.values()
+
+    def items(self):
+        """
+        Return the items as maintained in the DocInfo object.
+
+        Returns
+        -------
+        list[tuple[str, str]]
+            The list of actual key-value pairs stored in the DocInfo object.
+        """
+
+        return self._data.items()

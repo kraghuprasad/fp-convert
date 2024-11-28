@@ -12,7 +12,7 @@ class FPDoc(Document):
         getting generated. If it is ``True`` then
         `lmodern package <https://ctan.org/pkg/lm>` is loaded, and it is used
         in the document.
-
     """
+
     def __init__(self, lmodern=True):
         super().__init__(lmodern=lmodern)
