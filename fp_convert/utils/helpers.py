@@ -1,6 +1,13 @@
 import re
+from typing import List, Optional
 
 from freeplane import Node
+from peek import peek  # noqa: F401
+from pylatex import MdFramed
+from pylatex.base_classes import LatexObject
+from pylatex.utils import NoEscape
+
+from fp_convert import FPDoc
 
 from ..errors import InvalidDocInfoKey
 
@@ -44,10 +51,8 @@ def retrieve_note_lines(text: str):
     list[str] :
         A list of paragraphs found in the note-text.
     """
-    ret = list()
     if text:
-        [ret.append(str.strip(i)) for i in text.split("\n") if str.strip(i)]
-    return ret
+        return [str.strip(i) for i in text.split("\n") if str.strip(i)]
 
 
 def get_notes(node: Node):
@@ -71,6 +76,68 @@ def get_notes(node: Node):
     return None
 
 
+def append_notes_if_exists(
+    node: Node,
+    segment: List[LatexObject],
+    doc: FPDoc,
+    prefix: Optional[LatexObject] = None,
+    suffix: Optional[LatexObject] = None,
+):
+    """
+    Append notes to the supplied LaTeX segment from the supplied node, with
+    optional prefix and suffix elements, provided it exists in the node. Then
+    return that segment.
+
+    If the node has a stop-sign icon, the notes are placed in a specially styled
+    frame. Otherwise, the notes are appended with optional prefix and suffix
+    elements, provided they are supplied.
+
+    Parameters
+    ----------
+    node : Node
+        The Freeplane node whose notes should be appended to the supplied
+        segment
+    segment : List[LatexObject]
+        The list of LaTeX objects to append the notes to
+    doc : FPDoc
+        The document being built
+    prefix : LatexObject, optional
+        Content to insert before the notes
+    suffix : LatexObject, optional
+        Content to insert after the notes
+
+    Returns
+    -------
+    List[LatexObject]
+        The modified list of LatexObjects with with the notes appended to it
+    """
+    # if node.id in doc.processed_nodes:
+    #    return segment  # Return without any further processing
+
+    if node.notes:
+        # If stop-sign is present, then just create a red box to put the warning text,
+        # ignoring prefix and suffix parts.
+        if node.icons and "stop-sign" in node.icons:
+            # segment.append(MdFramed(em(str(node.notes), node), options="style=StopFrame"))
+            mdf = MdFramed()
+            mdf.options = "style=StopFrame"
+            mdf.append(NoEscape(rf"\small{{{doc.emr(str(node.notes), node)}}}"))
+            segment.append(mdf)
+        else:
+            if prefix:
+                segment.append(prefix)
+            # Commenting out the following as lack of NoEscape is preventing references to be built correctly.
+            # But applying NoEscape here may cause problems, if notes contain characters applicable to LaTeX.
+            # Need a neater way to create references!!!
+            # segment.append(build_para_per_line(em(str(node.notes), node), doc))
+            segment.append(
+                NoEscape(retrieve_note_lines(doc.emr(str(node.notes), node)))
+            )
+            if suffix:
+                segment.append(suffix)
+    return segment
+
+
 class DocInfo:
     """
     The DocInfo class collects the document related information from the text
@@ -89,16 +156,24 @@ class DocInfo:
 
     Parameters
     ----------
-    info_text : str
-        The text using which the document related information is to be
-        retrieved.
-    preserve_latex : bool
-        A boolean indicating whether to preserve the LaTeX file generated as
-        part of building the PDF document. It is set to ``True`` by default.
+    docinfo_tpl : dict
+        Template dictionary mapping document info field names to internal storage keys.
+        Used to convert between external field names (e.g. "Version") and internal keys
+        (e.g. "doc_version").
+    regex_pat : str
+        Regular expression pattern used to match document info fields in the input text.
+        Pattern matches field name followed by colon and value.
+    compiled_pat : re.Pattern
+        Compiled regular expression pattern for matching document info fields.
+        Pre-compiled for efficiency when processing multiple lines.
+    _data : dict
+        Internal storage dictionary containing the document info values.
+        Keys are the internal storage keys, values are the field values.
     """
 
     docinfo_tpl = {  # Statically defined field converter template for docinfo
         "Version": "doc_version",
+        "Title": "doc_title",
         "Date": "doc_date",
         "Author": "doc_author",
         "Client": "client",
@@ -120,8 +195,24 @@ class DocInfo:
     regex_pat = "^(" + "|".join([k for k in docinfo_tpl.keys()]) + ") *:(.+)$"
     compiled_pat = re.compile(regex_pat)
 
-    def __init__(self, info_text: str, preserve_latex: bool = True):
-        self.preserve_latex = preserve_latex
+    def __init__(self, info_text: str):
+        """
+        Initialize a DocInfo object to store document metadata. It mimics the interface of a
+        standard Python dictionary.
+
+        The DocInfo class manages document metadata like version, date, author, headers,
+        footers etc. It provides a mapping between user-friendly field names (e.g. "Version")
+        and internal storage keys (e.g. "doc_version").
+
+        Document info is parsed from a text string containing fields in the format:
+        Field_Name: value
+
+        Parameters
+        ----------
+        info_text : str
+            Text containing document metadata fields in Field_Name: value format.
+            Can be empty/None in which case all fields are initialized to None.
+        """
         self._data = {v: None for v in DocInfo.docinfo_tpl.values()}
         if info_text:
             for line in retrieve_note_lines(info_text):
@@ -130,6 +221,30 @@ class DocInfo:
                     self._data[DocInfo.docinfo_tpl[str.strip(mpats[1])]] = str.strip(
                         mpats[2]
                     )
+
+    def get(self, key, default):
+        """
+        Get the value for a valid key from the DocInfo object. If not found,
+        then return supplie default value.
+
+        Parameters
+        ----------
+        key : str
+            The key for which the value is to be retrieved.
+
+        default : object
+            The object to be returned, if matching key not found.
+
+        Returns
+        -------
+        object:
+            The value-object associated with supplied key, or if it doesn't
+            exit, then supplied default.
+        """
+        try:
+            return self._data[key]
+        except KeyError:
+            return default
 
     def __getitem__(self, key: str):
         """

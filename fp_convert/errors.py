@@ -1,42 +1,52 @@
-from exceptions import BaseException
 
 """
 Custom exceptions for the fp-convert package.
 """
 
 
-class IncorrectInitialization(BaseException):
-    """
-    Object was initialized incorrectly.
-    """
+class FPConvertException(Exception):
+    """Base exception class for fp-convert package."""
 
-    def __init__(self, message):
-        super().__init__(message)
+    pass
 
 
-class InvalidRefException(BaseException):
+class IncorrectInitialization(FPConvertException):
+    """Object was initialized incorrectly."""
+
+    pass
+
+
+class InvalidRefException(FPConvertException):
     """Raised when a reference is invalid or cannot be resolved."""
 
-    def __init__(self, message):
-        super().__init__(message)
+    pass
 
 
-class InvalidRefTypeException(BaseException):
+class InvalidRefTypeException(FPConvertException):
     """Raised when a reference type is not supported or invalid."""
 
-    def __init__(self, message):
-        super().__init__(message)
+    pass
 
 
-class MissingFileException(BaseException):
+class MissingFileException(FPConvertException):
     """Raised when a required file is missing."""
 
-    def __init__(self, message):
-        super().__init__(message)
+    pass
 
 
-class InvalidDocInfoKey(BaseException):
+class UnsupportedFileException(FPConvertException):
+    """Raised when the file type is not supported."""
+
+    pass
+
+
+class InvalidDocInfoKey(FPConvertException):
     """Raised when an invalid DocInfo key is supplied to set value."""
 
-    def __init__(self, message):
-        super().__init__(message)
+    pass
+
+
+class MaximumListDepthException(FPConvertException):
+    """Raised when a list being constructed crosses maximum allowed depth."""
+
+    pass

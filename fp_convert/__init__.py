@@ -7,6 +7,11 @@ class FPDoc(Document):
 
     Parameters
     ----------
+    name: str
+        The name of the document.
+    documentclass: str
+        The LaTeX document-type to be used to construct this document. The
+        default is "article" type.
     lmodern: bool
         Whether or not to use latin modern font family in the LaTeX document
         getting generated. If it is ``True`` then
@@ -14,5 +19,5 @@ class FPDoc(Document):
         in the document.
     """
 
-    def __init__(self, lmodern=True):
-        super().__init__(lmodern=lmodern)
+    def __init__(self, name: str, documentclass: str = "article", lmodern=True):
+        super().__init__(name, documentclass=documentclass, lmodern=lmodern)

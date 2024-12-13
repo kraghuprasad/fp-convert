@@ -1,6 +1,6 @@
 <map version="freeplane 1.12.1">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
-<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1732803764919"><hook NAME="MapStyle" background="#f5f5dcff">
+<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1734121694962"><hook NAME="MapStyle" background="#f5f5dcff" zoom="0.75131476">
     <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1726606970000" fit_to_viewport="false" showTagCategories="false"/>
     <tags category_separator="::"/>
 
@@ -9,7 +9,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-9 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-6 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -118,6 +118,9 @@
       C_Footer_Logo: images/blooper_corporation_logo.pdf
     </p>
     <p>
+      R_Footer_Text: \small{Page \thepage\- of \pageref*{LastPage}}
+    </p>
+    <p>
       Header_Thickness: 0.4
     </p>
     <p>
@@ -128,7 +131,17 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Functional Specifications" POSITION="bottom_or_right" ID="ID_997066569" CREATED="1729268896352" MODIFIED="1729268907158">
+<node TEXT="Functional Specifications" POSITION="bottom_or_right" ID="ID_997066569" CREATED="1729268896352" MODIFIED="1733991978821"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This section provides the detailed functional specifications of Blooper Application.
+    </p>
+  </body>
+</html></richcontent>
 <node TEXT="User Registration" POSITION="bottom_or_right" ID="ID_86526980" CREATED="1727287685882" MODIFIED="1728222198294"><richcontent TYPE="NOTE">
 <html>
   <head>
@@ -279,11 +292,11 @@
   </body>
 </html></richcontent>
 <node TEXT="Register: Registers the new user." ID="ID_1572971016" CREATED="1728484737443" MODIFIED="1728976216429">
-<node TEXT="Normal Flow" ID="ID_1542674567" CREATED="1728484759566" MODIFIED="1728654582881">
+<node TEXT="Normal Flow:" ID="ID_1542674567" CREATED="1728484759566" MODIFIED="1734075306348">
 <node TEXT="System validates supplied data before creating user-account." ID="ID_471928457" CREATED="1728656564915" MODIFIED="1728656583247"/>
 <node TEXT="If everything is in order, then system create new user-account." ID="ID_1249360283" CREATED="1728654582891" MODIFIED="1728656654148"/>
 </node>
-<node TEXT="Exception Flow" ID="ID_69944687" CREATED="1728484877434" MODIFIED="1728656862084"><richcontent TYPE="NOTE">
+<node TEXT="Exception Flow:" ID="ID_69944687" CREATED="1728484877434" MODIFIED="1734075316011"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -299,7 +312,7 @@
 </node>
 </node>
 <node TEXT="Reset: Reset all fields of the registration form." ID="ID_1737270551" CREATED="1728484744929" MODIFIED="1728976236701">
-<node TEXT="Normal Flow" ID="ID_1022856176" CREATED="1728484908510" MODIFIED="1728987975240">
+<node TEXT="Normal Flow:" ID="ID_1022856176" CREATED="1728484908510" MODIFIED="1734075319098">
 <node TEXT="Clean-up contents of all fields." ID="ID_1807251594" CREATED="1728987976694" MODIFIED="1728987979576"/>
 </node>
 </node>
@@ -467,7 +480,7 @@
 </node>
 </node>
 <node TEXT="Program Specifications" POSITION="top_or_left" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1729268956151">
-<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1732702487553">
+<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1734081201708">
 <arrowlink DESTINATION="ID_86526980"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -479,12 +492,12 @@
       This section elaborates on the program specifications of implementation of user-registration module of Blooper.
     </p>
     <p>
-      The functional requirements of this module is described in %secref%.<br/>
+      The functional requirements of this module is described in %ref%.<br/>
     </p>
   </body>
 </html></richcontent>
 <node TEXT="Screens" ID="ID_851413676" CREATED="1729333342328" MODIFIED="1729334316120">
-<node TEXT="User-registration Screen" POSITION="bottom_or_right" ID="ID_169009377" CREATED="1729333488273" MODIFIED="1732702487553">
+<node TEXT="User-registration Screen" POSITION="bottom_or_right" ID="ID_169009377" CREATED="1729333488273" MODIFIED="1734075446932">
 <arrowlink DESTINATION="ID_571525042"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -493,13 +506,13 @@
   </head>
   <body>
     <p>
-      Please refer %figref% of user-registration screen.
+      Please refer %ref% of user-registration screen.
     </p>
   </body>
 </html></richcontent>
 <node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1584182760" CREATED="1729102327449" MODIFIED="1729333455076">
 <icon BUILTIN="list"/>
-<node TEXT="Register" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1732798881782">
+<node TEXT="Register:" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1734076306590">
 <arrowlink DESTINATION="ID_1572971016"/>
 <arrowlink DESTINATION="ID_1923086954"/>
 <richcontent TYPE="NOTE">
@@ -509,7 +522,7 @@
   </head>
   <body>
     <p>
-      %secref% provides functional specs of the action to be taken when this button is clicked.
+      %ref% provides functional specs of the action to be taken when this button is clicked.
     </p>
   </body>
 </html></richcontent>
@@ -529,7 +542,7 @@
   </body>
 </html></richcontent>
 </node>
-<node TEXT="Input" POSITION="bottom_or_right" ID="ID_399010225" CREATED="1728891653686" MODIFIED="1729672272051">
+<node TEXT="Input:" POSITION="bottom_or_right" ID="ID_399010225" CREATED="1728891653686" MODIFIED="1734075646509">
 <icon BUILTIN="links/file/json"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -567,16 +580,16 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="Normal Output" POSITION="bottom_or_right" ID="ID_362544910" CREATED="1728893112229" MODIFIED="1728893458415">
+<node TEXT="Normal Output:" POSITION="bottom_or_right" ID="ID_362544910" CREATED="1728893112229" MODIFIED="1734075664576">
 <icon BUILTIN="links/file/json"/>
 <node TEXT="{&#xa;  &quot;status&quot;: 200&#xa;  &quot;message&quot;: &quot;Created&quot;&#xa;}" ID="ID_21800491" CREATED="1728893232975" MODIFIED="1728920655499"/>
 </node>
-<node TEXT="Exception Output" POSITION="bottom_or_right" ID="ID_1159276885" CREATED="1728891979919" MODIFIED="1728893471634">
+<node TEXT="Exception Output:" POSITION="bottom_or_right" ID="ID_1159276885" CREATED="1728891979919" MODIFIED="1734075668862">
 <icon BUILTIN="links/file/json"/>
 <node TEXT="{&#xa;  &quot;status&quot;: 421,&#xa;  &quot;message&quot;: &quot;Invalid field supplied&quot;&#xa;}" ID="ID_641988819" CREATED="1728891986317" MODIFIED="1728920669937"/>
 </node>
 </node>
-<node TEXT="Reset" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1732800013606">
+<node TEXT="Reset:" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1734075554428">
 <arrowlink DESTINATION="ID_1737270551"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -585,7 +598,7 @@
   </head>
   <body>
     <p>
-      On-click, it empties all the fields of the form.
+      On-click, it empties all the fields of the form as also explained in %ref%.
     </p>
   </body>
 </html></richcontent>
@@ -593,7 +606,7 @@
 </node>
 </node>
 <node TEXT="Links" POSITION="bottom_or_right" ID="ID_417855629" CREATED="1729102371564" MODIFIED="1729253968114">
-<node TEXT="Login" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1732702487553">
+<node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1734075637348">
 <arrowlink DESTINATION="ID_1580478443"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -602,14 +615,14 @@
   </head>
   <body>
     <p>
-      This hyperlink takes the user to the login page.
+      This hyperlink takes the user to the login page as shown in %ref%.
     </p>
   </body>
 </html></richcontent>
 </node>
 </node>
 </node>
-<node TEXT="Error-Message Box for Existing Record" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1732702487553">
+<node TEXT="Error-Message Box for Existing Record" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1734075570147">
 <arrowlink DESTINATION="ID_1641632316"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -618,7 +631,7 @@
   </head>
   <body>
     <p>
-      %figref% shows the wireframe containing the error message described in this section.
+      %ref% shows the wireframe containing the error message described in this section.
     </p>
   </body>
 </html></richcontent>
