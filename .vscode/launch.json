@@ -1,15 +1,27 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python: fp-convert.py",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "fp-convert.py",
-            "args": ["-d", "-k", "docs/examples/blooper-specs/Blooper_Specifications.mm", "/tmp/Blooper_Specifications.pdf"],
-            "console": "integratedTerminal",
-            "justMyCode": true,
-            "cwd": "${workspaceFolder}"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: fp-convert.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "fp-convert.py",
+      "args": [
+        "-k",
+        //"-d",
+        "-f",
+        //"nunito:tabular:scaled=1.1",
+        "roboto:sfdefault:scaled=1.0",
+        //"FiraSans:sfdefault:book:scaled=1.1",
+        //"josefin:sfdefault:light:medium:scaled=1.1",
+        //"josefin:sfdefault:medium:scaled=1.1",
+        //"montserrat:defaultfam:tabular:lining:alternates",
+        "docs/examples/blooper-specs/Blooper_Specifications.mm",
+        "/tmp/Blooper_Specifications.pdf"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "cwd": "${workspaceFolder}"
+    }
+  ]
 }

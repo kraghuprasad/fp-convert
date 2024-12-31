@@ -15,8 +15,7 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from peek import peek
-
+from fp_convert.errors import UnsupportedFileException
 from fp_convert.templates.psdoc import PSDoc
 
 parser = argparse.ArgumentParser(
@@ -33,8 +32,33 @@ it.
 parser.add_argument("mindmap_file", help="input freeplane mindmap file-path")
 parser.add_argument("output_file", help="output PDF file-path")
 parser.add_argument(
+    "-t",
+    "--template",
+    help="template to be used for converting to TeX/LaTeX file",
+    default="psdoc",
+)
+parser.add_argument(
+    "-f",
+    "--font-family",
+    help="""font-family to be used while building the PDF file
+    Correct LaTeX options are required to be passed-on while supplying this
+    parameter. Incorrect options, if supplied, would result in TeX compilation
+    failures. The option -k can be used to debug such issues by preserving the
+    resultant TeX file for further inspection.
+    Examples:
+    roboto - The Roboto family of fonts to be used
+    roboto:sfdefault - The Roboto family along with LaTeX option sfdefault
+    roboto:sfdefault:scaled=1.1 - The Roboto family along with=LaTeX options
+         sfdefault, and scaled=1.1 which are applicable on this font family.
+         You need to ensure that invalid options for the chosen font-family
+         do not get supplied here.
+    roboto:scaled=1.1 - The Roboto family of fonts scaled to 1.1
+    """,
+    default="lmodern",
+)
+parser.add_argument(
     "-k",
-    "--keep_tex",
+    "--keep-tex",
     help="keep intermediate TeX/LaTeX file",
     action="store_true",
 )
@@ -47,28 +71,41 @@ parser.add_argument(
 args = parser.parse_args()
 
 mindmap_file_path = args.mindmap_file
-#peek(mindmap_file_path)
 mm_filepath = Path(mindmap_file_path)
-#peek(mm_filepath)
 output_pdf_path = args.output_file
-#peek(output_pdf_path)
 pdf_filepath = Path(output_pdf_path)
-#peek(pdf_filepath)
-
-# with tempfile.TemporaryDirectory(prefix="fp-convert-") as temp_dir:
-#    doc = PSDoc(mindmap_file_path, working_dir=temp_dir)
-#    temp_output = Path(temp_dir, f"{pdf_filepath.name}.tex")
-#    doc.generate_pdf(temp_output, clean_tex=(not args.keep_tex))
-#    shutil.copy2(temp_output, output_pdf_path)
-#    if args.keep_tex:
-#        shutil.copy2(f"{temp_output}.tex", Path(
-#            pdf_filepath.parent, f"{pdf_filepath.stem}.tex"))
+tpl = args.template
 
 temp_dir = tempfile.TemporaryDirectory(prefix="fp-convert-", delete=False)
-doc = PSDoc(mm_filepath, working_dir=temp_dir.name, lmodern=True)
+
+psdoc_kwargs = {
+    "working_dir": temp_dir.name,
+}
+if args.font_family:
+    details = args.font_family.split(":")
+    ff = list()
+    ff_opts = list()
+    ff.append(str.strip(details[0]))
+    if len(details) > 1:
+        for item in details[1:]:
+            ff_opts.append(str.strip(item))
+    ff.append(ff_opts)
+    psdoc_kwargs["font_family"] = ff
+else:
+    psdoc_kwargs["font_family"] = ["lmodern", []]
+
+if tpl == "psdoc":
+    doc = PSDoc(mm_filepath, **psdoc_kwargs)
+else:
+    raise UnsupportedFileException("Invalid document template is supplied")
+
 temp_output = Path(temp_dir.name, f"{pdf_filepath.name}")
-peek(temp_output)
 doc.generate_pdf(temp_output, clean=args.debug, clean_tex=(not args.keep_tex))
 shutil.copy2(temp_output, pdf_filepath)
-if not args.debug:
-    temp_dir.cleanup()
+if args.keep_tex:
+    shutil.copy2(
+        Path(temp_dir.name, (pdf_filepath.stem + ".tex")),
+        Path(pdf_filepath.parent, (pdf_filepath.stem + ".tex")),
+    )
+    if not args.debug:
+        temp_dir.cleanup()

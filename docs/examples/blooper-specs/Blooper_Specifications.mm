@@ -1,7 +1,63 @@
 <map version="freeplane 1.12.1">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
-<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1734121694962"><hook NAME="MapStyle" background="#f5f5dcff" zoom="0.75131476">
-    <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1726606970000" fit_to_viewport="false" showTagCategories="false"/>
+<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1734697892603">
+<hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
+<font BOLD="true"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Title: Project Specifications of Blooper App
+    </p>
+    <p>
+      Version: 1.2
+    </p>
+    <p>
+      Date: 15 November, 2024
+    </p>
+    <p>
+      Author: Whoopie Bard $&lt;$whoopie@clueless.dev$&gt;$\\Changu Bhai $&lt;$changu.bhai@clueless.dev$&gt;$
+    </p>
+    <p>
+      Client: Blooper Corporation Inc.
+    </p>
+    <p>
+      Vendor: Clueless Developers' Consortium
+    </p>
+    <p>
+      TP_Top_Logo: images/blooper_logo.pdf
+    </p>
+    <p>
+      TP_Bottom_Logo: images/clueless_devs_consortium.pdf
+    </p>
+    <p>
+      C_Header_Text: Project Specifications of Blooper App
+    </p>
+    <p>
+      R_Header_Text: Non-Confidential
+    </p>
+    <p>
+      L_Header_Logo: images/blooper_logo.pdf
+    </p>
+    <p>
+      C_Footer_Logo: images/clueless_devs_consortium.pdf
+    </p>
+    <p>
+      R_Footer_Text: \small{Page \thepage\- of \pageref*{LastPage}}
+    </p>
+    <p>
+      Header_Thickness: 0.4
+    </p>
+    <p>
+      Footer_Thickness: 0.4
+    </p>
+  </body>
+</html></richcontent>
+<hook NAME="MapStyle" background="#f5f5dcff" zoom="0.9090909">
+    <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1733675264000" fit_to_viewport="false" showTagCategories="false"/>
     <tags category_separator="::"/>
 
 <map_styles>
@@ -9,7 +65,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-6 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-5.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -79,8 +135,9 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
-<font BOLD="true"/>
+<node TEXT="Document Info" POSITION="bottom_or_right" ID="ID_1844284995" CREATED="1734513770987" MODIFIED="1734514153193">
+<node TEXT="Authors" ID="ID_33215046" CREATED="1734514172140" MODIFIED="1734518121566">
+<icon BUILTIN="links/file/generic"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -88,49 +145,53 @@
   </head>
   <body>
     <p>
-      Title: Project Specifications of Blooper App
-    </p>
-    <p>
-      Version: 1.1
-    </p>
-    <p>
-      Date: 15 November, 2024
-    </p>
-    <p>
-      Author: Whoopie Bard &lt;whoopie@clueless.dev&gt;
-    </p>
-    <p>
-      Client: Blooper Corporation Inc.
-    </p>
-    <p>
-      Vendor: Clueless Developers Consortium
-    </p>
-    <p>
-      C_Header_Text: Project Specifications of Blooper App
-    </p>
-    <p>
-      R_Header_Text: Non-Confidential
-    </p>
-    <p>
-      L_Header_Logo: images/blooper_logo.pdf
-    </p>
-    <p>
-      C_Footer_Logo: images/blooper_corporation_logo.pdf
-    </p>
-    <p>
-      R_Footer_Text: \small{Page \thepage\- of \pageref*{LastPage}}
-    </p>
-    <p>
-      Header_Thickness: 0.4
-    </p>
-    <p>
-      Footer_Thickness: 0.4
-    </p>
-    <p>
-      Intro_Text: Clueless Developers Consortium is allocated the project to develop Bloopers App. This document defines the specifications of that project. It is divided primarily into two parts - Functional Specifications and Program Specifications. For any queries regarding this project, please contact whoopie@clueless.dev.
+      Following authors were involved in preparation of this document.
     </p>
   </body>
 </html></richcontent>
+<node TEXT="Whoopie Bard" ID="ID_1287006477" CREATED="1734514184022" MODIFIED="1734514241628">
+<node TEXT="Email: whoopie@clueless.dev" POSITION="bottom_or_right" ID="ID_498020299" CREATED="1734514193322" MODIFIED="1734514202273"/>
+<node TEXT="Nickname: whoopie" POSITION="bottom_or_right" ID="ID_770712780" CREATED="1734514209237" MODIFIED="1734514370710"/>
+</node>
+<node TEXT="Changu Bhai" ID="ID_1417967323" CREATED="1734514242271" MODIFIED="1734514265645">
+<node TEXT="Email: changu.bhai@clueless.dev" ID="ID_1394606274" CREATED="1734514282059" MODIFIED="1734514292274"/>
+<node TEXT="Nickname: changu" ID="ID_1801452366" CREATED="1734514265648" MODIFIED="1734514274467"/>
+</node>
+</node>
+<node TEXT="Versions" ID="ID_813916523" CREATED="1734514143858" MODIFIED="1734519233524">
+<icon BUILTIN="links/file/generic"/>
+<node TEXT="v 1.2" POSITION="bottom_or_right" ID="ID_1597662239" CREATED="1734514015098" MODIFIED="1734517189756">
+<node TEXT="Changes: Updated partial program specifications." ID="ID_717761175" CREATED="1734514019164" MODIFIED="1734514036393"/>
+<node TEXT="Author: whoopie" ID="ID_1676924841" CREATED="1734514456472" MODIFIED="1734514465132"/>
+<node TEXT="Date: 15 November, 2024" ID="ID_544279972" CREATED="1734514037002" MODIFIED="1734514045399"/>
+</node>
+<node TEXT="v 1.1" POSITION="bottom_or_right" ID="ID_253086677" CREATED="1734513977156" MODIFIED="1734517198515">
+<node TEXT="Changes: Completed functional specifications." ID="ID_1317625547" CREATED="1734513980200" MODIFIED="1734513996902"/>
+<node TEXT="Author: changu" ID="ID_1159388852" CREATED="1734514468775" MODIFIED="1734514501742"/>
+<node TEXT="Date: 28 October, 2024" ID="ID_1778359559" CREATED="1734513997321" MODIFIED="1734514011069"/>
+</node>
+<node TEXT="v 1.0" POSITION="bottom_or_right" ID="ID_1563078805" CREATED="1734513787203" MODIFIED="1734517206394">
+<node TEXT="Changes: Added introductory text." ID="ID_446479249" CREATED="1734513809106" MODIFIED="1734513960892"/>
+<node TEXT="Author: whoopie" ID="ID_1787780224" CREATED="1734514476263" MODIFIED="1734514493572"/>
+<node TEXT="Date: 2 October, 2024" ID="ID_1879725448" CREATED="1734513823194" MODIFIED="1734513974431"/>
+</node>
+</node>
+</node>
+<node TEXT="Introduction" POSITION="bottom_or_right" ID="ID_933623464" CREATED="1734501052280" MODIFIED="1734513733148"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clueless Developers' Consortium has been allocated the project to develop Bloopers App. This document defines the specifications of that project. It is divided primarily into two parts - Functional Specifications and Program Specifications. For any queries regarding this project, please contact whoopie@clueless.dev.
+    </p>
+    <p>
+      It is sincerely hoped that this project specifications document would be found extremely useful by the client to manage and maintain the Blooper App properly for a very long period of time.
+    </p>
+  </body>
+</html></richcontent>
+</node>
 <node TEXT="Functional Specifications" POSITION="bottom_or_right" ID="ID_997066569" CREATED="1729268896352" MODIFIED="1733991978821"><richcontent TYPE="NOTE">
 <html>
   <head>
@@ -373,7 +434,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Level 1.1.3" POSITION="bottom_or_right" ID="ID_1334495193" CREATED="1729067965944" MODIFIED="1730799164841">
+<node TEXT="Level 3.1.3" POSITION="bottom_or_right" ID="ID_1334495193" CREATED="1729067965944" MODIFIED="1734517607187">
 <icon BUILTIN="stop-sign"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -382,7 +443,7 @@
   </head>
   <body>
     <p>
-      Q: How can Level 1.1.3 be used as a section heading?
+      Q: How can Level 3.1.3 be used as a section heading?
     </p>
   </body>
 </html></richcontent>
@@ -480,8 +541,8 @@
 </node>
 </node>
 <node TEXT="Program Specifications" POSITION="top_or_left" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1729268956151">
-<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1734081201708">
-<arrowlink DESTINATION="ID_86526980"/>
+<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1735547254625">
+<arrowlink DESTINATION="ID_86526980" STARTINCLINATION="58.5 pt;65.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -496,9 +557,19 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Screens" ID="ID_851413676" CREATED="1729333342328" MODIFIED="1729334316120">
-<node TEXT="User-registration Screen" POSITION="bottom_or_right" ID="ID_169009377" CREATED="1729333488273" MODIFIED="1734075446932">
-<arrowlink DESTINATION="ID_571525042"/>
+<node TEXT="Screens" ID="ID_851413676" CREATED="1729333342328" MODIFIED="1735554703506"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Following screens are developed for user-registration purpose.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="User-registration Screen" POSITION="bottom_or_right" ID="ID_169009377" CREATED="1729333488273" MODIFIED="1735556301752">
+<arrowlink DESTINATION="ID_571525042" STARTINCLINATION="142.5 pt;95.25 pt;" ENDINCLINATION="599.99998 pt;0 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -506,15 +577,15 @@
   </head>
   <body>
     <p>
-      Please refer %ref% of user-registration screen.
+      Please refer %ref% for wireframe of user-registration screen.
     </p>
   </body>
 </html></richcontent>
 <node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1584182760" CREATED="1729102327449" MODIFIED="1729333455076">
 <icon BUILTIN="list"/>
-<node TEXT="Register:" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1734076306590">
-<arrowlink DESTINATION="ID_1572971016"/>
-<arrowlink DESTINATION="ID_1923086954"/>
+<node TEXT="Register:" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1735553090799">
+<arrowlink DESTINATION="ID_1542674567" STARTINCLINATION="96.75 pt;89.25 pt;" ENDINCLINATION="185.99999 pt;162.75 pt;"/>
+<arrowlink DESTINATION="ID_69944687" STARTINCLINATION="111.75 pt;114.75 pt;" ENDINCLINATION="187.49999 pt;211.49999 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -522,7 +593,10 @@
   </head>
   <body>
     <p>
-      %ref% provides functional specs of the action to be taken when this button is clicked.
+      The %ref1% provides the details of the normal flow of actions when this button is clicked.
+    </p>
+    <p>
+      The %ref2% provides the details of the exception flow of actions when this button gets clicked.
     </p>
   </body>
 </html></richcontent>
@@ -589,8 +663,8 @@
 <node TEXT="{&#xa;  &quot;status&quot;: 421,&#xa;  &quot;message&quot;: &quot;Invalid field supplied&quot;&#xa;}" ID="ID_641988819" CREATED="1728891986317" MODIFIED="1728920669937"/>
 </node>
 </node>
-<node TEXT="Reset:" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1734075554428">
-<arrowlink DESTINATION="ID_1737270551"/>
+<node TEXT="Reset:" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1735547262090">
+<arrowlink DESTINATION="ID_1737270551" STARTINCLINATION="141.75 pt;70.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -606,9 +680,7 @@
 </node>
 </node>
 <node TEXT="Links" POSITION="bottom_or_right" ID="ID_417855629" CREATED="1729102371564" MODIFIED="1729253968114">
-<node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1734075637348">
-<arrowlink DESTINATION="ID_1580478443"/>
-<richcontent TYPE="NOTE">
+<node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1734446670661"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -622,8 +694,8 @@
 </node>
 </node>
 </node>
-<node TEXT="Error-Message Box for Existing Record" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1734075570147">
-<arrowlink DESTINATION="ID_1641632316"/>
+<node TEXT="Error-Message Box for Existing Record" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1735547267847">
+<arrowlink DESTINATION="ID_1641632316" STARTINCLINATION="118.5 pt;38.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -664,11 +736,150 @@
 </node>
 </node>
 </node>
-<node TEXT="Level 2.2" ID="ID_1722806927" CREATED="1727287739014" MODIFIED="1727287742024">
-<node TEXT="Level 2.2.1" ID="ID_1376132053" CREATED="1727287742535" MODIFIED="1727287746603"/>
-<node TEXT="Level 2.2.2" ID="ID_684849006" CREATED="1727287747054" MODIFIED="1727287750531"/>
-<node TEXT="Level 2.2.3" ID="ID_1332164782" CREATED="1727287750969" MODIFIED="1727287754456">
-<node TEXT="Level 2.2.3.1" POSITION="bottom_or_right" ID="ID_892716213" CREATED="1727283986116" MODIFIED="1727290923703"/>
+<node TEXT="Level 4.2" ID="ID_1722806927" CREATED="1727287739014" MODIFIED="1734517660867">
+<node TEXT="Level 4.2.1" ID="ID_1376132053" CREATED="1727287742535" MODIFIED="1734517669633"/>
+<node TEXT="Level 4.2.2" ID="ID_684849006" CREATED="1727287747054" MODIFIED="1734517677654"/>
+<node TEXT="Level 4.2.3" ID="ID_1332164782" CREATED="1727287750969" MODIFIED="1734517683693">
+<node TEXT="Level 4.2.3.1" POSITION="bottom_or_right" ID="ID_892716213" CREATED="1727283986116" MODIFIED="1734517691051"/>
+<node TEXT="Level 4.2.3.2" POSITION="bottom_or_right" ID="ID_1108084290" CREATED="1734512022113" MODIFIED="1734517696966"/>
+</node>
+</node>
+</node>
+<node TEXT="Database Schema" POSITION="top_or_left" ID="ID_1060163767" CREATED="1734523313539" MODIFIED="1734523348547"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      In this section, we describe the general database schema used in Blooper App.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Relational Database" ID="ID_1531157095" CREATED="1734523359665" MODIFIED="1735539230234"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Blooper App would be using HisSQL as its RDBMS in the backend. Multiple tables are required to implement the features expected from the this application. An RDBMS is required to maintain the integrity as well as consistency of the data-records pertaining to this application.
+    </p>
+    <p>
+      Following is the details of the RDBS schema for this application.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="BlooperDB" ID="ID_1337295940" CREATED="1734523474464" MODIFIED="1735539243971">
+<icon BUILTIN="links/libreoffice/file_doc_database"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      BlooperDB is the name of the database stored in HisSQL.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="users" ID="ID_1108020213" CREATED="1734525632517" MODIFIED="1734525636551">
+<node TEXT="id: int, ai, pk" ID="ID_661330182" CREATED="1734525638576" MODIFIED="1734526120083">
+<icon BUILTIN="password"/>
+</node>
+<node TEXT="name: varchar(64), unique, not null" ID="ID_1961443962" CREATED="1734525652428" MODIFIED="1734525666125"/>
+<node TEXT="email: varchar(80), default null" ID="ID_1939585686" CREATED="1734525668192" MODIFIED="1735376399721"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only one email address is allowed in this field.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="contact_no: varchar(16), default null" ID="ID_661483407" CREATED="1734525706575" MODIFIED="1734525729732"/>
+<node TEXT="dob: date, not null" ID="ID_1257398146" CREATED="1734525768031" MODIFIED="1735376384730"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Date in ISO date format.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="status: char(1), not null" ID="ID_734312037" CREATED="1734525824078" MODIFIED="1735379049232"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      (A)ctive, (I)nactive, (D)eleted
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="organizations" ID="ID_1000171183" CREATED="1734525783844" MODIFIED="1734525807365">
+<node TEXT="id: int, ai, pk" ID="ID_804053180" CREATED="1734525638576" MODIFIED="1734526107995">
+<icon BUILTIN="password"/>
+</node>
+<node TEXT="name: varchar(64), unique, not null" ID="ID_35779025" CREATED="1734525652428" MODIFIED="1734525666125"/>
+<node TEXT="status: char(1), not null, default A" ID="ID_71999004" CREATED="1734525824078" MODIFIED="1735379061322"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      (A)ctive, (I)nactive, (D)eleted
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="org_admins" ID="ID_337353852" CREATED="1734525942539" MODIFIED="1735309110600"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      One organization may have one ore more administrators. They are mapped using this table.
+    </p>
+    <p>
+      The &quot;since&quot; field indicates a date when a particular administrator was mapped to an organization.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="id: int, ai, pk" ID="ID_985279650" CREATED="1734525638576" MODIFIED="1734526113285">
+<icon BUILTIN="password"/>
+</node>
+<node TEXT="org_id: int, not null" ID="ID_1152226333" CREATED="1734525963077" MODIFIED="1734526003317">
+<arrowlink DESTINATION="ID_804053180"/>
+</node>
+<node TEXT="user_id: int, not null" ID="ID_548493182" CREATED="1734525984525" MODIFIED="1734525998402">
+<arrowlink DESTINATION="ID_661330182"/>
+</node>
+<node TEXT="since: date, not null" ID="ID_683652083" CREATED="1734526018407" MODIFIED="1735572120505"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The date from which this user is assigned the role of administrator for this organization.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
 </node>
 </node>
 </node>

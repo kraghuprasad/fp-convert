@@ -1,0 +1,2805 @@
+{
+  "credits": {
+    "wikipedia": [
+      "http://en.wikipedia.org/wiki/List_of_colors",
+      "Wikipedia list of colors"
+    ],
+    "latexcolor": ["https://latexcolor.com", "LaTeX Color"]
+  },
+  "colors": {
+    "airforceblue": [
+      "rgb",
+      "0.36, 0.54, 0.66",
+      "HTML",
+      "#5D8AA8",
+      "Air Force blue"
+    ],
+    "aliceblue": ["rgb", "0.94, 0.97, 1.0", "HTML", "#F0F8FF", "Alice blue"],
+    "alizarin": ["rgb", "0.82, 0.1, 0.26", "HTML", "#E32636", "Alizarin"],
+    "almond": ["rgb", "0.94, 0.87, 0.8", "HTML", "#EFDECD", "Almond"],
+    "amaranth": ["rgb", "0.9, 0.17, 0.31", "HTML", "#E52B50", "Amaranth"],
+    "amber": ["rgb", "1.0, 0.75, 0.0", "HTML", "#FFBF00", "Amber"],
+    "amber(sae/ece)": [
+      "rgb",
+      "1.0, 0.49, 0.0",
+      "HTML",
+      "#FF7E00",
+      "Amber (SAE/ECE)"
+    ],
+    "americanrose": [
+      "rgb",
+      "1.0, 0.01, 0.24",
+      "HTML",
+      "#FF033E",
+      "American rose"
+    ],
+    "amethyst": ["rgb", "0.6, 0.4, 0.8", "HTML", "#9966CC", "Amethyst"],
+    "anti-flashwhite": [
+      "rgb",
+      "0.95, 0.95, 0.96",
+      "HTML",
+      "#F2F3F4",
+      "Anti-flash white"
+    ],
+    "antiquebrass": [
+      "rgb",
+      "0.8, 0.58, 0.46",
+      "HTML",
+      "#CD9575",
+      "Antique brass"
+    ],
+    "antiquefuchsia": [
+      "rgb",
+      "0.57, 0.36, 0.51",
+      "HTML",
+      "#915C83",
+      "Antique fuchsia"
+    ],
+    "antiquewhite": [
+      "rgb",
+      "0.98, 0.92, 0.84",
+      "HTML",
+      "#FAEBD7",
+      "Antique white"
+    ],
+    "ao": ["rgb", "0.0, 0.0, 1.0", "HTML", "#0000FF", "Ao"],
+    "ao(english)": ["rgb", "0.0, 0.5, 0.0", "HTML", "#008000", "Ao (English)"],
+    "applegreen": ["rgb", "0.55, 0.71, 0.0", "HTML", "#8DB600", "Apple green"],
+    "apricot": ["rgb", "0.98, 0.81, 0.69", "HTML", "#FBCEB1", "Apricot"],
+    "aqua": ["rgb", "0.0, 1.0, 1.0", "HTML", "#00FFFF", "Aqua"],
+    "aquamarine": ["rgb", "0.5, 1.0, 0.83", "HTML", "#7FFFD0", "Aquamarine"],
+    "armygreen": ["rgb", "0.29, 0.33, 0.13", "HTML", "#4B5320", "Army green"],
+    "arsenic": ["rgb", "0.23, 0.27, 0.29", "HTML", "#3B444B", "Arsenic"],
+    "arylideyellow": [
+      "rgb",
+      "0.91, 0.84, 0.42",
+      "HTML",
+      "#E9D66B",
+      "Arylide yellow"
+    ],
+    "ashgrey": ["rgb", "0.7, 0.75, 0.71", "HTML", "#B2BEB5", "Ash grey"],
+    "asparagus": ["rgb", "0.53, 0.66, 0.42", "HTML", "#87A96B", "Asparagus"],
+    "atomictangerine": [
+      "rgb",
+      "1.0, 0.6, 0.4",
+      "HTML",
+      "#FF9966",
+      "Atomic tangerine"
+    ],
+    "auburn": ["rgb", "0.43, 0.21, 0.1", "HTML", "#6D351A", "Auburn"],
+    "aureolin": ["rgb", "0.99, 0.93, 0.0", "HTML", "#FDEE00", "Aureolin"],
+    "aurometalsaurus": [
+      "rgb",
+      "0.43, 0.5, 0.5",
+      "HTML",
+      "#6E7F80",
+      "AuroMetalSaurus"
+    ],
+    "awesome": ["rgb", "1.0, 0.13, 0.32", "HTML", "#FF2052", "Awesome"],
+    "azure(colorwheel)": [
+      "rgb",
+      "0.0, 0.5, 1.0",
+      "HTML",
+      "#007FFF",
+      "Azure (color wheel)"
+    ],
+    "azure(web)(azuremist)": [
+      "rgb",
+      "0.94, 1.0, 1.0",
+      "HTML",
+      "#F0FFFF",
+      "Azure (web) (Azure mist)"
+    ],
+    "babyblue": ["rgb", "0.54, 0.81, 0.94", "HTML", "#89CFF0", "Baby blue"],
+    "babyblueeyes": [
+      "rgb",
+      "0.63, 0.79, 0.95",
+      "HTML",
+      "#A1CAF1",
+      "Baby blue eyes"
+    ],
+    "babypink": ["rgb", "0.96, 0.76, 0.76", "HTML", "#F4C2C2", "Baby pink"],
+    "ballblue": ["rgb", "0.13, 0.67, 0.8", "HTML", "#21ABCD", "Ball Blue"],
+    "bananamania": [
+      "rgb",
+      "0.98, 0.91, 0.71",
+      "HTML",
+      "#FAE7B5",
+      "Banana Mania"
+    ],
+    "bananayellow": [
+      "rgb",
+      "1.0, 0.88, 0.21",
+      "HTML",
+      "#FFE135",
+      "Banana Yellow"
+    ],
+    "battleshipgrey": [
+      "rgb",
+      "0.52, 0.52, 0.51",
+      "HTML",
+      "#848482",
+      "Battleship grey"
+    ],
+    "bazaar": ["rgb", "0.6, 0.47, 0.48", "HTML", "#98777B", "Bazaar"],
+    "beaublue": ["rgb", "0.74, 0.83, 0.9", "HTML", "#BCD4E6", "Beau blue"],
+    "beaver": ["rgb", "0.62, 0.51, 0.44", "HTML", "#9F8170", "Beaver"],
+    "beige": ["rgb", "0.96, 0.96, 0.86", "HTML", "#F5F5DC", "Beige"],
+    "bisque": ["rgb", "1.0, 0.89, 0.77", "HTML", "#FFE4C4", "Bisque"],
+    "bistre": ["rgb", "0.24, 0.17, 0.12", "HTML", "#3D2B1F", "Bistre"],
+    "bittersweet": ["rgb", "1.0, 0.44, 0.37", "HTML", "#FE6F5E", "Bittersweet"],
+    "black": ["rgb", "0.0, 0.0, 0.0", "HTML", "#000000", "Black"],
+    "blanchedalmond": [
+      "rgb",
+      "1.0, 0.92, 0.8",
+      "HTML",
+      "#FFEBCD",
+      "Blanched Almond"
+    ],
+    "bleudefrance": [
+      "rgb",
+      "0.19, 0.55, 0.91",
+      "HTML",
+      "#318CE7",
+      "Bleu de France"
+    ],
+    "blizzardblue": [
+      "rgb",
+      "0.67, 0.9, 0.93",
+      "HTML",
+      "#ACE5EE",
+      "Blizzard Blue"
+    ],
+    "blond": ["rgb", "0.98, 0.94, 0.75", "HTML", "#FAF0BE", "Blond"],
+    "blue": ["rgb", "0.0, 0.0, 1.0", "HTML", "#0000FF", "Blue"],
+    "blue(munsell)": [
+      "rgb",
+      "0.0, 0.5, 0.69",
+      "HTML",
+      "#0093AF",
+      "Blue (Munsell)"
+    ],
+    "blue(ncs)": ["rgb", "0.0, 0.53, 0.74", "HTML", "#0087BD", "Blue (NCS)"],
+    "blue(pigment)": [
+      "rgb",
+      "0.2, 0.2, 0.6",
+      "HTML",
+      "#333399",
+      "Blue (pigment)"
+    ],
+    "blue(ryb)": ["rgb", "0.01, 0.28, 1.0", "HTML", "#0247FE", "Blue (RYB)"],
+    "bluebell": ["rgb", "0.64, 0.64, 0.82", "HTML", "#A2A2D0", "Blue Bell"],
+    "bluegray": ["rgb", "0.4, 0.6, 0.8", "HTML", "#6699CC", "Blue Gray"],
+    "blue-green": ["rgb", "0.0, 0.87, 0.87", "HTML", "#00DDDD", "Blue-green"],
+    "blue-violet": [
+      "rgb",
+      "0.54, 0.17, 0.89",
+      "HTML",
+      "#8A2BE2",
+      "Blue-violet"
+    ],
+    "blush": ["rgb", "0.87, 0.36, 0.51", "HTML", "#DE5D83", "Blush"],
+    "bole": ["rgb", "0.47, 0.27, 0.23", "HTML", "#79443B", "Bole"],
+    "bondiblue": ["rgb", "0.0, 0.58, 0.71", "HTML", "#0095B6", "Bondi blue"],
+    "bostonuniversityred": [
+      "rgb",
+      "0.8, 0.0, 0.0",
+      "HTML",
+      "#CC0000",
+      "Boston University Red"
+    ],
+    "brandeisblue": [
+      "rgb",
+      "0.0, 0.44, 1.0",
+      "HTML",
+      "#0070FF",
+      "Brandeis blue"
+    ],
+    "brass": ["rgb", "0.71, 0.65, 0.26", "HTML", "#B5A642", "Brass"],
+    "brickred": ["rgb", "0.8, 0.25, 0.33", "HTML", "#CB4154", "Brick red"],
+    "brightcerulean": [
+      "rgb",
+      "0.11, 0.67, 0.84",
+      "HTML",
+      "#1DACD6",
+      "Bright cerulean"
+    ],
+    "brightgreen": ["rgb", "0.4, 1.0, 0.0", "HTML", "#66FF00", "Bright green"],
+    "brightlavender": [
+      "rgb",
+      "0.75, 0.58, 0.89",
+      "HTML",
+      "#BF94E4",
+      "Bright lavender"
+    ],
+    "brightmaroon": [
+      "rgb",
+      "0.76, 0.13, 0.28",
+      "HTML",
+      "#C32148",
+      "Bright maroon"
+    ],
+    "brightpink": ["rgb", "1.0, 0.0, 0.5", "HTML", "#FF007F", "Bright pink"],
+    "brightturquoise": [
+      "rgb",
+      "0.03, 0.91, 0.87",
+      "HTML",
+      "#08E8DE",
+      "Bright turquoise"
+    ],
+    "brightube": ["rgb", "0.82, 0.62, 0.91", "HTML", "#D19FE8", "Bright ube"],
+    "brilliantlavender": [
+      "rgb",
+      "0.96, 0.73, 1.0",
+      "HTML",
+      "#F4BBFF",
+      "Brilliant lavender"
+    ],
+    "brilliantrose": [
+      "rgb",
+      "1.0, 0.33, 0.64",
+      "HTML",
+      "#FF55A3",
+      "Brilliant rose"
+    ],
+    "brinkpink": ["rgb", "0.98, 0.38, 0.5", "HTML", "#FB607F", "Brink pink"],
+    "britishracinggreen": [
+      "rgb",
+      "0.0, 0.26, 0.15",
+      "HTML",
+      "#004225",
+      "British racing green"
+    ],
+    "bronze": ["rgb", "0.8, 0.5, 0.2", "HTML", "#CD7F32", "Bronze"],
+    "brown(traditional)": [
+      "rgb",
+      "0.59, 0.29, 0.0",
+      "HTML",
+      "#964B00",
+      "Brown (traditional)"
+    ],
+    "brown(web)": ["rgb", "0.65, 0.16, 0.16", "HTML", "#A52A2A", "Brown (web)"],
+    "bubblegum": ["rgb", "0.99, 0.76, 0.8", "HTML", "#FFC1CC", "Bubble gum"],
+    "bubbles": ["rgb", "0.91, 1.0, 1.0", "HTML", "#E7FEFF", "Bubbles"],
+    "buff": ["rgb", "0.94, 0.86, 0.51", "HTML", "#F0DC82", "Buff"],
+    "bulgarianrose": [
+      "rgb",
+      "0.28, 0.02, 0.03",
+      "HTML",
+      "#480607",
+      "Bulgarian rose"
+    ],
+    "burgundy": ["rgb", "0.5, 0.0, 0.13", "HTML", "#800020", "Burgundy"],
+    "burlywood": ["rgb", "0.87, 0.72, 0.53", "HTML", "#DEB887", "Burlywood"],
+    "burntorange": ["rgb", "0.8, 0.33, 0.0", "HTML", "#CC5500", "Burnt orange"],
+    "burntsienna": [
+      "rgb",
+      "0.91, 0.45, 0.32",
+      "HTML",
+      "#E97451",
+      "Burnt sienna"
+    ],
+    "burntumber": ["rgb", "0.54, 0.2, 0.14", "HTML", "#8A3324", "Burnt umber"],
+    "byzantine": ["rgb", "0.74, 0.2, 0.64", "HTML", "#BD33A4", "Byzantine"],
+    "byzantium": ["rgb", "0.44, 0.16, 0.39", "HTML", "#702963", "Byzantium"],
+    "cadet": ["rgb", "0.33, 0.41, 0.47", "HTML", "#536872", "Cadet"],
+    "cadetblue": ["rgb", "0.37, 0.62, 0.63", "HTML", "#5F9EA0", "Cadet blue"],
+    "cadetgrey": ["rgb", "0.57, 0.64, 0.69", "HTML", "#91A3B0", "Cadet grey"],
+    "cadmiumgreen": [
+      "rgb",
+      "0.0, 0.42, 0.24",
+      "HTML",
+      "#006B3C",
+      "Cadmium Green"
+    ],
+    "cadmiumorange": [
+      "rgb",
+      "0.93, 0.53, 0.18",
+      "HTML",
+      "#ED872D",
+      "Cadmium Orange"
+    ],
+    "cadmiumred": ["rgb", "0.89, 0.0, 0.13", "HTML", "#E30022", "Cadmium Red"],
+    "cadmiumyellow": [
+      "rgb",
+      "1.0, 0.96, 0.0",
+      "HTML",
+      "#FFF600",
+      "Cadmium Yellow"
+    ],
+    "calpolypomonagreen": [
+      "rgb",
+      "0.12, 0.3, 0.17",
+      "HTML",
+      "#1E4D2B",
+      "Cal Poly Pomona green"
+    ],
+    "cambridgeblue": [
+      "rgb",
+      "0.64, 0.76, 0.68",
+      "HTML",
+      "#A3C1AD",
+      "Cambridge Blue"
+    ],
+    "camel": ["rgb", "0.76, 0.6, 0.42", "HTML", "#C19A6B", "Camel"],
+    "camouflagegreen": [
+      "rgb",
+      "0.47, 0.53, 0.42",
+      "HTML",
+      "#78866B",
+      "Camouflage green"
+    ],
+    "canaryyellow": [
+      "rgb",
+      "1.0, 0.94, 0.0",
+      "HTML",
+      "#FFEF00",
+      "Canary yellow"
+    ],
+    "candyapplered": [
+      "rgb",
+      "1.0, 0.03, 0.0",
+      "HTML",
+      "#FF0800",
+      "Candy apple red"
+    ],
+    "candypink": ["rgb", "0.89, 0.44, 0.48", "HTML", "#E4717A", "Candy pink"],
+    "capri": ["rgb", "0.0, 0.75, 1.0", "HTML", "#00BFFF", "Capri"],
+    "caputmortuum": [
+      "rgb",
+      "0.35, 0.15, 0.13",
+      "HTML",
+      "#592720",
+      "Caput mortuum"
+    ],
+    "cardinal": ["rgb", "0.77, 0.12, 0.23", "HTML", "#C41E3A", "Cardinal"],
+    "caribbeangreen": [
+      "rgb",
+      "0.0, 0.8, 0.6",
+      "HTML",
+      "#00CC99",
+      "Caribbean green"
+    ],
+    "carmine": ["rgb", "0.59, 0.0, 0.09", "HTML", "#960018", "Carmine"],
+    "carminepink": [
+      "rgb",
+      "0.92, 0.3, 0.26",
+      "HTML",
+      "#EB4C42",
+      "Carmine pink"
+    ],
+    "carminered": ["rgb", "1.0, 0.0, 0.22", "HTML", "#FF0038", "Carmine red"],
+    "carnationpink": [
+      "rgb",
+      "1.0, 0.65, 0.79",
+      "HTML",
+      "#FFA6C9",
+      "Carnation pink"
+    ],
+    "carnelian": ["rgb", "0.7, 0.11, 0.11", "HTML", "#B31B1B", "Carnelian"],
+    "carolinablue": [
+      "rgb",
+      "0.6, 0.73, 0.89",
+      "HTML",
+      "#99BADD",
+      "Carolina blue"
+    ],
+    "carrotorange": [
+      "rgb",
+      "0.93, 0.57, 0.13",
+      "HTML",
+      "#ED9121",
+      "Carrot orange"
+    ],
+    "ceil": ["rgb", "0.57, 0.63, 0.81", "HTML", "#92A1CF", "Ceil"],
+    "celadon": ["rgb", "0.67, 0.88, 0.69", "HTML", "#ACE1AF", "Celadon"],
+    "celestialblue": [
+      "rgb",
+      "0.29, 0.59, 0.82",
+      "HTML",
+      "#4997D0",
+      "Celestial blue"
+    ],
+    "cerise": ["rgb", "0.87, 0.19, 0.39", "HTML", "#DE3163", "Cerise"],
+    "cerisepink": ["rgb", "0.93, 0.23, 0.51", "HTML", "#EC3B83", "Cerise pink"],
+    "cerulean": ["rgb", "0.0, 0.48, 0.65", "HTML", "#007BA7", "Cerulean"],
+    "ceruleanblue": [
+      "rgb",
+      "0.16, 0.32, 0.75",
+      "HTML",
+      "#2A52BE",
+      "Cerulean blue"
+    ],
+    "chamoisee": ["rgb", "0.63, 0.47, 0.35", "HTML", "#A0785A", "Chamoisee"],
+    "champagne": ["rgb", "0.97, 0.91, 0.81", "HTML", "#F7E7CE", "Champagne"],
+    "charcoal": ["rgb", "0.21, 0.27, 0.31", "HTML", "#36454F", "Charcoal"],
+    "chartreuse(traditional)": [
+      "rgb",
+      "0.87, 1.0, 0.0",
+      "HTML",
+      "#DFFF00",
+      "Chartreuse (traditional)"
+    ],
+    "chartreuse(web)": [
+      "rgb",
+      "0.5, 1.0, 0.0",
+      "HTML",
+      "#7FFF00",
+      "Chartreuse (web)"
+    ],
+    "cherryblossompink": [
+      "rgb",
+      "1.0, 0.72, 0.77",
+      "HTML",
+      "#FFB7C5",
+      "Cherry blossom pink"
+    ],
+    "chestnut": ["rgb", "0.8, 0.36, 0.36", "HTML", "#CD5C5C", "Chestnut"],
+    "chocolate(traditional)": [
+      "rgb",
+      "0.48, 0.25, 0.0",
+      "HTML",
+      "#7B3F00",
+      "Chocolate (traditional)"
+    ],
+    "chocolate(web)": [
+      "rgb",
+      "0.82, 0.41, 0.12",
+      "HTML",
+      "#D2691E",
+      "Chocolate (web)"
+    ],
+    "chromeyellow": [
+      "rgb",
+      "1.0, 0.65, 0.0",
+      "HTML",
+      "#FFA700",
+      "Chrome yellow"
+    ],
+    "cinereous": ["rgb", "0.6, 0.51, 0.48", "HTML", "#98817B", "Cinereous"],
+    "cinnabar": ["rgb", "0.89, 0.26, 0.2", "HTML", "#E34234", "Cinnabar"],
+    "cinnamon": ["rgb", "0.82, 0.41, 0.12", "HTML", "#D2691E", "Cinnamon"],
+    "citrine": ["rgb", "0.89, 0.82, 0.04", "HTML", "#E4D00A", "Citrine"],
+    "classicrose": [
+      "rgb",
+      "0.98, 0.8, 0.91",
+      "HTML",
+      "#FBCCE7",
+      "Classic rose"
+    ],
+    "cobalt": ["rgb", "0.0, 0.28, 0.67", "HTML", "#0047AB", "Cobalt"],
+    "cocoabrown": ["rgb", "0.82, 0.41, 0.12", "HTML", "#D2691E", "Cocoa brown"],
+    "columbiablue": [
+      "rgb",
+      "0.61, 0.87, 1.0",
+      "HTML",
+      "#9BDDFF",
+      "Columbia blue"
+    ],
+    "coolblack": ["rgb", "0.0, 0.18, 0.39", "HTML", "#002E63", "Cool black"],
+    "coolgrey": ["rgb", "0.55, 0.57, 0.67", "HTML", "#8C92AC", "Cool grey"],
+    "copper": ["rgb", "0.72, 0.45, 0.2", "HTML", "#B87333", "Copper"],
+    "copperrose": ["rgb", "0.6, 0.4, 0.4", "HTML", "#996666", "Copper rose"],
+    "coquelicot": ["rgb", "1.0, 0.22, 0.0", "HTML", "#FF3800", "Coquelicot"],
+    "coral": ["rgb", "1.0, 0.5, 0.31", "HTML", "#FF7F50", "Coral"],
+    "coralpink": ["rgb", "0.97, 0.51, 0.47", "HTML", "#F88379", "Coral pink"],
+    "coralred": ["rgb", "1.0, 0.25, 0.25", "HTML", "#FF4040", "Coral red"],
+    "cordovan": ["rgb", "0.54, 0.25, 0.27", "HTML", "#893F45", "Cordovan"],
+    "corn": ["rgb", "0.98, 0.93, 0.36", "HTML", "#FBEC5D", "Corn"],
+    "cornellred": ["rgb", "0.7, 0.11, 0.11", "HTML", "#B31B1B", "Cornell Red"],
+    "cornflowerblue": [
+      "rgb",
+      "0.39, 0.58, 0.93",
+      "HTML",
+      "#6495ED",
+      "Cornflower blue"
+    ],
+    "cornsilk": ["rgb", "1.0, 0.97, 0.86", "HTML", "#FFF8DC", "Cornsilk"],
+    "cosmiclatte": [
+      "rgb",
+      "1.0, 0.97, 0.91",
+      "HTML",
+      "#FFF8E7",
+      "Cosmic latte"
+    ],
+    "cottoncandy": [
+      "rgb",
+      "1.0, 0.74, 0.85",
+      "HTML",
+      "#FFBCD9",
+      "Cotton candy"
+    ],
+    "cream": ["rgb", "1.0, 0.99, 0.82", "HTML", "#FFFDD0", "Cream"],
+    "crimson": ["rgb", "0.86, 0.08, 0.24", "HTML", "#DC143C", "Crimson"],
+    "crimsonglory": [
+      "rgb",
+      "0.75, 0.0, 0.2",
+      "HTML",
+      "#BE0032",
+      "Crimson glory"
+    ],
+    "cyan": ["rgb", "0.0, 1.0, 1.0", "HTML", "#00FFFF", "Cyan"],
+    "cyan(process)": [
+      "rgb",
+      "0.0, 0.72, 0.92",
+      "HTML",
+      "#00B7EB",
+      "Cyan (process)"
+    ],
+    "daffodil": ["rgb", "1.0, 1.0, 0.19", "HTML", "#FFFF31", "Daffodil"],
+    "dandelion": ["rgb", "0.94, 0.88, 0.19", "HTML", "#F0E130", "Dandelion"],
+    "darkblue": ["rgb", "0.0, 0.0, 0.55", "HTML", "#00008B", "Dark blue"],
+    "darkbrown": ["rgb", "0.4, 0.26, 0.13", "HTML", "#654321", "Dark brown"],
+    "darkbyzantium": [
+      "rgb",
+      "0.36, 0.22, 0.33",
+      "HTML",
+      "#5D3954",
+      "Dark byzantium"
+    ],
+    "darkcandyapplered": [
+      "rgb",
+      "0.64, 0.0, 0.0",
+      "HTML",
+      "#A40000",
+      "Dark candy apple red"
+    ],
+    "darkcerulean": [
+      "rgb",
+      "0.03, 0.27, 0.49",
+      "HTML",
+      "#08457E",
+      "Dark cerulean"
+    ],
+    "darkchampagne": [
+      "rgb",
+      "0.76, 0.7, 0.5",
+      "HTML",
+      "#C2B280",
+      "Dark champagne"
+    ],
+    "darkchestnut": [
+      "rgb",
+      "0.6, 0.41, 0.38",
+      "HTML",
+      "#986960",
+      "Dark chestnut"
+    ],
+    "darkcoral": ["rgb", "0.8, 0.36, 0.27", "HTML", "#CD5B45", "Dark coral"],
+    "darkcyan": ["rgb", "0.0, 0.55, 0.55", "HTML", "#008B8B", "Dark cyan"],
+    "darkelectricblue": [
+      "rgb",
+      "0.33, 0.41, 0.47",
+      "HTML",
+      "#536878",
+      "Dark electric blue"
+    ],
+    "darkgoldenrod": [
+      "rgb",
+      "0.72, 0.53, 0.04",
+      "HTML",
+      "#B8860B",
+      "Dark goldenrod"
+    ],
+    "darkgray": ["rgb", "0.66, 0.66, 0.66", "HTML", "#A9A9A9", "Dark gray"],
+    "darkgreen": ["rgb", "0.0, 0.2, 0.13", "HTML", "#013220", "Dark green"],
+    "darkjunglegreen": [
+      "rgb",
+      "0.1, 0.14, 0.13",
+      "HTML",
+      "#1A2421",
+      "Dark jungle green"
+    ],
+    "darkkhaki": ["rgb", "0.74, 0.72, 0.42", "HTML", "#BDB76B", "Dark khaki"],
+    "darklava": ["rgb", "0.28, 0.24, 0.2", "HTML", "#483C32", "Dark lava"],
+    "darklavender": [
+      "rgb",
+      "0.45, 0.31, 0.59",
+      "HTML",
+      "#734F96",
+      "Dark lavender"
+    ],
+    "darkmagenta": [
+      "rgb",
+      "0.55, 0.0, 0.55",
+      "HTML",
+      "#8B008B",
+      "Dark magenta"
+    ],
+    "darkmidnightblue": [
+      "rgb",
+      "0.0, 0.2, 0.4",
+      "HTML",
+      "#003366",
+      "Dark midnight blue"
+    ],
+    "darkolivegreen": [
+      "rgb",
+      "0.33, 0.42, 0.18",
+      "HTML",
+      "#556B2F",
+      "Dark olive green"
+    ],
+    "darkorange": ["rgb", "1.0, 0.55, 0.0", "HTML", "#FF8C00", "Dark orange"],
+    "darkorchid": ["rgb", "0.6, 0.2, 0.8", "HTML", "#9932CC", "Dark orchid"],
+    "darkpastelblue": [
+      "rgb",
+      "0.47, 0.62, 0.8",
+      "HTML",
+      "#779ECB",
+      "Dark pastel blue"
+    ],
+    "darkpastelgreen": [
+      "rgb",
+      "0.01, 0.75, 0.24",
+      "HTML",
+      "#03C03C",
+      "Dark pastel green"
+    ],
+    "darkpastelpurple": [
+      "rgb",
+      "0.59, 0.44, 0.84",
+      "HTML",
+      "#966FD6",
+      "Dark pastel purple"
+    ],
+    "darkpastelred": [
+      "rgb",
+      "0.76, 0.23, 0.13",
+      "HTML",
+      "#C23B22",
+      "Dark pastel red"
+    ],
+    "darkpink": ["rgb", "0.91, 0.33, 0.5", "HTML", "#E75480", "Dark pink"],
+    "darkpowderblue": [
+      "rgb",
+      "0.0, 0.2, 0.6",
+      "HTML",
+      "#003399",
+      "Dark powder blue"
+    ],
+    "darkraspberry": [
+      "rgb",
+      "0.53, 0.15, 0.34",
+      "HTML",
+      "#872657",
+      "Dark raspberry"
+    ],
+    "darkred": ["rgb", "0.55, 0.0, 0.0", "HTML", "#8B0000", "Dark red"],
+    "darksalmon": ["rgb", "0.91, 0.59, 0.48", "HTML", "#E9967A", "Dark salmon"],
+    "darkscarlet": [
+      "rgb",
+      "0.34, 0.01, 0.1",
+      "HTML",
+      "#560319",
+      "Dark scarlet"
+    ],
+    "darkseagreen": [
+      "rgb",
+      "0.56, 0.74, 0.56",
+      "HTML",
+      "#8FBC8F",
+      "Dark sea green"
+    ],
+    "darksienna": ["rgb", "0.24, 0.08, 0.08", "HTML", "#3C1414", "Dark sienna"],
+    "darkslateblue": [
+      "rgb",
+      "0.28, 0.24, 0.55",
+      "HTML",
+      "#483D8B",
+      "Dark slate blue"
+    ],
+    "darkslategray": [
+      "rgb",
+      "0.18, 0.31, 0.31",
+      "HTML",
+      "#2F4F4F",
+      "Dark slate gray"
+    ],
+    "darkspringgreen": [
+      "rgb",
+      "0.09, 0.45, 0.27",
+      "HTML",
+      "#177245",
+      "Dark spring green"
+    ],
+    "darktan": ["rgb", "0.57, 0.51, 0.32", "HTML", "#918151", "Dark tan"],
+    "darktangerine": [
+      "rgb",
+      "1.0, 0.66, 0.07",
+      "HTML",
+      "#FFA812",
+      "Dark tangerine"
+    ],
+    "darktaupe": ["rgb", "0.28, 0.24, 0.2", "HTML", "#483C32", "Dark taupe"],
+    "darkterracotta": [
+      "rgb",
+      "0.8, 0.31, 0.36",
+      "HTML",
+      "#CC4E5C",
+      "Dark terra cotta"
+    ],
+    "darkturquoise": [
+      "rgb",
+      "0.0, 0.81, 0.82",
+      "HTML",
+      "#00CED1",
+      "Dark turquoise"
+    ],
+    "darkviolet": ["rgb", "0.58, 0.0, 0.83", "HTML", "#9400D3", "Dark violet"],
+    "dartmouthgreen": [
+      "rgb",
+      "0.05, 0.5, 0.06",
+      "HTML",
+      "#00693E",
+      "Dartmouth green"
+    ],
+    "davy'sgrey": ["rgb", "0.33, 0.33, 0.33", "HTML", "#555555", "Davy's grey"],
+    "debianred": ["rgb", "0.84, 0.04, 0.33", "HTML", "#D70A53", "Debian red"],
+    "deepcarmine": [
+      "rgb",
+      "0.66, 0.13, 0.24",
+      "HTML",
+      "#A9203E",
+      "Deep carmine"
+    ],
+    "deepcarminepink": [
+      "rgb",
+      "0.94, 0.19, 0.22",
+      "HTML",
+      "#EF3038",
+      "Deep carmine pink"
+    ],
+    "deepcarrotorange": [
+      "rgb",
+      "0.91, 0.41, 0.17",
+      "HTML",
+      "#E9692C",
+      "Deep carrot orange"
+    ],
+    "deepcerise": ["rgb", "0.85, 0.2, 0.53", "HTML", "#DA3287", "Deep cerise"],
+    "deepchampagne": [
+      "rgb",
+      "0.98, 0.84, 0.65",
+      "HTML",
+      "#FAD6A5",
+      "Deep champagne"
+    ],
+    "deepchestnut": [
+      "rgb",
+      "0.73, 0.31, 0.28",
+      "HTML",
+      "#B94E48",
+      "Deep chestnut"
+    ],
+    "deepfuchsia": [
+      "rgb",
+      "0.76, 0.33, 0.76",
+      "HTML",
+      "#C154C1",
+      "Deep fuchsia"
+    ],
+    "deepjunglegreen": [
+      "rgb",
+      "0.0, 0.29, 0.29",
+      "HTML",
+      "#004B49",
+      "Deep jungle green"
+    ],
+    "deeplilac": ["rgb", "0.6, 0.33, 0.73", "HTML", "#9955BB", "Deep lilac"],
+    "deepmagenta": ["rgb", "0.8, 0.0, 0.8", "HTML", "#CC00CC", "Deep magenta"],
+    "deeppeach": ["rgb", "1.0, 0.8, 0.64", "HTML", "#FFCBA4", "Deep peach"],
+    "deeppink": ["rgb", "1.0, 0.08, 0.58", "HTML", "#FF1493", "Deep pink"],
+    "deepsaffron": ["rgb", "1.0, 0.6, 0.2", "HTML", "#FF9933", "Deep saffron"],
+    "deepskyblue": [
+      "rgb",
+      "0.0, 0.75, 1.0",
+      "HTML",
+      "#00BFFF",
+      "Deep sky blue"
+    ],
+    "denim": ["rgb", "0.08, 0.38, 0.74", "HTML", "#1560BD", "Denim"],
+    "desert": ["rgb", "0.76, 0.6, 0.42", "HTML", "#C19A6B", "Desert"],
+    "desertsand": ["rgb", "0.93, 0.79, 0.69", "HTML", "#EDC9AF", "Desert sand"],
+    "dimgray": ["rgb", "0.41, 0.41, 0.41", "HTML", "#696969", "Dim gray"],
+    "dodgerblue": ["rgb", "0.12, 0.56, 1.0", "HTML", "#1E90FF", "Dodger blue"],
+    "dogwoodrose": [
+      "rgb",
+      "0.84, 0.09, 0.41",
+      "HTML",
+      "#D71868",
+      "Dogwood rose"
+    ],
+    "dollarbill": ["rgb", "0.52, 0.73, 0.4", "HTML", "#85BB65", "Dollar bill"],
+    "drab": ["rgb", "0.59, 0.44, 0.09", "HTML", "#967117", "Drab"],
+    "dukeblue": ["rgb", "0.0, 0.0, 0.61", "HTML", "#00009C", "Duke blue"],
+    "earthyellow": [
+      "rgb",
+      "0.88, 0.66, 0.37",
+      "HTML",
+      "#E1A95F",
+      "Earth yellow"
+    ],
+    "ecru": ["rgb", "0.76, 0.7, 0.5", "HTML", "#C2B280", "Ecru"],
+    "eggplant": ["rgb", "0.38, 0.25, 0.32", "HTML", "#614051", "Eggplant"],
+    "eggshell": ["rgb", "0.94, 0.92, 0.84", "HTML", "#F0EAD6", "Eggshell"],
+    "egyptianblue": [
+      "rgb",
+      "0.06, 0.2, 0.65",
+      "HTML",
+      "#1034A6",
+      "Egyptian blue"
+    ],
+    "electricblue": [
+      "rgb",
+      "0.49, 0.98, 1.0",
+      "HTML",
+      "#7DF9FF",
+      "Electric blue"
+    ],
+    "electriccrimson": [
+      "rgb",
+      "1.0, 0.0, 0.25",
+      "HTML",
+      "#FF003F",
+      "Electric crimson"
+    ],
+    "electriccyan": [
+      "rgb",
+      "0.0, 1.0, 1.0",
+      "HTML",
+      "#00FFFF",
+      "Electric cyan"
+    ],
+    "electricgreen": [
+      "rgb",
+      "0.0, 1.0, 0.0",
+      "HTML",
+      "#00FF00",
+      "Electric green"
+    ],
+    "electricindigo": [
+      "rgb",
+      "0.44, 0.0, 1.0",
+      "HTML",
+      "#6F00FF",
+      "Electric indigo"
+    ],
+    "electriclavender": [
+      "rgb",
+      "0.96, 0.73, 1.0",
+      "HTML",
+      "#F4BBFF",
+      "Electric lavender"
+    ],
+    "electriclime": [
+      "rgb",
+      "0.8, 1.0, 0.0",
+      "HTML",
+      "#CCFF00",
+      "Electric lime"
+    ],
+    "electricpurple": [
+      "rgb",
+      "0.75, 0.0, 1.0",
+      "HTML",
+      "#BF00FF",
+      "Electric purple"
+    ],
+    "electricultramarine": [
+      "rgb",
+      "0.25, 0.0, 1.0",
+      "HTML",
+      "#3F00FF",
+      "Electric ultramarine"
+    ],
+    "electricviolet": [
+      "rgb",
+      "0.56, 0.0, 1.0",
+      "HTML",
+      "#8F00FF",
+      "Electric violet"
+    ],
+    "electricyellow": [
+      "rgb",
+      "1.0, 1.0, 0.0",
+      "HTML",
+      "#FFFF00",
+      "Electric Yellow"
+    ],
+    "emerald": ["rgb", "0.31, 0.78, 0.47", "HTML", "#50C878", "Emerald"],
+    "etonblue": ["rgb", "0.59, 0.78, 0.64", "HTML", "#96C8A2", "Eton blue"],
+    "fallow": ["rgb", "0.76, 0.6, 0.42", "HTML", "#C19A6B", "Fallow"],
+    "falured": ["rgb", "0.5, 0.09, 0.09", "HTML", "#801818", "Falu red"],
+    "fandango": ["rgb", "0.71, 0.2, 0.54", "HTML", "#B53389", "Fandango"],
+    "fashionfuchsia": [
+      "rgb",
+      "0.96, 0.0, 0.63",
+      "HTML",
+      "#F400A1",
+      "Fashion fuchsia"
+    ],
+    "fawn": ["rgb", "0.9, 0.67, 0.44", "HTML", "#E5AA70", "Fawn"],
+    "feldgrau": ["rgb", "0.3, 0.36, 0.33", "HTML", "#4D5D53", "Feldgrau"],
+    "ferngreen": ["rgb", "0.31, 0.47, 0.26", "HTML", "#4F7942", "Fern green"],
+    "ferrarired": ["rgb", "1.0, 0.11, 0.0", "HTML", "#FF2800", "Ferrari Red"],
+    "fielddrab": ["rgb", "0.42, 0.33, 0.12", "HTML", "#6C541E", "Field drab"],
+    "firebrick": ["rgb", "0.7, 0.13, 0.13", "HTML", "#B22222", "Firebrick"],
+    "fireenginered": [
+      "rgb",
+      "0.81, 0.09, 0.13",
+      "HTML",
+      "#CE2029",
+      "Fire engine red"
+    ],
+    "flame": ["rgb", "0.89, 0.35, 0.13", "HTML", "#E25822", "Flame"],
+    "flamingopink": [
+      "rgb",
+      "0.99, 0.56, 0.67",
+      "HTML",
+      "#FC8EAC",
+      "Flamingo pink"
+    ],
+    "flavescent": ["rgb", "0.97, 0.91, 0.56", "HTML", "#F7E98E", "Flavescent"],
+    "flax": ["rgb", "0.93, 0.86, 0.51", "HTML", "#EEDC82", "Flax"],
+    "floralwhite": [
+      "rgb",
+      "1.0, 0.98, 0.94",
+      "HTML",
+      "#FFFAF0",
+      "Floral white"
+    ],
+    "fluorescentorange": [
+      "rgb",
+      "1.0, 0.75, 0.0",
+      "HTML",
+      "#FFBF00",
+      "Fluorescent orange"
+    ],
+    "fluorescentpink": [
+      "rgb",
+      "1.0, 0.08, 0.58",
+      "HTML",
+      "#FF1493",
+      "Fluorescent pink"
+    ],
+    "fluorescentyellow": [
+      "rgb",
+      "0.8, 1.0, 0.0",
+      "HTML",
+      "#CCFF00",
+      "Fluorescent yellow"
+    ],
+    "folly": ["rgb", "1.0, 0.0, 0.31", "HTML", "#FF004F", "Folly"],
+    "forestgreen(traditional)": [
+      "rgb",
+      "0.0, 0.27, 0.13",
+      "HTML",
+      "#014421",
+      "Forest green (traditional)"
+    ],
+    "forestgreen(web)": [
+      "rgb",
+      "0.13, 0.55, 0.13",
+      "HTML",
+      "#228B22",
+      "Forest green (web)"
+    ],
+    "frenchbeige": [
+      "rgb",
+      "0.65, 0.48, 0.36",
+      "HTML",
+      "#A67B5B",
+      "French beige"
+    ],
+    "frenchblue": ["rgb", "0.0, 0.45, 0.73", "HTML", "#0072BB", "French blue"],
+    "frenchlilac": [
+      "rgb",
+      "0.53, 0.38, 0.56",
+      "HTML",
+      "#86608E",
+      "French lilac"
+    ],
+    "frenchrose": ["rgb", "0.96, 0.29, 0.54", "HTML", "#F64A8A", "French rose"],
+    "fuchsia": ["rgb", "1.0, 0.0, 1.0", "HTML", "#FF00FF", "Fuchsia"],
+    "fuchsiapink": ["rgb", "1.0, 0.47, 1.0", "HTML", "#FF77FF", "Fuchsia pink"],
+    "fulvous": ["rgb", "0.86, 0.52, 0.0", "HTML", "#E48400", "Fulvous"],
+    "fuzzywuzzy": ["rgb", "0.8, 0.4, 0.4", "HTML", "#CC6666", "Fuzzy Wuzzy"],
+    "gainsboro": ["rgb", "0.86, 0.86, 0.86", "HTML", "#DCDCDC", "Gainsboro"],
+    "gamboge": ["rgb", "0.89, 0.61, 0.06", "HTML", "#E49B0F", "Gamboge"],
+    "ghostwhite": ["rgb", "0.97, 0.97, 1.0", "HTML", "#F8F8FF", "Ghost white"],
+    "ginger": ["rgb", "0.69, 0.4, 0.0", "HTML", "#B06500", "Ginger"],
+    "glaucous": ["rgb", "0.38, 0.51, 0.71", "HTML", "#6082B6", "Glaucous"],
+    "gold(metallic)": [
+      "rgb",
+      "0.83, 0.69, 0.22",
+      "HTML",
+      "#D4AF37",
+      "Gold (metallic)"
+    ],
+    "gold(web)(golden)": [
+      "rgb",
+      "1.0, 0.84, 0.0",
+      "HTML",
+      "#FFD700",
+      "Gold (web) (Golden)"
+    ],
+    "goldenbrown": ["rgb", "0.6, 0.4, 0.08", "HTML", "#996515", "Golden brown"],
+    "goldenpoppy": [
+      "rgb",
+      "0.99, 0.76, 0.0",
+      "HTML",
+      "#FCC200",
+      "Golden poppy"
+    ],
+    "goldenyellow": [
+      "rgb",
+      "1.0, 0.87, 0.0",
+      "HTML",
+      "#FFDF00",
+      "Golden yellow"
+    ],
+    "goldenrod": ["rgb", "0.85, 0.65, 0.13", "HTML", "#DAA520", "Goldenrod"],
+    "grannysmithapple": [
+      "rgb",
+      "0.66, 0.89, 0.63",
+      "HTML",
+      "#A8E4A0",
+      "Granny Smith Apple"
+    ],
+    "gray": ["rgb", "0.5, 0.5, 0.5", "HTML", "#808080", "Gray"],
+    "gray(html/cssgray)": [
+      "rgb",
+      "0.5, 0.5, 0.5",
+      "HTML",
+      "#7F7F7F",
+      "Gray (HTML/CSS gray)"
+    ],
+    "gray(x11gray)": [
+      "rgb",
+      "0.75, 0.75, 0.75",
+      "HTML",
+      "#BEBEBE",
+      "Gray (X11 gray)"
+    ],
+    "gray-asparagus": [
+      "rgb",
+      "0.27, 0.35, 0.27",
+      "HTML",
+      "#465945",
+      "Gray-asparagus"
+    ],
+    "green(colorwheel)(x11green)": [
+      "rgb",
+      "0.0, 1.0, 0.0",
+      "HTML",
+      "#00FF00",
+      "Green (color wheel) (X11 green)"
+    ],
+    "green(html/cssgreen)": [
+      "rgb",
+      "0.0, 0.5, 0.0",
+      "HTML",
+      "#008000",
+      "Green (HTML/CSS green)"
+    ],
+    "green(munsell)": [
+      "rgb",
+      "0.0, 0.66, 0.47",
+      "HTML",
+      "#00A877",
+      "Green (Munsell)"
+    ],
+    "green(ncs)": ["rgb", "0.0, 0.62, 0.42", "HTML", "#009F6B", "Green (NCS)"],
+    "green(pigment)": [
+      "rgb",
+      "0.0, 0.65, 0.31",
+      "HTML",
+      "#00A550",
+      "Green (pigment)"
+    ],
+    "green(ryb)": ["rgb", "0.4, 0.69, 0.2", "HTML", "#66B032", "Green (RYB)"],
+    "green-yellow": [
+      "rgb",
+      "0.68, 1.0, 0.18",
+      "HTML",
+      "#ADFF2F",
+      "Green-yellow"
+    ],
+    "grullo": ["rgb", "0.66, 0.6, 0.53", "HTML", "#A99A86", "Grullo"],
+    "guppiegreen": ["rgb", "0.0, 1.0, 0.5", "HTML", "#00FF7F", "Guppie green"],
+    "halayaube": ["rgb", "0.4, 0.22, 0.33", "HTML", "#663854", "Halaya ube"],
+    "hanblue": ["rgb", "0.27, 0.42, 0.81", "HTML", "#446CCF", "Han blue"],
+    "hanpurple": ["rgb", "0.32, 0.09, 0.98", "HTML", "#5218FA", "Han purple"],
+    "hansayellow": [
+      "rgb",
+      "0.91, 0.84, 0.42",
+      "HTML",
+      "#E9D66B",
+      "Hansa yellow"
+    ],
+    "harlequin": ["rgb", "0.25, 1.0, 0.0", "HTML", "#3FFF00", "Harlequin"],
+    "harvardcrimson": [
+      "rgb",
+      "0.79, 0.0, 0.09",
+      "HTML",
+      "#C90016",
+      "Harvard crimson"
+    ],
+    "harvestgold": [
+      "rgb",
+      "0.85, 0.57, 0.0",
+      "HTML",
+      "#DA9100",
+      "Harvest Gold"
+    ],
+    "heartgold": ["rgb", "0.5, 0.5, 0.0", "HTML", "#808000", "Heart Gold"],
+    "heliotrope": ["rgb", "0.87, 0.45, 1.0", "HTML", "#DF73FF", "Heliotrope"],
+    "hollywoodcerise": [
+      "rgb",
+      "0.96, 0.0, 0.63",
+      "HTML",
+      "#F400A1",
+      "Hollywood cerise"
+    ],
+    "honeydew": ["rgb", "0.94, 1.0, 0.94", "HTML", "#F0FFF0", "Honeydew"],
+    "hooker'sgreen": [
+      "rgb",
+      "0.0, 0.44, 0.0",
+      "HTML",
+      "#007000",
+      "Hooker's green"
+    ],
+    "hotmagenta": ["rgb", "1.0, 0.11, 0.81", "HTML", "#FF1DCE", "Hot magenta"],
+    "hotpink": ["rgb", "1.0, 0.41, 0.71", "HTML", "#FF69B4", "Hot pink"],
+    "huntergreen": [
+      "rgb",
+      "0.21, 0.37, 0.23",
+      "HTML",
+      "#355E3B",
+      "Hunter green"
+    ],
+    "iceberg": ["rgb", "0.44, 0.65, 0.82", "HTML", "#71A6D2", "Iceberg"],
+    "icterine": ["rgb", "0.99, 0.97, 0.37", "HTML", "#FCF75E", "Icterine"],
+    "inchworm": ["rgb", "0.7, 0.93, 0.36", "HTML", "#B2EC5D", "Inchworm"],
+    "indiagreen": ["rgb", "0.07, 0.53, 0.03", "HTML", "#138808", "India green"],
+    "indianred": ["rgb", "0.8, 0.36, 0.36", "HTML", "#CD5C5C", "Indian red"],
+    "indianyellow": [
+      "rgb",
+      "0.89, 0.66, 0.34",
+      "HTML",
+      "#E3A857",
+      "Indian yellow"
+    ],
+    "indigo(dye)": [
+      "rgb",
+      "0.0, 0.25, 0.42",
+      "HTML",
+      "#00416A",
+      "Indigo (dye)"
+    ],
+    "indigo(web)": [
+      "rgb",
+      "0.29, 0.0, 0.51",
+      "HTML",
+      "#4B0082",
+      "Indigo (web)"
+    ],
+    "internationalkleinblue": [
+      "rgb",
+      "0.0, 0.18, 0.65",
+      "HTML",
+      "#002FA7",
+      "International Klein Blue"
+    ],
+    "internationalorange": [
+      "rgb",
+      "1.0, 0.31, 0.0",
+      "HTML",
+      "#FF4F00",
+      "International orange"
+    ],
+    "iris": ["rgb", "0.35, 0.31, 0.81", "HTML", "#5A4FCF", "Iris"],
+    "isabelline": ["rgb", "0.96, 0.94, 0.93", "HTML", "#F4F0EC", "Isabelline"],
+    "islamicgreen": [
+      "rgb",
+      "0.0, 0.56, 0.0",
+      "HTML",
+      "#009000",
+      "Islamic green"
+    ],
+    "ivory": ["rgb", "1.0, 1.0, 0.94", "HTML", "#FFFFF0", "Ivory"],
+    "jade": ["rgb", "0.0, 0.66, 0.42", "HTML", "#00A86B", "Jade"],
+    "jasper": ["rgb", "0.84, 0.23, 0.24", "HTML", "#D73B3E", "Jasper"],
+    "jazzberryjam": [
+      "rgb",
+      "0.65, 0.04, 0.37",
+      "HTML",
+      "#A50B5E",
+      "Jazzberry jam"
+    ],
+    "jonquil": ["rgb", "0.98, 0.85, 0.37", "HTML", "#FADA5E", "Jonquil"],
+    "junebud": ["rgb", "0.74, 0.85, 0.34", "HTML", "#BDDA57", "June bud"],
+    "junglegreen": [
+      "rgb",
+      "0.16, 0.67, 0.53",
+      "HTML",
+      "#29AB87",
+      "Jungle green"
+    ],
+    "kellygreen": ["rgb", "0.3, 0.73, 0.09", "HTML", "#4CBB17", "Kelly green"],
+    "khaki(html/css)(khaki)": [
+      "rgb",
+      "0.76, 0.69, 0.57",
+      "HTML",
+      "#C3B091",
+      "Khaki (HTML/CSS) (Khaki)"
+    ],
+    "khaki(x11)(lightkhaki)": [
+      "rgb",
+      "0.94, 0.9, 0.55",
+      "HTML",
+      "#F0E68C",
+      "Khaki (X11) (Light khaki)"
+    ],
+    "lasallegreen": [
+      "rgb",
+      "0.03, 0.47, 0.19",
+      "HTML",
+      "#087830",
+      "La Salle Green"
+    ],
+    "languidlavender": [
+      "rgb",
+      "0.84, 0.79, 0.87",
+      "HTML",
+      "#D6CADD",
+      "Languid lavender"
+    ],
+    "lapislazuli": [
+      "rgb",
+      "0.15, 0.38, 0.61",
+      "HTML",
+      "#26619C",
+      "Lapis lazuli"
+    ],
+    "laserlemon": ["rgb", "1.0, 1.0, 0.13", "HTML", "#FEFE22", "Laser Lemon"],
+    "lava": ["rgb", "0.81, 0.06, 0.13", "HTML", "#CF1020", "Lava"],
+    "lavender(floral)": [
+      "rgb",
+      "0.71, 0.49, 0.86",
+      "HTML",
+      "#B57EDC",
+      "Lavender (floral)"
+    ],
+    "lavender(web)": [
+      "rgb",
+      "0.9, 0.9, 0.98",
+      "HTML",
+      "#E6E6FA",
+      "Lavender (web)"
+    ],
+    "lavenderblue": [
+      "rgb",
+      "0.8, 0.8, 1.0",
+      "HTML",
+      "#CCCCFF",
+      "Lavender blue"
+    ],
+    "lavenderblush": [
+      "rgb",
+      "1.0, 0.94, 0.96",
+      "HTML",
+      "#FFF0F5",
+      "Lavender blush"
+    ],
+    "lavendergray": [
+      "rgb",
+      "0.77, 0.76, 0.82",
+      "HTML",
+      "#C4C3D0",
+      "Lavender gray"
+    ],
+    "lavenderindigo": [
+      "rgb",
+      "0.58, 0.34, 0.92",
+      "HTML",
+      "#9457EB",
+      "Lavender indigo"
+    ],
+    "lavendermagenta": [
+      "rgb",
+      "0.93, 0.51, 0.93",
+      "HTML",
+      "#EE82EE",
+      "Lavender magenta"
+    ],
+    "lavendermist": [
+      "rgb",
+      "0.9, 0.9, 0.98",
+      "HTML",
+      "#E6E6FA",
+      "Lavender mist"
+    ],
+    "lavenderpink": [
+      "rgb",
+      "0.98, 0.68, 0.82",
+      "HTML",
+      "#FBAED2",
+      "Lavender pink"
+    ],
+    "lavenderpurple": [
+      "rgb",
+      "0.59, 0.48, 0.71",
+      "HTML",
+      "#967BB6",
+      "Lavender purple"
+    ],
+    "lavenderrose": [
+      "rgb",
+      "0.98, 0.63, 0.89",
+      "HTML",
+      "#FBA0E3",
+      "Lavender rose"
+    ],
+    "lawngreen": ["rgb", "0.49, 0.99, 0.0", "HTML", "#7CFC00", "Lawn green"],
+    "lemon": ["rgb", "1.0, 0.97, 0.0", "HTML", "#FFF700", "Lemon"],
+    "lemonchiffon": [
+      "rgb",
+      "1.0, 0.98, 0.8",
+      "HTML",
+      "#FFFACD",
+      "Lemon chiffon"
+    ],
+    "lightapricot": [
+      "rgb",
+      "0.99, 0.84, 0.69",
+      "HTML",
+      "#FDD5B1",
+      "Light apricot"
+    ],
+    "lightblue": ["rgb", "0.68, 0.85, 0.9", "HTML", "#ADD8E6", "Light blue"],
+    "lightbrown": ["rgb", "0.71, 0.4, 0.11", "HTML", "#B5651D", "Light brown"],
+    "lightcarminepink": [
+      "rgb",
+      "0.9, 0.4, 0.38",
+      "HTML",
+      "#E66771",
+      "Light carmine pink"
+    ],
+    "lightcoral": ["rgb", "0.94, 0.5, 0.5", "HTML", "#F08080", "Light coral"],
+    "lightcornflowerblue": [
+      "rgb",
+      "0.6, 0.81, 0.93",
+      "HTML",
+      "#93CCEA",
+      "Light cornflower blue"
+    ],
+    "lightcyan": ["rgb", "0.88, 1.0, 1.0", "HTML", "#E0FFFF", "Light cyan"],
+    "lightfuchsiapink": [
+      "rgb",
+      "0.98, 0.52, 0.9",
+      "HTML",
+      "#F984EF",
+      "Light fuchsia pink"
+    ],
+    "lightgoldenrodyellow": [
+      "rgb",
+      "0.98, 0.98, 0.82",
+      "HTML",
+      "#FAFAD2",
+      "Light goldenrod yellow"
+    ],
+    "lightgray": ["rgb", "0.83, 0.83, 0.83", "HTML", "#D3D3D3", "Light gray"],
+    "lightgreen": ["rgb", "0.56, 0.93, 0.56", "HTML", "#90EE90", "Light green"],
+    "lightkhaki": ["rgb", "0.94, 0.9, 0.55", "HTML", "#F0E68C", "Light khaki"],
+    "lightmauve": ["rgb", "0.86, 0.82, 1.0", "HTML", "#DCD0FF", "Light mauve"],
+    "lightpastelpurple": [
+      "rgb",
+      "0.69, 0.61, 0.85",
+      "HTML",
+      "#B19CD9",
+      "Light pastel purple"
+    ],
+    "lightpink": ["rgb", "1.0, 0.71, 0.76", "HTML", "#FFB6C1", "Light pink"],
+    "lightsalmon": [
+      "rgb",
+      "1.0, 0.63, 0.48",
+      "HTML",
+      "#FFA07A",
+      "Light salmon"
+    ],
+    "lightsalmonpink": [
+      "rgb",
+      "1.0, 0.6, 0.6",
+      "HTML",
+      "#FF9999",
+      "Light salmon pink"
+    ],
+    "lightseagreen": [
+      "rgb",
+      "0.13, 0.7, 0.67",
+      "HTML",
+      "#20B2AA",
+      "Light sea green"
+    ],
+    "lightskyblue": [
+      "rgb",
+      "0.53, 0.81, 0.98",
+      "HTML",
+      "#87CEEB",
+      "Light sky blue"
+    ],
+    "lightslategray": [
+      "rgb",
+      "0.47, 0.53, 0.6",
+      "HTML",
+      "#778899",
+      "Light slate gray"
+    ],
+    "lighttaupe": ["rgb", "0.7, 0.55, 0.43", "HTML", "#B38B6D", "Light taupe"],
+    "lightthulianpink": [
+      "rgb",
+      "0.9, 0.56, 0.67",
+      "HTML",
+      "#E68FAC",
+      "Light Thulian pink"
+    ],
+    "lightyellow": ["rgb", "1.0, 1.0, 0.88", "HTML", "#FFFFED", "Light yellow"],
+    "lilac": ["rgb", "0.78, 0.64, 0.78", "HTML", "#C8A2C8", "Lilac"],
+    "lime(colorwheel)": [
+      "rgb",
+      "0.75, 1.0, 0.0",
+      "HTML",
+      "#BFFF00",
+      "Lime (color wheel)"
+    ],
+    "lime(web)(x11green)": [
+      "rgb",
+      "0.0, 1.0, 0.0",
+      "HTML",
+      "#00FF00",
+      "Lime (web) (X11 green)"
+    ],
+    "limegreen": ["rgb", "0.2, 0.8, 0.2", "HTML", "#32CD32", "Lime green"],
+    "lincolngreen": [
+      "rgb",
+      "0.11, 0.35, 0.02",
+      "HTML",
+      "#195905",
+      "Lincoln green"
+    ],
+    "linen": ["rgb", "0.98, 0.94, 0.9", "HTML", "#FAF0E6", "Linen"],
+    "liver": ["rgb", "0.33, 0.29, 0.31", "HTML", "#534B4F", "Liver"],
+    "lust": ["rgb", "0.9, 0.13, 0.13", "HTML", "#E62020", "Lust"],
+    "macaroniandcheese": [
+      "rgb",
+      "1.0, 0.74, 0.53",
+      "HTML",
+      "#FFBD88",
+      "Macaroni and Cheese"
+    ],
+    "magenta": ["rgb", "1.0, 0.0, 1.0", "HTML", "#FF00FF", "Magenta"],
+    "magenta(dye)": [
+      "rgb",
+      "0.79, 0.08, 0.48",
+      "HTML",
+      "#CA1F7B",
+      "Magenta (dye)"
+    ],
+    "magenta(process)": [
+      "rgb",
+      "1.0, 0.0, 0.56",
+      "HTML",
+      "#FF0090",
+      "Magenta (process)"
+    ],
+    "magicmint": ["rgb", "0.67, 0.94, 0.82", "HTML", "#AAF0D1", "Magic mint"],
+    "magnolia": ["rgb", "0.97, 0.96, 1.0", "HTML", "#F8F4FF", "Magnolia"],
+    "mahogany": ["rgb", "0.75, 0.25, 0.0", "HTML", "#C04000", "Mahogany"],
+    "maize": ["rgb", "0.98, 0.93, 0.37", "HTML", "#FBEC5D", "Maize"],
+    "majorelleblue": [
+      "rgb",
+      "0.38, 0.31, 0.86",
+      "HTML",
+      "#6050DC",
+      "Majorelle Blue"
+    ],
+    "malachite": ["rgb", "0.04, 0.85, 0.32", "HTML", "#0BDA51", "Malachite"],
+    "manatee": ["rgb", "0.59, 0.6, 0.67", "HTML", "#979AAA", "Manatee"],
+    "mangotango": ["rgb", "1.0, 0.51, 0.26", "HTML", "#FF8243", "Mango Tango"],
+    "maroon(html/css)": [
+      "rgb",
+      "0.5, 0.0, 0.0",
+      "HTML",
+      "#800000",
+      "Maroon (HTML/CSS)"
+    ],
+    "maroon(x11)": [
+      "rgb",
+      "0.69, 0.19, 0.38",
+      "HTML",
+      "#B03060",
+      "Maroon (X11)"
+    ],
+    "mauve": ["rgb", "0.88, 0.69, 1.0", "HTML", "#E0B0FF", "Mauve"],
+    "mauvetaupe": ["rgb", "0.57, 0.37, 0.43", "HTML", "#915F6D", "Mauve taupe"],
+    "mauvelous": ["rgb", "0.94, 0.6, 0.67", "HTML", "#EF98AA", "Mauvelous"],
+    "mayablue": ["rgb", "0.45, 0.76, 0.98", "HTML", "#73C2FB", "Maya blue"],
+    "meatbrown": ["rgb", "0.9, 0.72, 0.23", "HTML", "#E5B73B", "Meat brown"],
+    "mediumaquamarine": [
+      "rgb",
+      "0.4, 0.8, 0.67",
+      "HTML",
+      "#66DDAA",
+      "Medium aquamarine"
+    ],
+    "mediumblue": ["rgb", "0.0, 0.0, 0.8", "HTML", "#0000CD", "Medium blue"],
+    "mediumcandyapplered": [
+      "rgb",
+      "0.89, 0.02, 0.17",
+      "HTML",
+      "#E2062C",
+      "Medium candy apple red"
+    ],
+    "mediumcarmine": [
+      "rgb",
+      "0.69, 0.25, 0.21",
+      "HTML",
+      "#AF4035",
+      "Medium carmine"
+    ],
+    "mediumchampagne": [
+      "rgb",
+      "0.95, 0.9, 0.67",
+      "HTML",
+      "#F3E5AB",
+      "Medium champagne"
+    ],
+    "mediumelectricblue": [
+      "rgb",
+      "0.01, 0.31, 0.59",
+      "HTML",
+      "#035096",
+      "Medium electric blue"
+    ],
+    "mediumjunglegreen": [
+      "rgb",
+      "0.11, 0.21, 0.18",
+      "HTML",
+      "#1C352D",
+      "Medium jungle green"
+    ],
+    "mediumlavendermagenta": [
+      "rgb",
+      "0.8, 0.6, 0.8",
+      "HTML",
+      "#DDA0DD",
+      "Medium lavender magenta"
+    ],
+    "mediumorchid": [
+      "rgb",
+      "0.73, 0.33, 0.83",
+      "HTML",
+      "#BA55D3",
+      "Medium orchid"
+    ],
+    "mediumpersianblue": [
+      "rgb",
+      "0.0, 0.4, 0.65",
+      "HTML",
+      "#0067A5",
+      "Medium Persian blue"
+    ],
+    "mediumpurple": [
+      "rgb",
+      "0.58, 0.44, 0.86",
+      "HTML",
+      "#9370DB",
+      "Medium purple"
+    ],
+    "mediumred-violet": [
+      "rgb",
+      "0.73, 0.2, 0.52",
+      "HTML",
+      "#BB3385",
+      "Medium red-violet"
+    ],
+    "mediumseagreen": [
+      "rgb",
+      "0.24, 0.7, 0.44",
+      "HTML",
+      "#3CB371",
+      "Medium sea green"
+    ],
+    "mediumslateblue": [
+      "rgb",
+      "0.48, 0.41, 0.93",
+      "HTML",
+      "#7B68EE",
+      "Medium slate blue"
+    ],
+    "mediumspringbud": [
+      "rgb",
+      "0.79, 0.86, 0.54",
+      "HTML",
+      "#C9DC87",
+      "Medium spring bud"
+    ],
+    "mediumspringgreen": [
+      "rgb",
+      "0.0, 0.98, 0.6",
+      "HTML",
+      "#00FA9A",
+      "Medium spring green"
+    ],
+    "mediumtaupe": ["rgb", "0.4, 0.3, 0.28", "HTML", "#674C47", "Medium taupe"],
+    "mediumtealblue": [
+      "rgb",
+      "0.0, 0.33, 0.71",
+      "HTML",
+      "#0054B4",
+      "Medium teal blue"
+    ],
+    "mediumturquoise": [
+      "rgb",
+      "0.28, 0.82, 0.8",
+      "HTML",
+      "#48D1CC",
+      "Medium turquoise"
+    ],
+    "mediumviolet-red": [
+      "rgb",
+      "0.78, 0.08, 0.52",
+      "HTML",
+      "#C71585",
+      "Medium violet-red"
+    ],
+    "melon": ["rgb", "0.99, 0.74, 0.71", "HTML", "#FDBCB4", "Melon"],
+    "midnightblue": [
+      "rgb",
+      "0.1, 0.1, 0.44",
+      "HTML",
+      "#191970",
+      "Midnight blue"
+    ],
+    "midnightgreen(eaglegreen)": [
+      "rgb",
+      "0.0, 0.29, 0.33",
+      "HTML",
+      "#004953",
+      "Midnight green (eagle green)"
+    ],
+    "mikadoyellow": [
+      "rgb",
+      "1.0, 0.77, 0.05",
+      "HTML",
+      "#FFC40C",
+      "Mikado yellow"
+    ],
+    "mint": ["rgb", "0.24, 0.71, 0.54", "HTML", "#3EB489", "Mint"],
+    "mintcream": ["rgb", "0.96, 1.0, 0.98", "HTML", "#F5FFFA", "Mint cream"],
+    "mintgreen": ["rgb", "0.6, 1.0, 0.6", "HTML", "#98FF98", "Mint green"],
+    "mistyrose": ["rgb", "1.0, 0.89, 0.88", "HTML", "#FFE4E1", "Misty rose"],
+    "moccasin": ["rgb", "0.98, 0.92, 0.84", "HTML", "#FAEBD7", "Moccasin"],
+    "modebeige": ["rgb", "0.59, 0.44, 0.09", "HTML", "#967117", "Mode beige"],
+    "moonstoneblue": [
+      "rgb",
+      "0.45, 0.66, 0.76",
+      "HTML",
+      "#73A9C2",
+      "Moonstone blue"
+    ],
+    "mordantred19": [
+      "rgb",
+      "0.68, 0.05, 0.0",
+      "HTML",
+      "#AE0C00",
+      "Mordant red 19"
+    ],
+    "mossgreen": ["rgb", "0.68, 0.87, 0.68", "HTML", "#ADDFAD", "Moss green"],
+    "mountainmeadow": [
+      "rgb",
+      "0.19, 0.73, 0.56",
+      "HTML",
+      "#30BA8F",
+      "Mountain Meadow"
+    ],
+    "mountbattenpink": [
+      "rgb",
+      "0.6, 0.48, 0.55",
+      "HTML",
+      "#997A8D",
+      "Mountbatten pink"
+    ],
+    "mulberry": ["rgb", "0.77, 0.29, 0.55", "HTML", "#C54B8C", "Mulberry"],
+    "mustard": ["rgb", "1.0, 0.86, 0.35", "HTML", "#FFDB58", "Mustard"],
+    "myrtle": ["rgb", "0.13, 0.26, 0.12", "HTML", "#21421E", "Myrtle"],
+    "msugreen": ["rgb", "0.09, 0.27, 0.23", "HTML", "#18453B", "MSU Green"],
+    "nadeshikopink": [
+      "rgb",
+      "0.96, 0.68, 0.78",
+      "HTML",
+      "#F6ADC6",
+      "Nadeshiko pink"
+    ],
+    "napiergreen": ["rgb", "0.16, 0.5, 0.0", "HTML", "#2A8000", "Napier green"],
+    "naplesyellow": [
+      "rgb",
+      "0.98, 0.85, 0.37",
+      "HTML",
+      "#FADA5E",
+      "Naples yellow"
+    ],
+    "navajowhite": [
+      "rgb",
+      "1.0, 0.87, 0.68",
+      "HTML",
+      "#FFDEAD",
+      "Navajo white"
+    ],
+    "navyblue": ["rgb", "0.0, 0.0, 0.5", "HTML", "#000080", "Navy blue"],
+    "neoncarrot": ["rgb", "1.0, 0.64, 0.26", "HTML", "#FFA343", "Neon Carrot"],
+    "neonfuchsia": [
+      "rgb",
+      "1.0, 0.25, 0.39",
+      "HTML",
+      "#FE59C2",
+      "Neon fuchsia"
+    ],
+    "neongreen": ["rgb", "0.22, 0.88, 0.08", "HTML", "#39FF14", "Neon green"],
+    "non-photoblue": [
+      "rgb",
+      "0.64, 0.87, 0.93",
+      "HTML",
+      "#A4DDED",
+      "Non-photo blue"
+    ],
+    "oceanboatblue": [
+      "rgb",
+      "0.0, 0.47, 0.75",
+      "HTML",
+      "#0077BE",
+      "Ocean Boat Blue"
+    ],
+    "ochre": ["rgb", "0.8, 0.47, 0.13", "HTML", "#CC7722", "Ochre"],
+    "officegreen": ["rgb", "0.0, 0.5, 0.0", "HTML", "#008000", "Office green"],
+    "oldgold": ["rgb", "0.81, 0.71, 0.23", "HTML", "#CFB53B", "Old gold"],
+    "oldlace": ["rgb", "0.99, 0.96, 0.9", "HTML", "#FDF5E6", "Old lace"],
+    "oldlavender": [
+      "rgb",
+      "0.47, 0.41, 0.47",
+      "HTML",
+      "#796878",
+      "Old lavender"
+    ],
+    "oldmauve": ["rgb", "0.4, 0.19, 0.28", "HTML", "#673147", "Old mauve"],
+    "oldrose": ["rgb", "0.75, 0.5, 0.51", "HTML", "#C08081", "Old rose"],
+    "olive": ["rgb", "0.5, 0.5, 0.0", "HTML", "#808000", "Olive"],
+    "olivedrab(web)(olivedrab3)": [
+      "rgb",
+      "0.42, 0.56, 0.14",
+      "HTML",
+      "#6B8E23",
+      "Olive Drab (web) (Olive Drab #3)"
+    ],
+    "olivedrab7": [
+      "rgb",
+      "0.24, 0.2, 0.12",
+      "HTML",
+      "#3C341F",
+      "Olive Drab #7"
+    ],
+    "olivine": ["rgb", "0.6, 0.73, 0.45", "HTML", "#9AB973", "Olivine"],
+    "onyx": ["rgb", "0.06, 0.06, 0.06", "HTML", "#0F0F0F", "Onyx"],
+    "operamauve": ["rgb", "0.72, 0.52, 0.65", "HTML", "#B784A7", "Opera mauve"],
+    "orange(colorwheel)": [
+      "rgb",
+      "1.0, 0.5, 0.0",
+      "HTML",
+      "#FF7F00",
+      "Orange (color wheel)"
+    ],
+    "orange(ryb)": [
+      "rgb",
+      "0.98, 0.6, 0.01",
+      "HTML",
+      "#FB9902",
+      "Orange (RYB)"
+    ],
+    "orange(webcolor)": [
+      "rgb",
+      "1.0, 0.65, 0.0",
+      "HTML",
+      "#FFA500",
+      "Orange (web color)"
+    ],
+    "orangepeel": ["rgb", "1.0, 0.62, 0.0", "HTML", "#FF9F00", "Orange peel"],
+    "orange-red": ["rgb", "1.0, 0.27, 0.0", "HTML", "#FF4500", "Orange-red"],
+    "orchid": ["rgb", "0.85, 0.44, 0.84", "HTML", "#DA70D6", "Orchid"],
+    "otterbrown": ["rgb", "0.4, 0.26, 0.13", "HTML", "#654321", "Otter brown"],
+    "outerspace": ["rgb", "0.25, 0.29, 0.3", "HTML", "#414A4C", "Outer Space"],
+    "outrageousorange": [
+      "rgb",
+      "1.0, 0.43, 0.29",
+      "HTML",
+      "#FF6E4A",
+      "Outrageous Orange"
+    ],
+    "oxfordblue": ["rgb", "0.0, 0.13, 0.28", "HTML", "#002147", "Oxford Blue"],
+    "oucrimsonred": [
+      "rgb",
+      "0.6, 0.0, 0.0",
+      "HTML",
+      "#990000",
+      "OU Crimson Red"
+    ],
+    "pakistangreen": [
+      "rgb",
+      "0.0, 0.4, 0.0",
+      "HTML",
+      "#006600",
+      "Pakistan green"
+    ],
+    "palatinateblue": [
+      "rgb",
+      "0.15, 0.23, 0.89",
+      "HTML",
+      "#273BE2",
+      "Palatinate blue"
+    ],
+    "palatinatepurple": [
+      "rgb",
+      "0.41, 0.16, 0.38",
+      "HTML",
+      "#682860",
+      "Palatinate purple"
+    ],
+    "paleaqua": ["rgb", "0.74, 0.83, 0.9", "HTML", "#BCD4E6", "Pale aqua"],
+    "paleblue": ["rgb", "0.69, 0.93, 0.93", "HTML", "#AFEEEE", "Pale blue"],
+    "palebrown": ["rgb", "0.6, 0.46, 0.33", "HTML", "#987654", "Pale brown"],
+    "palecarmine": [
+      "rgb",
+      "0.69, 0.25, 0.21",
+      "HTML",
+      "#AF4035",
+      "Pale carmine"
+    ],
+    "palecerulean": [
+      "rgb",
+      "0.61, 0.77, 0.89",
+      "HTML",
+      "#9BC4E2",
+      "Pale cerulean"
+    ],
+    "palechestnut": [
+      "rgb",
+      "0.87, 0.68, 0.69",
+      "HTML",
+      "#DDADAF",
+      "Pale chestnut"
+    ],
+    "palecopper": ["rgb", "0.85, 0.54, 0.4", "HTML", "#DA8A67", "Pale copper"],
+    "palecornflowerblue": [
+      "rgb",
+      "0.67, 0.8, 0.94",
+      "HTML",
+      "#ABCDEF",
+      "Pale cornflower blue"
+    ],
+    "palegold": ["rgb", "0.9, 0.75, 0.54", "HTML", "#E6BE8A", "Pale gold"],
+    "palegoldenrod": [
+      "rgb",
+      "0.93, 0.91, 0.67",
+      "HTML",
+      "#EEE8AA",
+      "Pale goldenrod"
+    ],
+    "palegreen": ["rgb", "0.6, 0.98, 0.6", "HTML", "#98FB98", "Pale green"],
+    "palemagenta": [
+      "rgb",
+      "0.98, 0.52, 0.9",
+      "HTML",
+      "#F984E5",
+      "Pale magenta"
+    ],
+    "palepink": ["rgb", "0.98, 0.85, 0.87", "HTML", "#FADADD", "Pale pink"],
+    "paleplum": ["rgb", "0.8, 0.6, 0.8", "HTML", "#DDA0DD", "Pale plum"],
+    "palered-violet": [
+      "rgb",
+      "0.86, 0.44, 0.58",
+      "HTML",
+      "#DB7093",
+      "Pale red-violet"
+    ],
+    "palerobineggblue": [
+      "rgb",
+      "0.59, 0.87, 0.82",
+      "HTML",
+      "#96DED1",
+      "Pale robin egg blue"
+    ],
+    "palesilver": ["rgb", "0.79, 0.75, 0.73", "HTML", "#C9C0BB", "Pale silver"],
+    "palespringbud": [
+      "rgb",
+      "0.93, 0.92, 0.74",
+      "HTML",
+      "#ECEBBD",
+      "Pale spring bud"
+    ],
+    "paletaupe": ["rgb", "0.74, 0.6, 0.49", "HTML", "#BC987E", "Pale taupe"],
+    "paleviolet-red": [
+      "rgb",
+      "0.86, 0.44, 0.58",
+      "HTML",
+      "#DB7093",
+      "Pale violet-red"
+    ],
+    "pansypurple": [
+      "rgb",
+      "0.47, 0.09, 0.29",
+      "HTML",
+      "#78184A",
+      "Pansy purple"
+    ],
+    "papayawhip": ["rgb", "1.0, 0.94, 0.84", "HTML", "#FFEFD5", "Papaya whip"],
+    "parisgreen": ["rgb", "0.31, 0.78, 0.47", "HTML", "#50C878", "Paris Green"],
+    "pastelblue": ["rgb", "0.68, 0.78, 0.81", "HTML", "#AEC6CF", "Pastel blue"],
+    "pastelbrown": [
+      "rgb",
+      "0.51, 0.41, 0.33",
+      "HTML",
+      "#836953",
+      "Pastel brown"
+    ],
+    "pastelgray": ["rgb", "0.81, 0.81, 0.77", "HTML", "#CFCFC4", "Pastel gray"],
+    "pastelgreen": [
+      "rgb",
+      "0.47, 0.87, 0.47",
+      "HTML",
+      "#77DD77",
+      "Pastel green"
+    ],
+    "pastelmagenta": [
+      "rgb",
+      "0.96, 0.6, 0.76",
+      "HTML",
+      "#F49AC2",
+      "Pastel magenta"
+    ],
+    "pastelorange": [
+      "rgb",
+      "1.0, 0.7, 0.28",
+      "HTML",
+      "#FFB347",
+      "Pastel orange"
+    ],
+    "pastelpink": ["rgb", "1.0, 0.82, 0.86", "HTML", "#FFD1DC", "Pastel pink"],
+    "pastelpurple": [
+      "rgb",
+      "0.7, 0.62, 0.71",
+      "HTML",
+      "#B39EB5",
+      "Pastel purple"
+    ],
+    "pastelred": ["rgb", "1.0, 0.41, 0.38", "HTML", "#FF6961", "Pastel red"],
+    "pastelviolet": [
+      "rgb",
+      "0.8, 0.6, 0.79",
+      "HTML",
+      "#CB99C9",
+      "Pastel violet"
+    ],
+    "pastelyellow": [
+      "rgb",
+      "0.99, 0.99, 0.59",
+      "HTML",
+      "#FDFD96",
+      "Pastel yellow"
+    ],
+    "patriarch": ["rgb", "0.5, 0.0, 0.5", "HTML", "#800080", "Patriarch"],
+    "payne'sgrey": [
+      "rgb",
+      "0.25, 0.25, 0.28",
+      "HTML",
+      "#40404F",
+      "Payne's grey"
+    ],
+    "peach": ["rgb", "1.0, 0.9, 0.71", "HTML", "#FFE5B4", "Peach"],
+    "peach-orange": ["rgb", "1.0, 0.8, 0.6", "HTML", "#FFCC99", "Peach-orange"],
+    "peachpuff": ["rgb", "1.0, 0.85, 0.73", "HTML", "#FFDAB9", "Peach puff"],
+    "peach-yellow": [
+      "rgb",
+      "0.98, 0.87, 0.68",
+      "HTML",
+      "#FADFAD",
+      "Peach-yellow"
+    ],
+    "pear": ["rgb", "0.82, 0.89, 0.19", "HTML", "#D1E231", "Pear"],
+    "pearl": ["rgb", "0.94, 0.92, 0.84", "HTML", "#F0EAD6", "Pearl"],
+    "peridot": ["rgb", "0.9, 0.89, 0.0", "HTML", "#E6E200", "Peridot"],
+    "periwinkle": ["rgb", "0.8, 0.8, 1.0", "HTML", "#CCCCFF", "Periwinkle"],
+    "persianblue": [
+      "rgb",
+      "0.11, 0.22, 0.73",
+      "HTML",
+      "#1C39BB",
+      "Persian blue"
+    ],
+    "persiangreen": [
+      "rgb",
+      "0.0, 0.65, 0.58",
+      "HTML",
+      "#00A693",
+      "Persian green"
+    ],
+    "persianindigo": [
+      "rgb",
+      "0.2, 0.07, 0.48",
+      "HTML",
+      "#32127A",
+      "Persian indigo"
+    ],
+    "persianorange": [
+      "rgb",
+      "0.85, 0.56, 0.35",
+      "HTML",
+      "#D99058",
+      "Persian orange"
+    ],
+    "peru": ["rgb", "0.8, 0.52, 0.25", "HTML", "#CD853F", "Peru"],
+    "persianpink": [
+      "rgb",
+      "0.97, 0.5, 0.75",
+      "HTML",
+      "#F77FBE",
+      "Persian pink"
+    ],
+    "persianplum": [
+      "rgb",
+      "0.44, 0.11, 0.11",
+      "HTML",
+      "#701C1C",
+      "Persian plum"
+    ],
+    "persianred": ["rgb", "0.8, 0.2, 0.2", "HTML", "#CC3333", "Persian red"],
+    "persianrose": [
+      "rgb",
+      "1.0, 0.16, 0.64",
+      "HTML",
+      "#FE28A2",
+      "Persian rose"
+    ],
+    "persimmon": ["rgb", "0.93, 0.35, 0.0", "HTML", "#EC5800", "Persimmon"],
+    "phlox": ["rgb", "0.87, 0.0, 1.0", "HTML", "#DF00FF", "Phlox"],
+    "phthaloblue": [
+      "rgb",
+      "0.0, 0.06, 0.54",
+      "HTML",
+      "#000F89",
+      "Phthalo blue"
+    ],
+    "phthalogreen": [
+      "rgb",
+      "0.07, 0.21, 0.14",
+      "HTML",
+      "#123524",
+      "Phthalo green"
+    ],
+    "piggypink": ["rgb", "0.99, 0.87, 0.9", "HTML", "#FDDDE6", "Piggy pink"],
+    "pinegreen": ["rgb", "0.0, 0.47, 0.44", "HTML", "#01796F", "Pine green"],
+    "pink": ["rgb", "1.0, 0.75, 0.8", "HTML", "#FFC0CB", "Pink"],
+    "pink-orange": ["rgb", "1.0, 0.6, 0.4", "HTML", "#FF9966", "Pink-orange"],
+    "pinkpearl": ["rgb", "0.91, 0.67, 0.81", "HTML", "#E7ACCF", "Pink pearl"],
+    "pinksherbet": [
+      "rgb",
+      "0.97, 0.56, 0.65",
+      "HTML",
+      "#F78FA7",
+      "Pink Sherbet"
+    ],
+    "pistachio": ["rgb", "0.58, 0.77, 0.45", "HTML", "#93C572", "Pistachio"],
+    "platinum": ["rgb", "0.9, 0.89, 0.89", "HTML", "#E5E4E2", "Platinum"],
+    "plum(traditional)": [
+      "rgb",
+      "0.56, 0.27, 0.52",
+      "HTML",
+      "#8E4585",
+      "Plum (traditional)"
+    ],
+    "plum(web)": ["rgb", "0.8, 0.6, 0.8", "HTML", "#DDA0DD", "Plum (web)"],
+    "portlandorange": [
+      "rgb",
+      "1.0, 0.35, 0.21",
+      "HTML",
+      "#FF5A36",
+      "Portland Orange"
+    ],
+    "powderblue(web)": [
+      "rgb",
+      "0.69, 0.88, 0.9",
+      "HTML",
+      "#B0E0E6",
+      "Powder blue (web)"
+    ],
+    "princetonorange": [
+      "rgb",
+      "1.0, 0.56, 0.0",
+      "HTML",
+      "#FF8F00",
+      "Princeton orange"
+    ],
+    "prune": ["rgb", "0.44, 0.11, 0.11", "HTML", "#701C1C", "Prune"],
+    "prussianblue": [
+      "rgb",
+      "0.0, 0.19, 0.33",
+      "HTML",
+      "#003153",
+      "Prussian blue"
+    ],
+    "psychedelicpurple": [
+      "rgb",
+      "0.87, 0.0, 1.0",
+      "HTML",
+      "#DF00FF",
+      "Psychedelic purple"
+    ],
+    "puce": ["rgb", "0.8, 0.53, 0.6", "HTML", "#CC8899", "Puce"],
+    "pumpkin": ["rgb", "1.0, 0.46, 0.09", "HTML", "#FF7518", "Pumpkin"],
+    "purple(html/css)": [
+      "rgb",
+      "0.5, 0.0, 0.5",
+      "HTML",
+      "#800080",
+      "Purple (HTML/CSS)"
+    ],
+    "purple(munsell)": [
+      "rgb",
+      "0.62, 0.0, 0.77",
+      "HTML",
+      "#9F00C5",
+      "Purple (Munsell)"
+    ],
+    "purple(x11)": [
+      "rgb",
+      "0.63, 0.36, 0.94",
+      "HTML",
+      "#A020F0",
+      "Purple (X11)"
+    ],
+    "purpleheart": [
+      "rgb",
+      "0.41, 0.21, 0.61",
+      "HTML",
+      "#69359C",
+      "Purple Heart"
+    ],
+    "purplemountainmajesty": [
+      "rgb",
+      "0.59, 0.47, 0.71",
+      "HTML",
+      "#9678B6",
+      "Purple mountain majesty"
+    ],
+    "purplepizzazz": [
+      "rgb",
+      "1.0, 0.31, 0.85",
+      "HTML",
+      "#FE4EDA",
+      "Purple pizzazz"
+    ],
+    "purpletaupe": [
+      "rgb",
+      "0.31, 0.25, 0.3",
+      "HTML",
+      "#50404D",
+      "Purple taupe"
+    ],
+    "radicalred": ["rgb", "1.0, 0.21, 0.37", "HTML", "#FF355E", "Radical Red"],
+    "raspberry": ["rgb", "0.89, 0.04, 0.36", "HTML", "#E30B5D", "Raspberry"],
+    "raspberryglace": [
+      "rgb",
+      "0.57, 0.37, 0.43",
+      "HTML",
+      "#915F6D",
+      "Raspberry glace"
+    ],
+    "raspberrypink": [
+      "rgb",
+      "0.89, 0.31, 0.61",
+      "HTML",
+      "#E25098",
+      "Raspberry pink"
+    ],
+    "raspberryrose": [
+      "rgb",
+      "0.7, 0.27, 0.42",
+      "HTML",
+      "#B3446C",
+      "Raspberry rose"
+    ],
+    "rawumber": ["rgb", "0.51, 0.4, 0.27", "HTML", "#826644", "Raw umber"],
+    "razzledazzlerose": [
+      "rgb",
+      "1.0, 0.2, 0.8",
+      "HTML",
+      "#FF33CC",
+      "Razzle dazzle rose"
+    ],
+    "razzmatazz": ["rgb", "0.89, 0.15, 0.42", "HTML", "#E3256B", "Razzmatazz"],
+    "red": ["rgb", "1.0, 0.0, 0.0", "HTML", "#FF0000", "Red"],
+    "red(munsell)": [
+      "rgb",
+      "0.95, 0.0, 0.24",
+      "HTML",
+      "#F2003C",
+      "Red (Munsell)"
+    ],
+    "red(ncs)": ["rgb", "0.77, 0.01, 0.2", "HTML", "#C40233", "Red (NCS)"],
+    "red(pigment)": [
+      "rgb",
+      "0.93, 0.11, 0.14",
+      "HTML",
+      "#ED1C24",
+      "Red (pigment)"
+    ],
+    "red(ryb)": ["rgb", "1.0, 0.15, 0.07", "HTML", "#FE2712", "Red (RYB)"],
+    "red-brown": ["rgb", "0.65, 0.16, 0.16", "HTML", "#A52A2A", "Red-brown"],
+    "red-violet": ["rgb", "0.78, 0.08, 0.52", "HTML", "#C71585", "Red-violet"],
+    "redwood": ["rgb", "0.67, 0.31, 0.32", "HTML", "#AB4E52", "Redwood"],
+    "regalia": ["rgb", "0.32, 0.18, 0.5", "HTML", "#522D80", "Regalia"],
+    "richblack": ["rgb", "0.0, 0.25, 0.25", "HTML", "#004040", "Rich black"],
+    "richbrilliantlavender": [
+      "rgb",
+      "0.95, 0.65, 1.0",
+      "HTML",
+      "#F1A7FE",
+      "Rich brilliant lavender"
+    ],
+    "richcarmine": [
+      "rgb",
+      "0.84, 0.0, 0.25",
+      "HTML",
+      "#D70040",
+      "Rich carmine"
+    ],
+    "richelectricblue": [
+      "rgb",
+      "0.03, 0.57, 0.82",
+      "HTML",
+      "#0892D0",
+      "Rich electric blue"
+    ],
+    "richlavender": [
+      "rgb",
+      "0.67, 0.38, 0.8",
+      "HTML",
+      "#A76BCF",
+      "Rich lavender"
+    ],
+    "richlilac": ["rgb", "0.71, 0.4, 0.82", "HTML", "#B666D2", "Rich lilac"],
+    "richmaroon": ["rgb", "0.69, 0.19, 0.38", "HTML", "#B03060", "Rich maroon"],
+    "riflegreen": ["rgb", "0.25, 0.28, 0.2", "HTML", "#414833", "Rifle green"],
+    "robineggblue": [
+      "rgb",
+      "0.0, 0.8, 0.8",
+      "HTML",
+      "#00CCCC",
+      "Robin egg blue"
+    ],
+    "rose": ["rgb", "1.0, 0.0, 0.5", "HTML", "#FF007F", "Rose"],
+    "rosebonbon": ["rgb", "0.98, 0.26, 0.62", "HTML", "#F9429E", "Rose bonbon"],
+    "roseebony": ["rgb", "0.4, 0.3, 0.28", "HTML", "#674846", "Rose ebony"],
+    "rosegold": ["rgb", "0.72, 0.43, 0.47", "HTML", "#B76E79", "Rose gold"],
+    "rosemadder": ["rgb", "0.89, 0.15, 0.21", "HTML", "#E32636", "Rose madder"],
+    "rosepink": ["rgb", "1.0, 0.4, 0.8", "HTML", "#FF66CC", "Rose pink"],
+    "rosequartz": ["rgb", "0.67, 0.6, 0.66", "HTML", "#AA98A9", "Rose quartz"],
+    "rosetaupe": ["rgb", "0.56, 0.36, 0.36", "HTML", "#905D5D", "Rose taupe"],
+    "rosevale": ["rgb", "0.67, 0.31, 0.32", "HTML", "#AB4E52", "Rose vale"],
+    "rosewood": ["rgb", "0.4, 0.0, 0.04", "HTML", "#65000B", "Rosewood"],
+    "rossocorsa": ["rgb", "0.83, 0.0, 0.0", "HTML", "#D40000", "Rosso corsa"],
+    "rosybrown": ["rgb", "0.74, 0.56, 0.56", "HTML", "#BC8F8F", "Rosy brown"],
+    "royalazure": ["rgb", "0.0, 0.22, 0.66", "HTML", "#0038A8", "Royal azure"],
+    "royalblue(traditional)": [
+      "rgb",
+      "0.0, 0.14, 0.4",
+      "HTML",
+      "#002366",
+      "Royal blue (traditional)"
+    ],
+    "royalblue(web)": [
+      "rgb",
+      "0.25, 0.41, 0.88",
+      "HTML",
+      "#4169E1",
+      "Royal blue (web)"
+    ],
+    "royalfuchsia": [
+      "rgb",
+      "0.79, 0.17, 0.57",
+      "HTML",
+      "#CA2C92",
+      "Royal fuchsia"
+    ],
+    "royalpurple": [
+      "rgb",
+      "0.47, 0.32, 0.66",
+      "HTML",
+      "#7851A9",
+      "Royal purple"
+    ],
+    "ruby": ["rgb", "0.88, 0.07, 0.37", "HTML", "#E0115F", "Ruby"],
+    "ruddy": ["rgb", "1.0, 0.0, 0.16", "HTML", "#FF0028", "Ruddy"],
+    "ruddybrown": ["rgb", "0.73, 0.4, 0.16", "HTML", "#BB6528", "Ruddy brown"],
+    "ruddypink": ["rgb", "0.88, 0.56, 0.59", "HTML", "#E18E96", "Ruddy pink"],
+    "rufous": ["rgb", "0.66, 0.11, 0.03", "HTML", "#A81C07", "Rufous"],
+    "russet": ["rgb", "0.5, 0.27, 0.11", "HTML", "#80461B", "Russet"],
+    "rust": ["rgb", "0.72, 0.25, 0.05", "HTML", "#B7410E", "Rust"],
+    "sacramentostategreen": [
+      "rgb",
+      "0.0, 0.34, 0.25",
+      "HTML",
+      "#00563F",
+      "Sacramento State green"
+    ],
+    "saddlebrown": [
+      "rgb",
+      "0.55, 0.27, 0.07",
+      "HTML",
+      "#8B4513",
+      "Saddle brown"
+    ],
+    "safetyorange(blazeorange)": [
+      "rgb",
+      "1.0, 0.4, 0.0",
+      "HTML",
+      "#FF6700",
+      "Safety orange (blaze orange)"
+    ],
+    "saffron": ["rgb", "0.96, 0.77, 0.19", "HTML", "#F4C430", "Saffron"],
+    "st.patrick'sblue": [
+      "rgb",
+      "0.14, 0.16, 0.48",
+      "HTML",
+      "#23297A",
+      "St. Patrick's blue"
+    ],
+    "salmon": ["rgb", "1.0, 0.55, 0.41", "HTML", "#FF8C69", "Salmon"],
+    "salmonpink": ["rgb", "1.0, 0.57, 0.64", "HTML", "#FF91A4", "Salmon pink"],
+    "sand": ["rgb", "0.76, 0.7, 0.5", "HTML", "#C2B280", "Sand"],
+    "sanddune": ["rgb", "0.59, 0.44, 0.09", "HTML", "#967117", "Sand dune"],
+    "sandstorm": ["rgb", "0.93, 0.84, 0.25", "HTML", "#ECD540", "Sandstorm"],
+    "sandybrown": ["rgb", "0.96, 0.64, 0.38", "HTML", "#F4A460", "Sandy brown"],
+    "sandytaupe": ["rgb", "0.59, 0.44, 0.09", "HTML", "#967117", "Sandy taupe"],
+    "sangria": ["rgb", "0.57, 0.0, 0.04", "HTML", "#92000A", "Sangria"],
+    "sapgreen": ["rgb", "0.31, 0.49, 0.16", "HTML", "#507D2A", "Sap green"],
+    "sapphire": ["rgb", "0.03, 0.15, 0.4", "HTML", "#082567", "Sapphire"],
+    "satinsheengold": [
+      "rgb",
+      "0.8, 0.63, 0.21",
+      "HTML",
+      "#CBA135",
+      "Satin sheen gold"
+    ],
+    "scarlet": ["rgb", "1.0, 0.13, 0.0", "HTML", "#FF2000", "Scarlet"],
+    "schoolbusyellow": [
+      "rgb",
+      "1.0, 0.85, 0.0",
+      "HTML",
+      "#FFD800",
+      "School bus yellow"
+    ],
+    "screamin'green": [
+      "rgb",
+      "0.46, 1.0, 0.44",
+      "HTML",
+      "#76FF7A",
+      "Screamin' Green"
+    ],
+    "seagreen": ["rgb", "0.18, 0.55, 0.34", "HTML", "#2E8B57", "Sea green"],
+    "sealbrown": ["rgb", "0.2, 0.08, 0.08", "HTML", "#321414", "Seal brown"],
+    "seashell": ["rgb", "1.0, 0.96, 0.93", "HTML", "#FFF5EE", "Seashell"],
+    "selectiveyellow": [
+      "rgb",
+      "1.0, 0.73, 0.0",
+      "HTML",
+      "#FFBA00",
+      "Selective yellow"
+    ],
+    "sepia": ["rgb", "0.44, 0.26, 0.08", "HTML", "#704214", "Sepia"],
+    "shadow": ["rgb", "0.54, 0.47, 0.36", "HTML", "#8A795D", "Shadow"],
+    "shamrockgreen": [
+      "rgb",
+      "0.0, 0.62, 0.38",
+      "HTML",
+      "#009E60",
+      "Shamrock green"
+    ],
+    "shockingpink": [
+      "rgb",
+      "0.99, 0.06, 0.75",
+      "HTML",
+      "#FC0FC0",
+      "Shocking pink"
+    ],
+    "sienna": ["rgb", "0.53, 0.18, 0.09", "HTML", "#882D17", "Sienna"],
+    "silver": ["rgb", "0.75, 0.75, 0.75", "HTML", "#C0C0C0", "Silver"],
+    "sinopia": ["rgb", "0.8, 0.25, 0.04", "HTML", "#CB410B", "Sinopia"],
+    "skobeloff": ["rgb", "0.0, 0.48, 0.45", "HTML", "#007474", "Skobeloff"],
+    "skyblue": ["rgb", "0.53, 0.81, 0.92", "HTML", "#87CEEB", "Sky blue"],
+    "skymagenta": ["rgb", "0.81, 0.44, 0.69", "HTML", "#CF71AF", "Sky magenta"],
+    "slateblue": ["rgb", "0.42, 0.35, 0.8", "HTML", "#6A5ACD", "Slate blue"],
+    "slategray": ["rgb", "0.44, 0.5, 0.56", "HTML", "#708090", "Slate gray"],
+    "smalt(darkpowderblue)": [
+      "rgb",
+      "0.0, 0.2, 0.6",
+      "HTML",
+      "#003399",
+      "Smalt (Dark powder blue)"
+    ],
+    "smokeytopaz": [
+      "rgb",
+      "0.58, 0.25, 0.03",
+      "HTML",
+      "#933D41",
+      "Smokey topaz"
+    ],
+    "smokyblack": ["rgb", "0.06, 0.05, 0.03", "HTML", "#100C08", "Smoky black"],
+    "snow": ["rgb", "1.0, 0.98, 0.98", "HTML", "#FFFAFA", "Snow"],
+    "spirodiscoball": [
+      "rgb",
+      "0.06, 0.75, 0.99",
+      "HTML",
+      "#0FC0FC",
+      "Spiro Disco Ball"
+    ],
+    "splashedwhite": [
+      "rgb",
+      "1.0, 0.99, 1.0",
+      "HTML",
+      "#FEFDFF",
+      "Splashed white"
+    ],
+    "springbud": ["rgb", "0.65, 0.99, 0.0", "HTML", "#A7FC00", "Spring bud"],
+    "springgreen": ["rgb", "0.0, 1.0, 0.5", "HTML", "#00FF7F", "Spring green"],
+    "steelblue": ["rgb", "0.27, 0.51, 0.71", "HTML", "#4682B4", "Steel blue"],
+    "stildegrainyellow": [
+      "rgb",
+      "0.98, 0.85, 0.37",
+      "HTML",
+      "#FADA5E",
+      "Stil de grain yellow"
+    ],
+    "straw": ["rgb", "0.89, 0.85, 0.44", "HTML", "#E4D96F", "Straw"],
+    "sunglow": ["rgb", "1.0, 0.8, 0.2", "HTML", "#FFCC33", "Sunglow"],
+    "sunset": ["rgb", "0.98, 0.84, 0.65", "HTML", "#FAD6A5", "Sunset"],
+    "tan": ["rgb", "0.82, 0.71, 0.55", "HTML", "#D2B48C", "Tan"],
+    "tangelo": ["rgb", "0.98, 0.3, 0.0", "HTML", "#F94D00", "Tangelo"],
+    "tangerine": ["rgb", "0.95, 0.52, 0.0", "HTML", "#F28500", "Tangerine"],
+    "tangerineyellow": [
+      "rgb",
+      "1.0, 0.8, 0.0",
+      "HTML",
+      "#FFCC00",
+      "Tangerine yellow"
+    ],
+    "taupe": ["rgb", "0.28, 0.24, 0.2", "HTML", "#483C32", "Taupe"],
+    "taupegray": ["rgb", "0.55, 0.52, 0.54", "HTML", "#8B8589", "Taupe gray"],
+    "teagreen": ["rgb", "0.82, 0.94, 0.75", "HTML", "#D0F0C0", "Tea green"],
+    "tearose(orange)": [
+      "rgb",
+      "0.97, 0.51, 0.47",
+      "HTML",
+      "#F88379",
+      "Tea rose (orange)"
+    ],
+    "tearose(rose)": [
+      "rgb",
+      "0.96, 0.76, 0.76",
+      "HTML",
+      "#F4C2C2",
+      "Tea rose (rose)"
+    ],
+    "teal": ["rgb", "0.0, 0.5, 0.5", "HTML", "#008080", "Teal"],
+    "tealblue": ["rgb", "0.21, 0.46, 0.53", "HTML", "#367588", "Teal blue"],
+    "tealgreen": ["rgb", "0.0, 0.51, 0.5", "HTML", "#006D5B", "Teal green"],
+    "tenné(tawny)": [
+      "rgb",
+      "0.8, 0.34, 0.0",
+      "HTML",
+      "#CD5700",
+      "Tenné (Tawny)"
+    ],
+    "terracotta": ["rgb", "0.89, 0.45, 0.36", "HTML", "#E2725B", "Terra cotta"],
+    "thistle": ["rgb", "0.85, 0.75, 0.85", "HTML", "#D8BFD8", "Thistle"],
+    "thulianpink": [
+      "rgb",
+      "0.87, 0.44, 0.63",
+      "HTML",
+      "#DE6FA1",
+      "Thulian pink"
+    ],
+    "ticklemepink": [
+      "rgb",
+      "0.99, 0.54, 0.67",
+      "HTML",
+      "#FC89AC",
+      "Tickle Me Pink"
+    ],
+    "tiffanyblue": [
+      "rgb",
+      "0.04, 0.73, 0.71",
+      "HTML",
+      "#0ABAB5",
+      "Tiffany Blue"
+    ],
+    "tiger'seye": ["rgb", "0.88, 0.55, 0.24", "HTML", "#E08D3C", "Tiger's eye"],
+    "timberwolf": ["rgb", "0.86, 0.84, 0.82", "HTML", "#DBD7D2", "Timberwolf"],
+    "titaniumyellow": [
+      "rgb",
+      "0.93, 0.9, 0.0",
+      "HTML",
+      "#EEE600",
+      "Titanium yellow"
+    ],
+    "tomato": ["rgb", "1.0, 0.39, 0.28", "HTML", "#FF6347", "Tomato"],
+    "toolbox": ["rgb", "0.45, 0.42, 0.75", "HTML", "#746CC0", "Toolbox"],
+    "tractorred": ["rgb", "0.99, 0.05, 0.21", "HTML", "#FD0E35", "Tractor red"],
+    "trolleygrey": ["rgb", "0.5, 0.5, 0.5", "HTML", "#808080", "Trolley Grey"],
+    "tropicalrainforest": [
+      "rgb",
+      "0.0, 0.46, 0.37",
+      "HTML",
+      "#00755E",
+      "Tropical rain forest"
+    ],
+    "trueblue": ["rgb", "0.0, 0.45, 0.81", "HTML", "#0073CF", "True Blue"],
+    "tuftsblue": ["rgb", "0.28, 0.57, 0.81", "HTML", "#417DC1", "Tufts Blue"],
+    "tumbleweed": ["rgb", "0.87, 0.67, 0.53", "HTML", "#DEAA88", "Tumbleweed"],
+    "turkishrose": [
+      "rgb",
+      "0.71, 0.45, 0.51",
+      "HTML",
+      "#B57281",
+      "Turkish rose"
+    ],
+    "turquoise": ["rgb", "0.19, 0.84, 0.78", "HTML", "#30D5C8", "Turquoise"],
+    "turquoiseblue": [
+      "rgb",
+      "0.0, 1.0, 0.94",
+      "HTML",
+      "#00FFEF",
+      "Turquoise blue"
+    ],
+    "turquoisegreen": [
+      "rgb",
+      "0.63, 0.84, 0.71",
+      "HTML",
+      "#A0D6B4",
+      "Turquoise green"
+    ],
+    "tuscanred": ["rgb", "0.51, 0.21, 0.21", "HTML", "#823535", "Tuscan red"],
+    "twilightlavender": [
+      "rgb",
+      "0.54, 0.29, 0.42",
+      "HTML",
+      "#8A496B",
+      "Twilight lavender"
+    ],
+    "tyrianpurple": [
+      "rgb",
+      "0.4, 0.01, 0.24",
+      "HTML",
+      "#66023C",
+      "Tyrian purple"
+    ],
+    "uablue": ["rgb", "0.0, 0.2, 0.67", "HTML", "#0033AA", "UA blue"],
+    "uared": ["rgb", "0.85, 0.0, 0.3", "HTML", "#D9004C", "UA red"],
+    "ube": ["rgb", "0.53, 0.47, 0.76", "HTML", "#8878C3", "Ube"],
+    "uclablue": ["rgb", "0.33, 0.41, 0.58", "HTML", "#536895", "UCLA Blue"],
+    "uclagold": ["rgb", "1.0, 0.7, 0.0", "HTML", "#FFB300", "UCLA Gold"],
+    "ufogreen": ["rgb", "0.24, 0.82, 0.44", "HTML", "#3CD070", "UFO Green"],
+    "ultramarine": [
+      "rgb",
+      "0.07, 0.04, 0.56",
+      "HTML",
+      "#120A8F",
+      "Ultramarine"
+    ],
+    "ultramarineblue": [
+      "rgb",
+      "0.25, 0.4, 0.96",
+      "HTML",
+      "#4166F5",
+      "Ultramarine blue"
+    ],
+    "ultrapink": ["rgb", "1.0, 0.44, 1.0", "HTML", "#FF6FFF", "Ultra pink"],
+    "umber": ["rgb", "0.39, 0.32, 0.28", "HTML", "#635147", "Umber"],
+    "unitednationsblue": [
+      "rgb",
+      "0.36, 0.57, 0.9",
+      "HTML",
+      "#5B92E5",
+      "United Nations blue"
+    ],
+    "unmellowyellow": [
+      "rgb",
+      "1.0, 1.0, 0.4",
+      "HTML",
+      "#FFFF66",
+      "Unmellow Yellow"
+    ],
+    "upforestgreen": [
+      "rgb",
+      "0.0, 0.27, 0.13",
+      "HTML",
+      "#014421",
+      "UP Forest green"
+    ],
+    "upmaroon": ["rgb", "0.48, 0.07, 0.07", "HTML", "#7B1113", "UP Maroon"],
+    "upsdellred": ["rgb", "0.68, 0.09, 0.13", "HTML", "#AE2029", "Upsdell red"],
+    "urobilin": ["rgb", "0.88, 0.68, 0.13", "HTML", "#E1AD21", "Urobilin"],
+    "usccardinal": ["rgb", "0.6, 0.0, 0.0", "HTML", "#990000", "USC Cardinal"],
+    "uscgold": ["rgb", "1.0, 0.8, 0.0", "HTML", "#FFCC00", "USC Gold"],
+    "utahcrimson": [
+      "rgb",
+      "0.83, 0.0, 0.25",
+      "HTML",
+      "#D3003F",
+      "Utah Crimson"
+    ],
+    "vanilla": ["rgb", "0.95, 0.9, 0.67", "HTML", "#F3E5AB", "Vanilla"],
+    "vegasgold": ["rgb", "0.77, 0.7, 0.35", "HTML", "#C5B358", "Vegas gold"],
+    "venetianred": [
+      "rgb",
+      "0.78, 0.03, 0.08",
+      "HTML",
+      "#C80815",
+      "Venetian red"
+    ],
+    "verdigris": ["rgb", "0.26, 0.7, 0.68", "HTML", "#43B3AE", "Verdigris"],
+    "vermilion": ["rgb", "0.89, 0.26, 0.2", "HTML", "#E34234", "Vermilion"],
+    "veronica": ["rgb", "0.63, 0.36, 0.94", "HTML", "#A020F0", "Veronica"],
+    "violet": ["rgb", "0.56, 0.0, 1.0", "HTML", "#8F00FF", "Violet"],
+    "violet(colorwheel)": [
+      "rgb",
+      "0.5, 0.0, 1.0",
+      "HTML",
+      "#7F00FF",
+      "Violet (color wheel)"
+    ],
+    "violet(ryb)": [
+      "rgb",
+      "0.53, 0.0, 0.69",
+      "HTML",
+      "#8601AF",
+      "Violet (RYB)"
+    ],
+    "violet(web)": [
+      "rgb",
+      "0.93, 0.51, 0.93",
+      "HTML",
+      "#EE82EE",
+      "Violet (web)"
+    ],
+    "viridian": ["rgb", "0.25, 0.51, 0.43", "HTML", "#40826D", "Viridian"],
+    "vividauburn": [
+      "rgb",
+      "0.58, 0.15, 0.14",
+      "HTML",
+      "#922724",
+      "Vivid auburn"
+    ],
+    "vividburgundy": [
+      "rgb",
+      "0.62, 0.11, 0.21",
+      "HTML",
+      "#9F1D35",
+      "Vivid burgundy"
+    ],
+    "vividcerise": [
+      "rgb",
+      "0.85, 0.11, 0.51",
+      "HTML",
+      "#DA1D81",
+      "Vivid cerise"
+    ],
+    "vividtangerine": [
+      "rgb",
+      "1.0, 0.63, 0.54",
+      "HTML",
+      "#FFA089",
+      "Vivid tangerine"
+    ],
+    "vividviolet": ["rgb", "0.62, 0.0, 1.0", "HTML", "#9F00FF", "Vivid violet"],
+    "warmblack": ["rgb", "0.0, 0.26, 0.26", "HTML", "#004242", "Warm black"],
+    "wenge": ["rgb", "0.39, 0.33, 0.32", "HTML", "#645452", "Wenge"],
+    "wheat": ["rgb", "0.96, 0.87, 0.7", "HTML", "#F5DEB3", "Wheat"],
+    "white": ["rgb", "1.0, 1.0, 1.0", "HTML", "#FFFFFF", "White"],
+    "whitesmoke": ["rgb", "0.96, 0.96, 0.96", "HTML", "#F5F5F5", "White smoke"],
+    "wildblueyonder": [
+      "rgb",
+      "0.64, 0.68, 0.82",
+      "HTML",
+      "#A2ADD0",
+      "Wild blue yonder"
+    ],
+    "wildstrawberry": [
+      "rgb",
+      "1.0, 0.26, 0.64",
+      "HTML",
+      "#FF43A4",
+      "Wild Strawberry"
+    ],
+    "wildwatermelon": [
+      "rgb",
+      "0.99, 0.42, 0.52",
+      "HTML",
+      "#FC6C85",
+      "Wild Watermelon"
+    ],
+    "wisteria": ["rgb", "0.79, 0.63, 0.86", "HTML", "#C9A0DC", "Wisteria"],
+    "xanadu": ["rgb", "0.45, 0.53, 0.47", "HTML", "#738678", "Xanadu"],
+    "yaleblue": ["rgb", "0.06, 0.3, 0.57", "HTML", "#0F4D92", "Yale Blue"],
+    "yellow": ["rgb", "1.0, 1.0, 0.0", "HTML", "#FFFF00", "Yellow"],
+    "yellow(munsell)": [
+      "rgb",
+      "0.94, 0.8, 0.0",
+      "HTML",
+      "#EFCC00",
+      "Yellow (Munsell)"
+    ],
+    "yellow(ncs)": ["rgb", "1.0, 0.83, 0.0", "HTML", "#FFD300", "Yellow (NCS)"],
+    "yellow(process)": [
+      "rgb",
+      "1.0, 0.94, 0.0",
+      "HTML",
+      "#FFEF00",
+      "Yellow (process)"
+    ],
+    "yellow(ryb)": ["rgb", "1.0, 1.0, 0.2", "HTML", "#FEFE33", "Yellow (RYB)"],
+    "yellow-green": ["rgb", "0.6, 0.8, 0.2", "HTML", "#9ACD32", "Yellow-green"],
+    "zaffre": ["rgb", "0.0, 0.08, 0.66", "HTML", "#0014A8", "Zaffre"],
+    "zinnwalditebrown": [
+      "rgb",
+      "0.17, 0.09, 0.03",
+      "HTML",
+      "#2C1608",
+      "Zinnwaldite brown"
+    ],
+    "fpcblue1": [
+      "rgb",
+      "0.898, 0.969, 1.0",
+      "HTML",
+      "#E5F7FF",
+      "Blue1 defined by fp-convert"
+    ],
+    "fpcblue2": [
+      "rgb",
+      "0.0, 0.557, 0.843",
+      "HTML",
+      "#008ED7",
+      "Blue2 defined by fp-convert"
+    ]
+  }
+}

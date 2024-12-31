@@ -1,22 +1,15 @@
-# trunk-ignore-all(isort)
 #!/usr/bin/env python
 
 import os
 import re
-import shutil
+from collections import OrderedDict
 from pathlib import Path
-from typing import Optional, List
-from cairosvg import svg2pdf
+from typing import List, Optional
 
+from cairosvg import svg2pdf
 from freeplane import Mindmap, Node
-from peek import peek
-from pylatex.section import (
-    Section,
-    Subsection,
-    Subsubsection,
-    Paragraph,
-    Subparagraph,
-)
+
+#from peek import peek
 from pylatex import (
     Command,
     Document,
@@ -25,25 +18,36 @@ from pylatex import (
     Head,
     Itemize,
     Label,
+    LongTable,
     MdFramed,
+    MiniPage,
     Package,
     PageStyle,
     Tabular,
+    Tabularx,
 )
-from pylatex.utils import bold
-from pylatex.utils import NoEscape as NE
 from pylatex.base_classes import LatexObject
+from pylatex.section import Paragraph, Section, Subparagraph, Subsection, Subsubsection
+from pylatex.utils import NoEscape as NE
+from pylatex.utils import bold
+from pylatex.utils import escape_latex as EL
+from pylatex.utils import italic, verbatim
 
 from fp_convert import FPDoc
 from fp_convert.errors import (
     IncorrectInitialization,
     InvalidRefException,
     MaximumListDepthException,
-    MissingFileException,
     UnsupportedFileException,
 )
-from fp_convert.utils.helpers import DocInfo, get_label, retrieve_note_lines
 from fp_convert.utils.decorators import track_processed_nodes
+from fp_convert.utils.helpers import (
+    DBTable,
+    DBTableField,
+    DocInfo,
+    get_label,
+    retrieve_note_lines,
+)
 
 """
 Following classes specify the default values for various parameters of Program
@@ -52,6 +56,9 @@ It is possible to construct and reconfigure them, before constructing the PSD
 template. Then those reconfigured classes can be supplied to the constructor of
 the template.
 """
+
+class DBItemize(Itemize):
+    pass
 
 
 class Config:
@@ -94,38 +101,58 @@ class Geometry:
     bottom_margin = "1.5in"
     head_height = "20pt"
     par_indent = "0pt"
-    l_header_image_height = "0.8cm"
+
+    # Vertical space between top logo and title-text in the title page
+    tp_top_logo_vspace = "5cm"
+    tp_top_logo_height = "3cm"  # Height of top logo on title page
+
+    # Vertical space between bottom logo and title-text in the title page
+    tp_bottom_logo_vspace = "7cm"
+    tp_bottom_logo_height = "1.5cm"  # Height of bottom logo on title page
+
+    l_header_image_height = "0.7cm"
     c_header_image_height = "0.5cm"
     r_header_image_height = "0.5cm"
     l_footer_image_height = "0.5cm"
-    c_footer_image_height = "0.6cm"
+    c_footer_image_height = "0.5cm"
     r_footer_image_height = "0.5cm"
-
 
 class Table:
     """
     Following colors are defined for the default tables laid out in PSD.
     """
+    header_row_color = "babyblueeyes!60"
+    header_text_color = "darkblue"
+    rowcolor_1 = "babyblueeyes!30"
+    rowcolor_2 = "babyblueeyes!10"
+    line_color = "cornflowerblue"
 
-    header_color = ("burlywood",)
-    rowcolor_1 = "gray!25"
-    rowcolor_2 = "white"
-    line_color = "red"
-
+class DataTable:
+    """
+    Following colors are defined for the database tables laid out in PSD.
+    """
+    tab1_header_row_color = "spirodiscoball!20!white"
+    tab1_header_line_color = "fpcblue2"
+    tab1_header_text_color = "darkblue"
+    tab1_body_line_color = "gray!30"
+    tab2_header_row_color = "fpcblue1"
+    tab2_header_line_color = "fpcblue2"
+    tab2_header_text_color = "darkblue"
+    tab2_rowcolor_1 = "white"
+    tab2_rowcolor_2 = "tealblue!7!white"
 
 class Colours:
     """
     Following colours are defined for styling the PSD.
     """
-
-    header_line_color = "red"
-    footer_line_color = "red"
+    header_line_color = "airforceblue"
+    footer_line_color = "airforceblue"
     # link_color = "{rgb}{0.63, 0.79, 0.95}"
-    link_color = "gray"
-    url_color = "cyan"
+    link_color = "celestialblue"
+    url_color = "ceruleanblue"
     file_color = "magenta"
     mc_color = "{rgb}{0,0.5,0}"  # Colour of margin comments
-    sf_line_color = "red"  # Stop-Frame line-color
+    sf_line_color = "cadmiumred"  # Stop-Frame line-color
     sf_background_color = "red!5!white"  # Stop-Frame background-color
 
 
@@ -139,6 +166,7 @@ class Theme:
         config: Optional[Config] = None,
         geometry: Optional[Geometry] = None,
         table: Optional[Table] = None,
+        datatable: Optional[DataTable] = None,
         colours: Optional[Colours] = None,
     ):
         # Use default values of respective paramaters, if supplied ones
@@ -146,6 +174,7 @@ class Theme:
         self.config = config if config else Config()
         self.geometry = geometry if geometry else Geometry()
         self.table = table if table else Table()
+        self.datatable = datatable if datatable else DataTable()
         self.colours = colours if colours else Colours()
 
 
@@ -158,7 +187,7 @@ class PSDoc(FPDoc):
     # Reference patterns which match %ref%, and %refN% in mindmap-text where
     # N is a number. These are used in the node as well as in their note-texts
     # whenever a reference is needed to another node via an arrow-links.
-    ref_pat = re.compile("%(ref[0-9]*)%")
+    ref_pat = re.compile("(%ref[0-9]*%)")
 
     def __init__(
         self,
@@ -167,7 +196,7 @@ class PSDoc(FPDoc):
         working_dir: Optional[str|Path] = ".",
         docinfo: Optional[DocInfo] = None,
         theme: Optional[Theme] = None,
-        lmodern: bool = False,
+        font_family: Optional[List] = None,
     ):
         """
         The argument mm_file should be a path to a Freeplane Mindmap file.
@@ -190,14 +219,12 @@ class PSDoc(FPDoc):
             constructing the document. The styles, geometry of the page,
             colors etc. are defined in this class. If none is supplied, then
             default values are used.
-        :param lmodern: A boolean indicating whether to use Latin Modern
-            fonts in the resultant LaTeX document. Default value of it is
-            False.
+        :font_family: The font-family and its details to be used in the PDF
+            document.
         """
         super().__init__(
             Path(mm_file).stem,
-            documentclass=documentclass,
-            lmodern=lmodern)
+            documentclass=documentclass)
 
         # If user-supplied theme is absent, use default one
         self.theme = theme if theme else Theme()
@@ -219,7 +246,10 @@ class PSDoc(FPDoc):
                 "No document-information found in the mindmap supplied."
             )
 
-        self.packages = (
+        # Container to hold colorspecs of colors used in the document
+        self.colors = list()
+
+        self.packages = [
             ("geometry", tuple()),
             ("amssymb", tuple()),
             ("xcolor", ("dvipsnames", "table")),
@@ -227,12 +257,22 @@ class PSDoc(FPDoc):
             ("placeins", ("section",)),
             ("titlesec", tuple()),
             ("xspace", tuple()),
-            ("fontenc", ("T1",)),
+            ("fontawesome5", tuple()),
+            ("makecell", tuple()),
+            ("fontenc", ("OT1",)),
+            ("longtable", tuple()),
             ("hyperref", tuple()),
+            ("multirow", tuple()),
+            ("tabularx", tuple()),
+            ("enumitem", tuple()),
             ("mdframed", ("framemethod=TikZ",)),
             ("ragged2e", ("raggedrightboxes",)),
-            ("roboto", ("sfdefault",)),
-        )
+#            ("roboto", ("sfdefault",)),
+        ]
+        if font_family:
+            self.packages.append((font_family[0], font_family[1]))
+        else:
+            self.packages.append(("utopia", tuple()))
 
         self.preambletexts = (
             NE(rf"\setcounter{{secnumdepth}}{{{self.theme.config.sec_depth}}}"),
@@ -255,7 +295,7 @@ class PSDoc(FPDoc):
             ),
             NE(
                 r"\mdfdefinestyle{StopFrame}{linecolor="
-                rf"{self.theme.colours.sf_line_color}, outerlinewidth="
+                rf"{self.regcol(self.theme.colours.sf_line_color)}, outerlinewidth="
                 rf"{self.theme.config.sf_outer_line_width}, "
                 rf"roundcorner={self.theme.config.sf_round_corner_size},"
                 rf"rightmargin={self.theme.config.sf_outer_right_margin},"
@@ -273,9 +313,12 @@ pdfauthor={{{self.docinfo["doc_author"]}}},
 pdfcreator={{"fp-convert using pylatex, freeplane-io, and LaTeX with hyperref"}},
 %pdfpagemode=FullScreen,
 colorlinks=true,
-linkcolor={self.theme.colours.link_color},
-filecolor={self.theme.colours.file_color},
-urlcolor={self.theme.colours.url_color}
+linkcolor={self.regcol(self.theme.colours.link_color)},
+filecolor={self.regcol(self.theme.colours.file_color)},
+urlcolor={self.regcol(self.theme.colours.url_color)},
+pdftoolbar=true,
+pdfpagemode=UseNone,
+pdfstartview=FitH
 }}"""
             ),
             # Setting headheight
@@ -298,15 +341,53 @@ bottom={self.theme.geometry.bottom_margin},
             NE(
                 rf"""
 \rowcolors{{2}}%
-{{{self.theme.table.rowcolor_1}}}%
-{{{self.theme.table.rowcolor_2}}}%
+{{{self.regcol(self.theme.table.rowcolor_1)}}}%
+{{{self.regcol(self.theme.table.rowcolor_2)}}}%
 """
             ),
-        )  # End of the tuple named preambletexts
+            #NE(r"\newcolumntype{Y}{>{\raggedright\arraybackslash}X}"),
+            NE(r"\renewcommand{\arraystretch}{1.5}%"),
+            NE(r"\newlist{dbitemize}{itemize}{3}"),
+            NE(r"\setlist[dbitemize,1]{label=\textbullet,leftmargin=0.2cm}"),
+            NE(r"\setlist[dbitemize,2]{label=$\rightarrow$,leftmargin=1em}"),
+            NE(r"\setlist[dbitemize,3]{label=$\diamond$}"),
 
-        self.colors = (
-            ("burlywood", "HTML", "DEB887"),
-        )
+            NE(
+                r"""
+\makeatletter
+{\tiny % Capture font definitions of \tiny
+\xdef\f@size@tiny{\f@size}
+\xdef\f@baselineskip@tiny{\f@baselineskip}
+
+\small % Capture font definitions of \small
+\xdef\f@size@small{\f@size}
+\xdef\f@baselineskip@small{\f@baselineskip}
+
+\normalsize % Capture font definitions for \normalsize
+\xdef\f@size@normalsize{\f@size}
+\xdef\f@baselineskip@normalsize{\f@baselineskip}
+}
+
+% Define new \tinytosmall font size
+\newcommand{\tinytosmall}{%
+  \fontsize
+    {\fpeval{(\f@size@tiny+\f@size@small)/2}}
+    {\fpeval{(\f@baselineskip@tiny+\f@baselineskip@small)/2}}%
+  \selectfont
+}
+
+% Define new \smalltonormalsize font size
+\newcommand{\smalltonormalsize}{%
+  \fontsize
+    {\fpeval{(\f@size@small+\f@size@normalsize)/2}}
+    {\fpeval{(\f@baselineskip@small+\f@baselineskip@normalsize)/2}}%
+  \selectfont
+}
+\makeatother
+"""
+            ),
+
+        )  # End of the tuple named preambletexts
 
     def fetch_notes_elements(self, node: Node):
         """
@@ -378,7 +459,7 @@ bottom={self.theme.geometry.bottom_margin},
             if node.arrowlinks:
                 for idx, node_to in enumerate(node.arrowlinks):
                     #refs[f"%ref{idx+1}%"] = rf"\autoref{{{get_label(node_to.id)}}}"
-                    refs[f"ref{idx+1}"] = Command("autoref", get_label(node_to.id))
+                    refs[fr"%ref{idx+1}%"] = Command("autoref", get_label(node_to.id))
             else:
                 raise InvalidRefException(
                     f"Node [{str(node)}(ID: {node.id})] without any"
@@ -388,11 +469,11 @@ bottom={self.theme.geometry.bottom_margin},
 
             if len(refs) == 1:
                 for segment in segments:
-                    if not re.fullmatch(PSDoc.ref_pat, f"%{segment}%"):
+                    if not re.fullmatch(PSDoc.ref_pat, fr"{segment}"):
                         ret.append(segment)
                     else:
-                        if segment in {"ref", "ref1"}:
-                            ret.append(refs["ref1"])
+                        if segment in {r"%ref%", r"%ref1%"}:
+                            ret.append(refs[r"%ref1%"])
                             ret.append(Command("xspace"))
                         else:
                             raise InvalidRefException(
@@ -425,27 +506,6 @@ bottom={self.theme.geometry.bottom_margin},
             ret.append(segments[0])
 
         return ret
-
-    def get_absolute_file_path(self, file_path: str|Path):
-        """
-        Fetch absolute file path - if file exists - if a file path relative to
-        the mindmap file is provided.
-
-        Parameters:
-            file_path: str|Path
-        """
-        if not Path(file_path).is_absolute():
-            # The path could be relative to the folder having mindmap file
-            abs_path = Path(self.mm_file.parent.absolute(), file_path)
-
-        if not abs_path.is_file():
-            raise MissingFileException(
-                f"A required file ({file_path}) is missing. Either use an"
-                "absolute file path, or a path relative to the mindmap"
-                "itself. Also the file must exist already."
-            )
-        return abs_path
-
 
     def build_latex_figure(self, node: Node):
         """
@@ -525,8 +585,6 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
             for field in node.children:
                 if field:
-                    # peek(f"Field is {field}")
-                    # doc.processed_nodes.add(field.id)
                     col1[str(field)] = {
                         str.strip(
                             str(d).split(":")[0]): str.strip(
@@ -534,7 +592,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                         for d in field.children
                     }
                     if field.notes:
-                        note_lines = retrieve_note_lines(field.notes)
+                        note_lines = retrieve_note_lines(str(field.notes))
                         field_notes = list()
                         for line in note_lines:
                             line_blocks = list()
@@ -548,17 +606,34 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             # Build table-content first
             tab = Tabular("l" * (1 + len(col_hdrs)), pos="c")
             # tab.add_caption(node, label=get_label("TAB:", node.id))
-            tab.add_hline(color=self.theme.table.line_color)
-            row = [NE(f"{bold(node)}"),]
-            row.extend([bold(hdr) for hdr in col_hdrs])
-            tab.add_row(*row, color=self.theme.table.header_color, strict=True)
-            tab.add_hline(color=self.theme.table.line_color)
+            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            row = [
+                NE(
+                    fr"""
+\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\textsf{{{node}}}}}"""
+                ),
+            ]
+            row.extend(
+                [
+                    NE(fr"""
+\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\textsf{{{hdr}}}}}"""
+                    ) for hdr in col_hdrs
+                ]
+            )
+            tab.add_row(
+                *row,
+                color=self.regcol(self.theme.table.header_row_color),
+                strict=True)
+            tab.add_hline(color=self.regcol(self.theme.table.line_color))
             for field in sorted(col1.keys()):
                 row = [field, ]
                 for col in col_hdrs:
                     row.append(col1[field].get(col, ""))
                 tab.add_row(row)
-            tab.add_hline(color=self.theme.table.line_color)
+            tab.add_hline(color=self.regcol(self.theme.table.line_color))
 
             # Then check if notes are to be collected for the same node
             if notes:
@@ -568,6 +643,10 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         return list()
 
     def build_table_from_child_nodes(self, node: Node):
+        """
+        Build a list of LaTeX object capable of rendering a table from the
+        supplied node and its children.
+        """
         tab_notes = self.build_table_and_notelist(node)
         ret = list()
         if len(tab_notes) >= 1:
@@ -576,10 +655,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             ret.append(NE(r"\end{center}"))
             if len(tab_notes) > 1:  # Note-text is to be rendered
                 itmz = Itemize()
-                # peek(tab_notes[1:])
                 for h, c in tab_notes[1]:
-                    # peek(f"Header: {h}")
-                    # peek(f"Content: {c}")
                     if len(c) == 1:  # Single line note is to be rendered
                         itmz.add_item(NE(f"{bold(h)}: "))
                         for i in c[0]:
@@ -601,7 +677,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         """
         mdf = MdFramed()
         mdf.options = "style=StopFrame"
-        note_lines = retrieve_note_lines(node.notes)
+        note_lines = retrieve_note_lines(str(node.notes))
         items = self.expand_macros(note_lines[0], node)
         for item in items:
             #mdf.append(NE(fr"\small{{{item}}}"))
@@ -613,51 +689,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 mdf.append(Command("small", item))
         return mdf
 
-    @track_processed_nodes
-    def build_verbatim_list(self, node: Node):
-        """
-        Build a non-nested list of parts with the contents of the children
-        printed in verbatim mode.
-        """
-        if node.children:
-            itmz = Itemize()
-            for child in node.children:
-                p = ""
-                # If no notes are present, then item-element should start with
-                # [] to avoid bullets
-                if child.notes:
-                    # Print notes first, above the verbatim text
-                    lines = self.expand_macros(str(child.notes), child)
-                    for line in lines:
-                        p = f"{p}%\n{line}"
 
-                    # Now print the verbatim text contained in that node
-                    p = f"{p}%\n\\begin{{verbatim}}\n{str(child)}\n\\end{{verbatim}}"
-                    #p = f"{p}%\n{str(child)}"
-                    #lines = str(child).split("\n")
-                    #for line in lines:
-                    #    p = f"{p}%\n{line}"
-                    #p = f"{p}%\n\\end{{verbatim}}"
-                    #p += "\n\\begin{verbatim}" + \
-                    #    self.expand_macros(str(child), child) + \
-                    #    '\\end{verbatim}'
-                else:
-                    # To avoid bullet, starting the item with []
-                    #p += '[]\\begin{verbatim}' + str(child) + '\\end{verbatim}'
-                    p = f"{p}%\n[]\\begin{{verbatim}}\n{str(child)}\\end{{verbatim}}"
-
-                # Add back references, if this node is being pointed to by other
-                # nodes (sinks for arrows)
-                for referrer in node.arrowlinked:
-                    p += NE(
-                        fr"\margincomment{{\tiny{{$\Lsh$ \autoref{{{get_label(
-                            referrer.id)}}}}}}}")
-
-                itmz.add_item(NE(p))
-            return [itmz,]
-        return list()
-
-    #@track_processed_nodes
     def build_list_recursively(self, node: Node, level: int):
         """
         Build and return a list of lists as long as child nodes are present
@@ -690,21 +722,18 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                     if child.icons and "stop-sign" in child.icons:
                         itmz.append(self.build_stop_notes(child))
                     else:
-                        note_lines = retrieve_note_lines(child.notes)
+                        note_lines = retrieve_note_lines(str(child.notes))
                         for line in note_lines:
                             itmz.append(Command("par"))
                             for item in self.expand_macros(line, child):
                                 itmz.append(item)
 
                 # Add a label so that other nodes can refer to it.
-                #p = p + NE(r"\label{" + get_label(child.id) + "}")
-                #p.append(NE(fr"\label{{{get_label(child.id)}}}"))
                 itmz.append(Command("label", get_label(child.id)))
 
                 # Add back references, if this node is being pointed to
                 # by other nodes (sinks for arrows)
                 for referrer in child.arrowlinked:
-                    #referrer_block = NE(r"\margincomment{\tiny{$\Lsh$ \autoref{" + get_label(referrer.id) + "}}}")
                     itmz.append(NE(
                         fr"\margincomment{{\tiny{{$\Lsh$ \autoref{{{get_label(
                             referrer.id)}}}}}}}"))
@@ -727,6 +756,183 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                         itmz.append(item)
             return itmz
         return None
+
+    def build_db_schema(self, node: Node):
+        """
+        Build a database schema representation in LaTeX using the supplied
+        node and its children.
+
+        Parameters
+        ----------
+        node : Node
+            The node using which the DB schema is to be constructed.
+
+        Returns
+        -------
+        List[LatexObject]
+            A list of LaTeX objects built from the supplied node and its
+            children.
+        """
+        ret = list()
+        if not node:
+            return ret
+
+        if node.children:
+            dbtables = list()
+            for table in node.children:
+                dbtable = DBTable(str(table))
+                dbtable.label = get_label(table.id)  # LaTeX label for table
+                dbtable.node = table  # To identify and build cross-references
+
+#                dbtable.backrefs = set()
+#                if table.arrowlinked:
+#                    for link in table.arrowlinked:
+#                        dbtable.backrefs.add(
+#                            NE(rf"""
+#\margincomment{{\tiny{{$\Lsh$ \autoref{{R{get_label(link.id)}}}}}%
+#\newline}}%
+#"""
+#                            )
+#                        )  # Add a margin comment
+
+                if table.notes:
+                    dbtable.notes = retrieve_note_lines(str(table.notes))
+                if table.children:
+                    for field in table.children:
+                        tbfield = DBTableField(
+                            mangled_info=str.strip(str(field))
+                        )
+
+                        tbfield.node = field  # To build cross-references
+                        if field.notes:
+                            tbfield.notes = retrieve_note_lines(field.notes)
+                        dbtable.append_field(tbfield)
+                dbtables.append(dbtable)
+
+        if not dbtables:
+            return ret
+
+        longtab = LongTable(r"p{0.6\textwidth}p{0.4\textwidth}", pos="t")
+        longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
+
+        # Ordering of attributes of fields in displayed table
+        fields = OrderedDict()
+        fields["name"] = "field"
+        fields["field_type"] = "type"
+        fields["unique"] = "unique"
+        fields["null"] = "null"
+        fields["default"] = "default"
+
+        # Build blocks for tables
+        for idx, dbtable in enumerate(dbtables):
+            longtab.add_row(
+                [NE(fr"\textbf{{\textcolor{{{self.regcol(self.theme.datatable.tab1_header_text_color)}}}{{{idx+1}. Table: {EL(dbtable.name)}}}}}"), ""],
+                color=self.regcol(self.theme.datatable.tab1_header_row_color))
+            longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
+            longtab.append(NE(r"\rowcolor{white}"))
+
+#            if len(dbtable.backrefs) > 0:
+#                for backref in dbtable.backrefs:
+#                    longtab.append(backref)
+
+            mp1 = MiniPage(width=r"\linewidth", pos="t")
+            mp1.append(NE(r"\small"))
+            mp1.append(NE(fr'\label{{{dbtable.label}}}'))
+            mp1.append(NE(fr"\rowcolors{{2}}{{{self.regcol(self.theme.datatable.tab2_rowcolor_1)}}}"))
+            mp1.append(NE(fr"{{{self.regcol(self.theme.datatable.tab2_rowcolor_2)}}}"))
+            tab_mp1 = Tabularx(NE(r">{\raggedright\arraybackslash}l l X X l"), width_argument=NE(r"\linewidth"), pos="t")
+            tab_mp1.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+
+            header_text = list()
+            for f in fields.keys():
+                header_text.append(
+                    NE(
+                        fr"\textcolor{{{self.regcol(self.theme.datatable.tab2_header_text_color)}}}{{{EL(italic(fields[f]))}}}"
+                    )
+                )
+
+            tab_mp1.add_row(
+                header_text,
+                color=self.regcol(
+                    self.theme.datatable.tab2_header_row_color
+                )
+            )
+            tab_mp1.add_hline(color=self.theme.datatable.tab2_header_line_color)
+
+            # Build blocks for fields
+            field_notes = OrderedDict()
+            for tbfield in dbtable:
+                if tbfield.notes:  # Preserve notes from table-fields
+                    field_notes[tbfield.name] = tbfield.notes
+                row_text = list()
+                for f in fields.keys():
+                    if f == "name":
+                        cell_content = verbatim(getattr(tbfield, f))
+                        if tbfield.node.arrowlinked:
+                            cell_content = fr"\hypertarget{{{get_label(tbfield.node.id)}}}{{{cell_content} \tiny{{(\faKey)}}}}"
+                        elif tbfield.node.arrowlinks:
+                            if len(tbfield.node.arrowlinks) > 1:
+                                raise InvalidRefException(fr"More than one arrowlinks found for field {tbfield.name} in table {dbtable.name}")
+                            else:
+                                fk_label = get_label(tbfield.node.arrowlinks[0].id)
+                                cell_content = fr"\mbox{{\makecell[l]{{{cell_content} \\ \tiny{{(\faKey \xspace \hyperlink{{{fk_label}}}{{{EL(tbfield.node.arrowlinks[0].parent)}}}}})}}}}"
+                        row_text.append(NE(cell_content))
+                    else:
+                        val = getattr(tbfield, f)
+                        row_text.append(val if val else " ")
+                tab_mp1.add_row(row_text)
+
+            tab_mp1.add_hline(color=self.theme.datatable.tab2_header_line_color)
+            mp1.append(tab_mp1)
+
+            mp2 = MiniPage(width=r"\linewidth", pos="t")
+            mp2.append(NE(r"\vspace{0.08cm}"))
+            mp2.append(NE(r"\tinytosmall"))
+
+            if field_notes:
+                itmz = DBItemize(options=("nolistsep", "noitemsep"))
+                for field_name in field_notes.keys():
+                    if len(field_notes[field_name]) > 1:
+                        itmz.add_item(NE(fr"\texttt{{\texttt{{{field_name}}}}}:"))
+                        inner_itmz = Itemize(options=("nolistsep", "noitemsep"))
+                        for line in field_notes[field_name]:
+                            inner_itmz.add_item(line)
+                        itmz.append(inner_itmz)
+                    else:
+                        itmz.add_item(
+                            NE(fr"""
+\texttt{{{field_name}}}: {field_notes[field_name][0]}
+"""))
+                mp2.append(itmz)
+
+            longtab.add_row(mp1, mp2)
+            longtab.append(NE(r"\rowcolor{white}"))
+
+            mp3 = MiniPage(width=r"\linewidth", pos="t")
+            mp3.append(NE(r"\tinytosmall"))
+            if dbtable.notes:
+                itmz = Itemize(options=["nolistsep", "noitemsep"])
+                for note in dbtable.notes:
+                    itmz.add_item(note)
+                mp3.append(itmz)
+                mp3.append(NE(r"\vspace{.2cm}"))
+
+            longtab.append(NE(r"\multicolumn{2}{l}{"))
+            longtab.append(mp3)
+            longtab.append(NE(r"}\\"))
+            longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
+
+#        ret.append(NE(r"""
+#\begingroup
+#\setlength\LTcapwidth{\textwidth} % default: 4in (rather less than \textwidth...)
+#\setlength\LTleft{0pt} % default: \parindent
+#\setlength\LTright{0pt} % default: \fill
+#"""
+#            )
+#        )
+        ret.append(longtab)
+#        ret.append(NE(r"\endgroup"))
+        return ret
 
     @track_processed_nodes
     def traverse_children(
@@ -755,30 +961,18 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         """
         stop_traversing = False  # Flag to stop traversing the node tree
         if node:
-            # For the purpose of debugging only
-            #peek("  " * level, f"[{node.id}]", node)
-            #if node.imagepath:
-            #    peek("  " * level, f"[{node.id}]", node.imagepath)
-            #if node.icons:
-            #    peek("  " * level, f"[{node.id}]", node.icons)
-
             if level == 1:
                 blocks.append(Section(str(node), label=Label(get_label(node.id))))
-                #blocks.append(Section(str(node)))
             elif level == 2:
                 blocks.append(Subsection(str(node), label=Label(get_label(node.id))))
-                #blocks.append(Subsection(str(node)))
             elif level == 3:
                 blocks.append(Subsubsection(str(node), label=Label(get_label(node.id))))
-                #blocks.append(Subsubsection(str(node)))
             elif level == 4:
                 blocks.append(Paragraph(str(node), label=Label(get_label(node.id))))
-                #blocks.append(Paragraph(str(node)))
             elif level == 5:
                 blocks.append(
                     Subparagraph(NE(f"{node}"), label=Label(get_label(node.id)))
                 )
-                #blocks.append(Subparagraph(str(node)))
             else:
                 # Now ignore all nodes beyond subparagraph (level=5).
                 # One more level (Subsubparagraph) is possible to be used but
@@ -813,10 +1007,14 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                     or "links/file/xml" in node.icons
                     or "links/file/html" in node.icons):
                     blocks.extend(self.build_verbatim_list(node))
+                elif node.icons and (
+                    "links/libreoffice/file_doc_database" in node.icons):
+                    blocks.extend(self.build_db_schema(node))
+                    stop_traversing = True  # No more section processing needed
+
                 # Remaining children of the node get processed in next
                 # recursive iteration of this method where sections and
                 # subsections etc. are getting built.
-
             if (
                 stop_traversing
             ):  # No more section-level processing is required
@@ -842,8 +1040,12 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             footer_thickness=self.theme.config.footer_thickness,
             data=NE(
                 rf"""
-\renewcommand{{\headrule}}{{\color{{{self.theme.colours.header_line_color }}}\hrule width \headwidth height \headrulewidth}}
-\renewcommand{{\footrule}}{{\color{{{self.theme.colours.footer_line_color}}}\hrule width \headwidth height \footrulewidth}}"""
+\renewcommand{{\headrule}}%
+{{\color{{{self.regcol(self.theme.colours.header_line_color)}}}%
+\hrule width \headwidth height \headrulewidth}}
+\renewcommand{{\footrule}}%
+{{\color{{{self.regcol(self.theme.colours.footer_line_color)}}}%
+\hrule width \headwidth height \footrulewidth}}"""
             ),
         )
 
@@ -898,6 +1100,9 @@ height={self.theme.geometry.l_footer_image_height}]%
             )
         elif self.docinfo.get("l_footer_text", None):
             lfooter = NE(rf"{self.docinfo['l_footer_text']}")
+        else:
+            lfooter = NE(fr"\tiny{{{DocInfo.credits}}}")  # Credit-text
+
         if lfooter:
             with headfoot.create(Foot("L", data=Command("normalcolor"))):
                 headfoot.append(lfooter)
@@ -923,7 +1128,7 @@ height={self.theme.geometry.r_footer_image_height}]%
 {{{self.get_absolute_file_path(self.docinfo['r_footer_image'])}}}"""
             )
         elif self.docinfo.get("r_footer_text", None):
-            rfooter = NE(rf"{self.docinfo['r_footer_text']}")
+            rfooter = NE(fr"\small{{{self.docinfo['r_footer_text']}}}")
         if rfooter:
             with headfoot.create(Foot("R", data=Command("normalcolor"))):
                 headfoot.append(rfooter)
@@ -953,50 +1158,88 @@ height={self.theme.geometry.r_footer_image_height}]%
         for item in self.preambletexts:  # Populate default preamble-items
             doc.preamble.append(item)
 
-        for color in self.colors:
-            doc.add_color(color[0], color[1], color[2])
-
         if self.docinfo.get("doc_version", None):
-            title_and_version = rf"{self.docinfo["doc_title"]}\newline\small{{(Version {self.docinfo["doc_version"]})}}"
+            doc_version = self.docinfo["doc_version"]
         else:
-            title_and_version = rf"{self.docinfo["doc_title"]}"
-        doc.preamble.append(Command("title", NE(title_and_version)))
+            doc_version = ""
+
+        if self.docinfo.get("doc_title", None):
+            doc_title = self.docinfo["doc_title"]
+        else:
+            doc_title = "<Missing Document Title>"
 
         if self.docinfo.get("doc_author", None):
-            author = self.docinfo["doc_author"]
-            doc.preamble.append(Command("author", author))
+            doc_author = self.docinfo["doc_author"]
+        else:
+            doc_author = "<Missing Document Author>"
 
         if self.docinfo.get("doc_date", None):
-            date = self.docinfo["doc_date"]
+            doc_date = self.docinfo["doc_date"]
         else:
-            date = NE(r"\today")
-        doc.preamble.append(Command("date", date))
+            doc_date = NE(r"\today")
 
         headfoot = self.build_headers_and_footers()
         doc.preamble.append(headfoot)
+
         doc.change_document_style("header")
 
-        doc.append(NE(r"\maketitle"))
+        doc.append(
+            NE(r"""
+\begin{titlepage}
+\centering
+\vspace*{\fill}"""))
+
+        if self.docinfo.get("tp_top_logo", None):
+            doc.append(
+                NE(fr"""
+\includegraphics[%
+height={self.theme.geometry.tp_top_logo_height}]%
+{{{self.get_absolute_file_path(self.docinfo['tp_top_logo'])}}}\\
+\vspace*{{{self.theme.geometry.tp_top_logo_vspace}}}"""))
+
+        doc.append(
+            NE(fr"""
+\huge \bfseries {doc_title}\\
+\small (Version: {doc_version})\\
+\large {doc_author}\\
+{doc_date}\\
+\normalsize"""))
+
+        if self.docinfo.get("tp_bottom_logo", None):
+            doc.append(
+                NE(fr"""
+\vspace*{{{self.theme.geometry.tp_bottom_logo_vspace}}}
+\includegraphics[%
+height={self.theme.geometry.tp_bottom_logo_height}]%
+{{{self.get_absolute_file_path(self.docinfo['tp_bottom_logo'])}}}\\"""))
+
+        doc.append(
+            NE(r"""
+\vspace*{\fill}
+\end{titlepage}
+"""))
+
+        #doc.append(NE(r"\maketitle"))
         doc.append(NE(r"\tableofcontents"))
         doc.append(NE(r"\newpage"))
         doc.append(NE(r"\justify"))
 
 
-        # Then populate mindmap-specific preamble-items
-        #doc.preamble.append(Command("title", self.docinfo["doc_title"]))
-        #doc.preamble.append(Command("author", self.docinfo["doc_author"]))
-        #doc.preamble.append(Command("date", self.docinfo["doc_date"]))
-                # Create a list to hold the instances of LatexObject built using the
+        # Create a list to hold the instances of LatexObject built using the
         # content of the mindmap.
         blocks = list()
+
+        # Start traversing the child nodes one-by-one to build the content
         for child in self.mm.rootnode.children:
             self.traverse_children(child, 1, blocks)
+
+        for color in self.colors:
+            doc.add_color(color[0], color[1], color[2])
 
         for obj in blocks:
             doc.append(obj)
 
         # Create folder to store images, if any
-        peek(output_file_path)
         file_path = Path(output_file_path)
         if file_path.suffix.lower() == ".pdf":
             file_path = file_path.with_suffix("")
