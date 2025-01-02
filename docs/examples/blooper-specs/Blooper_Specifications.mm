@@ -65,7 +65,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-5.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-4.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -756,7 +756,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Relational Database" ID="ID_1531157095" CREATED="1734523359665" MODIFIED="1735539230234"><richcontent TYPE="NOTE">
+<node TEXT="Relational Database" ID="ID_1531157095" CREATED="1734523359665" MODIFIED="1735816214061"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -766,7 +766,7 @@
       Blooper App would be using HisSQL as its RDBMS in the backend. Multiple tables are required to implement the features expected from the this application. An RDBMS is required to maintain the integrity as well as consistency of the data-records pertaining to this application.
     </p>
     <p>
-      Following is the details of the RDBS schema for this application.
+      Following details are pertinent to the RDBS schema used in Blooper App.
     </p>
   </body>
 </html></richcontent>
@@ -784,9 +784,7 @@
   </body>
 </html></richcontent>
 <node TEXT="users" ID="ID_1108020213" CREATED="1734525632517" MODIFIED="1734525636551">
-<node TEXT="id: int, ai, pk" ID="ID_661330182" CREATED="1734525638576" MODIFIED="1734526120083">
-<icon BUILTIN="password"/>
-</node>
+<node TEXT="id: int, ai, pk" ID="ID_661330182" CREATED="1734525638576" MODIFIED="1735816322391"/>
 <node TEXT="name: varchar(64), unique, not null" ID="ID_1961443962" CREATED="1734525652428" MODIFIED="1734525666125"/>
 <node TEXT="email: varchar(80), default null" ID="ID_1939585686" CREATED="1734525668192" MODIFIED="1735376399721"><richcontent TYPE="NOTE">
 <html>
@@ -827,10 +825,11 @@
 </node>
 </node>
 <node TEXT="organizations" ID="ID_1000171183" CREATED="1734525783844" MODIFIED="1734525807365">
-<node TEXT="id: int, ai, pk" ID="ID_804053180" CREATED="1734525638576" MODIFIED="1734526107995">
-<icon BUILTIN="password"/>
-</node>
+<node TEXT="id: int, ai, pk" ID="ID_804053180" CREATED="1734525638576" MODIFIED="1735816318300"/>
 <node TEXT="name: varchar(64), unique, not null" ID="ID_35779025" CREATED="1734525652428" MODIFIED="1734525666125"/>
+<node TEXT="address_id: int, not null" ID="ID_451974608" CREATED="1735821084893" MODIFIED="1735821188279">
+<arrowlink DESTINATION="ID_1158912141"/>
+</node>
 <node TEXT="status: char(1), not null, default A" ID="ID_71999004" CREATED="1734525824078" MODIFIED="1735379061322"><richcontent TYPE="NOTE">
 <html>
   <head>
@@ -858,9 +857,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="id: int, ai, pk" ID="ID_985279650" CREATED="1734525638576" MODIFIED="1734526113285">
-<icon BUILTIN="password"/>
-</node>
+<node TEXT="id: int, ai, pk" ID="ID_985279650" CREATED="1734525638576" MODIFIED="1735816313475"/>
 <node TEXT="org_id: int, not null" ID="ID_1152226333" CREATED="1734525963077" MODIFIED="1734526003317">
 <arrowlink DESTINATION="ID_804053180"/>
 </node>
@@ -880,8 +877,136 @@
 </html></richcontent>
 </node>
 </node>
+<node TEXT="addresses" ID="ID_1153225688" CREATED="1735821119229" MODIFIED="1735821199325">
+<node TEXT="id: int, ai, pk" ID="ID_1158912141" CREATED="1735821124216" MODIFIED="1735821239289"/>
+<node TEXT="address1: varchar(128), not null" ID="ID_1078123466" CREATED="1735821135336" MODIFIED="1735821148577"/>
+<node TEXT="address2: varchar(128), null" ID="ID_1088012278" CREATED="1735821149069" MODIFIED="1735821165861"/>
+<node TEXT="location_id: int, not null" ID="ID_803806145" CREATED="1735821166973" MODIFIED="1735821263327">
+<arrowlink DESTINATION="ID_1813695401"/>
 </node>
 </node>
+<node TEXT="locations" ID="ID_376860293" CREATED="1735821191938" MODIFIED="1735821430954"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Unique(name, state_id)
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="id: int, ai, pk" ID="ID_1813695401" CREATED="1735821202895" MODIFIED="1735821233421"/>
+<node TEXT="name: varchar(64), not null" ID="ID_291591293" CREATED="1735821244668" MODIFIED="1735821255884"/>
+<node TEXT="state_id: int, not null" ID="ID_721478739" CREATED="1735821267908" MODIFIED="1735821318079">
+<arrowlink DESTINATION="ID_1278481383"/>
+</node>
+</node>
+<node TEXT="states" ID="ID_1271254269" CREATED="1735821275723" MODIFIED="1735821378443"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Unique(country_id, code)
+    </p>
+    <p>
+      Unique(country_id, name)
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="id: int, ai, pk" ID="ID_1278481383" CREATED="1735821279230" MODIFIED="1735821283637"/>
+<node TEXT="name: varchar(64), not null" ID="ID_1437099649" CREATED="1735821284082" MODIFIED="1735821295051"/>
+<node TEXT="code: varchar(8), null" ID="ID_1667528672" CREATED="1735821295726" MODIFIED="1735821305157"/>
+<node TEXT="country_id: int, not null" ID="ID_1785158911" CREATED="1735821306861" MODIFIED="1735821403030">
+<arrowlink DESTINATION="ID_996631835"/>
+</node>
+</node>
+<node TEXT="countries" ID="ID_1605829722" CREATED="1735821321802" MODIFIED="1735821324567">
+<node TEXT="id: int, ai, pk" ID="ID_996631835" CREATED="1735821325647" MODIFIED="1735821329951"/>
+<node TEXT="code: varchar(4), not null, unique" ID="ID_907782513" CREATED="1735821330442" MODIFIED="1735821343241"/>
+<node TEXT="name: varchar(64), unique, not null" ID="ID_1997105882" CREATED="1735821382482" MODIFIED="1735821395993"/>
+</node>
+<node TEXT="boopers" ID="ID_1477738033" CREATED="1735816295926" MODIFIED="1735816396484">
+<node TEXT="id: int, ai, pk" ID="ID_1852475439" CREATED="1735816300304" MODIFIED="1735816306052"/>
+<node TEXT="blooped_by: int, not null" ID="ID_1531046400" CREATED="1735816331142" MODIFIED="1735816405071">
+<arrowlink DESTINATION="ID_661330182"/>
+</node>
+<node TEXT="loss_amount: decimal(.2)" ID="ID_1692795945" CREATED="1735816555830" MODIFIED="1735816648703"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The money (in INR) lost due to this blooper.
+    </p>
+    <p>
+      Up to two decimal values, it is captured.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="blooped_at: date, not null" ID="ID_1380469448" CREATED="1735816370008" MODIFIED="1735816412213"/>
+<node TEXT="detected_by: int, not null" ID="ID_1326248551" CREATED="1735816654753" MODIFIED="1735816693150">
+<arrowlink DESTINATION="ID_661330182"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The user who detected this blooper.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="affected_by: int, not null" ID="ID_96696182" CREATED="1735816523189" MODIFIED="1735816555359">
+<arrowlink DESTINATION="ID_804053180"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The organization affected by this blooper.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="meta_info: JSON, null" ID="ID_1437847635" CREATED="1735816414714" MODIFIED="1735816509960"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Any additional information pertaining to this blooper would be stored here. There is no fixed schema for it. The object using this field is expected to know how to handle this data.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="Deployment Strategies" POSITION="top_or_left" ID="ID_1585346971" CREATED="1735824116778" MODIFIED="1735827474489"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Blooper App is containerized using Docker. These docker based containers are deployed on virtual machines (VMs) running on the cloud. The VMs are usually deployed on AWS, or Azure clouds.
+    </p>
+    <p>
+      Kubernetes too can be used to manage the deployment of these applications.
+    </p>
+  </body>
+</html></richcontent>
 </node>
 </node>
 </map>

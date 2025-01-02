@@ -11,11 +11,13 @@ from freeplane import Mindmap, Node
 
 #from peek import peek
 from pylatex import (
+    Center,
     Command,
     Document,
     Figure,
     Foot,
     Head,
+    HugeText,
     Itemize,
     Label,
     LongTable,
@@ -25,6 +27,7 @@ from pylatex import (
     PageStyle,
     Tabular,
     Tabularx,
+    VerticalSpace,
 )
 from pylatex.base_classes import LatexObject
 from pylatex.section import Paragraph, Section, Subparagraph, Subsection, Subsubsection
@@ -261,6 +264,7 @@ class PSDoc(FPDoc):
             ("makecell", tuple()),
             ("fontenc", ("OT1",)),
             ("longtable", tuple()),
+            ("marginnote", tuple()),
             ("hyperref", tuple()),
             ("multirow", tuple()),
             ("tabularx", tuple()),
@@ -605,7 +609,6 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
             # Build table-content first
             tab = Tabular("l" * (1 + len(col_hdrs)), pos="c")
-            # tab.add_caption(node, label=get_label("TAB:", node.id))
             tab.add_hline(color=self.regcol(self.theme.table.line_color))
             tab.add_hline(color=self.regcol(self.theme.table.line_color))
             row = [
@@ -680,12 +683,10 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         note_lines = retrieve_note_lines(str(node.notes))
         items = self.expand_macros(note_lines[0], node)
         for item in items:
-            #mdf.append(NE(fr"\small{{{item}}}"))
             mdf.append(Command("small", item))
         for line in note_lines[1:]:
             mdf.append("\n")
             for item in self.expand_macros(line, node):
-                #mdf.append(NE(fr"\small{{{line}}}"))
                 mdf.append(Command("small", item))
         return mdf
 
@@ -784,17 +785,6 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 dbtable.label = get_label(table.id)  # LaTeX label for table
                 dbtable.node = table  # To identify and build cross-references
 
-#                dbtable.backrefs = set()
-#                if table.arrowlinked:
-#                    for link in table.arrowlinked:
-#                        dbtable.backrefs.add(
-#                            NE(rf"""
-#\margincomment{{\tiny{{$\Lsh$ \autoref{{R{get_label(link.id)}}}}}%
-#\newline}}%
-#"""
-#                            )
-#                        )  # Add a margin comment
-
                 if table.notes:
                     dbtable.notes = retrieve_note_lines(str(table.notes))
                 if table.children:
@@ -812,8 +802,8 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         if not dbtables:
             return ret
 
-        longtab = LongTable(r"p{0.6\textwidth}p{0.4\textwidth}", pos="t")
-        longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
+        longtab = LongTable(r"p{0.6\textwidth} p{0.34\textwidth}", pos="t")
+#        longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
 
         # Ordering of attributes of fields in displayed table
         fields = OrderedDict()
@@ -828,12 +818,8 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             longtab.add_row(
                 [NE(fr"\textbf{{\textcolor{{{self.regcol(self.theme.datatable.tab1_header_text_color)}}}{{{idx+1}. Table: {EL(dbtable.name)}}}}}"), ""],
                 color=self.regcol(self.theme.datatable.tab1_header_row_color))
-            longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
+#            longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
             longtab.append(NE(r"\rowcolor{white}"))
-
-#            if len(dbtable.backrefs) > 0:
-#                for backref in dbtable.backrefs:
-#                    longtab.append(backref)
 
             mp1 = MiniPage(width=r"\linewidth", pos="t")
             mp1.append(NE(r"\small"))
@@ -868,14 +854,23 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 for f in fields.keys():
                     if f == "name":
                         cell_content = verbatim(getattr(tbfield, f))
+                        if tbfield.pk:
+                            cell_content = fr"{cell_content} \tiny{{\faKey }}"
+                        if tbfield.ai:
+                            cell_content = fr"{cell_content} \tiny{{\faArrowUp}}"
                         if tbfield.node.arrowlinked:
-                            cell_content = fr"\hypertarget{{{get_label(tbfield.node.id)}}}{{{cell_content} \tiny{{(\faKey)}}}}"
+                            cell_content = fr"\hypertarget{{{get_label(tbfield.node.id)}}}{{{cell_content}}}"
+                            margin_notes = list()
+                            for arrowlink in tbfield.node.arrowlinked:
+                                margin_notes.append(fr"\tiny{{$\Lsh$ \hyperlink{{{get_label(arrowlink.id)}}}{{{EL(arrowlink.parent)}: {EL(arrowlink).split(":")[0]}}}}}")
+                            if len(margin_notes) > 0:
+                                cell_content = fr"{cell_content} \marginnote{{{NE(r"\newline ".join(margin_notes))}}}"
                         elif tbfield.node.arrowlinks:
                             if len(tbfield.node.arrowlinks) > 1:
                                 raise InvalidRefException(fr"More than one arrowlinks found for field {tbfield.name} in table {dbtable.name}")
                             else:
                                 fk_label = get_label(tbfield.node.arrowlinks[0].id)
-                                cell_content = fr"\mbox{{\makecell[l]{{{cell_content} \\ \tiny{{(\faKey \xspace \hyperlink{{{fk_label}}}{{{EL(tbfield.node.arrowlinks[0].parent)}}}}})}}}}"
+                                cell_content = fr"\mbox{{\makecell[l]{{{cell_content} \\ \tiny{{(\faKey \xspace \hyperlink{{{fk_label}}}{{{EL(tbfield.node.arrowlinks[0].parent)}}}}})}}}}\hypertarget{{{get_label(tbfield.node.id)}}}"
                         row_text.append(NE(cell_content))
                     else:
                         val = getattr(tbfield, f)
@@ -893,7 +888,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 itmz = DBItemize(options=("nolistsep", "noitemsep"))
                 for field_name in field_notes.keys():
                     if len(field_notes[field_name]) > 1:
-                        itmz.add_item(NE(fr"\texttt{{\texttt{{{field_name}}}}}:"))
+                        itmz.add_item(NE(verbatim(field_name+": ")))
                         inner_itmz = Itemize(options=("nolistsep", "noitemsep"))
                         for line in field_notes[field_name]:
                             inner_itmz.add_item(line)
@@ -901,7 +896,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                     else:
                         itmz.add_item(
                             NE(fr"""
-\texttt{{{field_name}}}: {field_notes[field_name][0]}
+{verbatim(field_name)}: {field_notes[field_name][0]}
 """))
                 mp2.append(itmz)
 
@@ -920,18 +915,9 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             longtab.append(NE(r"\multicolumn{2}{l}{"))
             longtab.append(mp3)
             longtab.append(NE(r"}\\"))
-            longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
-
-#        ret.append(NE(r"""
-#\begingroup
-#\setlength\LTcapwidth{\textwidth} % default: 4in (rather less than \textwidth...)
-#\setlength\LTleft{0pt} % default: \parindent
-#\setlength\LTright{0pt} % default: \fill
-#"""
-#            )
-#        )
+#            longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
+        ret.append(NE(r"\reversemarginpar"))
         ret.append(longtab)
-#        ret.append(NE(r"\endgroup"))
         return ret
 
     @track_processed_nodes
@@ -1238,6 +1224,10 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
 
         for obj in blocks:
             doc.append(obj)
+
+        with doc.create(Center()):
+            doc.append(VerticalSpace(".5cm"))
+            doc.append(HugeText(bold('* * * * *')))
 
         # Create folder to store images, if any
         file_path = Path(output_file_path)

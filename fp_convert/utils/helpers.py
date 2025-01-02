@@ -13,7 +13,7 @@ from ..errors import InvalidDocInfoKey
 Utility functions and containers used in mindmap to LaTeX conversion.
 """
 
-field_type_pat = re.compile(r" *(varchar|char|int|decimal) *[\[\(](\d+)[\)\]] *")
+field_type_pat = re.compile(r" *(varchar|char|int|decimal) *[\[\(]([\.\d]+)[\)\]] *")
 
 
 def get_label(id: str):
@@ -488,7 +488,7 @@ class DBTableField:
                 part_lower = part.lower()
                 if part_lower in ["ai", "autoincrement", "autoincrementing"]:
                     self.ai = "yes"
-                elif part_lower in ["primarykey", "pk"]:
+                elif part_lower in ["primarykey", "pk", "primary-key"]:
                     self.pk = "yes"
                 elif part_lower in ["unique", "uq"]:
                     self.unique = "yes"

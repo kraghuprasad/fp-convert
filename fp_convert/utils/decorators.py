@@ -2,9 +2,10 @@ import re
 import threading
 from functools import wraps
 
-#from peek import peek
-
 from fp_convert.colors import Color
+
+# from peek import peek
+
 
 _local = threading.local()
 
@@ -48,7 +49,7 @@ def register_color(method):
         # Retrieve individual colors, if supplied color is a mixed one
         if "!" in color:
             mixed_colors = re.findall(r"([a-z]+[)'a-z0-9(/]+)", color)
-            #peek(mixed_colors)
+            # peek(mixed_colors)
         else:  # add supplied single color to this list
             mixed_colors = [color]
 
