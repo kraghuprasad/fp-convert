@@ -7,7 +7,7 @@ Following image summarizes what fp-convert can do if it is provided with a suita
 
 # license
 
-This application is released under Apache License (v2). You are free to use it in commercial as well as in open source projects, based on the pertient licencing terms.
+This application is released under Apache(v2) License. You are free to use its code in commercial as well as in open source projects, under pertient licencing terms. But please note that one of the component used in this project ([freeplane-python-io](https://github.com/nnako/freeplane-python-io)) is released under GPLv3. This may affect your chances of using this tool along with non-GPLed code - like in a proprietary tool. But if you are using this tool as a standalone application executed via command line, then probably you are allowed to use it in your commercial products too. But it would be better to consult a lawyer familiar with IP and software licenses opting for that approach.
 
 # software used
 
