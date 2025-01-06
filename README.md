@@ -59,7 +59,7 @@ If a node is annotated with list icon (![list icon](docs/examples/blooper-specs/
 
 ## ordered lists
 
-Currently no ordered lists  are supported. This functionality would be included soon.
+If a node is annotated with list icon (![list icon](docs/examples/blooper-specs/images/list.png)) as well as thing icon (![thing icon](docs/examples/blooper-specs/images/thing.png)), then the list created from the contents of the direct children of that node would be an ordered list. The depth of the list is not dependent on the type of the list. Overall the total depth can not be more than 3, irrespective of whichever types of lists are mixed and matched. Also annotating a node without list icon but with thing icon would not generate an oredered list unless at least one of the parent-node between that node and the root node is annotated with the list icon. It means, starting an ordered list with a node annotated only with the thing icon would not be possible. Please refer the sample mindmap provided with fp-convert how such lists work.
 
 ## tabular views
 
