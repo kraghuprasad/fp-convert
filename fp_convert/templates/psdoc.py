@@ -14,6 +14,7 @@ from pylatex import (
     Center,
     Command,
     Document,
+    Enumerate,
     Figure,
     Foot,
     Head,
@@ -700,7 +701,11 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             raise MaximumListDepthException("Maximum depth of list reached.")
 
         if node.children:
-            itmz =  Itemize()
+            if "links/app/Things" in node.icons:  # Ordered list
+                lst =  Enumerate()
+            else:  # Unordered list is the default
+                lst =  Itemize()
+
             for child in node.children:
                 # For the purpose of debugging only
                 #peek("  "*level, f"[{child.id}]", child)
@@ -708,54 +713,54 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 #peek("  "*level, f"[icons]", child.icons)
                 content = str(child).split(":", 1)
                 if len(content) == 2:
-                    itmz.add_item(NE(f"{bold(content[0])}: "))
+                    lst.add_item(NE(f"{bold(content[0])}: "))
                     texts = self.expand_macros(content[1], child)
                     for text in texts:
-                        itmz.append(text)
+                        lst.append(text)
                 else:
                     texts = self.expand_macros(str(child), child)
-                    itmz.add_item(texts[0])
+                    lst.add_item(texts[0])
                     for text in texts[1:]:
-                        itmz.append(text)
+                        lst.append(text)
 
                 # If notes exists in supplied node, then include it too
                 if child.notes:
                     if child.icons and "stop-sign" in child.icons:
-                        itmz.append(self.build_stop_notes(child))
+                        lst.append(self.build_stop_notes(child))
                     else:
                         note_lines = retrieve_note_lines(str(child.notes))
                         for line in note_lines:
-                            itmz.append(Command("par"))
+                            lst.append(Command("par"))
                             for item in self.expand_macros(line, child):
-                                itmz.append(item)
+                                lst.append(item)
 
                 # Add a label so that other nodes can refer to it.
-                itmz.append(Command("label", get_label(child.id)))
+                lst.append(Command("label", get_label(child.id)))
 
                 # Add back references, if this node is being pointed to
                 # by other nodes (sinks for arrows)
                 for referrer in child.arrowlinked:
-                    itmz.append(NE(
+                    lst.append(NE(
                         fr"\margincomment{{\tiny{{$\Lsh$ \autoref{{{get_label(
                             referrer.id)}}}}}}}"))
 
                 if child.children:
                     if child.icons and 'links/file/generic' in child.icons:  # Table is to be built
                         for obj in self.build_table_from_child_nodes(child):
-                            itmz.append(obj)
+                            lst.append(obj)
 
                     # Else check if children should be formatted verbatim
                     elif 'links/file/json' in child.icons or \
                     'links/file/xml' in child.icons or \
                     'links/file/html' in child.icons:
                         for item in self.build_verbatim_list(child):
-                            itmz.append(item)
+                            lst.append(item)
 
                     # Expecting a plain list, or list of list, or listof lists ...
                     else:
                         item = self.build_list_recursively(child, level+1)
-                        itmz.append(item)
-            return itmz
+                        lst.append(item)
+            return lst
         return None
 
     def build_db_schema(self, node: Node):
@@ -1037,6 +1042,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
         lheader, cheader, rheader, lfooter, cfooter, rfooter = \
             (None for i in range(6))
+        credits_marked = False
 
         if self.docinfo.get("l_header_image", None):
             lheader = NE(
@@ -1088,6 +1094,7 @@ height={self.theme.geometry.l_footer_image_height}]%
             lfooter = NE(rf"{self.docinfo['l_footer_text']}")
         else:
             lfooter = NE(fr"\tiny{{{DocInfo.credits}}}")  # Credit-text
+            credits_marked = True
 
         if lfooter:
             with headfoot.create(Foot("L", data=Command("normalcolor"))):
@@ -1102,6 +1109,10 @@ height={self.theme.geometry.c_footer_image_height}]%
             )
         elif self.docinfo.get("c_footer_text", None):
             cfooter = NE(rf"{self.docinfo['c_footer_text']}")
+        elif not credits_marked:
+            cfooter = NE(fr"\tiny{{{DocInfo.credits}}}")
+            credits_marked = True
+
         if cfooter:
             with headfoot.create(Foot("C", data=Command("normalcolor"))):
                 headfoot.append(cfooter)
@@ -1115,6 +1126,10 @@ height={self.theme.geometry.r_footer_image_height}]%
             )
         elif self.docinfo.get("r_footer_text", None):
             rfooter = NE(fr"\small{{{self.docinfo['r_footer_text']}}}")
+        elif not credits_marked:
+            rfooter = NE(fr"\tiny{{{DocInfo.credits}}}")
+            credits_marked = True
+
         if rfooter:
             with headfoot.create(Foot("R", data=Command("normalcolor"))):
                 headfoot.append(rfooter)

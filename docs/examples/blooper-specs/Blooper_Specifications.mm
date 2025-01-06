@@ -1,6 +1,6 @@
 <map version="freeplane 1.12.1">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
-<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1734697892603">
+<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1736172555651">
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <font BOLD="true"/>
 <richcontent TYPE="NOTE">
@@ -65,7 +65,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-4.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-3.75 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -339,7 +339,7 @@
 <node TEXT="Allowed Values: A-Z, a-z, 0-9, - +" ID="ID_213268044" CREATED="1728223285078" MODIFIED="1728463331516"/>
 </node>
 </node>
-<node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_303877642" CREATED="1728484729243" MODIFIED="1729102851466">
+<node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_303877642" CREATED="1728484729243" MODIFIED="1736145277661">
 <icon BUILTIN="list"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -352,7 +352,8 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Register: Registers the new user." ID="ID_1572971016" CREATED="1728484737443" MODIFIED="1728976216429">
+<node TEXT="Register: Registers the new user." ID="ID_1572971016" CREATED="1728484737443" MODIFIED="1736145286812">
+<icon BUILTIN="links/app/Things"/>
 <node TEXT="Normal Flow:" ID="ID_1542674567" CREATED="1728484759566" MODIFIED="1734075306348">
 <node TEXT="System validates supplied data before creating user-account." ID="ID_471928457" CREATED="1728656564915" MODIFIED="1728656583247"/>
 <node TEXT="If everything is in order, then system create new user-account." ID="ID_1249360283" CREATED="1728654582891" MODIFIED="1728656654148"/>
@@ -663,7 +664,7 @@
 <node TEXT="{&#xa;  &quot;status&quot;: 421,&#xa;  &quot;message&quot;: &quot;Invalid field supplied&quot;&#xa;}" ID="ID_641988819" CREATED="1728891986317" MODIFIED="1728920669937"/>
 </node>
 </node>
-<node TEXT="Reset:" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1735547262090">
+<node TEXT="Reset:" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1736145817210">
 <arrowlink DESTINATION="ID_1737270551" STARTINCLINATION="141.75 pt;70.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -928,7 +929,7 @@
 <node TEXT="code: varchar(4), not null, unique" ID="ID_907782513" CREATED="1735821330442" MODIFIED="1735821343241"/>
 <node TEXT="name: varchar(64), unique, not null" ID="ID_1997105882" CREATED="1735821382482" MODIFIED="1735821395993"/>
 </node>
-<node TEXT="boopers" ID="ID_1477738033" CREATED="1735816295926" MODIFIED="1735816396484">
+<node TEXT="bloopers" ID="ID_1477738033" CREATED="1735816295926" MODIFIED="1736166311327">
 <node TEXT="id: int, ai, pk" ID="ID_1852475439" CREATED="1735816300304" MODIFIED="1735816306052"/>
 <node TEXT="blooped_by: int, not null" ID="ID_1531046400" CREATED="1735816331142" MODIFIED="1735816405071">
 <arrowlink DESTINATION="ID_661330182"/>
@@ -977,14 +978,14 @@
   </body>
 </html></richcontent>
 </node>
-<node TEXT="meta_info: JSON, null" ID="ID_1437847635" CREATED="1735816414714" MODIFIED="1735816509960"><richcontent TYPE="NOTE">
+<node TEXT="meta_info: JSON, null" ID="ID_1437847635" CREATED="1735816414714" MODIFIED="1736166509212"><richcontent TYPE="NOTE">
 <html>
   <head>
     
   </head>
   <body>
     <p>
-      Any additional information pertaining to this blooper would be stored here. There is no fixed schema for it. The object using this field is expected to know how to handle this data.
+      Any additional information pertaining to this blooper would be stored here. There is no fixed schema for it. The object using this field is expected to know how to use this data.
     </p>
   </body>
 </html></richcontent>

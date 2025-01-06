@@ -51,8 +51,7 @@ def retrieve_note_lines(text: str):
     list[str] :
         A list of paragraphs found in the note-text.
     """
-    if text:
-        return [str.strip(i) for i in text.split("\n") if str.strip(i)]
+    return [str.strip(i) for i in text.split("\n") if str.strip(i)]
 
 
 def get_notes(node: Node):
