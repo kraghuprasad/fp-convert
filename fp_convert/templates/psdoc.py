@@ -151,13 +151,14 @@ class Colours:
     """
     header_line_color = "airforceblue"
     footer_line_color = "airforceblue"
-    # link_color = "{rgb}{0.63, 0.79, 0.95}"
     link_color = "celestialblue"
     url_color = "ceruleanblue"
     file_color = "magenta"
     mc_color = "{rgb}{0,0.5,0}"  # Colour of margin comments
     sf_line_color = "cadmiumred"  # Stop-Frame line-color
     sf_background_color = "red!5!white"  # Stop-Frame background-color
+    new_mark_color = "cobalt"  # Colour of markers for newly created nodes
+    del_mark_color = "red!80!gray"  # Colour of markers for nodes marked for deletion
 
 
 class Theme:
@@ -701,7 +702,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             raise MaximumListDepthException("Maximum depth of list reached.")
 
         if node.children:
-            if "links/app/Things" in node.icons:  # Ordered list
+            if "emoji-1F522" in node.icons:  # Ordered list
                 lst =  Enumerate()
             else:  # Unordered list is the default
                 lst =  Itemize()
@@ -711,15 +712,20 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 #peek("  "*level, f"[{child.id}]", child)
                 #peek("  "*level, f"[imagepath]", child.imagepath)
                 #peek("  "*level, f"[icons]", child.icons)
+
+                # If any flags are present in the node, then include
+                # corresponding LaTeX elements to mark it in the document.
+                flags = self.get_applicable_flags(child)
+
                 content = str(child).split(":", 1)
                 if len(content) == 2:
-                    lst.add_item(NE(f"{bold(content[0])}: "))
+                    lst.add_item(NE(fr'{"\n".join(flags)}\xspace {bold(content[0])}: '))
                     texts = self.expand_macros(content[1], child)
                     for text in texts:
                         lst.append(text)
                 else:
                     texts = self.expand_macros(str(child), child)
-                    lst.add_item(texts[0])
+                    lst.add_item(NE(fr'{"\n".join(flags)}\xspace {texts[0]}'))
                     for text in texts[1:]:
                         lst.append(text)
 

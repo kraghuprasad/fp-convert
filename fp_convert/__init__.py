@@ -1,10 +1,11 @@
-from freeplane import Node
 from pathlib import Path
+
+from freeplane import Node
 from pylatex import Document, Itemize
 from pylatex.utils import NoEscape as NE
 
-from .utils.decorators import register_color, track_processed_nodes
 from .errors import MissingFileException
+from .utils.decorators import register_color, track_processed_nodes
 from .utils.helpers import get_label
 
 
@@ -49,6 +50,71 @@ class FPDoc(Document):
             )
         return abs_path
 
+    # Used mostly in cases where raw text is being exchanged, instead of
+    # PyLaTeX based objects to build the document. For example, while building
+    # verbatim lists.
+    def mark_flags(self, text: str, node: Node):
+        """
+        Check if node has any applicable flags like for deletion or addition
+        etc. and add pertient notes or icons to the supplied text. If no flags
+        are present, then the supplied text is returned as it is.
+
+        Parameters:
+            text: str
+                The text to which the flags are to be added.
+
+            node: Node
+                The node whose applicable flags are to be checked.
+        """
+        # Check for deletion flag first
+        if node.icons and "button_cancel" in node.icons:
+            frame_top = fr"""
+\textcolor{{red}}%
+{{\faTimes \rule[0.33em]{{0.2\textwidth}}{{0.2pt}}%
+\small following is marked for removal%
+\normalsize \rule[0.33em]{{0.2\textwidth}}{{0.2pt}}%
+\faTimes}}\newline%"""
+            frame_bot = fr"""
+\textcolor{{red}}{{\faTimes \rule[0.33em]{{0.725\textwidth}}{{0.2pt}}%
+\faTimes}}"""
+            text = f"{NE(frame_top)}{text}{NE(frame_bot)}"
+        elif node.icons and "addition" in node.icons:  # Check for addition
+            prefix = fr"\textcolor{{cobalt}}{{\rotatebox{{30}}{{\tiny{{\textbf{{New}}}}}}\faFlagCheckered }}"
+            text = f"{prefix}{text}"
+        return text
+
+    def get_applicable_flags(self, node: Node):
+        """
+        Check if node has any applicable flags like for deletion or addition of
+        text-blocks or graphical elements etc. and return a list with appropriate
+        flags, icons or notes. If no flags are present, then return an empty list.
+
+        Parameters:
+            node: Node
+                The node whose applicable flags are to be checked and evaluated.
+        """
+        ret = list()
+
+        # Check for deletion flag first and if not found then check for addition
+        # as these two cases are mutually exclusive.
+        if node.icons and "button_cancel" in node.icons:
+            flag = NE(
+                fr"""
+\textcolor{{{self.regcol(self.theme.colours.del_mark_color)}}}{{%
+{{\rotatebox{{30}}{{\tiny{{\textbf{{{self.docinfo["del_mark_text"]}}}}}}}}}%
+{{{self.docinfo["del_mark_flag"]}}}}}""")
+            ret.append(flag)
+        elif node.icons and "addition" in node.icons:
+            flag = NE(
+                fr"""
+\textcolor{{{self.regcol(self.theme.colours.new_mark_color)}}}{{%
+{{\rotatebox{{30}}{{\tiny{{\textbf{{{self.docinfo["new_mark_text"]}}}}}}}}}
+{{{self.docinfo["new_mark_flag"]}}}}}""")
+            ret.append(flag)
+
+        # If required, more flags can be handled here before returning
+        return ret
+
     @track_processed_nodes
     def build_verbatim_list(self, node: Node):
         """
@@ -72,6 +138,9 @@ class FPDoc(Document):
                 else:
                     # To avoid bullet, starting the item with []
                     p = f"{p}%\n[]\\begin{{verbatim}}\n{str(child)}\\end{{verbatim}}"
+
+                # Search and add any applicable flag related texts
+                p = self.mark_flags(p, child)
 
                 # Add back references, if this node is being pointed to by other
                 # nodes (sinks for arrows)

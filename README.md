@@ -15,7 +15,7 @@ fp-convert is standing on the shoulders of giants like Python and TeX/LaTeX whic
 
 # features
 
-fp-convert is a commanline tool written in Python which uses fp_convert module to carry out its work. The same module can be invoked from other Python programs too, to generate required PDF documents. At present it is designed to generate project specification document for any software or IT based projects. We would be adding support for other kinds of documents in future, based on the demand from the community. At the same time it should not be presumed that the generated document would not be useful for capturing other knowledge-items. The LaTeX base documentclass used in `article'. Hence you can use fp-convert to generate any kind of document, as long as you follow certain conventions while creating your mindmap.
+fp-convert is a commanline tool written in Python which uses fp_convert module to carry out its work. The same module can be invoked from other Python programs too, to generate required PDF documents. At present it is designed to generate project specification document for any software or IT based projects. We would be adding support for other kinds of documents in future, based on the demand from the community. At the same time it should not be presumed that the generated document would not be useful for capturing other knowledge-items. fp-convert uses LaTeX base document class `article'. Hence you can use fp-convert to generate any kind of document which can be built using that document class, as long as you follow certain conventions while creating your mindmap.
 
 ## print-quality PDF generation
 
@@ -59,7 +59,7 @@ If a node is annotated with list icon (![list icon](docs/examples/blooper-specs/
 
 ## ordered lists
 
-If a node is annotated with list icon (![list icon](docs/examples/blooper-specs/images/list.png)) as well as thing icon (![things icon](docs/examples/blooper-specs/images/things.png)), then the list created from the contents of the direct children of that node would be an ordered list. The depth of the list is not dependent on the type of the list. Overall the total depth can not be more than 3, irrespective of whichever types of lists are mixed and matched. Also annotating a node without list icon but with thing icon would not generate an oredered list unless at least one of the parent-node between that node and the root node is annotated with the list icon. It means, starting an ordered list with a node annotated only with the thing icon would not be possible. Please refer the sample mindmap provided with fp-convert how such lists work.
+If a node is annotated with list icon (![list icon](docs/examples/blooper-specs/images/list.png)) as well as input numbers icon (![input numbers icon](docs/examples/blooper-specs/images/numbers.png)), then the list created from the contents of the direct children of that node would be an ordered list. The depth of the list is not dependent on the type of the list. Overall the total depth can not be more than 3, irrespective of whichever types of lists are mixed and matched. Also annotating a node without list icon but with input numbers icon would not generate an oredered list unless at least one of the parent-node between that node and the root node is annotated with the list icon. It means, starting an ordered list with a node annotated only with the input numbers icon would not be possible. Please refer the sample mindmap provided with fp-convert how such lists work.
 
 ## tabular views
 
@@ -92,4 +92,3 @@ Besides rendering the contents of nodes, addtional text can be included as note-
 # future plans
 
 This code can reasonably be extended to include additional document types. For example it would be possible to come up with a schema for composing music using freeplane, and it could be rendered as sheet music using MusiXTeX. Similarly using CircuiTikz, one can come up with a scheme to build and render electronic circuit too. Similar possibilities are endless. If one can design a convention to build a mindmap and define a template to render its content using TeX/LaTeX, a class equivalent to psdoc.py can be integrated and included as part of fp-convert.
-

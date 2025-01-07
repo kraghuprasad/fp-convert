@@ -195,6 +195,10 @@ class DocInfo:
         "C_Footer_Logo": "c_footer_image",
         "R_Footer_Text": "r_footer_text",
         "R_Footer_Logo": "r_footer_image",
+        "New_Mark_Text": "new_mark_text",  # Text marking newly added nodes
+        "New_Mark_Flag": "new_mark_flag",  # FontAwesome icon for new-markings
+        "Del_Mark_Text": "del_mark_text",  # Text marking nodes for removal
+        "Del_Mark_Flag": "del_mark_flag",  # FontAwesome icon for del-markings
     }
     regex_pat = "^(" + "|".join([k for k in docinfo_tpl.keys()]) + ") *:(.+)$"
     compiled_pat = re.compile(regex_pat)
@@ -218,6 +222,11 @@ class DocInfo:
             Can be empty/None in which case all fields are initialized to None.
         """
         self._data = {v: None for v in DocInfo.docinfo_tpl.values()}
+        self._data["new_mark_text"] = "New"
+        self._data["new_mark_flag"] = r"\faFlagCheckered"
+        self._data["del_mark_text"] = "Trashed"
+        self._data["del_mark_flag"] = r"\faTrash"
+
         if info_text:
             for line in retrieve_note_lines(info_text):
                 mpats = DocInfo.compiled_pat.search(line)

@@ -1,6 +1,6 @@
 <map version="freeplane 1.12.1">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
-<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1736172555651">
+<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1736270462040">
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <font BOLD="true"/>
 <richcontent TYPE="NOTE">
@@ -13,10 +13,10 @@
       Title: Project Specifications of Blooper App
     </p>
     <p>
-      Version: 1.2
+      Version: 1.3
     </p>
     <p>
-      Date: 15 November, 2024
+      Date: 7 January, 2025
     </p>
     <p>
       Author: Whoopie Bard $&lt;$whoopie@clueless.dev$&gt;$\\Changu Bhai $&lt;$changu.bhai@clueless.dev$&gt;$
@@ -56,7 +56,7 @@
     </p>
   </body>
 </html></richcontent>
-<hook NAME="MapStyle" background="#f5f5dcff" zoom="0.9090909">
+<hook NAME="MapStyle" background="#f5f5dcff" zoom="0.82644624">
     <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1733675264000" fit_to_viewport="false" showTagCategories="false"/>
     <tags category_separator="::"/>
 
@@ -65,7 +65,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-3.75 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-2.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -246,8 +246,13 @@
 </html></richcontent>
 </node>
 <node TEXT="Users with an email address and mobile number should be able to create an account in Blooper." ID="ID_1261303219" CREATED="1729334012753" MODIFIED="1729334034634"/>
-<node TEXT="No two user-accounts should be possible to be created using same email address." ID="ID_1788704556" CREATED="1729334067473" MODIFIED="1729334081625"/>
-<node TEXT="No two user-accounts should be possible to be created using same mobile number." ID="ID_647373762" CREATED="1729334041734" MODIFIED="1729334066543"/>
+<node TEXT="No two user-accounts should be possible to be created using same email address." ID="ID_1788704556" CREATED="1729334067473" MODIFIED="1736238298082"/>
+<node TEXT="No two user-accounts should be possible to be created using same mobile number." ID="ID_647373762" CREATED="1729334041734" MODIFIED="1736242220528">
+<icon BUILTIN="button_cancel"/>
+</node>
+<node TEXT="Multiple user-accounts should be able to be created using the same mobile number." ID="ID_1142536003" CREATED="1736238307701" MODIFIED="1736238335744">
+<icon BUILTIN="addition"/>
+</node>
 </node>
 <node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1730794172232"><richcontent TYPE="NOTE">
 <html>
@@ -352,13 +357,15 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Register: Registers the new user." ID="ID_1572971016" CREATED="1728484737443" MODIFIED="1736145286812">
-<icon BUILTIN="links/app/Things"/>
-<node TEXT="Normal Flow:" ID="ID_1542674567" CREATED="1728484759566" MODIFIED="1734075306348">
+<node TEXT="Register: Registers the new user." ID="ID_1572971016" CREATED="1728484737443" MODIFIED="1736257044007">
+<node TEXT="Normal Flow:" ID="ID_1542674567" CREATED="1728484759566" MODIFIED="1736257074638">
+<icon BUILTIN="emoji-1F522"/>
 <node TEXT="System validates supplied data before creating user-account." ID="ID_471928457" CREATED="1728656564915" MODIFIED="1728656583247"/>
 <node TEXT="If everything is in order, then system create new user-account." ID="ID_1249360283" CREATED="1728654582891" MODIFIED="1728656654148"/>
 </node>
-<node TEXT="Exception Flow:" ID="ID_69944687" CREATED="1728484877434" MODIFIED="1734075316011"><richcontent TYPE="NOTE">
+<node TEXT="Exception Flow:" ID="ID_69944687" CREATED="1728484877434" MODIFIED="1736257080231">
+<icon BUILTIN="emoji-1F522"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -538,6 +545,51 @@
 <node TEXT="Header 4: 5.4" ID="ID_747637555" CREATED="1728463051601" MODIFIED="1729068247064"/>
 </node>
 </node>
+</node>
+<node TEXT="Level 3.1.4" POSITION="bottom_or_right" ID="ID_770066387" CREATED="1736257108961" MODIFIED="1736257140720">
+<icon BUILTIN="list"/>
+<icon BUILTIN="emoji-1F522"/>
+<node TEXT="List Item 3.1.4.1" ID="ID_1166720504" CREATED="1736257144428" MODIFIED="1736257155096"/>
+<node TEXT="List Item 3.1.4.2" ID="ID_574579259" CREATED="1736257155675" MODIFIED="1736257570316">
+<icon BUILTIN="emoji-1F522"/>
+<node TEXT="List Item 3.1.4.2.1" ID="ID_294846838" CREATED="1736257184256" MODIFIED="1736257193013"/>
+<node TEXT="List Item 3.1.4.2.2" ID="ID_1248298506" CREATED="1736257193502" MODIFIED="1736257201206"/>
+<node TEXT="List Item 3.1.4.2.3" ID="ID_926781396" CREATED="1736257202269" MODIFIED="1736257214505"/>
+<node TEXT="List Item 3.1.4.2.4" ID="ID_875624035" CREATED="1736257215032" MODIFIED="1736257221123"/>
+<node TEXT="List Item 3.1.4.2.5" ID="ID_60753193" CREATED="1736257221550" MODIFIED="1736257231353"/>
+</node>
+<node TEXT="List Item 3.1.4.3" ID="ID_1923967880" CREATED="1736257162177" MODIFIED="1736257518945">
+<node TEXT="List Item 3.1.4.3.1" ID="ID_1803494736" CREATED="1736257244423" MODIFIED="1736257253196"/>
+<node TEXT="List Item 3.1.4.3.2" ID="ID_569835838" CREATED="1736257253617" MODIFIED="1736257375280">
+<icon BUILTIN="emoji-1F522"/>
+<node TEXT="List Item 3.1.4.3.2.1" ID="ID_1569258615" CREATED="1736257376330" MODIFIED="1736257605903">
+<icon BUILTIN="button_cancel"/>
+</node>
+<node TEXT="List Item 3.1.4.3.2.2" ID="ID_1423202042" CREATED="1736257376330" MODIFIED="1736257493523"/>
+<node TEXT="List Item 3.1.4.3.2.3" ID="ID_1333122520" CREATED="1736257376330" MODIFIED="1736257497816"/>
+<node TEXT="List Item 3.1.4.3.2.4" ID="ID_476207585" CREATED="1736257376330" MODIFIED="1736257610927">
+<icon BUILTIN="addition"/>
+</node>
+<node TEXT="List Item 3.1.4.3.2.5" ID="ID_1400279293" CREATED="1736257376330" MODIFIED="1736257505759"/>
+<node TEXT="List Item 3.1.4.3.2.6" ID="ID_1413039099" CREATED="1736257376330" MODIFIED="1736257510179"/>
+</node>
+<node TEXT="List Item 3.1.4.3.3" ID="ID_1554918225" CREATED="1736257262099" MODIFIED="1736257652724">
+<icon BUILTIN="stop-sign"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Be warned!!!
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="List Item 3.1.4.3.4" ID="ID_708635400" CREATED="1736257272377" MODIFIED="1736257280768"/>
+</node>
+<node TEXT="List Item 3.1.4.4" ID="ID_1095696649" CREATED="1736257175420" MODIFIED="1736257181198"/>
 </node>
 </node>
 </node>
@@ -844,14 +896,14 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="org_admins" ID="ID_337353852" CREATED="1734525942539" MODIFIED="1735309110600"><richcontent TYPE="NOTE">
+<node TEXT="org_admins" ID="ID_337353852" CREATED="1734525942539" MODIFIED="1736256408004"><richcontent TYPE="NOTE">
 <html>
   <head>
     
   </head>
   <body>
     <p>
-      One organization may have one ore more administrators. They are mapped using this table.
+      One organization may have one or more administrators. They are mapped using this table.
     </p>
     <p>
       The &quot;since&quot; field indicates a date when a particular administrator was mapped to an organization.
