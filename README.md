@@ -79,11 +79,40 @@ If some kind of warning-text in red is to be rendered, then that node should be 
 
 ## marked for removal
 
-If any block of text elements rendered using a node is to be marked for removal in future, then annotate that node with cross icon (![cross icon](docs/examples/blooper-specs/images/cross.png)). Then the content of this and its children would be distinctly marked for removal using red text and lines.
+If any block of text elements rendered using a node is to be marked for removal in future, then annotate that node with Not OK icon (![Not OK icon](docs/examples/blooper-specs/images/cross.png)). Then the content of this and its children would be distinctly marked for removal using red text and lines.
 
 ## marked as new
 
-If some text is to be flagged as new, then annotate respective nodes using plus icon (![plus icon](docs/examples/blooper-specs/images/plus.png)). Such blocks of text would be marked as New for easy identification.
+If some text is to be flagged as new, then annotate respective nodes using addition icon (![addition icon](docs/examples/blooper-specs/images/plus.png)). Such blocks of text would be marked as New for easy identification.
+
+## database schema
+
+If a particular node is annotated with File_doc_database icon (![File_doc_database icon](docs/examples/blooper-specs/images/db.png)), all children of it would be considered as containing details of database schema. There are various conventions which are to be followed to prepare a DB schema. They are mentioned below:
+
+* All nodes which are direct children of this annotated node are treated as names of the database tables.
+* All child nodes of those table-nodes are treated as names of the fields in that table.
+* The field-nodes must be written following certain conventions, which are listed below:
+    - The structure of the text in fields must be of the form `field_name: field_options`
+    - The field-options must be separated with commas(,).
+    - If an outgoing arrow from a field goes to another field of same or different table, then that field is treated as a foreign key field.
+    - If an incoming arrow comes to a field, then it is assumed that it is the primary key field of that table.
+    - The arrows from nodes which are part of DB schema can not point to any node which lie outside the starting node of that schema.
+    - The behaviour of incoming arrows to any table-node is not well defined at the moment. Same is the case with field-node too.
+    - The field-options can be one or more of the following separated by commas:
+        * pk: Primary Key
+        * int: Integer data type
+        * int32: 32 bit integer
+        * char(N): N number of characters
+        * varchar(N): N number of varchar type data
+        * bool, boolean: Boolean data type
+        * float: Floating point data
+        * date: Date
+        * datetime: Timestamp
+        * ai: Autoincrement
+        * unique: The value of this field must be unique within the table
+        * default: Default value for this field
+        * null: The value is nullable
+        * not null: The value can not be null
 
 # additional text
 
