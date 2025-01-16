@@ -50,3 +50,9 @@ class MaximumListDepthException(FPConvertException):
     """Raised when a list being constructed crosses maximum allowed depth."""
 
     pass
+
+
+class MaximumSectionDepthException(FPConvertException):
+    """Raised when a section being constructed crosses maximum allowed depth."""
+
+    pass

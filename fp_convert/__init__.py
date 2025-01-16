@@ -44,8 +44,8 @@ class FPDoc(Document):
 
         if not abs_path.is_file():
             raise MissingFileException(
-                f"A required file ({file_path}) is missing. Either use an"
-                "absolute file path, or a path relative to the mindmap"
+                f"A required file ({file_path}) is missing. Either use an "
+                "absolute file path, or a path relative to the mindmap "
                 "itself. Also the file must exist already."
             )
         return abs_path
@@ -100,14 +100,14 @@ class FPDoc(Document):
         if node.icons and "button_cancel" in node.icons:
             flag = NE(
                 fr"""
-\textcolor{{{self.regcol(self.theme.colours.del_mark_color)}}}{{%
+\textcolor{{{self.regcol(self.theme.colors.del_mark_color)}}}{{%
 {{\rotatebox{{30}}{{\tiny{{\textbf{{{self.docinfo["del_mark_text"]}}}}}}}}}%
 {{{self.docinfo["del_mark_flag"]}}}}}""")
             ret.append(flag)
         elif node.icons and "addition" in node.icons:
             flag = NE(
                 fr"""
-\textcolor{{{self.regcol(self.theme.colours.new_mark_color)}}}{{%
+\textcolor{{{self.regcol(self.theme.colors.new_mark_color)}}}{{%
 {{\rotatebox{{30}}{{\tiny{{\textbf{{{self.docinfo["new_mark_text"]}}}}}}}}}
 {{{self.docinfo["new_mark_flag"]}}}}}""")
             ret.append(flag)

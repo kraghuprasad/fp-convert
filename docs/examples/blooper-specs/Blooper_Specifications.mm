@@ -1,6 +1,6 @@
 <map version="freeplane 1.12.1">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
-<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1736270462040">
+<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1736520965585">
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <font BOLD="true"/>
 <richcontent TYPE="NOTE">
@@ -54,9 +54,12 @@
     <p>
       Footer_Thickness: 0.4
     </p>
+    <p>
+      Timezone: Asia/Kolkata
+    </p>
   </body>
 </html></richcontent>
-<hook NAME="MapStyle" background="#f5f5dcff" zoom="0.82644624">
+<hook NAME="MapStyle" background="#f5f5dcff" zoom="0.9090909">
     <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1733675264000" fit_to_viewport="false" showTagCategories="false"/>
     <tags category_separator="::"/>
 
@@ -65,7 +68,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-2.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;0 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -149,28 +152,28 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Whoopie Bard" ID="ID_1287006477" CREATED="1734514184022" MODIFIED="1734514241628">
+<node TEXT="Whoopie Bard" FOLDED="true" ID="ID_1287006477" CREATED="1734514184022" MODIFIED="1734514241628">
 <node TEXT="Email: whoopie@clueless.dev" POSITION="bottom_or_right" ID="ID_498020299" CREATED="1734514193322" MODIFIED="1734514202273"/>
 <node TEXT="Nickname: whoopie" POSITION="bottom_or_right" ID="ID_770712780" CREATED="1734514209237" MODIFIED="1734514370710"/>
 </node>
-<node TEXT="Changu Bhai" ID="ID_1417967323" CREATED="1734514242271" MODIFIED="1734514265645">
+<node TEXT="Changu Bhai" FOLDED="true" ID="ID_1417967323" CREATED="1734514242271" MODIFIED="1734514265645">
 <node TEXT="Email: changu.bhai@clueless.dev" ID="ID_1394606274" CREATED="1734514282059" MODIFIED="1734514292274"/>
 <node TEXT="Nickname: changu" ID="ID_1801452366" CREATED="1734514265648" MODIFIED="1734514274467"/>
 </node>
 </node>
 <node TEXT="Versions" ID="ID_813916523" CREATED="1734514143858" MODIFIED="1734519233524">
 <icon BUILTIN="links/file/generic"/>
-<node TEXT="v 1.2" POSITION="bottom_or_right" ID="ID_1597662239" CREATED="1734514015098" MODIFIED="1734517189756">
+<node TEXT="v 1.2" FOLDED="true" POSITION="bottom_or_right" ID="ID_1597662239" CREATED="1734514015098" MODIFIED="1734517189756">
 <node TEXT="Changes: Updated partial program specifications." ID="ID_717761175" CREATED="1734514019164" MODIFIED="1734514036393"/>
 <node TEXT="Author: whoopie" ID="ID_1676924841" CREATED="1734514456472" MODIFIED="1734514465132"/>
 <node TEXT="Date: 15 November, 2024" ID="ID_544279972" CREATED="1734514037002" MODIFIED="1734514045399"/>
 </node>
-<node TEXT="v 1.1" POSITION="bottom_or_right" ID="ID_253086677" CREATED="1734513977156" MODIFIED="1734517198515">
+<node TEXT="v 1.1" FOLDED="true" POSITION="bottom_or_right" ID="ID_253086677" CREATED="1734513977156" MODIFIED="1734517198515">
 <node TEXT="Changes: Completed functional specifications." ID="ID_1317625547" CREATED="1734513980200" MODIFIED="1734513996902"/>
 <node TEXT="Author: changu" ID="ID_1159388852" CREATED="1734514468775" MODIFIED="1734514501742"/>
 <node TEXT="Date: 28 October, 2024" ID="ID_1778359559" CREATED="1734513997321" MODIFIED="1734514011069"/>
 </node>
-<node TEXT="v 1.0" POSITION="bottom_or_right" ID="ID_1563078805" CREATED="1734513787203" MODIFIED="1734517206394">
+<node TEXT="v 1.0" FOLDED="true" POSITION="bottom_or_right" ID="ID_1563078805" CREATED="1734513787203" MODIFIED="1734517206394">
 <node TEXT="Changes: Added introductory text." ID="ID_446479249" CREATED="1734513809106" MODIFIED="1734513960892"/>
 <node TEXT="Author: whoopie" ID="ID_1787780224" CREATED="1734514476263" MODIFIED="1734514493572"/>
 <node TEXT="Date: 2 October, 2024" ID="ID_1879725448" CREATED="1734513823194" MODIFIED="1734513974431"/>
@@ -587,14 +590,21 @@
   </body>
 </html></richcontent>
 </node>
-<node TEXT="List Item 3.1.4.3.4" ID="ID_708635400" CREATED="1736257272377" MODIFIED="1736257280768"/>
+<node TEXT="List Item 3.1.4.3.4" ID="ID_708635400" CREATED="1736257272377" MODIFIED="1736257280768">
+<node TEXT="List Item 3.1.4.3.4.1" ID="ID_1989216770" CREATED="1736257376330" MODIFIED="1736512394246"/>
+<node TEXT="List Item 3.1.4.3.4.2" ID="ID_1585531178" CREATED="1736257376330" MODIFIED="1736512722043"/>
+<node TEXT="List Item 3.1.4.3.4.3" ID="ID_1275196467" CREATED="1736257376330" MODIFIED="1736512406927"/>
+<node TEXT="List Item 3.1.4.3.4.4" ID="ID_1237255028" CREATED="1736257376330" MODIFIED="1736512682404"/>
 </node>
-<node TEXT="List Item 3.1.4.4" ID="ID_1095696649" CREATED="1736257175420" MODIFIED="1736257181198"/>
+</node>
+<node TEXT="List Item 3.1.4.4" ID="ID_1095696649" CREATED="1736257175420" MODIFIED="1736512832499">
+<icon BUILTIN="broken-line"/>
+</node>
 </node>
 </node>
 </node>
 <node TEXT="Program Specifications" POSITION="top_or_left" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1729268956151">
-<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1735547254625">
+<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1736357150049">
 <arrowlink DESTINATION="ID_86526980" STARTINCLINATION="58.5 pt;65.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -732,8 +742,11 @@
 <node TEXT="Method: Javascript function to reset all form-fields." ID="ID_1283640522" CREATED="1729102506519" MODIFIED="1729102529764"/>
 </node>
 </node>
-<node TEXT="Links" POSITION="bottom_or_right" ID="ID_417855629" CREATED="1729102371564" MODIFIED="1729253968114">
-<node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1734446670661"><richcontent TYPE="NOTE">
+<node TEXT="Links" POSITION="bottom_or_right" ID="ID_417855629" CREATED="1729102371564" MODIFIED="1736519551659">
+<icon BUILTIN="list"/>
+<node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1736519592712">
+<arrowlink DESTINATION="ID_571525042"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -760,31 +773,11 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1767876160" CREATED="1729254100795" MODIFIED="1729254200956">
-<node TEXT="Try Again" ID="ID_1751968326" CREATED="1729254118908" MODIFIED="1729254224249"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Clicking on this button takes the user to the pre-populated user-registration page.
-    </p>
-  </body>
-</html></richcontent>
-</node>
-<node TEXT="Login Instead" ID="ID_179044637" CREATED="1729254152283" MODIFIED="1729254236188"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Clicking on this button takes the user to the login page.
-    </p>
-  </body>
-</html></richcontent>
-</node>
+<node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1767876160" CREATED="1729254100795" MODIFIED="1736519762382">
+<icon BUILTIN="list"/>
+<icon BUILTIN="emoji-1F522"/>
+<node TEXT="Try Again: Clicking on this button takes the user to the pre-populated user-registration page." ID="ID_1751968326" CREATED="1729254118908" MODIFIED="1736519801753"/>
+<node TEXT="Login Instead: Clicking on this button takes the user to the login page." ID="ID_179044637" CREATED="1729254152283" MODIFIED="1736519817225"/>
 </node>
 </node>
 </node>
@@ -792,8 +785,8 @@
 <node TEXT="Level 4.2" ID="ID_1722806927" CREATED="1727287739014" MODIFIED="1734517660867">
 <node TEXT="Level 4.2.1" ID="ID_1376132053" CREATED="1727287742535" MODIFIED="1734517669633"/>
 <node TEXT="Level 4.2.2" ID="ID_684849006" CREATED="1727287747054" MODIFIED="1734517677654"/>
-<node TEXT="Level 4.2.3" ID="ID_1332164782" CREATED="1727287750969" MODIFIED="1734517683693">
-<node TEXT="Level 4.2.3.1" POSITION="bottom_or_right" ID="ID_892716213" CREATED="1727283986116" MODIFIED="1734517691051"/>
+<node TEXT="Level 4.2.3" ID="ID_1332164782" CREATED="1727287750969" MODIFIED="1736512302717">
+<node TEXT="Level 4.2.3.1" POSITION="bottom_or_right" ID="ID_892716213" CREATED="1727283986116" MODIFIED="1736512338135"/>
 <node TEXT="Level 4.2.3.2" POSITION="bottom_or_right" ID="ID_1108084290" CREATED="1734512022113" MODIFIED="1734517696966"/>
 </node>
 </node>
@@ -823,7 +816,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="BlooperDB" ID="ID_1337295940" CREATED="1734523474464" MODIFIED="1735539243971">
+<node TEXT="BlooperDB" ID="ID_1337295940" CREATED="1734523474464" MODIFIED="1736519964286">
 <icon BUILTIN="links/libreoffice/file_doc_database"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -833,6 +826,9 @@
   <body>
     <p>
       BlooperDB is the name of the database stored in HisSQL.
+    </p>
+    <p>
+      Following are the tables defined in this database. The specifications of the fields in each of the tables are given too. If certain fields have any specific notes associated with them, then they are displayed at the right side panel of each table.
     </p>
   </body>
 </html></richcontent>

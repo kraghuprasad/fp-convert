@@ -2,10 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: fp-convert.py",
+      "name": "Python: fp-convert",
       "type": "debugpy",
       "request": "launch",
-      "program": "fp-convert.py",
+      "python": "${command:python.interpreterPath}", // Adjust this path
+      "program": "fp_convert",
       "args": [
         "-k",
         //"-d",
@@ -21,7 +22,10 @@
       ],
       "console": "integratedTerminal",
       "justMyCode": true,
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
     }
   ]
 }

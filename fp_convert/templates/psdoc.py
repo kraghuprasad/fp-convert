@@ -3,12 +3,14 @@
 import os
 import re
 from collections import OrderedDict
+from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
 
+import pytz
+import yaml
 from cairosvg import svg2pdf
 from freeplane import Mindmap, Node
-
 #from peek import peek
 from pylatex import (
     Center,
@@ -42,6 +44,7 @@ from fp_convert.errors import (
     IncorrectInitialization,
     InvalidRefException,
     MaximumListDepthException,
+    MaximumSectionDepthException,
     UnsupportedFileException,
 )
 from fp_convert.utils.decorators import track_processed_nodes
@@ -60,6 +63,78 @@ It is possible to construct and reconfigure them, before constructing the PSD
 template. Then those reconfigured classes can be supplied to the constructor of
 the template.
 """
+def get_sample_config():
+    """
+    Return content of sample configuration file in YAML format.
+
+    Returns
+    -------
+    str :
+        Sample configuration in YAML format
+    """
+
+    theme = Theme()
+    data = dict()
+
+    def get_class_attributes(cls):
+        return {
+            key: value
+            for key, value in cls.__class__.__dict__.items()
+            if not key.startswith("__") and not callable(value)
+        }
+
+    for attr in [i for i in dir(theme) if not callable(i) and not i.startswith("__")]:
+        data[attr] = get_class_attributes(getattr(theme, attr))
+
+        #{k:v for k, v in getattr(theme, attr).__class__.__dict__.items() if not k.startswith("__")}
+    return yaml.dump(data, default_flow_style=False)
+
+
+
+def create_theme_from_config(conf_file):
+    """
+    Create a theme from the supplied fp-convert configuration file.
+
+    Parameters
+    ----------
+    config_file : str
+        The path to the fp-convert configuration file
+
+    Returns
+    -------
+    Theme
+        A theme created for FPDoc from the supplied configuration file.
+    """
+    config = Config()
+    geometry = Geometry()
+    table = Table()
+    datatable = DataTable()
+    colors = Colors()
+    conf = yaml.safe_load(open(conf_file))
+    if conf:
+        for key in conf.keys():
+            if key == "geometry":
+                for k in conf[key].keys():
+                    setattr(geometry, k, conf[key][k])
+            elif key == "table":
+                for k in conf[key].keys():
+                    setattr(table, k, conf[key][k])
+            elif key == "datatable":
+                for k in conf[key].keys():
+                    setattr(datatable, k, conf[key][k])
+            elif key == "colors":
+                for k in conf[key].keys():
+                    setattr(colors, k, conf[key][k])
+            elif key == "config":
+                for k in conf[key].keys():
+                    setattr(config, k, conf[key][k])
+    else:
+        raise UnsupportedFileException(f"Malformed configuration file {conf_file}.")
+
+    return Theme(
+        config=config, geometry=geometry, table=table,
+        datatable=datatable, colors=colors)
+
 
 class DBItemize(Itemize):
     pass
@@ -145,20 +220,20 @@ class DataTable:
     tab2_rowcolor_1 = "white"
     tab2_rowcolor_2 = "tealblue!7!white"
 
-class Colours:
+class Colors:
     """
-    Following colours are defined for styling the PSD.
+    Following colors are defined for styling the PSD.
     """
     header_line_color = "airforceblue"
     footer_line_color = "airforceblue"
     link_color = "celestialblue"
     url_color = "ceruleanblue"
     file_color = "magenta"
-    mc_color = "{rgb}{0,0.5,0}"  # Colour of margin comments
+    mc_color = "{rgb}{0,0.5,0}"  # Color of margin comments
     sf_line_color = "cadmiumred"  # Stop-Frame line-color
     sf_background_color = "red!5!white"  # Stop-Frame background-color
-    new_mark_color = "cobalt"  # Colour of markers for newly created nodes
-    del_mark_color = "red!80!gray"  # Colour of markers for nodes marked for deletion
+    new_mark_color = "cobalt"  # Color of markers for newly created nodes
+    del_mark_color = "red!80!gray"  # Color of markers for nodes marked for deletion
 
 
 class Theme:
@@ -172,7 +247,7 @@ class Theme:
         geometry: Optional[Geometry] = None,
         table: Optional[Table] = None,
         datatable: Optional[DataTable] = None,
-        colours: Optional[Colours] = None,
+        colors: Optional[Colors] = None,
     ):
         # Use default values of respective paramaters, if supplied ones
         # are None.
@@ -180,10 +255,10 @@ class Theme:
         self.geometry = geometry if geometry else Geometry()
         self.table = table if table else Table()
         self.datatable = datatable if datatable else DataTable()
-        self.colours = colours if colours else Colours()
+        self.colors = colors if colors else Colors()
 
 
-class PSDoc(FPDoc):
+class Doc(FPDoc):
     """
     It defines the parameters required to generate a project specifications
     document.
@@ -294,21 +369,21 @@ class PSDoc(FPDoc):
             NE(
                 rf"\titlespacing*{{\subparagraph}}{self.theme.config.subpar_title_spacing}"
             ),  # noqa
-            NE(rf"\definecolor{{mccol}}{self.theme.colours.mc_color}"),
+            NE(rf"\definecolor{{mccol}}{self.theme.colors.mc_color}"),
             NE(
                 r"\newcommand\margincomment[1]{\RaggedRight{"
                 r"\marginpar{\hsize1.7in\tiny\color{mccol}{#1}}}}"
             ),
             NE(
                 r"\mdfdefinestyle{StopFrame}{linecolor="
-                rf"{self.regcol(self.theme.colours.sf_line_color)}, outerlinewidth="
+                rf"{self.regcol(self.theme.colors.sf_line_color)}, outerlinewidth="
                 rf"{self.theme.config.sf_outer_line_width}, "
                 rf"roundcorner={self.theme.config.sf_round_corner_size},"
                 rf"rightmargin={self.theme.config.sf_outer_right_margin},"
                 rf"innerrightmargin={self.theme.config.sf_inner_right_margin},"
                 rf"leftmargin={self.theme.config.sf_outer_left_margin},"
                 rf"innerleftmargin={self.theme.config.sf_inner_left_margin},"
-                rf"backgroundcolor={self.theme.colours.sf_background_color}}}"
+                rf"backgroundcolor={self.theme.colors.sf_background_color}}}"
             ),
             NE(
                 fr"""
@@ -319,9 +394,9 @@ pdfauthor={{{self.docinfo["doc_author"]}}},
 pdfcreator={{"fp-convert using pylatex, freeplane-io, and LaTeX with hyperref"}},
 %pdfpagemode=FullScreen,
 colorlinks=true,
-linkcolor={self.regcol(self.theme.colours.link_color)},
-filecolor={self.regcol(self.theme.colours.file_color)},
-urlcolor={self.regcol(self.theme.colours.url_color)},
+linkcolor={self.regcol(self.theme.colors.link_color)},
+filecolor={self.regcol(self.theme.colors.file_color)},
+urlcolor={self.regcol(self.theme.colors.url_color)},
 pdftoolbar=true,
 pdfpagemode=UseNone,
 pdfstartview=FitH
@@ -458,7 +533,7 @@ bottom={self.theme.geometry.bottom_margin},
             macros.
         """
         ret = list()
-        segments = re.split(PSDoc.ref_pat, text)
+        segments = re.split(Doc.ref_pat, text)
 
         if len(segments) > 1:  # References are present in the supplied text
             refs = dict()
@@ -475,7 +550,7 @@ bottom={self.theme.geometry.bottom_margin},
 
             if len(refs) == 1:
                 for segment in segments:
-                    if not re.fullmatch(PSDoc.ref_pat, fr"{segment}"):
+                    if not re.fullmatch(Doc.ref_pat, fr"{segment}"):
                         ret.append(segment)
                     else:
                         if segment in {r"%ref%", r"%ref1%"}:
@@ -490,7 +565,7 @@ bottom={self.theme.geometry.bottom_margin},
                             )
             else:  # Multiple outgoing arrow-links are present
                 for segment in segments:
-                    if not re.fullmatch(PSDoc.ref_pat, segment):
+                    if not re.fullmatch(Doc.ref_pat, segment):
                         ret.append(segment)
                     else:
                         try:
@@ -717,6 +792,10 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 # corresponding LaTeX elements to mark it in the document.
                 flags = self.get_applicable_flags(child)
 
+                # Do not process items which are annotated with broken-line icon
+                if child.icons and "broken-line" in child.icons:
+                    continue
+
                 content = str(child).split(":", 1)
                 if len(content) == 2:
                     lst.add_item(NE(fr'{"\n".join(flags)}\xspace {bold(content[0])}: '))
@@ -827,7 +906,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         # Build blocks for tables
         for idx, dbtable in enumerate(dbtables):
             longtab.add_row(
-                [NE(fr"\textbf{{\textcolor{{{self.regcol(self.theme.datatable.tab1_header_text_color)}}}{{{idx+1}. Table: {EL(dbtable.name)}}}}}"), ""],
+                [NE(fr"\textbf{{\textcolor{{{self.regcol(self.theme.datatable.tab1_header_text_color)}}}{{{idx+1}. {EL(dbtable.name)}}}}}"), ""],
                 color=self.regcol(self.theme.datatable.tab1_header_row_color))
 #            longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
             longtab.append(NE(r"\rowcolor{white}"))
@@ -957,7 +1036,13 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             build the document.
         """
         stop_traversing = False  # Flag to stop traversing the node tree
+
         if node:
+            # Do not process which are annotated with broken-line icon
+            if node.icons and "broken-line" in node.icons:
+                #peek(f"Returning without processing node {node}")
+                return list()
+
             if level == 1:
                 blocks.append(Section(str(node), label=Label(get_label(node.id))))
             elif level == 2:
@@ -971,10 +1056,16 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                     Subparagraph(NE(f"{node}"), label=Label(get_label(node.id)))
                 )
             else:
-                # Now ignore all nodes beyond subparagraph (level=5).
-                # One more level (Subsubparagraph) is possible to be used but
-                # not using at present.
-                return
+                # Any nodes beyond subparagraph (level=5) is not allowed.
+                # One more level (Subsubparagraph) is possible but not being
+                # used at present. Too many nested sections indicate problems
+                # in organization of the document-structure.
+                raise MaximumSectionDepthException(
+                    f"Maximum depth ({level}) of sections reached for ndoe: "
+                    f"'{node}'. Move this node to a lower level by "
+                    "rearranging the structure/sections of your document in "
+                    "the mindmap."
+                )
 
             notes_elements = self.fetch_notes_elements(node)
             blocks.extend(notes_elements)
@@ -1038,10 +1129,10 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             data=NE(
                 rf"""
 \renewcommand{{\headrule}}%
-{{\color{{{self.regcol(self.theme.colours.header_line_color)}}}%
+{{\color{{{self.regcol(self.theme.colors.header_line_color)}}}%
 \hrule width \headwidth height \headrulewidth}}
 \renewcommand{{\footrule}}%
-{{\color{{{self.regcol(self.theme.colours.footer_line_color)}}}%
+{{\color{{{self.regcol(self.theme.colors.footer_line_color)}}}%
 \hrule width \headwidth height \footrulewidth}}"""
             ),
         )
@@ -1248,7 +1339,14 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
 
         with doc.create(Center()):
             doc.append(VerticalSpace(".5cm"))
-            doc.append(HugeText(bold('* * * * *')))
+            doc.append(HugeText(bold(r"* * * * *")))
+            retrieaval_date = datetime.now(
+                pytz.timezone(
+                    self.docinfo["timezone"])).strftime(
+                        "%d %B, %Y at %I:%M:%S %p %Z")
+            doc.append((
+                NE(
+                    fr"\newline\tiny{{(Document prepared on {retrieaval_date})}}")))
 
         # Create folder to store images, if any
         file_path = Path(output_file_path)
