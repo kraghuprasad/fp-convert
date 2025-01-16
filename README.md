@@ -255,6 +255,10 @@ If a particular node is annotated with File_doc_database icon (![File_doc_databa
     - null: The value is nullable
     - not null: The value can not be null
 
+### Ignore Sections and List-items
+
+If a particular node is annotated with broken line icon (![broken line icon](docs/examples/blooper-specs/images/broken.png)), then contents of it and all its children would be ignored while building the PDF document.
+
 ## Additional Text
 
 Besides rendering the contents of nodes, addtional text can be included as note-text in each node. Depending on the way the node is annotated (or not), those note-texts would be rendered too in the resultant PDF file.
