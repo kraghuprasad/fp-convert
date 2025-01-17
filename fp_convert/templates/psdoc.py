@@ -11,6 +11,7 @@ import pytz
 import yaml
 from cairosvg import svg2pdf
 from freeplane import Mindmap, Node
+
 #from peek import peek
 from pylatex import (
     Center,
@@ -90,7 +91,6 @@ def get_sample_config():
     return yaml.dump(data, default_flow_style=False)
 
 
-
 def create_theme_from_config(conf_file):
     """
     Create a theme from the supplied fp-convert configuration file.
@@ -164,6 +164,7 @@ class Config:
     header_thickness = "0.4"  # Header line thickness
     footer_thickness = "0.4"  # Footer line thickness
     figure_width = r"0.6\textwidth"  # Width of the figure, in LaTeX
+    timezone = "UTC"  # Timezone for all timestamps used in the document
 
 
 class Geometry:
@@ -774,7 +775,9 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         in the supplied node.
         """
         if level == 4:
-            raise MaximumListDepthException("Maximum depth of list reached.")
+            raise MaximumListDepthException(
+                f"Maximum depth of list reached at node: {node}. "
+                "The number of nested lists should not go beyond 3.")
 
         if node.children:
             if "emoji-1F522" in node.icons:  # Ordered list
@@ -1342,11 +1345,11 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
             doc.append(HugeText(bold(r"* * * * *")))
             retrieaval_date = datetime.now(
                 pytz.timezone(
-                    self.docinfo["timezone"])).strftime(
+                    self.theme.config.timezone)).strftime(
                         "%d %B, %Y at %I:%M:%S %p %Z")
+            doc.append(NE("\n"))
             doc.append((
-                NE(
-                    fr"\newline\tiny{{(Document prepared on {retrieaval_date})}}")))
+                NE(fr"\tiny{{(Document prepared on {retrieaval_date})}}")))
 
         # Create folder to store images, if any
         file_path = Path(output_file_path)

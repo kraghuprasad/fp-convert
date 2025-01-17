@@ -91,6 +91,86 @@ options:
 
 ---
 
+## Control Parameters for PDF Generation
+
+Various document-parameters can be controlled using a configuration file, which can be supplied using -c option on commandline. A sample configuration can be generated using the -g commandline option too. Following is the content of a sample configuration file which can be used while generating the PDF form the mindmap. The details of each parameter is provided in respective in-line comment-texts.
+
+---
+
+```
+# Configuration parameters of fp-convert. You may modify it as per your
+# requirements.
+config:
+  toc_depth: "3" # Maximum depth allowed in table of contents listing
+  sec_depth: "5" # Maximum depth allowed in sectionins of the document
+
+# Document-geometry and structural parameters
+geometry:
+  sf_outer_line_width: "1pt" # Stop-Frame outer line-width size (with unit)
+  sf_round_corner_size: "3pt" # Stop-Frame rounded corner's size (with unit)
+  sf_outer_left_margin: "5pt" # Stop-Frame outer left margin width (with unit)
+  sf_inner_left_margin: "5pt" # Stop-Frame inner left margin width (with unit)
+  sf_outer_right_margin: "5pt" # Stop-Frame outer right margin width (with unit)
+  sf_inner_right_margin: "5pt" # Stop-Frame inner right margin width (with unit)
+  header_thickness: "0.4" # Header line thickness
+  footer_thickness: "0.4" # Footer line thickness
+  figure_width: "0.6" # Figure-with for all figures as a factor of text-width
+  left_margin: "1.25in" # Left margin (with unit)
+  inner_margin: "1.25in" # Inner margin (with unit)
+  right_margin: "1.25in" # Right margin (with unit)
+  outer_margin: "1.25in" # Outer margin (with unit)
+  top_margin: "1.5in" # Top margin (with unit)
+  bottom_margin: "1.5in" # Bottom margin (with unit)
+  head_height: "20pt" # Head height (with unit)
+  par_indent: "0pt" # Paragraph indentation (with unit)
+  tp_top_logo_vspace: "5cm" # Vertical space between top logo and title text on title page
+  tp_top_logo_height: "3cm" # Height of top logo on title page
+  tp_bottom_logo_vspace: "7cm" # Vertical space between bottom logo and title text on title page
+  tp_bottom_logo_height: "1.5cm" # Height of bottom logo on title page
+  l_header_image_height: "0.7cm" # Left header image height in all pages (with unit)
+  c_header_image_height: "0.5cm" # Center header image height in all pages (with unit)
+  r_header_image_height: "0.5cm" # Right header image height in all pages (with unit)
+  l_footer_image_height: "0.5cm" # Left footer image height in all pages (with unit)
+  c_footer_image_height: "0.5cm" # Center footer image height in all pages (with unit)
+  r_footer_image_height: "0.5cm" # Right footer image height in all pages (with unit)
+
+# Parameters specific to tables used in the general sections of the document
+table:
+  header_row_color: "babyblueeyes!60" # Header row color
+  header_text_color: "darkblue" # Header text color
+  rowcolor_1: "babyblueeyes!30" # Row color 1 of alternate row colors
+  rowcolor_2: "babyblueeyes!10" # Row color 2 of alternate row colors
+  line_color: "cornflowerblue" # Color of lines shown in table
+
+# Parameters specific to tables describing database schema
+dbtable:
+  tab1_header_row_color: "spirodiscoball!20!white" # Header row color for table 1
+  tab1_header_line_color: "fpcblue2" # Header line color for table 1
+  tab1_header_text_color: "darkblue" # Header text color for table 1
+  tab1_body_line_color: "gray!30" # Body line color for table 1
+  tab2_header_row_color: "fpcblue1" # Header row color for table 2
+  tab2_header_line_color: "fpcblue2" # Header line color for table 2
+  tab2_header_text_color: "darkblue" # Header text color for table 2
+  tab2_rowcolor_1: "white" # Row color 1 of alternate row colors for table 2
+  tab2_rowcolor_2: "tealblue!7!white" # Row color 2 of alternate row colors for table 2
+
+# Color speicific parameters
+colors:
+  header_line_color: "airforceblue" # Color of header line of the document
+  footer_line_color: "airforceblue" # Color of footer line of the document
+  link_color: "celestialblue" # Color of hyperlinks in the document
+  url_color: "ceruleanblue" # Color of URLs used in the document
+  file_color: "magenta" # Color of file-links used in the document
+  mc_color: "{rgb}{0,0.5,0}" # Color of margin comment-links in the document
+  sf_line_color: "cadmiumred" # Color of the boundary lines of the Stop-Frame
+  sf_background_color: "red!5!white" # Background color of the Stop-Frame
+  new_mark_color: "cobalt" # Color of new-markers used for newly added nodes
+  del_mark_color: "red!81!gray" # Color of trash-markers for nodes marked for deletion
+
+```
+
+---
+
 ## Software Components
 
 fp-convert is standing on the shoulders of giants like Python and TeX/LaTeX which doesn't need any introductions. But two critical components without which this endeavour would not have been possibe are [PyLaTeX](https://github.com/JelteF/PyLaTeX) and [freeplane-python-io](https://github.com/nnako/freeplane-python-io) (thanks nnako for all those timely help :).
@@ -163,8 +243,6 @@ R_Header_Text: Non-Confidential
 L_Header_Logo: images/blooper_logo.pdf
 C_Footer_Logo: images/clueless_devs_consortium.pdf
 R_Footer_Text: \small{Page \thepage\- of \pageref*{LastPage}}
-Header_Thickness: 0.4
-Footer_Thickness: 0.4
 ```
 
 ---
