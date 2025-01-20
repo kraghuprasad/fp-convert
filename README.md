@@ -27,7 +27,7 @@ A lot of above mentioned problems can be fixed by opting for a mindmap based app
 
 ## License
 
-This application is released under Apache(v2) License. You are free to use its code in commercial as well as in open source projects, under pertient licencing terms. But please note that one of the components used in this project ([freeplane-python-io](https://github.com/nnako/freeplane-python-io)) is released under GPLv3. This may affect your chances of using this tool along with non-GPLed code - like in a proprietary tool. But if you are using this tool as a standalone application executed via command line without linking it directly to your product's codebase, then probably you are free to use it in your commercial products too. But it would be prudent to consult a lawyer familiar with IP and software licenses before opting for that approach.
+This application is released under GNU Public License (v3). You are free to use it for commercial as well as non-commercial purposes, as long as your work remains compliant to the underlying licensing terms.
 
 ## Usage
 
