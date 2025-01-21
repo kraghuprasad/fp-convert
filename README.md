@@ -5,7 +5,7 @@ If you use mindmaps to capture and manage knowledge, but others working with you
 Following image summarizes what fp-convert can do if it is provided with a suitably prepared freeplane mindmap.
 ![fp-convert [options] mindmap-file pdf-file](docs/examples/blooper-specs/images/fp-convert-summary-image.png)
 
-## Why?
+## Why it matters?
 
 Once upon a time, people used to understand that there existed a separation between contents of a document and its representation. But that has mostly been blurred for majority of people today who jump onto any available writing or presentation tool to capture and maintain information. Until we understand this separation, it would not be possible to select the most suitable tool for any knowledge management needs. While dealing with projects - and specifically software projects - we regularly find people capturing and maintaining functional and program specifications in Word docs, Excel spreadsheets and (Horror!!!) Powerpoint presentations. Those who have used such tools to write project specifications also know the inherent challenges in maintaining them over a long period of time, sometimes stretching over decades. Some of the common problems associated with these kinds of tools are listed below.
 
@@ -17,13 +17,15 @@ Once upon a time, people used to understand that there existed a separation betw
 
 To solve these problems, TeX/LaTeX is a good tool, which allows us to maintain the separation between content and style. It is possible to convert a TeX based document to corresponding PS or PDF file formats, which are known as portable file formats. They are guaranteed to render correctly everywhere. Now a days, a scaled down version with very limited formatting features are found in Markdown or XML based text editors too.
 
-While writing the document, the author can decide to chose the right format to display a particular content. For example, the same content can be formatted in a tabular form (in spread-sheets), in paragraphs of text (in word docs), flowcharts (using Visio or LibreDraw) or in any other suitable form. This is the prerogative of the producer (author) to decide how certain content should be rendered to convey the required information to the reader of the document. This requires good understanding on the producer's part on what to show what in which format. The lack of such understanding, along with misuse of existing text or data formatting tools have actually blurred the line of distinction between content and its presentation today. We regularly find badly formatted documents where even the section-headers are not properly structured. Many consider that the headers of a section means just few phrases formatted in bold-text. This kind of formatting makes it impossible to auto-generate the table of contents of a large document along with its section-headers and page numbers.
+While writing the document, the author can decide to chose the right format to display a particular content. For example, the same content can be formatted in a tabular form (in spread-sheets), in paragraphs of text (in word docs), flowcharts (using Visio or LibreDraw) or in any other suitable form. This is the prerogative of the producer (author) to decide how certain content should be rendered to convey the required information to the consumer (reader) of the document. This requires good understanding on the producer's part on what to show in which format. We find that the lack of such understanding, along with misuse of existing text or data formatting tools have actually blurred the line of distinction between content and its presentation. We regularly find badly formatted documents where even the section-headers are not suitably defined. Many consider that the headers of a section means just few phrases formatted in bold-text. This kind of formatting makes it impossible to auto-generate the table of contents of a large document along with its section-headers and page numbers. If we define the structure of the documents correctly, then existing text processing tools like TeX/LaTeX, Microsoft Word, Libreoffice Writer; or cloud based text editors like Google Docs, O365 Word etc. would be able to autogenerate the table of contents of our documents for us whose sections could be accurately hyperlinked to their respective page numbers.
 
-TeX/LaTeX also ensures that if we use its predefined document templates prudently, then the resultand documents are prepared following all pertinent typesetting rules. Since most of the people are not familar with the rules of typesetting, it is always better to leave that job to a suitable tool like TeX. Proper typesetting is mandatory for a document to make its content easily accessible to the consumers of that document.
+TeX/LaTeX is an advanced text processing tool. By using its various predefined document templates prudently, we can be sure that the resultant documents would be following all pertinent typesetting rules. Since many people are not familar with the rules of document typesetting, it is always better to leave that job to a suitable tool like TeX. Proper typesetting is mandatory for a document to make its content easily accessible to the consumers of that document. Hence fp-convert uses TeX/LaTeX to typeset the documents generated from Freeplane mindmap.
 
-Though it is easy to generate any kind of document using WYSIWYG text editors, there are scenarios where the end results may not turn out to be useful for the consumers of those documents. One such scenario is writing functional or implementation specifications of a project or creating a database schema for it. Design being a non-liear activity, it is required to add or remove contents in that documents, while maintaining required cross-referencing between its sections. This is required not only during the design and development periods of such applications, it might be needed to be done for every change-requests received from the client after it has gone to the production. The authors of specifications know that such documents need extensive cross references, various kinds of diagrams, tables, lists of entities etc. to define the underlying functional or implementation concepts. Though we can create such content in plain text, soon it becomes tedious to maintain it for a long period of time. Sometimes such documents are to be updated and maintained for decades. Those who have worked with TeX/LaTeX would know how much extra text one has to write and maintain to just create cross references among sections, tables, lists etc. Besides that, one needs to know basic concepts of TeX to debug issues which may crop up during the document compilation phase.
+Though it is easy to generate any kind of document using WYSIWYG text editors, there are scenarios where the end results may not turn out to be useful for the consumers of those documents. One such scenario is writing functional or implementation specifications of a project, for which people resort to Word docs, excel sheets or Powerpoint presentations. Each of them have their own sets of problems to capture and manage the knowledge involved in a project. Another such example is creation of a relational database schema for a database used in an enterprise application. Similar issues are applicable here too.
 
-A lot of above mentioned problems can be fixed by opting for a mindmap based approach while creating any project specifications. Mindmaps have turned out to be quite useful to brainstorm ideas, and to design solutions for various problems. If we create all our specifications in mindmaps while following certain conventions, fp-convert can generate properly typeset document from it which is portable as well as which would render correctly on all devices and operating systems. The text (XML) based mindmaps created by freeplane is easy to store in any repository like git subversion etc. along with the application's source code, its configuration, and other assets. This central storage of all assets together also helps in ensuring single source of knowledge for the whole project.
+Design being a non-liear activity, it is required to add or remove contents in design specifications in non-linear manner. While doing so, it is important to maintain required cross-references between its sections correctly. This is required not only during the design and development periods of enterprise applications, it might be needed to be done for every change-requests received from the client after the application has gone to the production. Any specification documents may need various kinds of diagrams, tables, lists of entities etc. along with large volumes of description-text to define the underlying functional or implementation details. Though we can create such content in plain text using any WYSIWYG text processor, soon it becomes tedious to maintain it for a long period of time. Sometimes such documents are to be updated and maintained for decades. Even using TeX/LaTeX for it would make that work quite tedious and cumbersome. Just to create cross references among sections, tables, lists etc. one needs to write quite an amount of text for defining labels and hyperlinks while using LaTeX. Besides that, one needs to know basic concepts of TeX well to debug issues which may crop up during the document compilation phase.
+
+By using fp-convert and Freeplane based mindmap to capture the knowledge, one can avoid all such pains involved in writing a specifications document. For many decades now, the mindmaps have turned out to be quite useful to brainstorm ideas, and to design solutions for various problems. If we capture the details involved in any project specifications in a mindmap while following certain conventions, the fp-convert can generate properly typeset document from it which would be portable across various rendering systems. The generated document (PDF) can be rendered correctly on operating systems like Linux, Windows, Mac etc. Also the text (XML) based mindmaps created by Freeplane is easy to store in any code and configuration repository like git subversion etc. along with other project assets. This ensures single source of knowledge for the whole project.
 
 ## License
 
@@ -91,13 +93,107 @@ options:
 
 ---
 
-## Control Parameters for PDF Generation
+## Software Components
 
-Various document-parameters can be controlled using a configuration file, which can be supplied using -c option on commandline. A sample configuration can be generated using the -g commandline option too. Following is the content of a sample configuration file which can be used while generating the PDF form the mindmap. The details of each parameter is provided in respective in-line comment-texts.
+fp-convert is standing on the shoulders of giants like Python and TeX/LaTeX which doesn't need any introductions. But two critical components without which this endeavour would not have been possibe are [PyLaTeX](https://github.com/JelteF/PyLaTeX) and [freeplane-python-io](https://github.com/nnako/freeplane-python-io) (thanks nnako for all those timely help :).
+
+## LaTeX Envirnoment
+
+Install tex-live package on the host on which fp-convert is to be used. This is the easiest approach to start using it. On Linux systems we have noticed that following packages are usually found in the tex-live installation:
+
+- texlive-base
+- texlive-latex-base
+- texlive-latex-recommended
+- texlive-fonts-recommended
+- texlive-fonts-extra
+- texlive-latex-extra
+- texlive-pictures
+- texlive-science
+- texlive-latex-extra
+
+If full tex-live package is not available on your machine due to disk-space crunch, or due to some other reasons; then at least a TeX/LaTeX environment with following packages must be made available for fp-convert to work properly:
+
+- amssymb
+- enumitem
+- fontawesome5
+- fontenc
+- geometry
+- hyperref
+- longtable
+- makecell
+- marginnote
+- mdframed
+- multirow
+- placeins
+- ragged2e
+- tabularx
+- tcolorbox
+- titlesec
+- utopia
+- xcolor
+- xspace
+
+You will also need to install all those additional TeX packages on which the commandline-options to fp-convert depends on. For example, you may need to install additional font-packages, if you are not satisfied with the default `lmodern` or `roboto` font-family for your documents. In such case, you may also need to install additional fonts on your system. That's the reason it is adviced to go with full tex-live package on the host.
+
+Please note that this program was built and tested on a Manjaro Desktop which is based on Arch Linux. It is expected that it will work without any issues on other Linux distributions like Debian, Ubuntu, Fedora and all other distros built using them. In fact it should work with any unix-like system like FreeBSD, OpenBSD, NetBSD, DragonFlyBSD, etc. too provided the software dependencies of fp-convert are met. It may also work on Windows and MacOS, provided all required TeX and other Python packages are installed on in. Your milage may vary though. We would like to hear the experience of users who could get it working on BSD, Windows and Mac.
+
+## Features
+
+fp-convert is a commanline tool written in Python which uses fp_convert module to carry out its work. The same module can be invoked from other Python programs too, to generate required PDF documents. At present it is designed to generate project specification document for any software or IT based projects. Support for other kinds of documents would be added in future, based on the demand from the community. By the way, it should not be presumed that the document generated by fp-convert would not be useful for capturing other knowledge-items. Internally fp-convert uses LaTeX base document class `article'. Hence you can use fp-convert to generate any kind of document which can be built using that document class, as long as you follow certain conventions while creating your mindmap. The details of those conventions are given in some of the sections below.
+
+### Print-Quality PDF Generation
+
+fp-convert can generate PDF files using TeX/LaTeX text processing system. It creates beautiful, and compact documents which follow almost all typographic conventions followed in a standard TeX based document template.
+
+### Metadata of Document
+
+The document's content is kept separate from the standard meta-data like page-geometry, logo-images and their dimensions, colors of various artifacts etc. All page-layout and styling related metadata is managed via special classes like Config, Colors, Geometry, Theme etc. Those values can either be supplied programmatically - if required - or they can be fetched from a suitable configuration file while processing the document.
+
+On the other hand, the document specific metadata which is not pertaining to the layout and styling of the document can be stored as note-text in the root node of the mindmap. They are stored in key-value format. This is fetched and processed automatically by fp-convert and rendered in the resultant PDF file at appropriate places. Except root-node of the mindmap, all other nodes should hold the contents of the document, based on which the PDF file is to be generated.
+
+Following is a sample metadata text-block stored as note-text of root node of the sample mindmap shared with this application. The descriptions given in parentheses against each value is for information purpose only, and they should not be included in the mindmap. You may modify any of the values in your mindmap, and they would be reflected in the resultant PDF file.
 
 ---
 
+```text
+Version: 1.0  (document-version to be included on the title page)
+Title: Project Specifications of Blooper App (document title)
+Date: 21 January, 2025 (document-date to be printed on title page)
+Author: Whoopie Bard $<$whoopie@clueless.dev$>$ (author-name with email)
+Client: Blooper Inc. (client for whom project is being executed)
+Vendor: Clueless Developers' Consortium (vender who is executing the project)
+TP_Top_Logo: images/tp_top_logo.pdf (top-logo image path for title page)
+TP_Bottom_Logo: images/tp_bottom_logo.pdf (bottom-logo image path for title page)
+L_Header_Text: Blooper Inc. (page header text for top left if image is not supplied)
+L_Header_Logo: images/page_top_left_image.pdf (page header image for top left if text is not supplied)
+C_Header_Text: Project Specifications of Blooper App (page header text at top center if image is not supplied for it)
+C_Header_Logo: images/page_top_center_image.pdf (page header image at top center if text is not supplied for it)
+R_Header_Text: Non-Confidential (page header text at top right if image is not supplied for it)
+R_Header_Logo: images/page_top_right_image.pdf (page header image for top right if text is not supplied)
+L_Footer_Text: created by fp-convert (page header text for bottom left if image is not supplied)
+L_Footer_Logo: images/page_bottom_left_image.pdf (page header image for bottom left if text is not supplied)
+C_Footer_Text: Clueless Developers' Consortium (page header text at bottom center if image is not supplied for it)
+C_Footer_Logo: images/page_bottom_center_image.pdf (page header image at bottom center if text is not supplied for it)
+R_Footer_Text: \small{Page \thepage\- of \pageref*{LastPage}} (page header text for bottom right if image is not supplied)
+R_Footer_Logo: images/page_bottom_right_image.pdf (page header image for bottom right if text is not supplied)
+Timezone: Asia/Kolkata (timezone - default is UTC - to be used while calculating timestamps, if any)
 ```
+
+---
+
+The page number format shown above for right-footer-text is using the LaTeX macros \thepage and \pageref\*{LastPage}. It prints the text "Page X of Y" on every page, where X is the current page-number, and Y is the total number of pages in the document. You may use the value "\small{\thepage} if you want only the current page-number to be printed on every page.
+
+The credit text "Prepared using [fp-convert](https://github.com/kraghuprasad/fp-convert)" would be automatically included in the footer of every page by default. If you do not want that, then you need to supply some text (or image) for all the three footer blocks, namely left (L_Footer\_\*), center (C_Footer\_\*), and right (R_Footer\_\*) as shown in the example given above. If you want certain blocks to be kept empty, but do not want it to be auto-filled using the credit text mentioned above, then please ensure that all the keys used for defining footer-texts (\*\_Footer_Text) are either supplied with some valid values or with %%; provided no images are defined for those sections either. For example, if there are no images supplied for left section of the footer, and no text is supplied for it either, then the credit text would be automatically included there. But if you supply %% as value for L_Footer_Text, then that section would be left empty by not including credit text there. Please note that this trick is possible only with keys used for specifying the text parts of the footer. If you are using any keys meant for specifying the logo (image) paths, then they must be supplied with proper image-paths, i.e. You can not put %% as values for any of them.
+
+The geometry, colors etc. can be modified too, but using a different configuration mechanism. Either you create respective classes (Config, Geometry, Colors, Theme, etc.) with required parameters or use a YAML based configuration file to define them which can be supplied with commandline option -c while invoking fp-convert. The details of configuration file is given in the following section.
+
+## Control Rendering Parameters
+
+Various document-parameters can be controlled using a configuration file, which can be supplied using -c option on commandline. A sample configuration can be generated using the -g commandline option too. Following is the content of a sample configuration file which can be used while generating the PDF from a mindmap. The details of each parameter is provided as an in-line comment on the same line.
+
+---
+
+```yaml
 # Configuration parameters of fp-convert. You may modify it as per your
 # requirements.
 config:
@@ -123,9 +219,9 @@ geometry:
   bottom_margin: "1.5in" # Bottom margin (with unit)
   head_height: "20pt" # Head height (with unit)
   par_indent: "0pt" # Paragraph indentation (with unit)
-  tp_top_logo_vspace: "5cm" # Vertical space between top logo and title text on title page
+  tp_top_logo_vspace: "5cm" # Vertical space between title page's top logo and title text
   tp_top_logo_height: "3cm" # Height of top logo on title page
-  tp_bottom_logo_vspace: "7cm" # Vertical space between bottom logo and title text on title page
+  tp_bottom_logo_vspace: "7cm" # Vertical space between title pages' text and bottom logo
   tp_bottom_logo_height: "1.5cm" # Height of bottom logo on title page
   l_header_image_height: "0.7cm" # Left header image height in all pages (with unit)
   c_header_image_height: "0.5cm" # Center header image height in all pages (with unit)
@@ -166,94 +262,13 @@ colors:
   sf_background_color: "red!5!white" # Background color of the Stop-Frame
   new_mark_color: "cobalt" # Color of new-markers used for newly added nodes
   del_mark_color: "red!81!gray" # Color of trash-markers for nodes marked for deletion
-
 ```
 
 ---
-
-## Software Components
-
-fp-convert is standing on the shoulders of giants like Python and TeX/LaTeX which doesn't need any introductions. But two critical components without which this endeavour would not have been possibe are [PyLaTeX](https://github.com/JelteF/PyLaTeX) and [freeplane-python-io](https://github.com/nnako/freeplane-python-io) (thanks nnako for all those timely help :).
-
-## LaTeX Envirnoment
-
-It would be the safest bet to install full tex-live package on the host on which this program is to be executed. Or at least a TeX/LaTeX environment with all the following packages installed:
-
-- texlive-base
-- texlive-latex-base
-- texlive-latex-recommended
-- texlive-fonts-recommended
-- texlive-fonts-extra
-- texlive-latex-extra
-- texlive-pictures
-- texlive-science
-- texlive-latex-extra
-
-But if you have a scaled down TeX/LaTeX environment on your system, then please make sure that you have the following TeX packages installed on it:
-
-- amssymb
-- enumitem
-- fontawesome5
-- fontenc
-- geometry
-- hyperref
-- longtable
-- makecell
-- marginnote
-- mdframed
-- multirow
-- placeins
-- ragged2e
-- tabularx
-- tcolorbox
-- titlesec
-- utopia
-- xcolor
-- xspace
-
-You will also need to install all those additional TeX packages on which the commandline-options to fp-convert depends on. For example, you may need to install additional font-packages, if you are not satisfied with `lmodern` or `roboto` font-family for your document. In such case, you may also need to install additional fonts on your system. That's the reason it is best to install full tex-live package on the host, even though it is a large package which consumes a lot of disk space.
-
-Please note that this program was built and tested on Manjaro Linux which is based on Arch Linux. It is also expected that it will work without any issues on other Linux distributions like Debian, Ubuntu, Fedora and all other distros built using them. In fact it should work with any unix-like system like FreeBSD, OpenBSD, NetBSD, DragonFlyBSD, etc. It may also work on Windows and MacOS, provided all required TeX and other Python packages are available on them. Your milage may vary though. We would like to hear the experience of users who could get it working on Windows and Mac.
-
-## Features
-
-fp-convert is a commanline tool written in Python which uses fp_convert module to carry out its work. The same module can be invoked from other Python programs too, to generate required PDF documents. At present it is designed to generate project specification document for any software or IT based projects. We would be adding support for other kinds of documents in future, based on the demand from the community. At the same time it should not be presumed that the generated document would not be useful for capturing other knowledge-items. fp-convert uses LaTeX base document class `article'. Hence you can use fp-convert to generate any kind of document which can be built using that document class, as long as you follow certain conventions while creating your mindmap.
-
-### Print-Quality PDF Generation
-
-fp-convert can generate PDF file using TeX/LaTeX text processing system. It creates beautiful, and compact documents which follow almost all typographic conventions followed in a standard TeX based document template.
-
-### Document's Data and Metadata
-
-The document's content is kept separate from the standard meta-data like page-geometry, logo-images and their dimentions, colors of various artifacts etc. Following is the meta-info stored in the root node of the sample mindmap. This is fetched and processed automatically by fp-convert and rendered in the resultant PDF file at appropriate places.
-
----
-
-```
-Title: Project Specifications of Blooper App
-Version: 1.2
-Date: 15 November, 2024
-Author: Whoopie Bard $<$whoopie@clueless.dev$>$\\Changu Bhai $<$changu.bhai@clueless.dev$>$
-Client: Blooper Corporation Inc.
-Vendor: Clueless Developers' Consortium
-TP_Top_Logo: images/blooper_logo.pdf
-TP_Bottom_Logo: images/clueless_devs_consortium.pdf
-C_Header_Text: Project Specifications of Blooper App
-R_Header_Text: Non-Confidential
-L_Header_Logo: images/blooper_logo.pdf
-C_Footer_Logo: images/clueless_devs_consortium.pdf
-R_Footer_Text: \small{Page \thepage\- of \pageref*{LastPage}}
-```
-
----
-
-There are additional controls too are possible, which are not readily available here. For example, by creating your own Theme, Color, Config classes, you can control the resultant document in much more fine grained manner. Also it is possible to supply all such configurations in a YAML based configuration file which can be passed to the program using -c option on the commandline.
-
-At present, the documentation is quite sparese. But we hope to improve it over some time.
 
 ### Sections, Subsections, and More
 
-Except root node, all following nodes in a mindmap are treated as sections, their subsections, their subsubsections and more. You can attain maximum depth of 5 in this manner. The node's text is treated as header of respective sections, and the note-text in each of them are rendered as section-content. Every linke-break in the note-text is taken as the start of a new paragraph in respective section. If a node is to be treated in a different way, it should be annotated with a suitable icon.
+Except root node, all following nodes in a mindmap are treated as sections, their subsections, their subsubsections and more. You can attain maximum depth of 5 in this manner. The node's text is treated as header of respective sections, and the note-text in each of them are rendered as section-content. Every line-break in the note-text is taken as the start of a new paragraph in respective section. If a node is to be treated in a different way, it should be annotated with a suitable icon representing how to render it. Details of such icons are given in the following sections.
 
 ### Unordered Lists
 
@@ -273,19 +288,19 @@ By annotating any node with JSON icon (![json icon](docs/examples/blooper-specs/
 
 ### Images
 
-If an image is to be rendered in a particular section or subsection, then node corresponding to that section should be annotated with image icon (![image icon](docs/examples/blooper-specs/images/image.png)). The raster image formats like JPEG and PNG are supported. If you want to use vector graphics, then attach SVG based images. They would be auto-converted to PDF and used in the resultant PDF document.
+If an image is to be rendered in a particular section or subsection, then node corresponding to that section should be annotated with image icon (![image icon](docs/examples/blooper-specs/images/image.png)). The raster image formats like JPEG and PNG are supported. If you want to use vector graphics, then attach SVG based images to the node. They would be auto-converted to PDF and then used in the resultant PDF document. By using SVG image, you can keep the size of the document small. Please note that attaching large raster graphics like JPEG, PNG etc. to the mindmap may considerably increase the size of the resultant PDF document.
 
 ### Warnings
 
-If some kind of warning-text in red is to be rendered, then that node should be annotated with stop icon (![stop icon](docs/examples/blooper-specs/images/stop.png)), and the warning-text should be placed as a note in that node. Then this text would be rendered in a red box for easy identification.
+If some kind of warning-text is to be rendered, then that node should be annotated with stop icon (![stop icon](docs/examples/blooper-specs/images/stop.png)), and the warning-text should be placed as a note in that node. Then this text would be rendered prominently in a frame-box. This annotation should be used mainly for sections where some kind of questions or doubts are to be raised and marked in the document.
 
 ### Marked as New
 
-If some text is to be flagged as new, then annotate respective nodes using addition icon (![addition icon](docs/examples/blooper-specs/images/plus.png)). Such blocks of text would be marked as New for easy identification.
+If some text is to be flagged as new, then annotate respective nodes using addition icon (![addition icon](docs/examples/blooper-specs/images/plus.png)). Such blocks of text would be marked as New for easy identification. This can be used to indicate any newly added section in the document.
 
 ### Marked for Removal
 
-If any block of text elements rendered using a node is to be marked for removal in future, then annotate that node with Not OK icon (![Not OK icon](docs/examples/blooper-specs/images/cross.png)). Then the content of this and its children would be distinctly marked for removal using red text and lines.
+If any block of text elements rendered using a node is to be marked for removal in future, then annotate that node with Not OK icon (![Not OK icon](docs/examples/blooper-specs/images/cross.png)). Then the content of this and its children would be distinctly marked for removal using red text and lines. In program specifications, it would be a good practice to indicate such blocks of text before they are actually removed in the next version of the document. This flag can also be used for marking deprecated sections in the document. The actual text to be used for this purpose (Delete, Deprecated, To be Removed, etc.) can be defined via the configuration parameter
 
 ### Database Schema
 
@@ -338,6 +353,10 @@ If a particular node is annotated with broken line icon (![broken line icon](doc
 ## Additional Text
 
 Besides rendering the contents of nodes, addtional text can be included as note-text in each node. Depending on the way the node is annotated (or not), those note-texts would be rendered too in the resultant PDF file.
+
+## Sample Mindmap and PDF Document
+
+You may download and use the sample mindmap _[Blooper_Specifications.mm](docs/examples/blooper-specs/Blooper_Specifications.mm)_ which is shared with the sources of this application to learn, explore and try out various formatting options described above. The PDF file generated from this mindmap is available as _[Blooper_Specifications.pdf](docs/examples/blooper-specs/Blooper_Specifications.pdf)_. The first time users are advised to use these samples to explore the features of fp-convert before making their own mindmaps.
 
 ## Future Plans
 

@@ -2,7 +2,8 @@ import re
 from typing import List, Optional
 
 from freeplane import Node
-#from peek import peek  # noqa: F401
+
+# from peek import peek  # noqa: F401
 from pylatex import MdFramed
 from pylatex.base_classes import LatexObject
 from pylatex.utils import NoEscape
@@ -195,10 +196,6 @@ class DocInfo:
         "C_Footer_Logo": "c_footer_image",
         "R_Footer_Text": "r_footer_text",
         "R_Footer_Logo": "r_footer_image",
-        "New_Mark_Text": "new_mark_text",  # Text marking newly added nodes
-        "New_Mark_Flag": "new_mark_flag",  # FontAwesome icon for new-markings
-        "Del_Mark_Text": "del_mark_text",  # Text marking nodes for removal
-        "Del_Mark_Flag": "del_mark_flag",  # FontAwesome icon for del-markings
         "Timezone": "timezone",  # The timezone used for all auto-generated dates
     }
     regex_pat = "^(" + "|".join([k for k in docinfo_tpl.keys()]) + ") *:(.+)$"
@@ -223,10 +220,6 @@ class DocInfo:
             Can be empty/None in which case all fields are initialized to None.
         """
         self._data = {v: None for v in DocInfo.docinfo_tpl.values()}
-        self._data["new_mark_text"] = "New"
-        self._data["new_mark_flag"] = r"\faFlagCheckered"
-        self._data["del_mark_text"] = "Trashed"
-        self._data["del_mark_flag"] = r"\faTrash"
         self._data["timezone"] = "UTC"
 
         if info_text:

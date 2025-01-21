@@ -18,7 +18,7 @@
         //"josefin:sfdefault:medium:scaled=1.1",
         //"montserrat:defaultfam:tabular:lining:alternates",
         "docs/examples/blooper-specs/Blooper_Specifications.mm",
-        "/tmp/Blooper_Specifications.pdf"
+        "docs/examples/blooper-specs/Blooper_Specifications.pdf"
       ],
       "console": "integratedTerminal",
       "justMyCode": true,

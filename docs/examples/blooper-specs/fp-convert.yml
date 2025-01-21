@@ -1,0 +1,67 @@
+colors:
+  del_mark_color: red!80!gray
+  file_color: magenta
+  footer_line_color: airforceblue
+  header_line_color: airforceblue
+  link_color: celestialblue
+  mc_color: '{rgb}{0,0.5,0}'
+  new_mark_color: cobalt
+  sf_background_color: red!5!white
+  sf_line_color: cadmiumred
+  url_color: ceruleanblue
+config:
+  del_mark_flag: \faCut
+  del_mark_text: CUT
+  figure_width: 0.6\textwidth
+  footer_thickness: '0.4'
+  header_thickness: '0.4'
+  new_mark_flag: \faPlus
+  new_mark_text: NEW
+  par_title_format: '[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}'
+  par_title_spacing: '{0pt}{3.25ex plus 1ex minus .2ex}{.75em}'
+  sec_depth: 5
+  sf_inner_left_margin: 5pt
+  sf_inner_right_margin: 5pt
+  sf_outer_left_margin: 5pt
+  sf_outer_line_width: 1pt
+  sf_outer_right_margin: 5pt
+  sf_round_corner_size: 3pt
+  subpar_title_format: '[hang]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}'
+  subpar_title_spacing: '{0pt}{3.25ex plus 1ex minus .2ex}{.75em}'
+  timezone: UTC
+  toc_depth: 3
+datatable:
+  tab1_body_line_color: gray!30
+  tab1_header_line_color: fpcblue2
+  tab1_header_row_color: spirodiscoball!20!white
+  tab1_header_text_color: darkblue
+  tab2_header_line_color: fpcblue2
+  tab2_header_row_color: fpcblue1
+  tab2_header_text_color: darkblue
+  tab2_rowcolor_1: white
+  tab2_rowcolor_2: tealblue!7!white
+geometry:
+  bottom_margin: 1.5in
+  c_footer_image_height: 0.5cm
+  c_header_image_height: 0.5cm
+  head_height: 20pt
+  inner_margin: 1.25in
+  l_footer_image_height: 0.5cm
+  l_header_image_height: 0.7cm
+  left_margin: 1.25in
+  outer_margin: 1.25in
+  par_indent: 0pt
+  r_footer_image_height: 0.5cm
+  r_header_image_height: 0.5cm
+  right_margin: 1.25in
+  top_margin: 1.5in
+  tp_bottom_logo_height: 1.5cm
+  tp_bottom_logo_vspace: 7cm
+  tp_top_logo_height: 3cm
+  tp_top_logo_vspace: 5cm
+table:
+  header_row_color: babyblueeyes!60
+  header_text_color: darkblue
+  line_color: cornflowerblue
+  rowcolor_1: babyblueeyes!30
+  rowcolor_2: babyblueeyes!10

@@ -164,6 +164,10 @@ class Config:
     header_thickness = "0.4"  # Header line thickness
     footer_thickness = "0.4"  # Footer line thickness
     figure_width = r"0.6\textwidth"  # Width of the figure, in LaTeX
+    new_mark_text = "NEW"  # Text marking newly added nodes
+    new_mark_flag = r"\faPlus"  # FontAwesome icon for new-markings
+    del_mark_text = "CUT"  # Text marking nodes for removal
+    del_mark_flag = r"\faCut"  # FontAwesome icon for del-markings
     timezone = "UTC"  # Timezone for all timestamps used in the document
 
 
@@ -1191,7 +1195,8 @@ height={self.theme.geometry.l_footer_image_height}]%
 {{{self.get_absolute_file_path(self.docinfo['l_footer_image'])}}}"""
             )
         elif self.docinfo.get("l_footer_text", None):
-            lfooter = NE(rf"{self.docinfo['l_footer_text']}")
+            if self.docinfo['l_footer_text'] != "%%":
+                lfooter = NE(rf"{self.docinfo['l_footer_text']}")
         else:
             lfooter = NE(fr"\tiny{{{DocInfo.credits}}}")  # Credit-text
             credits_marked = True
@@ -1208,7 +1213,8 @@ height={self.theme.geometry.c_footer_image_height}]%
 {{{self.get_absolute_file_path(self.docinfo['c_footer_image'])}}}"""
             )
         elif self.docinfo.get("c_footer_text", None):
-            cfooter = NE(rf"{self.docinfo['c_footer_text']}")
+            if self.docinfo['c_footer_text'] != "%%":
+                cfooter = NE(rf"{self.docinfo['c_footer_text']}")
         elif not credits_marked:
             cfooter = NE(fr"\tiny{{{DocInfo.credits}}}")
             credits_marked = True
@@ -1225,7 +1231,8 @@ height={self.theme.geometry.r_footer_image_height}]%
 {{{self.get_absolute_file_path(self.docinfo['r_footer_image'])}}}"""
             )
         elif self.docinfo.get("r_footer_text", None):
-            rfooter = NE(fr"\small{{{self.docinfo['r_footer_text']}}}")
+            if self.docinfo['r_footer_text'] != "%%":
+                rfooter = NE(fr"\small{{{self.docinfo['r_footer_text']}}}")
         elif not credits_marked:
             rfooter = NE(fr"\tiny{{{DocInfo.credits}}}")
             credits_marked = True

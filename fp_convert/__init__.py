@@ -101,15 +101,15 @@ class FPDoc(Document):
             flag = NE(
                 fr"""
 \textcolor{{{self.regcol(self.theme.colors.del_mark_color)}}}{{%
-{{\rotatebox{{30}}{{\tiny{{\textbf{{{self.docinfo["del_mark_text"]}}}}}}}}}%
-{{{self.docinfo["del_mark_flag"]}}}}}""")
+{{\rotatebox{{30}}{{\tiny{{\textbf{{{self.theme.config.del_mark_text}}}}}}}}}%
+{{{self.theme.config.del_mark_flag}}}}}""")
             ret.append(flag)
         elif node.icons and "addition" in node.icons:
             flag = NE(
                 fr"""
 \textcolor{{{self.regcol(self.theme.colors.new_mark_color)}}}{{%
-{{\rotatebox{{30}}{{\tiny{{\textbf{{{self.docinfo["new_mark_text"]}}}}}}}}}
-{{{self.docinfo["new_mark_flag"]}}}}}""")
+{{\rotatebox{{30}}{{\tiny{{\textbf{{{self.theme.config.new_mark_text}}}}}}}}}%
+{{{self.theme.config.new_mark_flag}}}}}""")
             ret.append(flag)
 
         # If required, more flags can be handled here before returning
