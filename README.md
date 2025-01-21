@@ -356,7 +356,7 @@ Besides rendering the contents of nodes, addtional text can be included as note-
 
 ## Sample Mindmap and PDF Document
 
-You may download and use the sample mindmap _[Blooper_Specifications.mm](https://github.com/kraghuprasad/fp-convert/docs/examples/blooper-specs/Blooper_Specifications.mm)_ which is shared with the sources of this application to learn, explore and try out various formatting options described above. The PDF file generated from this mindmap is available as _[Blooper_Specifications.pdf](https://github.com/kraghuprasad/fp-convert/docs/examples/blooper-specs/Blooper_Specifications.pdf)_. The first time users are advised to use these samples to explore the features of fp-convert before making their own mindmaps.
+You may download and use the sample mindmap _[Blooper_Specifications.mm](https://github.com/kraghuprasad/fp-convert/raw/main/docs/examples/blooper-specs/Blooper_Specifications.mm)_ which is shared with the sources of this application to learn, explore and try out various formatting options described above. The PDF file generated from this mindmap is available as _[Blooper_Specifications.pdf](https://github.com/kraghuprasad/fp-convert/raw/main/docs/examples/blooper-specs/Blooper_Specifications.pdf)_. The first time users are advised to use these samples to explore the features of fp-convert before making their own mindmaps.
 
 ## Future Plans
 
