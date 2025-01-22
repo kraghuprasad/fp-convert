@@ -805,15 +805,21 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
                 content = str(child).split(":", 1)
                 if len(content) == 2:
-                    lst.add_item(NE(fr'{"\n".join(flags)}\xspace {bold(content[0])}: '))
+                    if len(flags):
+                        lst.add_item(NE(fr'{"\n".join(flags)}\xspace {bold(EL(content[0]))}: '))
+                    else:
+                        lst.add_item(fr'{bold(EL(content[0]))}: ')
                     texts = self.expand_macros(content[1], child)
                     for text in texts:
-                        lst.append(text)
+                        lst.append(EL(text))
                 else:
                     texts = self.expand_macros(str(child), child)
-                    lst.add_item(NE(fr'{"\n".join(flags)}\xspace {texts[0]}'))
+                    if len(flags):
+                        lst.add_item(NE(fr'{"\n".join(flags)}\xspace {EL(texts[0])}'))
+                    else:
+                        lst.add_item(EL(texts[0]))
                     for text in texts[1:]:
-                        lst.append(text)
+                        lst.append(EL(text))
 
                 # If notes exists in supplied node, then include it too
                 if child.notes:
@@ -1051,16 +1057,16 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 return list()
 
             if level == 1:
-                blocks.append(Section(str(node), label=Label(get_label(node.id))))
+                blocks.append(Section(EL(str(node)), label=Label(get_label(node.id))))
             elif level == 2:
-                blocks.append(Subsection(str(node), label=Label(get_label(node.id))))
+                blocks.append(Subsection(EL(str(node)), label=Label(get_label(node.id))))
             elif level == 3:
-                blocks.append(Subsubsection(str(node), label=Label(get_label(node.id))))
+                blocks.append(Subsubsection(EL(str(node)), label=Label(get_label(node.id))))
             elif level == 4:
-                blocks.append(Paragraph(str(node), label=Label(get_label(node.id))))
+                blocks.append(Paragraph(EL(str(node)), label=Label(get_label(node.id))))
             elif level == 5:
                 blocks.append(
-                    Subparagraph(NE(f"{node}"), label=Label(get_label(node.id)))
+                    Subparagraph(EL(f"{node}"), label=Label(get_label(node.id)))
                 )
             else:
                 # Any nodes beyond subparagraph (level=5) is not allowed.
@@ -1350,10 +1356,14 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
         with doc.create(Center()):
             doc.append(VerticalSpace(".5cm"))
             doc.append(HugeText(bold(r"* * * * *")))
+
+            # docinfo based timezone is preferred
+            if self.docinfo.get("timezone", None):
+                tz = self.docinfo["timezone"]
+            else:  # then comes option of confuguration based timezone
+                tz = self.theme.config.timezone
             retrieaval_date = datetime.now(
-                pytz.timezone(
-                    self.theme.config.timezone)).strftime(
-                        "%d %B, %Y at %I:%M:%S %p %Z")
+                pytz.timezone(tz)).strftime("%d %B, %Y at %I:%M:%S %p %Z")
             doc.append(NE("\n"))
             doc.append((
                 NE(fr"\tiny{{(Document prepared on {retrieaval_date})}}")))
