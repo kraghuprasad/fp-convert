@@ -160,3 +160,13 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+pip_freeze_out.txt
+.trunk/.gitignore
+.trunk/trunk.yaml
+.trunk/configs/.isort.cfg
+.trunk/configs/.markdownlint.yaml
+.trunk/configs/.yamllint.yaml
+.trunk/configs/ruff.toml
+.trunk/configs/svgo.config.js
+.vscode/settings.json
+.gitignore

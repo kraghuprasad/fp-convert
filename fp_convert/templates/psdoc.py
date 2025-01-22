@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import os
 import re
 from collections import OrderedDict
@@ -55,7 +54,12 @@ from fp_convert.utils.helpers import (
     DocInfo,
     get_label,
     retrieve_note_lines,
+    special_truncator_factory,
 )
+
+# Create truncator functions for strings with limited size
+trunc32 = special_truncator_factory(32)
+trunc24 = special_truncator_factory(24)
 
 """
 Following classes specify the default values for various parameters of Program
@@ -64,81 +68,6 @@ It is possible to construct and reconfigure them, before constructing the PSD
 template. Then those reconfigured classes can be supplied to the constructor of
 the template.
 """
-def get_sample_config():
-    """
-    Return content of sample configuration file in YAML format.
-
-    Returns
-    -------
-    str :
-        Sample configuration in YAML format
-    """
-
-    theme = Theme()
-    data = dict()
-
-    def get_class_attributes(cls):
-        return {
-            key: value
-            for key, value in cls.__class__.__dict__.items()
-            if not key.startswith("__") and not callable(value)
-        }
-
-    for attr in [i for i in dir(theme) if not callable(i) and not i.startswith("__")]:
-        data[attr] = get_class_attributes(getattr(theme, attr))
-
-        #{k:v for k, v in getattr(theme, attr).__class__.__dict__.items() if not k.startswith("__")}
-    return yaml.dump(data, default_flow_style=False)
-
-
-def create_theme_from_config(conf_file):
-    """
-    Create a theme from the supplied fp-convert configuration file.
-
-    Parameters
-    ----------
-    config_file : str
-        The path to the fp-convert configuration file
-
-    Returns
-    -------
-    Theme
-        A theme created for FPDoc from the supplied configuration file.
-    """
-    config = Config()
-    geometry = Geometry()
-    table = Table()
-    datatable = DataTable()
-    colors = Colors()
-    conf = yaml.safe_load(open(conf_file))
-    if conf:
-        for key in conf.keys():
-            if key == "geometry":
-                for k in conf[key].keys():
-                    setattr(geometry, k, conf[key][k])
-            elif key == "table":
-                for k in conf[key].keys():
-                    setattr(table, k, conf[key][k])
-            elif key == "datatable":
-                for k in conf[key].keys():
-                    setattr(datatable, k, conf[key][k])
-            elif key == "colors":
-                for k in conf[key].keys():
-                    setattr(colors, k, conf[key][k])
-            elif key == "config":
-                for k in conf[key].keys():
-                    setattr(config, k, conf[key][k])
-    else:
-        raise UnsupportedFileException(f"Malformed configuration file {conf_file}.")
-
-    return Theme(
-        config=config, geometry=geometry, table=table,
-        datatable=datatable, colors=colors)
-
-
-class DBItemize(Itemize):
-    pass
-
 
 class Config:
     """
@@ -544,12 +473,14 @@ bottom={self.theme.geometry.bottom_margin},
             refs = dict()
             if node.arrowlinks:
                 for idx, node_to in enumerate(node.arrowlinks):
-                    #refs[f"%ref{idx+1}%"] = rf"\autoref{{{get_label(node_to.id)}}}"
-                    refs[fr"%ref{idx+1}%"] = Command("autoref", get_label(node_to.id))
+                    #refs[fr"%ref{idx+1}%"] = Command("autoref", get_label(node_to.id))
+                    refs[fr"%ref{idx+1}%"] = Command(
+                        "hyperlink",
+                        arguments=(get_label(node_to.id), trunc32(str(node_to))))
             else:
                 raise InvalidRefException(
-                    f"Node [{str(node)}(ID: {node.id})] without any"
-                    "outgoing arrow-link is using a node-reference in its text"
+                    f"Node [{str(node)}(ID: {node.id})] without any "
+                    "outgoing arrow-link is using a node-reference in its text "
                     "or notes."
                 )
 
@@ -563,9 +494,9 @@ bottom={self.theme.geometry.bottom_margin},
                             ret.append(Command("xspace"))
                         else:
                             raise InvalidRefException(
-                                f"Node [{str(node)}(ID: {node.id})] with"
-                                "single outgoing arrow-link is using a"
-                                "node-reference index more than 1"
+                                f"Node [{str(node)}(ID: {node.id})] with "
+                                "single outgoing arrow-link is using a "
+                                "node-reference index more than 1 "
                                 f"({segment}) in its text or notes."
                             )
             else:  # Multiple outgoing arrow-links are present
@@ -579,14 +510,15 @@ bottom={self.theme.geometry.bottom_margin},
                         except KeyError:
                             # trunk-ignore(ruff/B904)
                             raise InvalidRefException(
-                                f"Node [{str(node)}(ID: {node.id})] with"
-                                "multiple outgoing arrow-links is using an"
-                                f"invalid node-reference ({segment}) in its"
+                                f"Node [{str(node)}(ID: {node.id})] with "
+                                "multiple outgoing arrow-links is using an "
+                                f"invalid node-reference ({segment}) in its "
                                 "text or notes."
                             )
 
             # Add a label to this node for back reference
-            ret.append(NE(rf"\label{{R{get_label(node.id)}}}"))
+            # ret.append(NE(rf"\label{{R{get_label(node.id)}}}"))
+            ret.append(NE(rf"\hypertarget{{R{get_label(node.id)}}}{{}}"))
 
         else:  # No references are present in the supplied text
             ret.append(segments[0])
@@ -643,16 +575,25 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             )
         )  # Build a boxed figure
         fig.add_caption(str(node))
-        fig.append(NE(rf"\label{{{get_label(node.id)}}}"))
+        # fig.append(NE(rf"\label{{{get_label(node.id)}}}"))
+        fig.append(NE(rf"\hypertarget{{{get_label(node.id)}}}{{}}"))
         ret.append(fig)
 
         # Add back references, if this node is being pointed to by other nodes
         # of the mindmap.
         for referrer in node.arrowlinked:
+#            ret.append(
+#                NE(
+#                    rf"""
+#\margincomment{{\tiny{{$\Lsh$ \autoref{{R{get_label(referrer.id)}}}}}%
+#\newline}}%
+#"""
+#                )
+#            )  # Add a margin comment
             ret.append(
                 NE(
                     rf"""
-\margincomment{{\tiny{{$\Lsh$ \autoref{{R{get_label(referrer.id)}}}}}%
+\margincomment{{\tiny{{$\Lsh$ \hyperlink{{R{get_label(referrer.id)}}}{{{trunc24(str(referrer))}}}}}%
 \newline}}%
 """
                 )
@@ -806,20 +747,26 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 content = str(child).split(":", 1)
                 if len(content) == 2:
                     if len(flags):
-                        lst.add_item(NE(fr'{"\n".join(flags)}\xspace {bold(EL(content[0]))}: '))
+                        lst.add_item(NE(fr'{"\n".join(flags)}\xspace {bold(EL(content[0]))}'))
                     else:
-                        lst.add_item(fr'{bold(EL(content[0]))}: ')
+                        lst.add_item(NE(fr'{bold(EL(content[0]))}'))
+
+                    # Add a colon after first part, but only if there exists
+                    # some text in the second part of the content.
+                    if not str.strip(content[1]) == "":
+                        lst.append(": ")
+
                     texts = self.expand_macros(content[1], child)
                     for text in texts:
-                        lst.append(EL(text))
+                        lst.append(text)
                 else:
                     texts = self.expand_macros(str(child), child)
                     if len(flags):
-                        lst.add_item(NE(fr'{"\n".join(flags)}\xspace {EL(texts[0])}'))
+                        lst.add_item(NE(fr'{"\n".join(flags)}\xspace {texts[0]}'))
                     else:
-                        lst.add_item(EL(texts[0]))
+                        lst.add_item(texts[0])
                     for text in texts[1:]:
-                        lst.append(EL(text))
+                        lst.append(text)
 
                 # If notes exists in supplied node, then include it too
                 if child.notes:
@@ -833,14 +780,19 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                                 lst.append(item)
 
                 # Add a label so that other nodes can refer to it.
-                lst.append(Command("label", get_label(child.id)))
+                # lst.append(Command("label", get_label(child.id)))
+                lst.append(Command("hypertarget", arguments=(get_label(child.id), "")))
 
                 # Add back references, if this node is being pointed to
                 # by other nodes (sinks for arrows)
                 for referrer in child.arrowlinked:
                     lst.append(NE(
-                        fr"\margincomment{{\tiny{{$\Lsh$ \autoref{{{get_label(
-                            referrer.id)}}}}}}}"))
+                        # fr"\margincomment{{\tiny{{$\Lsh$ \autoref{{{get_label(
+                        #     referrer.id)}}}}}}}"))
+                        fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{get_label(
+                            referrer.id)}}}{{{trunc32(
+                                str(referrer)
+                            )}}}}}}}"))
 
                 if child.children:
                     if child.icons and 'links/file/generic' in child.icons:  # Table is to be built
@@ -926,7 +878,8 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
             mp1 = MiniPage(width=r"\linewidth", pos="t")
             mp1.append(NE(r"\small"))
-            mp1.append(NE(fr'\label{{{dbtable.label}}}'))
+            # mp1.append(NE(fr'\label{{{dbtable.label}}}'))
+            mp1.append(NE(fr'\hypertarget{{{dbtable.label}}}{{}}'))
             mp1.append(NE(fr"\rowcolors{{2}}{{{self.regcol(self.theme.datatable.tab2_rowcolor_1)}}}"))
             mp1.append(NE(fr"{{{self.regcol(self.theme.datatable.tab2_rowcolor_2)}}}"))
             tab_mp1 = Tabularx(NE(r">{\raggedright\arraybackslash}l l X X l"), width_argument=NE(r"\linewidth"), pos="t")
@@ -1057,16 +1010,21 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 return list()
 
             if level == 1:
-                blocks.append(Section(EL(str(node)), label=Label(get_label(node.id))))
+                # blocks.append(Section(EL(str(node)), label=Label(get_label(node.id))))
+                blocks.append(Section(EL(str(node)), label=None))
             elif level == 2:
-                blocks.append(Subsection(EL(str(node)), label=Label(get_label(node.id))))
+                # blocks.append(Subsection(EL(str(node)), label=Label(get_label(node.id))))
+                blocks.append(Subsection(EL(str(node)), label=None))
             elif level == 3:
-                blocks.append(Subsubsection(EL(str(node)), label=Label(get_label(node.id))))
+                # blocks.append(Subsubsection(EL(str(node)), label=Label(get_label(node.id))))
+                blocks.append(Subsubsection(EL(str(node)), label=None))
             elif level == 4:
-                blocks.append(Paragraph(EL(str(node)), label=Label(get_label(node.id))))
+                # blocks.append(Paragraph(EL(str(node)), label=Label(get_label(node.id))))
+                blocks.append(Paragraph(EL(str(node)), label=None))
             elif level == 5:
                 blocks.append(
-                    Subparagraph(EL(f"{node}"), label=Label(get_label(node.id)))
+                    # Subparagraph(EL(f"{node}"), label=Label(get_label(node.id)))
+                    Subparagraph(EL(f"{node}"), label=None)
                 )
             else:
                 # Any nodes beyond subparagraph (level=5) is not allowed.
@@ -1079,6 +1037,8 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                     "rearranging the structure/sections of your document in "
                     "the mindmap."
                 )
+
+            blocks.append(Command("hypertarget", arguments=(get_label(node.id), "")))
 
             notes_elements = self.fetch_notes_elements(node)
             blocks.extend(notes_elements)
@@ -1376,3 +1336,80 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
         os.chdir(self.working_dir)
         doc.generate_pdf(file_path, clean=clean, clean_tex=clean_tex)
         os.chdir(curr_dir)
+
+def get_sample_config():
+    """
+    Return content of sample configuration file in YAML format.
+
+    Returns
+    -------
+    str :
+        Sample configuration in YAML format
+    """
+
+    theme = Theme()
+    data = dict()
+
+
+    def get_class_attributes(cls):
+        return {
+            key: value
+            for key, value in cls.__class__.__dict__.items()
+            if not key.startswith("__") and not callable(value)
+        }
+
+    for attr in [i for i in dir(theme) if not callable(i) and not i.startswith("__")]:
+        data[attr] = get_class_attributes(getattr(theme, attr))
+
+        #{k:v for k, v in getattr(theme, attr).__class__.__dict__.items() if not k.startswith("__")}
+    return yaml.dump(data, default_flow_style=False)
+
+
+def create_theme_from_config(conf_file):
+    """
+    Create a theme from the supplied fp-convert configuration file.
+
+    Parameters
+    ----------
+    config_file : str
+        The path to the fp-convert configuration file
+
+    Returns
+    -------
+    Theme
+        A theme created for FPDoc from the supplied configuration file.
+    """
+    config = Config()
+    geometry = Geometry()
+    table = Table()
+    datatable = DataTable()
+    colors = Colors()
+    conf = yaml.safe_load(open(conf_file))
+    if conf:
+        for key in conf.keys():
+            if key == "geometry":
+                for k in conf[key].keys():
+                    setattr(geometry, k, conf[key][k])
+            elif key == "table":
+                for k in conf[key].keys():
+                    setattr(table, k, conf[key][k])
+            elif key == "datatable":
+                for k in conf[key].keys():
+                    setattr(datatable, k, conf[key][k])
+            elif key == "colors":
+                for k in conf[key].keys():
+                    setattr(colors, k, conf[key][k])
+            elif key == "config":
+                for k in conf[key].keys():
+                    setattr(config, k, conf[key][k])
+    else:
+        raise UnsupportedFileException(f"Malformed configuration file {conf_file}.")
+
+    return Theme(
+        config=config, geometry=geometry, table=table,
+        datatable=datatable, colors=colors)
+
+
+class DBItemize(Itemize):
+    pass
+

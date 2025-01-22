@@ -644,3 +644,47 @@ class MyIterator:
         item = self.data[self.index]
         self.index += 1
         return item
+
+
+def truncate_string(string: str, max_length: int) -> str:
+    """
+    Function to create a truncated string from a given string.
+
+    Parameters
+    ----------
+    string: str
+        The string to be truncated.
+    max_length: int
+        The maximum length of the truncated string.
+
+    Returns
+    -------
+    str
+        The truncated string.
+    """
+    if len(string) > max_length:
+        return string[: max_length - 3] + "..."
+    else:
+        return string
+
+
+def special_truncator_factory(max_length: int):
+    """
+    Special factory method to create a truncator function which also removes
+    the colon, if it exists at the end of the string.
+
+    Parameters
+    ----------
+    max_length: int
+        The maximum length of the truncated string.
+
+    Returns
+    -------
+    function
+        The truncator function.
+    """
+
+    def truncator(string: str):
+        return re.sub(":$", "", truncate_string(string, max_length))
+
+    return truncator
