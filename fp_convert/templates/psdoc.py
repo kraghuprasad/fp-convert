@@ -1039,6 +1039,16 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 )
 
             blocks.append(Command("hypertarget", arguments=(get_label(node.id), "")))
+            if node.arrowlinked:
+                for referrer in node.arrowlinked:
+                    blocks.append(
+                        NE(
+                            rf"""
+        \margincomment{{\tiny{{$\Lsh$ \hyperlink{{R{get_label(referrer.id)}}}{{{trunc24(str(referrer))}}}}}%
+        \newline}}%
+        """
+                        )
+                )  # Add a margin comment
 
             notes_elements = self.fetch_notes_elements(node)
             blocks.extend(notes_elements)
