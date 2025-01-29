@@ -56,3 +56,13 @@ class MaximumSectionDepthException(FPConvertException):
     """Raised when a section being constructed crosses maximum allowed depth."""
 
     pass
+
+class MissingHeaderException(FPConvertException):
+    """Raised when an expected header-item is not found in a node for table."""
+
+    pass
+
+class MissingValueException(FPConvertException):
+    """Raised when an expected column-value is not found in a node for table."""
+
+    pass

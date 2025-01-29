@@ -50,7 +50,7 @@
     </p>
   </body>
 </html></richcontent>
-<hook NAME="MapStyle" background="#f5f5dcff" zoom="0.9090909">
+<hook NAME="MapStyle" background="#f5f5dcff" zoom="0.75131476">
     <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1733675264000" fit_to_viewport="false" showTagCategories="false"/>
     <tags category_separator="::"/>
 
@@ -594,6 +594,75 @@
 </node>
 </node>
 </node>
+<node TEXT="Effort Estimations" POSITION="top_or_left" ID="ID_1345197809" CREATED="1738130469467" MODIFIED="1738161341688">
+<icon BUILTIN="links/file/generic"/>
+<icon BUILTIN="emoji-1F522"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Following table summarizes the approximate efforts (in person-hours) required for designing, developing, preparation of unit tests, functional testing, and documentation for each module of this application.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="|headers|" ID="ID_1628630275" CREATED="1738050840496" MODIFIED="1738163554487"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Column1: Modules
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Des." ID="ID_122811428" CREATED="1738051541583" MODIFIED="1738053008151">
+<icon BUILTIN="emoji-2795"/>
+</node>
+<node TEXT="Dev." ID="ID_1176739726" CREATED="1738051549014" MODIFIED="1738065008074">
+<icon BUILTIN="emoji-2795"/>
+</node>
+<node TEXT="U. Test." ID="ID_445571688" CREATED="1738051561555" MODIFIED="1738065008075">
+<icon BUILTIN="emoji-2795"/>
+</node>
+<node TEXT="F. Test." ID="ID_1344569292" CREATED="1738051572363" MODIFIED="1738065008075">
+<icon BUILTIN="emoji-2795"/>
+</node>
+<node TEXT="Doc." ID="ID_1878819761" CREATED="1738051582173" MODIFIED="1738142536465">
+<icon BUILTIN="emoji-2795"/>
+</node>
+<node TEXT="Remarks" ID="ID_540595960" CREATED="1738074498688" MODIFIED="1738074603603">
+<icon BUILTIN="emoji-1F18E"/>
+</node>
+</node>
+<node TEXT="User Registration" ID="ID_324996541" CREATED="1738048934038" MODIFIED="1738130597170">
+<node TEXT="2" OBJECT="java.lang.Long|2" POSITION="bottom_or_right" ID="ID_581753592" CREATED="1738047796450" MODIFIED="1738145544002"/>
+<node TEXT="9" OBJECT="java.lang.Long|9" POSITION="bottom_or_right" ID="ID_1118320433" CREATED="1738048019021" MODIFIED="1738145547998"/>
+<node TEXT="6" OBJECT="java.lang.Long|6" POSITION="bottom_or_right" ID="ID_120607485" CREATED="1738048192421" MODIFIED="1738145550449"/>
+<node TEXT="2" OBJECT="java.lang.Long|2" POSITION="bottom_or_right" ID="ID_124930285" CREATED="1738048218325" MODIFIED="1738145444194"/>
+<node TEXT="1" OBJECT="java.lang.Long|1" POSITION="bottom_or_right" ID="ID_1350406622" CREATED="1738048243927" MODIFIED="1738145511887"/>
+<node TEXT="" POSITION="bottom_or_right" ID="ID_1939838303" CREATED="1738075331454" MODIFIED="1738075331454"/>
+</node>
+<node TEXT="Password Reset" ID="ID_1191705529" CREATED="1738048934038" MODIFIED="1738130620445">
+<node TEXT="3" OBJECT="java.lang.Long|3" POSITION="bottom_or_right" ID="ID_71198318" CREATED="1738047796450" MODIFIED="1738051802914"/>
+<node TEXT="4" OBJECT="java.lang.Long|4" POSITION="bottom_or_right" ID="ID_664501832" CREATED="1738048019021" MODIFIED="1738051804738"/>
+<node TEXT="4" OBJECT="java.lang.Long|4" POSITION="bottom_or_right" ID="ID_827330508" CREATED="1738048192421" MODIFIED="1738051807221"/>
+<node TEXT="6" OBJECT="java.lang.Long|6" POSITION="bottom_or_right" ID="ID_1879559447" CREATED="1738048218325" MODIFIED="1738051809908"/>
+<node TEXT="2" OBJECT="java.lang.Long|2" POSITION="bottom_or_right" ID="ID_1486689173" CREATED="1738048243927" MODIFIED="1738051812550"/>
+<node TEXT="" POSITION="bottom_or_right" ID="ID_178427139" CREATED="1738161199151" MODIFIED="1738161199151"/>
+</node>
+<node TEXT="Blooper Generation" ID="ID_1728553725" CREATED="1738049000509" MODIFIED="1738130628739">
+<node TEXT="4" OBJECT="java.lang.Long|4" ID="ID_1316546867" CREATED="1738047796450" MODIFIED="1738132634148"/>
+<node TEXT="10" OBJECT="java.lang.Long|10" ID="ID_1708166034" CREATED="1738048019021" MODIFIED="1738132641067"/>
+<node TEXT="8" OBJECT="java.lang.Long|8" ID="ID_869060147" CREATED="1738048192421" MODIFIED="1738132652751"/>
+<node TEXT="2" OBJECT="java.lang.Long|2" ID="ID_1216058996" CREATED="1738048218325" MODIFIED="1738132662650"/>
+<node TEXT="2" OBJECT="java.lang.Long|2" ID="ID_1311543829" CREATED="1738048243927" MODIFIED="1738051829581"/>
+<node TEXT="Complex module" ID="ID_231889123" CREATED="1738075349346" MODIFIED="1738132684445"/>
+</node>
+</node>
 <node TEXT="Program Specifications" POSITION="top_or_left" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1729268956151">
 <node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1736357150049">
 <arrowlink DESTINATION="ID_86526980" STARTINCLINATION="58.5 pt;65.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
@@ -622,7 +691,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="User-registration Screen" POSITION="bottom_or_right" ID="ID_169009377" CREATED="1729333488273" MODIFIED="1735556301752">
+<node TEXT="User-registration Screen" POSITION="bottom_or_right" ID="ID_169009377" CREATED="1729333488273" MODIFIED="1738141782819">
 <arrowlink DESTINATION="ID_571525042" STARTINCLINATION="142.5 pt;95.25 pt;" ENDINCLINATION="599.99998 pt;0 pt;"/>
 <richcontent TYPE="NOTE">
 <html>

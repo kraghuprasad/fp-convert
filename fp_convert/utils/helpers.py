@@ -172,7 +172,7 @@ class DocInfo:
     """
 
     credits = (
-        r"Prepared using \href{https://www.github.com/kraghuprasad/fp-convert}"
+        r"Prepared by using \href{https://www.github.com/kraghuprasad/fp-convert}"
         "{fp-convert}"
     )
     docinfo_tpl = {  # Statically defined field converter template for docinfo

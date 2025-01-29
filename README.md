@@ -3,7 +3,7 @@
 If you use mindmaps to capture and manage knowledge, but others working with you find them quite cumbersome to read and understand, then fp-convert is for you. It converts a freeplane mindmap to print-quality PDF documents. At present it converts a mindmap to a project specifications document. The same template can be used to build any knowledge-base and print it out as a beautiful PDF document. It uses LaTeX/pdflatex text processing system to create the PDF file.
 
 Following image summarizes what fp-convert can do if it is provided with a suitably prepared freeplane mindmap.
-![fp-convert [options] mindmap-file pdf-file](docs/examples/blooper-specs/images/fp-convert-summary-image.png)
+![fp-convert [options] mindmap-file pdfyy-file](docs/examples/blooper-specs/images/fp-convert-summary-image.png)
 
 ## Why it matters?
 
@@ -280,7 +280,28 @@ If a node is annotated with list icon (![list icon](docs/examples/blooper-specs/
 
 ### Tabular Views
 
+There is support for two kinds of tables. First one is for generic table, mostly containing columns with textual content. The second is the number table where most of the columns are expected to contain numerical values, and sums of their column-values too could be required.
+
+#### Generic Table
+
 By annotating any node with generic icon (![generic icon](docs/examples/blooper-specs/images/table.png)), a tabular view can be built. The first level of children after that node would be rendered as first column of respective rows in that table. The second level onwards the nodes would contain the column header and content for second column onwards. Each such row should contain the text in X:Y format, where X would be the column header, and Y would be the column-value. Check the sample mindmap and the resultant PDF file to know how the contents are placed and rendered.
+
+#### Number Table
+
+By annotating any node with generic icon (![generic icon](docs/examples/blooper-specs/images/table.png)) together with input number icon (![input numbers icon](docs/examples/blooper-specs/images/numbers.png)) a number table can be built. Following images show the kind of nodes required to build a number table and the resultant table rendered in PDF document.
+
+![Node of Mindmap to create Number Table](docs/examples/blooper-specs/images/number_table_mm.png)
+![Number Table in PDF](docs/examples/blooper-specs/images/number_table_pdf.png)
+
+Following conventions are applicable while building a number table.
+
+- First child of the node representing the number table must be "|headers|".
+- This node can contain a note-text of the form "key: value". It is used to capture additional text required to be rendered in the number table. At present only key "Column1" is useful as the value supplied to it would be used as the header-text of the first column of the number table.
+- The children of this node consists of the header-text to be rendered in the number table.
+- If any of these child nodes are annotated with plus sign icon (![plus sign icon](docs/examples/blooper-specs/images/plus.png)), the numerical values supplied in that particular column would be summed up and displayed in the last row (Total) of the same table. The content of such columns are aligned right in the table-cell.
+- If any of these child nodes are annotated with AB button icon (![AB button icon](docs/examples/blooper-specs/images/ab.png)), then column corresponding to that header is expected to contain textual data instead of numerical ones. The text in those columns are aliged left in the table-cell. The content of rest of the columns, excluding the first one, is always aligned right in the table-cells.
+- The second child onwards (except |headers|), the row-data is supplied. The direct child contains the text to be shown aligned left in the first column of each row.
+- The children of each such node contains the data to be displayed in the remaining cells of the same row. Those contents are rendered right or left aligned, based on the annotations used in the corresponding headers defined in the first node |headers|.
 
 ### JSON/XML/HTML/Verbatim/Code Blocks
 
@@ -296,7 +317,7 @@ If some kind of warning-text is to be rendered, then that node should be annotat
 
 ### Marked as New
 
-If some text is to be flagged as new, then annotate respective nodes using addition icon (![addition icon](docs/examples/blooper-specs/images/plus.png)). Such blocks of text would be marked as New for easy identification. This can be used to indicate any newly added section in the document.
+If some text is to be flagged as new, then annotate respective nodes using addition icon (![addition icon](docs/examples/blooper-specs/images/addition.png)). Such blocks of text would be marked as New for easy identification. This can be used to indicate any newly added section in the document.
 
 ### Marked for Removal
 

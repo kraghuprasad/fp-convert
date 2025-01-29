@@ -3,6 +3,7 @@ import os
 import re
 from collections import OrderedDict
 from datetime import datetime
+from decimal import Decimal
 from pathlib import Path
 from typing import List, Optional
 
@@ -10,8 +11,7 @@ import pytz
 import yaml
 from cairosvg import svg2pdf
 from freeplane import Mindmap, Node
-
-#from peek import peek
+from peek import peek
 from pylatex import (
     Center,
     Command,
@@ -45,6 +45,8 @@ from fp_convert.errors import (
     InvalidRefException,
     MaximumListDepthException,
     MaximumSectionDepthException,
+    MissingHeaderException,
+    MissingValueException,
     UnsupportedFileException,
 )
 from fp_convert.utils.decorators import track_processed_nodes
@@ -134,10 +136,11 @@ class Table:
     """
     Following colors are defined for the default tables laid out in PSD.
     """
-    header_row_color = "babyblueeyes!60"
     header_text_color = "darkblue"
-    rowcolor_1 = "babyblueeyes!30"
-    rowcolor_2 = "babyblueeyes!10"
+    header_row_color = "babyblueeyes!80"
+    footer_row_color = "babyblueeyes!10"
+    rowcolor_1 = "babyblueeyes!35"
+    rowcolor_2 = "babyblueeyes!20"
     line_color = "cornflowerblue"
 
 class DataTable:
@@ -600,6 +603,145 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             )  # Add a margin comment
         return ret
 
+    def build_number_table_and_notelist(self, node: Node):
+        """
+        Build a list of LatexObjects suitable for building a LaTeX number-table
+        and the list of notes associated with the supplied node.
+
+        """
+        if node.children:
+            rows = list()         # List of rows with column-values
+            notes = list()        # List of notes (if they exist)
+            headers = list()      # List of table-headers
+            totals = dict()       # Dict for storing sum of column-values
+            alignments = ["l", ]  # Alignment specifications for column-values
+
+            # Dict for storing valid table-properties
+            tabprops = {
+                "column1": "",  # Header for first column
+            }
+
+            if str.lower(str(node.children[0])) != "|headers|":
+                raise MissingHeaderException(
+                    "First child of the number-table "
+                    "({node}) must be |headers|.")
+
+            # Collect table-properties, if any
+            if node.children[0].notes:
+                note_lines = retrieve_note_lines(str(node.children[0].notes))
+                for line in note_lines:
+                    try:
+                        key, val = [str.strip(x) for x in line.split(":", 1)]
+                        key = str.lower(key)
+                        if key in tabprops:
+                            tabprops[key] = val
+                    except ValueError:  # Ignore lines not of the form key: val
+                        pass
+
+            # Build a list of column-headers
+            if node.children[0].children:
+                for item in node.children[0].children:
+                    headers.append(str(item))
+                    if item.icons:
+                        if "emoji-1F18E" in item.icons: # Left align the text
+                            alignments.append("l")
+                        else:
+                            alignments.append("r") # Right align the numbers
+                            if "emoji-2795" in item.icons: # Summing required
+                                totals[str(item)] = 0
+                    else:
+                        alignments.append("r")
+            else:
+                raise MissingHeaderException(
+                    "No children defined for the node named |headers| in "
+                    f"the number-table ({node})."
+                )
+
+            for field in node.children[1:]:
+                row = [NE(fr"\small{{{EL(field)}}}"""), ]
+                if field.children:
+                    for aln, hdr, val in zip(alignments[1:], headers, field.children):
+                        row.append(NE(fr"\small{{{EL(val)}}}"""))
+                        if aln == "r": # Do for numbers only
+                            if hdr in totals:
+                                totals[hdr] += Decimal(str(val))
+
+                    if len(row) != (len(headers) + 1):
+                        raise MissingValueException(
+                            'Field-count mismatch in number-table '
+                            f'"{str(field)}" for its row "{str(item)}". '
+                            'According to its |headers|, there should '
+                            f'have been {len(headers)} children for this '
+                            f'node, but found {len(row)-1} instead.')
+                else:  # No fields for this node, and hence empty row
+                    for item in headers:
+                        row.append("")
+                rows.append(row)
+
+                if field.notes:
+                    note_lines = retrieve_note_lines(str(field.notes))
+                    field_notes = list()
+                    for line in note_lines:
+                        line_blocks = list()
+                        for item in self.expand_macros(line, field):
+                            line_blocks.append(item)
+                        field_notes.append(line_blocks)
+                    notes.append((field, field_notes))
+
+            # Build table-content first
+            tab = Tabular("".join(alignments), pos="c")
+            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            row = [
+                NE(
+                    fr"""
+\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\textsf{{{bold(tabprops["column1"])}}}}}"""
+                ),
+            ]
+            row.extend(
+                [
+                    NE(fr"""
+\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\textsf{{{bold(hdr)}}}}}"""
+                    ) for hdr in headers
+                ]
+            )
+            tab.add_row(
+                *row,
+                color=self.regcol(self.theme.table.header_row_color),
+                strict=True)
+            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            for row in rows:
+                tab.add_row(*row)
+            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+
+            # If summing required, then add a row for totals
+            if totals:
+                row = [NE(fr"""
+\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\textsf{{{bold("Total")}}}}}"""), ]
+                for hdr in headers:
+                    if totals.get(hdr, None):
+                        row.append(NE(fr"""
+\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\textsf{{{bold(totals[hdr])}}}}}"""))
+                    else:
+                        row.append("")
+                tab.add_row(
+                    *row,
+                    color=self.regcol(self.theme.table.footer_row_color),
+                    strict=True
+                )
+                tab.add_hline(color=self.regcol(self.theme.table.line_color))
+
+            # Then check if notes are to be collected for the same node
+            if notes:
+                return [tab, notes]
+            return [tab, ]
+
+        # Empty list is returned by default, if nothing else is there
+        return list()
+
     def build_table_and_notelist(self, node: Node):
         """
         Build a list of LatexObjects suitable for building a LaTeX table and
@@ -673,7 +815,10 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         Build a list of LaTeX object capable of rendering a table from the
         supplied node and its children.
         """
-        tab_notes = self.build_table_and_notelist(node)
+        if "emoji-1F522" in node.icons:  # Numerical table required
+            tab_notes = self.build_number_table_and_notelist(node)
+        else:  # Textual table required
+            tab_notes = self.build_table_and_notelist(node)
         ret = list()
         if len(tab_notes) >= 1:
             ret.append(NE(r"\begin{center}"))  # Center align
@@ -1422,4 +1567,3 @@ def create_theme_from_config(conf_file):
 
 class DBItemize(Itemize):
     pass
-
