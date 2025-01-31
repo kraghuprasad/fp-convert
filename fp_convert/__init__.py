@@ -50,38 +50,38 @@ class FPDoc(Document):
             )
         return abs_path
 
-    # Used mostly in cases where raw text is being exchanged, instead of
-    # PyLaTeX based objects to build the document. For example, while building
-    # verbatim lists.
-    def mark_flags(self, text: str, node: Node):
-        """
-        Check if node has any applicable flags like for deletion or addition
-        etc. and add pertient notes or icons to the supplied text. If no flags
-        are present, then the supplied text is returned as it is.
+#     # Used mostly in cases where raw text is being exchanged, instead of
+#     # PyLaTeX based objects to build the document. For example, while building
+#     # verbatim lists.
+#     def mark_flags(self, text: str, node: Node):
+#         """
+#         Check if node has any applicable flags like for deletion or addition
+#         etc. and add pertient notes or icons to the supplied text. If no flags
+#         are present, then the supplied text is returned as it is.
 
-        Parameters:
-            text: str
-                The text to which the flags are to be added.
+#         Parameters:
+#             text: str
+#                 The text to which the flags are to be added.
 
-            node: Node
-                The node whose applicable flags are to be checked.
-        """
-        # Check for deletion flag first
-        if node.icons and "button_cancel" in node.icons:
-            frame_top = fr"""
-\textcolor{{red}}%
-{{\faTimes \rule[0.33em]{{0.2\textwidth}}{{0.2pt}}%
-\small following is marked for removal%
-\normalsize \rule[0.33em]{{0.2\textwidth}}{{0.2pt}}%
-\faTimes}}\newline%"""
-            frame_bot = fr"""
-\textcolor{{red}}{{\faTimes \rule[0.33em]{{0.725\textwidth}}{{0.2pt}}%
-\faTimes}}"""
-            text = f"{NE(frame_top)}{text}{NE(frame_bot)}"
-        elif node.icons and "addition" in node.icons:  # Check for addition
-            prefix = fr"\textcolor{{cobalt}}{{\rotatebox{{30}}{{\tiny{{\textbf{{New}}}}}}\faFlagCheckered }}"
-            text = f"{prefix}{text}"
-        return text
+#             node: Node
+#                 The node whose applicable flags are to be checked.
+#         """
+#         # Check for deletion flag first
+#         if node.icons and "button_cancel" in node.icons:
+#             frame_top = fr"""
+# \textcolor{{red}}%
+# {{\faTimes \rule[0.33em]{{0.2\textwidth}}{{0.2pt}}%
+# \small following is marked for removal%
+# \normalsize \rule[0.33em]{{0.2\textwidth}}{{0.2pt}}%
+# \faTimes}}\newline%"""
+#             frame_bot = fr"""
+# \textcolor{{red}}{{\faTimes \rule[0.33em]{{0.725\textwidth}}{{0.2pt}}%
+# \faTimes}}"""
+#             text = f"{NE(frame_top)}{text}{NE(frame_bot)}"
+#         elif node.icons and "addition" in node.icons:  # Check for addition
+#             prefix = fr"\textcolor{{cobalt}}{{\rotatebox{{30}}{{\tiny{{\textbf{{New}}}}}}\faFlagCheckered }}"
+#             text = f"{prefix}{text}"
+#         return text
 
     def get_applicable_flags(self, node: Node):
         """
@@ -99,16 +99,14 @@ class FPDoc(Document):
         # as these two cases are mutually exclusive.
         if node.icons and "button_cancel" in node.icons:
             flag = NE(
-                fr"""
-\textcolor{{{self.regcol(self.theme.colors.del_mark_color)}}}{{%
-{{\rotatebox{{30}}{{\tiny{{\textbf{{{self.theme.config.del_mark_text}}}}}}}}}%
+                fr"""\textcolor{{{self.regcol(self.theme.colors.del_mark_color)}}}{{%
+{{\rotatebox{{10}}{{\tiny{{\textbf{{{self.theme.config.del_mark_text}}}}}}}}}%
 {{{self.theme.config.del_mark_flag}}}}}""")
             ret.append(flag)
         elif node.icons and "addition" in node.icons:
             flag = NE(
-                fr"""
-\textcolor{{{self.regcol(self.theme.colors.new_mark_color)}}}{{%
-{{\rotatebox{{30}}{{\tiny{{\textbf{{{self.theme.config.new_mark_text}}}}}}}}}%
+                fr"""\textcolor{{{self.regcol(self.theme.colors.new_mark_color)}}}{{%
+{{\rotatebox{{10}}{{\tiny{{\textbf{{{self.theme.config.new_mark_text}}}}}}}}}%
 {{{self.theme.config.new_mark_flag}}}}}""")
             ret.append(flag)
 
@@ -140,7 +138,10 @@ class FPDoc(Document):
                     p = f"{p}%\n[]\\begin{{verbatim}}\n{str(child)}\\end{{verbatim}}"
 
                 # Search and add any applicable flag related texts
-                p = self.mark_flags(p, child)
+                #p = self.mark_flags(p, child)
+                flags = self.get_applicable_flags(child)
+                if len(flags):
+                    p = f'{" ".join(flags)}\n{p}'
 
                 # Add back references, if this node is being pointed to by other
                 # nodes (sinks for arrows)

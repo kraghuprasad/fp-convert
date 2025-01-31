@@ -11,7 +11,8 @@ import pytz
 import yaml
 from cairosvg import svg2pdf
 from freeplane import Mindmap, Node
-from peek import peek
+
+#from peek import peek
 from pylatex import (
     Center,
     Command,
@@ -61,7 +62,7 @@ from fp_convert.utils.helpers import (
 
 # Create truncator functions for strings with limited size
 trunc32 = special_truncator_factory(32)
-trunc24 = special_truncator_factory(24)
+trunc18 = special_truncator_factory(18)
 
 """
 Following classes specify the default values for various parameters of Program
@@ -554,9 +555,10 @@ bottom={self.theme.geometry.bottom_margin},
         if f_ext == ".svg":  # SVG images need conversion to PDF
             if not self.images_dir.is_dir():
                 os.makedirs(self.images_dir, exist_ok=True)
-            new_img_path = Path(self.images_dir, img_path.stem, ".pdf")
+            new_img_path = Path(self.images_dir, img_path.stem+".pdf")
+
             # Convert SVG image to PDF
-            svg2pdf(url=img_path, write_to=new_img_path)
+            svg2pdf(url=str(img_path), write_to=str(new_img_path))
 
         # Other images must be either of type JPEG, or PNG only
         elif f_ext not in {".jpg", ".png", ".jpeg"}:
@@ -596,7 +598,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             ret.append(
                 NE(
                     rf"""
-\margincomment{{\tiny{{$\Lsh$ \hyperlink{{R{get_label(referrer.id)}}}{{{trunc24(str(referrer))}}}}}%
+\margincomment{{\tiny{{$\Lsh$ \hyperlink{{R{get_label(referrer.id)}}}{{{trunc18(str(referrer))}}}}}%
 \newline}}%
 """
                 )
@@ -776,11 +778,12 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             tab = Tabular("l" * (1 + len(col_hdrs)), pos="c")
             tab.add_hline(color=self.regcol(self.theme.table.line_color))
             tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            col1_hdr = re.sub(r":$", "", str(node))
             row = [
                 NE(
                     fr"""
 \small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
-\textsf{{{node}}}}}"""
+\textsf{{{col1_hdr}}}}}"""
                 ),
             ]
             row.extend(
@@ -876,11 +879,6 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 lst =  Itemize()
 
             for child in node.children:
-                # For the purpose of debugging only
-                #peek("  "*level, f"[{child.id}]", child)
-                #peek("  "*level, f"[imagepath]", child.imagepath)
-                #peek("  "*level, f"[icons]", child.icons)
-
                 # If any flags are present in the node, then include
                 # corresponding LaTeX elements to mark it in the document.
                 flags = self.get_applicable_flags(child)
@@ -892,7 +890,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 content = str(child).split(":", 1)
                 if len(content) == 2:
                     if len(flags):
-                        lst.add_item(NE(fr'{"\n".join(flags)}\xspace {bold(EL(content[0]))}'))
+                        lst.add_item(NE(fr'{" ".join(flags)}\xspace {bold(EL(content[0]))}'))
                     else:
                         lst.add_item(NE(fr'{bold(EL(content[0]))}'))
 
@@ -907,7 +905,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 else:
                     texts = self.expand_macros(str(child), child)
                     if len(flags):
-                        lst.add_item(NE(fr'{"\n".join(flags)}\xspace {texts[0]}'))
+                        lst.add_item(NE(fr'{" ".join(flags)}\xspace {texts[0]}'))
                     else:
                         lst.add_item(texts[0])
                     for text in texts[1:]:
@@ -932,10 +930,8 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 # by other nodes (sinks for arrows)
                 for referrer in child.arrowlinked:
                     lst.append(NE(
-                        # fr"\margincomment{{\tiny{{$\Lsh$ \autoref{{{get_label(
-                        #     referrer.id)}}}}}}}"))
                         fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{get_label(
-                            referrer.id)}}}{{{trunc32(
+                            referrer.id)}}}{{{trunc18(
                                 str(referrer)
                             )}}}}}}}"))
 
@@ -1154,22 +1150,28 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 #peek(f"Returning without processing node {node}")
                 return list()
 
+            flags = self.get_applicable_flags(node)
+            if len(flags):
+                node_text = fr'{"".join(flags)} {EL(str(node))}'
+            else:
+                node_text = EL(str(node))
+
             if level == 1:
                 # blocks.append(Section(EL(str(node)), label=Label(get_label(node.id))))
-                blocks.append(Section(EL(str(node)), label=None))
+                blocks.append(Section(NE(node_text), label=None))
             elif level == 2:
                 # blocks.append(Subsection(EL(str(node)), label=Label(get_label(node.id))))
-                blocks.append(Subsection(EL(str(node)), label=None))
+                blocks.append(Subsection(NE(node_text), label=None))
             elif level == 3:
                 # blocks.append(Subsubsection(EL(str(node)), label=Label(get_label(node.id))))
-                blocks.append(Subsubsection(EL(str(node)), label=None))
+                blocks.append(Subsubsection(NE(node_text), label=None))
             elif level == 4:
                 # blocks.append(Paragraph(EL(str(node)), label=Label(get_label(node.id))))
-                blocks.append(Paragraph(EL(str(node)), label=None))
+                blocks.append(Paragraph(NE(node_text), label=None))
             elif level == 5:
                 blocks.append(
                     # Subparagraph(EL(f"{node}"), label=Label(get_label(node.id)))
-                    Subparagraph(EL(f"{node}"), label=None)
+                    Subparagraph(NE(node_text), label=None)
                 )
             else:
                 # Any nodes beyond subparagraph (level=5) is not allowed.
@@ -1188,10 +1190,10 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 for referrer in node.arrowlinked:
                     blocks.append(
                         NE(
-                            rf"""
-        \margincomment{{\tiny{{$\Lsh$ \hyperlink{{R{get_label(referrer.id)}}}{{{trunc24(str(referrer))}}}}}%
-        \newline}}%
-        """
+                            rf"""%
+\margincomment{{\tiny{{$\Lsh$ %
+\hyperlink{{R{get_label(referrer.id)}}}{{{trunc18(str(referrer))}}}}}%
+\newline}}"""
                         )
                 )  # Add a margin comment
 
@@ -1429,7 +1431,9 @@ height={self.theme.geometry.tp_top_logo_height}]%
         doc.append(
             NE(fr"""
 \huge \bfseries {doc_title}\\
+    \vspace*{{0.2cm}}
 \small (Version: {doc_version})\\
+    \vspace*{{0.2cm}}
 \large {doc_author}\\
 {doc_date}\\
 \normalsize"""))
