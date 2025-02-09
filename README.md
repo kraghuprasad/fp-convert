@@ -162,6 +162,7 @@ Date: 21 January, 2025 (document-date to be printed on title page)
 Author: Whoopie Bard $<$whoopie@clueless.dev$>$ (author-name with email)
 Client: Blooper Inc. (client for whom project is being executed)
 Vendor: Clueless Developers' Consortium (vender who is executing the project)
+Trackchange_Section: Track Changes (needs to prepare track-change-list and render it in a section as named here)
 TP_Top_Logo: images/tp_top_logo.pdf (top-logo image path for title page)
 TP_Bottom_Logo: images/tp_bottom_logo.pdf (bottom-logo image path for title page)
 L_Header_Text: Blooper Inc. (page header text for top left if image is not supplied)
@@ -205,9 +206,9 @@ geometry:
   sf_outer_line_width: "1pt" # Stop-Frame outer line-width size (with unit)
   sf_round_corner_size: "3pt" # Stop-Frame rounded corner's size (with unit)
   sf_outer_left_margin: "5pt" # Stop-Frame outer left margin width (with unit)
-  sf_inner_left_margin: "5pt" # Stop-Frame inner left margin width (with unit)
+  sf_inner_left_margin: "10pt" # Stop-Frame inner left margin width (with unit)
   sf_outer_right_margin: "5pt" # Stop-Frame outer right margin width (with unit)
-  sf_inner_right_margin: "5pt" # Stop-Frame inner right margin width (with unit)
+  sf_inner_right_margin: "30pt" # Stop-Frame inner right margin width (with unit)
   header_thickness: "0.4" # Header line thickness
   footer_thickness: "0.4" # Footer line thickness
   figure_width: "0.6" # Figure-with for all figures as a factor of text-width
@@ -369,6 +370,10 @@ If a particular node is annotated with File_doc_database icon (![File_doc_databa
     - default: Default value for this field
     - null: The value is nullable
     - not null: The value can not be null
+
+### List of Track Changes
+
+As discussed earlier, you may annotate certain nodes as newly added, and some others as marked for removal. They would be duly indicated in the document with appropriate icons and marker texts. It is also possible to collate a list of all such changes and render them in a neat table along with respective hyperlinks for cross references. For rendering this table, you need to supply the key "Trackchange_Section" in document's meta data in the notes of its root node. The value supplied for this key would be used to name a section created at the end of the document for rendering the list of all those changes in a tabular view. If you want to position this section as a named node in some other parts of the document - like in the beginning of the document itself - then create a node with an appropriate section-name and annotate it with the inverted red triangle icon (![Inverted Red Triangle icon](docs/examples/blooper-specs/images/inverted_red_triangle.png)). In this case the value supplied against the key "Trackchange_Section" in the document's meta data would be ignored and the table would be rendered in the position where that node is defined. Please note that if you annotate more than one node to render the track-changes, then an exception would be raised, as only one such section per document is allowed. Also if you do not supply the key "Trackchange_Section" in the document's meta data, then even annotating any node with the inverted red triangle icon would not generate the intended table containing the list of track-changes.
 
 ### Ignore Sections and List-items
 

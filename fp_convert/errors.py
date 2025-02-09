@@ -1,4 +1,3 @@
-
 """
 Custom exceptions for the fp-convert package.
 """
@@ -57,12 +56,31 @@ class MaximumSectionDepthException(FPConvertException):
 
     pass
 
+
 class MissingHeaderException(FPConvertException):
     """Raised when an expected header-item is not found in a node for table."""
 
     pass
 
+
 class MissingValueException(FPConvertException):
     """Raised when an expected column-value is not found in a node for table."""
+
+    pass
+
+
+class InvalidParameterException(FPConvertException):
+    """Raised when an invalid parameter is supplied."""
+
+    pass
+
+
+class InvalidNodeException(FPConvertException):
+    """Raised when an invalid node is found at a particular location."""
+
+    pass
+
+class InvalidTypeException(FPConvertException):
+    """Raised when an invalid type-values is found somewhere."""
 
     pass

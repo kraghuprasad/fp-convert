@@ -1,6 +1,6 @@
 <map version="freeplane 1.12.1">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
-<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1737455410138">
+<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1739128794479">
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <font BOLD="true"/>
 <richcontent TYPE="NOTE">
@@ -13,10 +13,10 @@
       Title: Project Specifications of Blooper App
     </p>
     <p>
-      Version: 1.3
+      Version: 1.4
     </p>
     <p>
-      Date: 17 January, 2025
+      Date: 9 February, 2025
     </p>
     <p>
       Author: Whoopie Bard $&lt;$whoopie@clueless.dev$&gt;$\\Changu Bhai $&lt;$changu.bhai@clueless.dev$&gt;$
@@ -26,6 +26,9 @@
     </p>
     <p>
       Vendor: Clueless Developers' Consortium
+    </p>
+    <p>
+      Trackchange_Section: Track Changes
     </p>
     <p>
       TP_Top_Logo: images/blooper_logo.pdf
@@ -143,32 +146,56 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Whoopie Bard" FOLDED="true" ID="ID_1287006477" CREATED="1734514184022" MODIFIED="1734514241628">
+<node TEXT="Whoopie Bard" ID="ID_1287006477" CREATED="1734514184022" MODIFIED="1734514241628">
 <node TEXT="Email: whoopie@clueless.dev" POSITION="bottom_or_right" ID="ID_498020299" CREATED="1734514193322" MODIFIED="1734514202273"/>
 <node TEXT="Nickname: whoopie" POSITION="bottom_or_right" ID="ID_770712780" CREATED="1734514209237" MODIFIED="1734514370710"/>
 </node>
-<node TEXT="Changu Bhai" FOLDED="true" ID="ID_1417967323" CREATED="1734514242271" MODIFIED="1734514265645">
+<node TEXT="Changu Bhai" ID="ID_1417967323" CREATED="1734514242271" MODIFIED="1734514265645">
 <node TEXT="Email: changu.bhai@clueless.dev" ID="ID_1394606274" CREATED="1734514282059" MODIFIED="1734514292274"/>
 <node TEXT="Nickname: changu" ID="ID_1801452366" CREATED="1734514265648" MODIFIED="1734514274467"/>
 </node>
 </node>
 <node TEXT="Versions" ID="ID_813916523" CREATED="1734514143858" MODIFIED="1734519233524">
 <icon BUILTIN="links/file/generic"/>
-<node TEXT="v 1.2" FOLDED="true" POSITION="bottom_or_right" ID="ID_1597662239" CREATED="1734514015098" MODIFIED="1734517189756">
-<node TEXT="Changes: Updated partial program specifications." ID="ID_717761175" CREATED="1734514019164" MODIFIED="1734514036393"/>
+<node TEXT="v 1.4" ID="ID_179961201" CREATED="1734514015098" MODIFIED="1739102690277">
+<node TEXT="Changes: Added section Track Changes" ID="ID_1855410220" CREATED="1734514019164" MODIFIED="1739102698598"/>
+<node TEXT="Author: changu" ID="ID_546249681" CREATED="1734514456472" MODIFIED="1739102712822"/>
+<node TEXT="Date: 9 February, 2025" ID="ID_1422638875" CREATED="1734514037002" MODIFIED="1739102815888"/>
+</node>
+<node TEXT="v 1.3" ID="ID_1250815790" CREATED="1734514015098" MODIFIED="1739102616293">
+<node TEXT="Changes: Added DB schema" ID="ID_1663484532" CREATED="1734514019164" MODIFIED="1739102654289"/>
+<node TEXT="Author: whoopie" ID="ID_1061450410" CREATED="1734514456472" MODIFIED="1734514465132"/>
+<node TEXT="Date: 24 December, 2024" ID="ID_621302191" CREATED="1734514037002" MODIFIED="1739102674436"/>
+</node>
+<node TEXT="v 1.2" POSITION="bottom_or_right" ID="ID_1597662239" CREATED="1734514015098" MODIFIED="1734517189756">
+<node TEXT="Changes: Updated partial program specifications" ID="ID_717761175" CREATED="1734514019164" MODIFIED="1739102920240"/>
 <node TEXT="Author: whoopie" ID="ID_1676924841" CREATED="1734514456472" MODIFIED="1734514465132"/>
 <node TEXT="Date: 15 November, 2024" ID="ID_544279972" CREATED="1734514037002" MODIFIED="1734514045399"/>
 </node>
-<node TEXT="v 1.1" FOLDED="true" POSITION="bottom_or_right" ID="ID_253086677" CREATED="1734513977156" MODIFIED="1734517198515">
-<node TEXT="Changes: Completed functional specifications." ID="ID_1317625547" CREATED="1734513980200" MODIFIED="1734513996902"/>
+<node TEXT="v 1.1" POSITION="bottom_or_right" ID="ID_253086677" CREATED="1734513977156" MODIFIED="1734517198515">
+<node TEXT="Changes: Completed functional specifications" ID="ID_1317625547" CREATED="1734513980200" MODIFIED="1739102909594"/>
 <node TEXT="Author: changu" ID="ID_1159388852" CREATED="1734514468775" MODIFIED="1734514501742"/>
 <node TEXT="Date: 28 October, 2024" ID="ID_1778359559" CREATED="1734513997321" MODIFIED="1734514011069"/>
 </node>
-<node TEXT="v 1.0" FOLDED="true" POSITION="bottom_or_right" ID="ID_1563078805" CREATED="1734513787203" MODIFIED="1734517206394">
-<node TEXT="Changes: Added introductory text." ID="ID_446479249" CREATED="1734513809106" MODIFIED="1734513960892"/>
+<node TEXT="v 1.0" POSITION="bottom_or_right" ID="ID_1563078805" CREATED="1734513787203" MODIFIED="1734517206394">
+<node TEXT="Changes: Added introductory text" ID="ID_446479249" CREATED="1734513809106" MODIFIED="1739102915170"/>
 <node TEXT="Author: whoopie" ID="ID_1787780224" CREATED="1734514476263" MODIFIED="1734514493572"/>
 <node TEXT="Date: 2 October, 2024" ID="ID_1879725448" CREATED="1734513823194" MODIFIED="1734513974431"/>
 </node>
+</node>
+<node TEXT="Track Changes" POSITION="bottom_or_right" ID="ID_1318515454" CREATED="1738826864189" MODIFIED="1738866977175">
+<icon BUILTIN="emoji-1F53B"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Following tables collate the changes made in &quot;%Title%&quot; between version 1.0 and %Version%.
+    </p>
+  </body>
+</html></richcontent>
 </node>
 </node>
 <node TEXT="Introduction" POSITION="bottom_or_right" ID="ID_933623464" CREATED="1734501052280" MODIFIED="1734513733148"><richcontent TYPE="NOTE">
@@ -436,8 +463,9 @@
 </node>
 </node>
 </node>
-<node TEXT="Level 3.1.3" POSITION="bottom_or_right" ID="ID_1334495193" CREATED="1729067965944" MODIFIED="1734517607187">
+<node TEXT="Level 3.1.3" POSITION="bottom_or_right" ID="ID_1334495193" CREATED="1729067965944" MODIFIED="1738901069718">
 <icon BUILTIN="stop-sign"/>
+<icon BUILTIN="button_cancel"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -664,8 +692,8 @@
 </node>
 </node>
 <node TEXT="Program Specifications" POSITION="top_or_left" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1729268956151">
-<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1736357150049">
-<arrowlink DESTINATION="ID_86526980" STARTINCLINATION="58.5 pt;65.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
+<node TEXT="User-registration Module" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1738900637121">
+<arrowlink DESTINATION="ID_86526980" STARTINCLINATION="58.5 pt;65.25 pt;" ENDINCLINATION="252.74999 pt;0 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -706,8 +734,8 @@
 </html></richcontent>
 <node TEXT="Buttons" POSITION="bottom_or_right" ID="ID_1584182760" CREATED="1729102327449" MODIFIED="1729333455076">
 <icon BUILTIN="list"/>
-<node TEXT="Register:" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1735553090799">
-<arrowlink DESTINATION="ID_1542674567" STARTINCLINATION="96.75 pt;89.25 pt;" ENDINCLINATION="185.99999 pt;162.75 pt;"/>
+<node TEXT="Register:" ID="ID_1511731551" CREATED="1729102331750" MODIFIED="1738900697073">
+<arrowlink DESTINATION="ID_1542674567" STARTINCLINATION="96.75 pt;89.25 pt;" ENDINCLINATION="383.99999 pt;174.74999 pt;"/>
 <arrowlink DESTINATION="ID_69944687" STARTINCLINATION="111.75 pt;114.75 pt;" ENDINCLINATION="187.49999 pt;211.49999 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -804,8 +832,8 @@
 </node>
 <node TEXT="Links" POSITION="bottom_or_right" ID="ID_417855629" CREATED="1729102371564" MODIFIED="1736519551659">
 <icon BUILTIN="list"/>
-<node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1736519592712">
-<arrowlink DESTINATION="ID_571525042"/>
+<node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1738900662380">
+<arrowlink DESTINATION="ID_571525042" STARTINCLINATION="81.75 pt;0 pt;" ENDINCLINATION="293.24999 pt;-117.75 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -820,8 +848,8 @@
 </node>
 </node>
 </node>
-<node TEXT="Error-Message Box for Existing Record" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1735547267847">
-<arrowlink DESTINATION="ID_1641632316" STARTINCLINATION="118.5 pt;38.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
+<node TEXT="Error-Message Box for Existing Record" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1738900651702">
+<arrowlink DESTINATION="ID_1641632316" STARTINCLINATION="118.5 pt;38.25 pt;" ENDINCLINATION="284.24999 pt;-160.5 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>

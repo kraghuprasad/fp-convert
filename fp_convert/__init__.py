@@ -83,36 +83,6 @@ class FPDoc(Document):
 #             text = f"{prefix}{text}"
 #         return text
 
-    def get_applicable_flags(self, node: Node):
-        """
-        Check if node has any applicable flags like for deletion or addition of
-        text-blocks or graphical elements etc. and return a list with appropriate
-        flags, icons or notes. If no flags are present, then return an empty list.
-
-        Parameters:
-            node: Node
-                The node whose applicable flags are to be checked and evaluated.
-        """
-        ret = list()
-
-        # Check for deletion flag first and if not found then check for addition
-        # as these two cases are mutually exclusive.
-        if node.icons and "button_cancel" in node.icons:
-            flag = NE(
-                fr"""\textcolor{{{self.regcol(self.theme.colors.del_mark_color)}}}{{%
-{{\rotatebox{{10}}{{\tiny{{\textbf{{{self.theme.config.del_mark_text}}}}}}}}}%
-{{{self.theme.config.del_mark_flag}}}}}""")
-            ret.append(flag)
-        elif node.icons and "addition" in node.icons:
-            flag = NE(
-                fr"""\textcolor{{{self.regcol(self.theme.colors.new_mark_color)}}}{{%
-{{\rotatebox{{10}}{{\tiny{{\textbf{{{self.theme.config.new_mark_text}}}}}}}}}%
-{{{self.theme.config.new_mark_flag}}}}}""")
-            ret.append(flag)
-
-        # If required, more flags can be handled here before returning
-        return ret
-
     @track_processed_nodes
     def build_verbatim_list(self, node: Node):
         """
@@ -140,8 +110,19 @@ class FPDoc(Document):
                 # Search and add any applicable flag related texts
                 #p = self.mark_flags(p, child)
                 flags = self.get_applicable_flags(child)
+                flagdata = [
+                    (x, f"CSREF:{z}", z)
+                        for x, y, z in flags if y == 'A' or y == 'D'
+                ]
+                flagtexts = [x for x, y, z in flagdata]
+
                 if len(flags):
-                    p = f'{" ".join(flags)}\n{p}'
+                    p = f'{" ".join(flagtexts)}\n{p}'
+
+                # Add back references, if any flags are present
+                if len(flagdata) and self.docinfo["trackchange_section"]:
+                    for x, y, z in flagdata:
+                        p += NE(fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}{{{self.docinfo["trackchange_section"]}: {z+1}}}}}}}")
 
                 # Add back references, if this node is being pointed to by other
                 # nodes (sinks for arrows)

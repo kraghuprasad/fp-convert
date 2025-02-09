@@ -182,6 +182,7 @@ class DocInfo:
         "Author": "doc_author",
         "Client": "client",
         "Vendor": "vendor",
+        "Trackchange_Section": "trackchange_section",
         "TP_Top_Logo": "tp_top_logo",
         "TP_Bottom_Logo": "tp_bottom_logo",
         "L_Header_Text": "l_header_text",

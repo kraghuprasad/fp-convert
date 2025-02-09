@@ -27,6 +27,7 @@ from pylatex import (
     LongTable,
     MdFramed,
     MiniPage,
+    MultiColumn,
     Package,
     PageStyle,
     Tabular,
@@ -43,7 +44,11 @@ from pylatex.utils import italic, verbatim
 from fp_convert import FPDoc
 from fp_convert.errors import (
     IncorrectInitialization,
+    InvalidNodeException,
+    InvalidParameterException,
     InvalidRefException,
+    InvalidRefTypeException,
+    InvalidTypeException,
     MaximumListDepthException,
     MaximumSectionDepthException,
     MissingHeaderException,
@@ -61,6 +66,7 @@ from fp_convert.utils.helpers import (
 )
 
 # Create truncator functions for strings with limited size
+trunc80 = special_truncator_factory(80)
 trunc32 = special_truncator_factory(32)
 trunc18 = special_truncator_factory(18)
 
@@ -90,9 +96,9 @@ class Config:
     sf_outer_line_width = "1pt"  # Stop-Frame outer line-width size
     sf_round_corner_size = "3pt"  # Stop-Frame rounded corner's size
     sf_outer_left_margin = "5pt"  # Stop-Frame outer left margin width
-    sf_inner_left_margin = "5pt"  # Stop-Frame inner left margin width
+    sf_inner_left_margin = "10pt"  # Stop-Frame inner left margin width
     sf_outer_right_margin = "5pt"  # Stop-Frame outer right margin width
-    sf_inner_right_margin = "5pt"  # Stop-Frame inner right margin width
+    sf_inner_right_margin = "30pt"  # Stop-Frame inner right margin width
     header_thickness = "0.4"  # Header line thickness
     footer_thickness = "0.4"  # Footer line thickness
     figure_width = r"0.6\textwidth"  # Width of the figure, in LaTeX
@@ -206,6 +212,7 @@ class Doc(FPDoc):
     # N is a number. These are used in the node as well as in their note-texts
     # whenever a reference is needed to another node via an arrow-links.
     ref_pat = re.compile("(%ref[0-9]*%)")
+    param_pat = re.compile("(%[^ %]+%)")
 
     def __init__(
         self,
@@ -266,6 +273,14 @@ class Doc(FPDoc):
 
         # Container to hold colorspecs of colors used in the document
         self.colors = list()
+
+        # Container to hold all nodes for which hypertarget has been made
+        self.hypertargets = set()
+
+        # Container to hold nodes with additions and deletions markers
+        self.changeset = list()  # List of tuple of change-set nodes and their type
+        self.changeset_section = None
+        self.changeset_node = None
 
         self.packages = [
             ("geometry", tuple()),
@@ -364,7 +379,6 @@ bottom={self.theme.geometry.bottom_margin},
 {{{self.regcol(self.theme.table.rowcolor_2)}}}%
 """
             ),
-            #NE(r"\newcolumntype{Y}{>{\raggedright\arraybackslash}X}"),
             NE(r"\renewcommand{\arraystretch}{1.5}%"),
             NE(r"\newlist{dbitemize}{itemize}{3}"),
             NE(r"\setlist[dbitemize,1]{label=\textbullet,leftmargin=0.2cm}"),
@@ -408,6 +422,70 @@ bottom={self.theme.geometry.bottom_margin},
 
         )  # End of the tuple named preambletexts
 
+
+    def get_hypertarget(self, node: Node):
+        """
+        Generate the hypertarget for the supplied node.
+
+        Parameters:
+            node: Node
+                The node for which the hypertarget is to be generated.
+
+        Returns:
+            LateXObject
+                The hypertarget object generated for the supplied node.
+        """
+        if node not in self.hypertargets:
+            self.hypertargets.add(node)
+            return Command("hypertarget", arguments=(get_label(node.id), ""))
+        return None
+
+    def get_applicable_flags(self, node: Node):
+        """
+        Check if node has any applicable flags like for deletion or addition of
+        text-blocks or graphical elements etc. and return a list with appropriate
+        flags, icons or notes. If no flags are present, then return an empty list.
+
+        Parameters:
+            node: Node
+                The node whose applicable flags are to be checked and evaluated.
+
+        Returns:
+            list[tuple(str, str, int)]
+                A list of tuples of the following form:
+                (flag-text, flag-type, index-position in the list)
+                The last argument indicates the position of the entry in list like
+                change-set so that a back reference to it can be included in the document
+                at the pertinent location.
+        """
+        ret = list()
+
+        # Check for deletion flag first and if not found then check for addition
+        # as these two cases are mutually exclusive.
+        if node.icons:
+            if "button_cancel" in node.icons:
+                flag = NE(
+                    fr"""\textcolor{{{self.regcol(self.theme.colors.del_mark_color)}}}{{%
+{{\rotatebox{{10}}{{\tiny{{\textbf{{{self.theme.config.del_mark_text}}}}}}}}}%
+{{{self.theme.config.del_mark_flag}}}}}""")
+
+                # Register the node for deletion
+                self.changeset.append((node, "D"))
+                ret.append((flag, "D", len(self.changeset)-1))
+
+            elif "addition" in node.icons:
+                flag = NE(
+                    fr"""\textcolor{{{self.regcol(self.theme.colors.new_mark_color)}}}{{%
+{{\rotatebox{{10}}{{\tiny{{\textbf{{{self.theme.config.new_mark_text}}}}}}}}}%
+{{{self.theme.config.new_mark_flag}}}}}""")
+
+                # Register the node for addition
+                self.changeset.append((node, "A"))
+                ret.append((flag, "A", len(self.changeset)-1))
+
+        # If required, more flags can be handled here before returning
+        return ret
+
     def fetch_notes_elements(self, node: Node):
         """
         Fetches the notes-section of the supplied node, and returns a list of
@@ -431,13 +509,10 @@ bottom={self.theme.geometry.bottom_margin},
         if node.notes:
             # If stop-sign is present, then style a framed box accordingly
             if node.icons and "stop-sign" in node.icons:
-                # segment.append(MdFramed(em(str(node.notes), node), options="style=StopFrame"))
                 mdf = MdFramed()
                 mdf.options = "style=StopFrame"
-                #lines = self.expand_macros(str(node.notes), node)
                 lines = retrieve_note_lines(str(node.notes))
                 for line in lines:
-                    #mdf.append(fr"\small{{{line}}}")
                     for item in self.expand_macros(line, node):
                         mdf.append(Command("small", item))
                 ret.append(mdf)
@@ -477,7 +552,6 @@ bottom={self.theme.geometry.bottom_margin},
             refs = dict()
             if node.arrowlinks:
                 for idx, node_to in enumerate(node.arrowlinks):
-                    #refs[fr"%ref{idx+1}%"] = Command("autoref", get_label(node_to.id))
                     refs[fr"%ref{idx+1}%"] = Command(
                         "hyperlink",
                         arguments=(get_label(node_to.id), trunc32(str(node_to))))
@@ -521,8 +595,9 @@ bottom={self.theme.geometry.bottom_margin},
                             )
 
             # Add a label to this node for back reference
-            # ret.append(NE(rf"\label{{R{get_label(node.id)}}}"))
-            ret.append(NE(rf"\hypertarget{{R{get_label(node.id)}}}{{}}"))
+            hypertarget = self.get_hypertarget(node)
+            if hypertarget:
+                ret.append(hypertarget)
 
         else:  # No references are present in the supplied text
             ret.append(segments[0])
@@ -580,29 +655,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             )
         )  # Build a boxed figure
         fig.add_caption(str(node))
-        # fig.append(NE(rf"\label{{{get_label(node.id)}}}"))
-        fig.append(NE(rf"\hypertarget{{{get_label(node.id)}}}{{}}"))
         ret.append(fig)
-
-        # Add back references, if this node is being pointed to by other nodes
-        # of the mindmap.
-        for referrer in node.arrowlinked:
-#            ret.append(
-#                NE(
-#                    rf"""
-#\margincomment{{\tiny{{$\Lsh$ \autoref{{R{get_label(referrer.id)}}}}}%
-#\newline}}%
-#"""
-#                )
-#            )  # Add a margin comment
-            ret.append(
-                NE(
-                    rf"""
-\margincomment{{\tiny{{$\Lsh$ \hyperlink{{R{get_label(referrer.id)}}}{{{trunc18(str(referrer))}}}}}%
-\newline}}%
-"""
-                )
-            )  # Add a margin comment
         return ret
 
     def build_number_table_and_notelist(self, node: Node):
@@ -823,6 +876,11 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         else:  # Textual table required
             tab_notes = self.build_table_and_notelist(node)
         ret = list()
+
+        hypertarget = self.get_hypertarget(node)
+        if hypertarget:
+            ret.append(hypertarget)
+
         if len(tab_notes) >= 1:
             ret.append(NE(r"\begin{center}"))  # Center align
             ret.append(tab_notes[0])
@@ -879,18 +937,30 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 lst =  Itemize()
 
             for child in node.children:
-                # If any flags are present in the node, then include
-                # corresponding LaTeX elements to mark it in the document.
-                flags = self.get_applicable_flags(child)
-
                 # Do not process items which are annotated with broken-line icon
                 if child.icons and "broken-line" in child.icons:
                     continue
 
+                # If any flags are present in the node, then include
+                # corresponding LaTeX elements to mark it in the document.
+                flags = self.get_applicable_flags(child)
+
+
+                # If flags present, or others refer it, then create hypertarget
+                hypertarget = None
+                if len(flags) or child.arrowlinked:
+                    hypertarget = self.get_hypertarget(child)
+
+                flagdata = [
+                    (x, f"CSREF:{z}", z)
+                        for x, y, z in flags if y == 'A' or y == 'D'
+                ]
+                flagtexts = [x for x, y, z in flagdata]
+
                 content = str(child).split(":", 1)
                 if len(content) == 2:
-                    if len(flags):
-                        lst.add_item(NE(fr'{" ".join(flags)}\xspace {bold(EL(content[0]))}'))
+                    if len(flagdata):
+                        lst.add_item(NE(fr'{"".join(flagtexts)}\xspace {bold(EL(content[0]))}'))
                     else:
                         lst.add_item(NE(fr'{bold(EL(content[0]))}'))
 
@@ -905,11 +975,23 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 else:
                     texts = self.expand_macros(str(child), child)
                     if len(flags):
-                        lst.add_item(NE(fr'{" ".join(flags)}\xspace {texts[0]}'))
+                        lst.add_item(NE(fr'{" ".join(flagtexts)}\xspace {texts[0]}'))
                     else:
                         lst.add_item(texts[0])
                     for text in texts[1:]:
                         lst.append(text)
+
+                # If required, then add a hypertarget
+                if hypertarget:
+                    lst.append(hypertarget)
+
+                # If required, then add a hyperlink back to the changeset or other sections
+                # from where this node is being pointed to.
+                if len(flagdata) and self.docinfo["trackchange_section"]:
+                    for x, y, z in flagdata:
+                        lst.append(
+                            NE(fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}{{{self.docinfo["trackchange_section"]}: {z+1}}}}}}}")
+                        )
 
                 # If notes exists in supplied node, then include it too
                 if child.notes:
@@ -921,10 +1003,6 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                             lst.append(Command("par"))
                             for item in self.expand_macros(line, child):
                                 lst.append(item)
-
-                # Add a label so that other nodes can refer to it.
-                # lst.append(Command("label", get_label(child.id)))
-                lst.append(Command("hypertarget", arguments=(get_label(child.id), "")))
 
                 # Add back references, if this node is being pointed to
                 # by other nodes (sinks for arrows)
@@ -952,7 +1030,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                         item = self.build_list_recursively(child, level+1)
                         lst.append(item)
             return lst
-        return None
+        return list()
 
     def build_db_schema(self, node: Node):
         """
@@ -1019,7 +1097,6 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
             mp1 = MiniPage(width=r"\linewidth", pos="t")
             mp1.append(NE(r"\small"))
-            # mp1.append(NE(fr'\label{{{dbtable.label}}}'))
             mp1.append(NE(fr'\hypertarget{{{dbtable.label}}}{{}}'))
             mp1.append(NE(fr"\rowcolors{{2}}{{{self.regcol(self.theme.datatable.tab2_rowcolor_1)}}}"))
             mp1.append(NE(fr"{{{self.regcol(self.theme.datatable.tab2_rowcolor_2)}}}"))
@@ -1040,7 +1117,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                     self.theme.datatable.tab2_header_row_color
                 )
             )
-            tab_mp1.add_hline(color=self.theme.datatable.tab2_header_line_color)
+            tab_mp1.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
 
             # Build blocks for fields
             field_notes = OrderedDict()
@@ -1074,7 +1151,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                         row_text.append(val if val else " ")
                 tab_mp1.add_row(row_text)
 
-            tab_mp1.add_hline(color=self.theme.datatable.tab2_header_line_color)
+            tab_mp1.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
             mp1.append(tab_mp1)
 
             mp2 = MiniPage(width=r"\linewidth", pos="t")
@@ -1117,6 +1194,151 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         ret.append(longtab)
         return ret
 
+    def build_changeset_note_lines(self, node: Node):
+        """
+        Return a list of LaTeX objects representing the note-lines for the sections pertaining
+        to the changeset section of the document. It should be supplied with a node which is
+        either the base-node of the changeset section, or one of its children named |additions|
+        or |deletions|.
+        Parameters
+        ----------
+        node : Node
+            The node for which the changeset note-lines are to be built.
+
+        Returns
+        -------
+        List[LatexObject]
+            A list of LaTeX objects representing the note-lines of changeset nodes.
+        """
+        retblocks = list()
+        if node.notes:
+            for note in retrieve_note_lines(node.notes): # node.notes:
+                retblocks.append(NE(r"\noindent"))
+                segments = re.split(Doc.param_pat, note)
+                if len(segments) > 1:  # Docinfo parameters are present
+                    for segment in segments:
+                        if not re.fullmatch(Doc.param_pat, f"{segment}"):
+                            retblocks.append(segment)
+                        else:
+                            key = segment[1:-1]
+                            if key in self.docinfo.docinfo_tpl:
+                                retblocks.append(self.docinfo[self.docinfo.docinfo_tpl[key]])
+                            else:
+                                raise InvalidRefException(
+                                    f"Node [{str(node)}(ID: {node.id})] contains "
+                                    f"a reference for {segment} which is not a valid "
+                                    "parameter expected in the document-info usually "
+                                    "found in the notes associated with the root node "
+                                    "of the mindmap."
+                                )
+                else:
+                    retblocks.append(note)
+                retblocks.append(NE(r"\par"))
+        return retblocks
+
+    def build_changeset_table(self, cslist: List):
+        """
+        Build a LaTeX table containing the references to the additions or deletions
+        made in the mindmap to generate the current version of the document. A node
+        containing |additions| or |deletions| must be supplied as input to this
+        method.
+
+        Parameters
+        ----------
+        changeset : A list of changeset-tuples for which tabular view is to be built.
+
+        Returns
+        -------
+        LatexObject
+            A LaTeX objects representing a changeset table.
+        """
+        tab = LongTable(r"l c p{0.75\linewidth}")
+        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        header_text = list()
+        header_text.append(
+            NE(
+                fr"""\textcolor{{{self.regcol(self.theme.datatable.tab2_header_text_color)}}}%
+                {{\tinytosmall{{{EL(italic("No."))}}}}}"""
+            )
+        )
+        header_text.append(
+            NE(
+                fr"""\textcolor{{{self.regcol(self.theme.datatable.tab2_header_text_color)}}}%
+                {{\tinytosmall{{{EL(italic("Type"))}}}}}"""
+            )
+        )
+        header_text.append(
+            NE(
+                fr"""\textcolor{{{self.regcol(self.theme.datatable.tab2_header_text_color)}}}%
+                {{\tinytosmall{{{EL(italic("Changes"))}}}}}"""
+            )
+        )
+        tab.add_row(
+            header_text,
+            color=self.regcol(
+                self.theme.datatable.tab2_header_row_color
+            )
+        )
+        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        tab.end_table_header()
+        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        tab.add_row((MultiColumn(3, align="r", data=NE(r"\faEllipsisH \xspace \faArrowRight")),))
+        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        tab.end_table_footer()
+        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        # tab.add_row(
+        #     (MultiColumn(3, align="r", data="Changeset Finished"),)
+        # )
+        #tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        tab.end_table_last_footer()
+        for idx, item in enumerate(cslist):
+            sr_no = NE(fr"\tinytosmall{{\hyperlink{{{get_label(item[0].id)}}}{{{idx+1}}}}}")
+            flag = None
+            if item[1] == "D":
+                flag = NE(
+                    fr"""\textcolor{{{self.regcol(self.theme.colors.del_mark_color)}}}%
+{{\tiny{{{self.theme.config.del_mark_flag}\xspace {self.theme.config.del_mark_text}}}}}""")
+            elif item[1] == "A":
+                flag = NE(
+                    fr"""\textcolor{{{self.regcol(self.theme.colors.new_mark_color)}}}%
+{{\tiny{{{self.theme.config.new_mark_flag}\xspace {self.theme.config.new_mark_text}}}}}""")
+            else:
+                raise InvalidTypeException(
+                    "Invalid change-type found in changeset. Valid types are A and D only."
+                )
+            cs_text = NE(fr"\tinytosmall{{{EL(trunc80(str(item[0])))}}}")
+            tab.append(NE(fr"\hypertarget{{CSREF:{idx}}}{{}}"))
+            tab.add_row((sr_no, flag, cs_text))
+        return tab
+
+    def build_changeset_section(self, node: Node):
+        """
+        Build a set of tables along with its section-text, containing the
+        details of the applicable changeset between two versions of the
+        document. It is required to mark a change-set node with an inverted
+        red triangle icon to build a change-set sction in the document.
+
+        Parameters
+        ----------
+        node : Node
+            The node for which the changeset tables are to be built.
+
+        Returns
+        -------
+        List[LatexObject]
+            A list of LaTeX objects representing the changeset table.
+        """
+        retblocks = list()
+        if not len(self.changeset): # Nothing to be done
+            return retblocks
+
+        if node.notes:
+            retblocks.extend(self.build_changeset_note_lines(node))
+        retblocks.append(NE("\\begin{center}\\vspace{-0.5cm}"))
+        retblocks.append(self.build_changeset_table(self.changeset))
+        retblocks.append(NE("\\end{center}"))
+        return retblocks
+
     @track_processed_nodes
     def traverse_children(
         self, node: Node, level: int, blocks: List[LatexObject]
@@ -1131,6 +1353,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         - Adding labels for cross-referencing
         - Processing node notes and appending them to sections
         - Handling images marked with 'image' icon
+        - Handling changeset sections marked with 'inverted red triangle' icon
 
         Parameters
         ----------
@@ -1147,30 +1370,33 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         if node:
             # Do not process which are annotated with broken-line icon
             if node.icons and "broken-line" in node.icons:
-                #peek(f"Returning without processing node {node}")
                 return list()
 
+            # Get hypertarget before pertient flags are fetched (to fix a bug)
+            hypertarget = self.get_hypertarget(node)
+
             flags = self.get_applicable_flags(node)
-            if len(flags):
-                node_text = fr'{"".join(flags)} {EL(str(node))}'
+            flagdata = [
+                (x, f"CSREF:{z}", z)
+                    for x, y, z in flags if y == 'A' or y == 'D'
+            ]
+            flagtexts = [x for x, y, z in flagdata]
+
+            if len(flagdata):
+                node_text = fr'{" ".join(flagtexts)} {EL(str(node))}'
             else:
                 node_text = EL(str(node))
 
             if level == 1:
-                # blocks.append(Section(EL(str(node)), label=Label(get_label(node.id))))
                 blocks.append(Section(NE(node_text), label=None))
             elif level == 2:
-                # blocks.append(Subsection(EL(str(node)), label=Label(get_label(node.id))))
                 blocks.append(Subsection(NE(node_text), label=None))
             elif level == 3:
-                # blocks.append(Subsubsection(EL(str(node)), label=Label(get_label(node.id))))
                 blocks.append(Subsubsection(NE(node_text), label=None))
             elif level == 4:
-                # blocks.append(Paragraph(EL(str(node)), label=Label(get_label(node.id))))
                 blocks.append(Paragraph(NE(node_text), label=None))
             elif level == 5:
                 blocks.append(
-                    # Subparagraph(EL(f"{node}"), label=Label(get_label(node.id)))
                     Subparagraph(NE(node_text), label=None)
                 )
             else:
@@ -1185,14 +1411,37 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                     "the mindmap."
                 )
 
-            blocks.append(Command("hypertarget", arguments=(get_label(node.id), "")))
+            # Icon inverted red triangle along with trackchange section defined in docinfo
+            if node.icons and "emoji-1F53B" in node.icons and self.docinfo["trackchange_section"]:
+                if self.changeset_node:  # Ensure changeset node doesn't exist already
+                    raise InvalidNodeException(
+                        f'Node "{str(self.changeset_node)}(ID: {self.changeset_node.id})" is '
+                        " already marked as changeset node. More than one changeset "
+                        "nodes are not allowed to be maintained in a document. "
+                        f'Remove either that node or the node "{str(node)}" (ID: {node.id}) '
+                        "from the mindmap to continue."
+                    )
+                self.changeset_node = node
+                self.changeset_section = blocks[-1]  # Add to changeset section
+                return list()
+
+            if hypertarget:
+                blocks.append(hypertarget)
+
+            if len(flagdata) and self.docinfo["trackchange_section"]:
+                # Back references to changeset sections are required
+                for x, y, z in flagdata:
+                    blocks.append(
+                        NE(fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}{{{self.docinfo["trackchange_section"]}: {z+1}}}}}}}")
+                    )
+
             if node.arrowlinked:
                 for referrer in node.arrowlinked:
                     blocks.append(
                         NE(
                             rf"""%
 \margincomment{{\tiny{{$\Lsh$ %
-\hyperlink{{R{get_label(referrer.id)}}}{{{trunc18(str(referrer))}}}}}%
+\hyperlink{{{get_label(referrer.id)}}}{{{trunc18(str(referrer))}}}}}%
 \newline}}"""
                         )
                 )  # Add a margin comment
@@ -1457,7 +1706,6 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
         doc.append(NE(r"\newpage"))
         doc.append(NE(r"\justify"))
 
-
         # Create a list to hold the instances of LatexObject built using the
         # content of the mindmap.
         blocks = list()
@@ -1465,6 +1713,22 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
         # Start traversing the child nodes one-by-one to build the content
         for child in self.mm.rootnode.children:
             self.traverse_children(child, 1, blocks)
+
+        # If track changes are required to be collated into a section and if no
+        # node is marked already to hold the changeset entries (by annotating
+        # it with an icon of inverted red triangle), then append such a section
+        # at the end of the document.
+        if self.docinfo["trackchange_section"]:
+            if self.changeset_node:
+                cslist = self.build_changeset_section(self.changeset_node)
+                for item in cslist:
+                    self.changeset_section.append(item)
+            else:
+                cs_section = Section(self.docinfo["trackchange_section"])
+                cs_section.append(NE("\\begin{center}\\vspace{-0.5cm}"))
+                cs_section.append(self.build_changeset_table(self.changeset))
+                cs_section.append(NE("\\end{center}"))
+                blocks.append(cs_section)
 
         for color in self.colors:
             doc.add_color(color[0], color[1], color[2])
