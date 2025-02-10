@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from freeplane import Node
+# from peek import peek
 from pylatex import Document, Itemize
 from pylatex.utils import NoEscape as NE
 
@@ -50,39 +51,6 @@ class FPDoc(Document):
             )
         return abs_path
 
-#     # Used mostly in cases where raw text is being exchanged, instead of
-#     # PyLaTeX based objects to build the document. For example, while building
-#     # verbatim lists.
-#     def mark_flags(self, text: str, node: Node):
-#         """
-#         Check if node has any applicable flags like for deletion or addition
-#         etc. and add pertient notes or icons to the supplied text. If no flags
-#         are present, then the supplied text is returned as it is.
-
-#         Parameters:
-#             text: str
-#                 The text to which the flags are to be added.
-
-#             node: Node
-#                 The node whose applicable flags are to be checked.
-#         """
-#         # Check for deletion flag first
-#         if node.icons and "button_cancel" in node.icons:
-#             frame_top = fr"""
-# \textcolor{{red}}%
-# {{\faTimes \rule[0.33em]{{0.2\textwidth}}{{0.2pt}}%
-# \small following is marked for removal%
-# \normalsize \rule[0.33em]{{0.2\textwidth}}{{0.2pt}}%
-# \faTimes}}\newline%"""
-#             frame_bot = fr"""
-# \textcolor{{red}}{{\faTimes \rule[0.33em]{{0.725\textwidth}}{{0.2pt}}%
-# \faTimes}}"""
-#             text = f"{NE(frame_top)}{text}{NE(frame_bot)}"
-#         elif node.icons and "addition" in node.icons:  # Check for addition
-#             prefix = fr"\textcolor{{cobalt}}{{\rotatebox{{30}}{{\tiny{{\textbf{{New}}}}}}\faFlagCheckered }}"
-#             text = f"{prefix}{text}"
-#         return text
-
     @track_processed_nodes
     def build_verbatim_list(self, node: Node):
         """
@@ -92,6 +60,19 @@ class FPDoc(Document):
         if node.children:
             itmz = Itemize()
             for child in node.children:
+                # Search and add any applicable flag related texts
+                #p = self.mark_flags(p, child)
+                flags = self.get_applicable_flags(child)
+                flagdata = [
+                    (x, f"CSREF:{z}", z)
+                        for x, y, z in flags if y == 'A' or y == 'D'
+                ]
+                flagtexts = [x for x, y, z in flagdata]
+                if len(flags):
+                    ftext = f'{self.get_hypertarget(child).dumps()}{" ".join(flagtexts)}'
+                else:
+                    ftext = ""
+
                 p = ""
                 # If no notes are present, then item-element should start with
                 # [] to avoid bullets
@@ -102,27 +83,16 @@ class FPDoc(Document):
                         p = f"{p}%\n{line}"
 
                     # Now print the verbatim text contained in that node
-                    p = f"{p}%\n\\begin{{verbatim}}\n{str(child)}\n\\end{{verbatim}}"
+                    p = f"{ftext}\\xspace{p}%\n\\begin{{verbatim}}\n{str(child)}\n\\end{{verbatim}}"
                 else:
                     # To avoid bullet, starting the item with []
-                    p = f"{p}%\n[]\\begin{{verbatim}}\n{str(child)}\\end{{verbatim}}"
+                    p = f"{p}%\n[]{ftext} \\begin{{verbatim}}\n{str(child)}\\end{{verbatim}}"
 
-                # Search and add any applicable flag related texts
-                #p = self.mark_flags(p, child)
-                flags = self.get_applicable_flags(child)
-                flagdata = [
-                    (x, f"CSREF:{z}", z)
-                        for x, y, z in flags if y == 'A' or y == 'D'
-                ]
-                flagtexts = [x for x, y, z in flagdata]
-
-                if len(flags):
-                    p = f'{" ".join(flagtexts)}\n{p}'
 
                 # Add back references, if any flags are present
                 if len(flagdata) and self.docinfo["trackchange_section"]:
                     for x, y, z in flagdata:
-                        p += NE(fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}{{{self.docinfo["trackchange_section"]}: {z+1}}}}}}}")
+                        p = f'{p}\n{NE(fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}{{{self.docinfo["trackchange_section"]}: {z+1}}}}}}}")}'
 
                 # Add back references, if this node is being pointed to by other
                 # nodes (sinks for arrows)

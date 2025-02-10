@@ -1825,6 +1825,10 @@ def create_theme_from_config(conf_file):
             elif key == "config":
                 for k in conf[key].keys():
                     setattr(config, k, conf[key][k])
+                if not config.new_mark_text:
+                    config.new_mark_text = ""
+                if not config.del_mark_text:
+                    config.del_mark_text = ""
     else:
         raise UnsupportedFileException(f"Malformed configuration file {conf_file}.")
 

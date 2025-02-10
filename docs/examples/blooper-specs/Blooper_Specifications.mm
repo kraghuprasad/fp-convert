@@ -1,6 +1,6 @@
 <map version="freeplane 1.12.1">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
-<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1739128794479">
+<node TEXT="Blooper Specifications" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1739196325374">
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <font BOLD="true"/>
 <richcontent TYPE="NOTE">
@@ -16,7 +16,7 @@
       Version: 1.4
     </p>
     <p>
-      Date: 9 February, 2025
+      Date: 10 February, 2025
     </p>
     <p>
       Author: Whoopie Bard $&lt;$whoopie@clueless.dev$&gt;$\\Changu Bhai $&lt;$changu.bhai@clueless.dev$&gt;$
@@ -50,6 +50,9 @@
     </p>
     <p>
       R_Footer_Text: \small{Page \thepage\- of \pageref*{LastPage}}
+    </p>
+    <p>
+      Timezone: Asia/Kolkata
     </p>
   </body>
 </html></richcontent>
@@ -811,7 +814,12 @@
 </node>
 <node TEXT="Exception Output:" POSITION="bottom_or_right" ID="ID_1159276885" CREATED="1728891979919" MODIFIED="1734075668862">
 <icon BUILTIN="links/file/json"/>
-<node TEXT="{&#xa;  &quot;status&quot;: 421,&#xa;  &quot;message&quot;: &quot;Invalid field supplied&quot;&#xa;}" ID="ID_641988819" CREATED="1728891986317" MODIFIED="1728920669937"/>
+<node TEXT="{&#xa;  &quot;status&quot;: 422,&#xa;  &quot;message&quot;: &quot;Field supplied is not valid&quot;&#xa;}" ID="ID_641988819" CREATED="1728891986317" MODIFIED="1739184844593">
+<icon BUILTIN="button_cancel"/>
+</node>
+<node TEXT="{&#xa;  &quot;status&quot;: 421,&#xa;  &quot;message&quot;: &quot;Invalid field supplied&quot;&#xa;}" ID="ID_556812726" CREATED="1728891986317" MODIFIED="1739184819392">
+<icon BUILTIN="addition"/>
+</node>
 </node>
 </node>
 <node TEXT="Reset:" ID="ID_874678025" CREATED="1729102344249" MODIFIED="1736145817210">
@@ -833,7 +841,7 @@
 <node TEXT="Links" POSITION="bottom_or_right" ID="ID_417855629" CREATED="1729102371564" MODIFIED="1736519551659">
 <icon BUILTIN="list"/>
 <node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1738900662380">
-<arrowlink DESTINATION="ID_571525042" STARTINCLINATION="81.75 pt;0 pt;" ENDINCLINATION="293.24999 pt;-117.75 pt;"/>
+<arrowlink DESTINATION="ID_571525042" STARTINCLINATION="81.75 pt;0 pt;" ENDINCLINATION="293.24999 pt;-117 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -849,7 +857,7 @@
 </node>
 </node>
 <node TEXT="Error-Message Box for Existing Record" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1738900651702">
-<arrowlink DESTINATION="ID_1641632316" STARTINCLINATION="118.5 pt;38.25 pt;" ENDINCLINATION="284.24999 pt;-160.5 pt;"/>
+<arrowlink DESTINATION="ID_1641632316" STARTINCLINATION="118.5 pt;38.25 pt;" ENDINCLINATION="284.24999 pt;-159.75 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
