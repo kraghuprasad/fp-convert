@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from freeplane import Node
+
 # from peek import peek
 from pylatex import Document, Itemize
 from pylatex.utils import NoEscape as NE
@@ -9,6 +10,8 @@ from .errors import MissingFileException
 from .utils.decorators import register_color, track_processed_nodes
 from .utils.helpers import get_label
 
+# Version of the package
+__version__ = "0.1.0"
 
 class FPDoc(Document):
     """

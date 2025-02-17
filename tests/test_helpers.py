@@ -1,8 +1,9 @@
 import pytest
-#from peek import peek
 
 from fp_convert.errors import InvalidDocInfoKey
 from fp_convert.utils.helpers import DocInfo, get_label, retrieve_note_lines
+
+# from peek import peek
 
 
 def test_get_label():
@@ -50,6 +51,7 @@ def test_docinfo_dictionary_methods():
     Author: Whoopie Bard $<$whoopie@clueless.dev$>$\\Changu Bhai $<$changu.bhai@clueless.dev$>$
     Client: Blooper Corporation Inc.
     Vendor: Clueless Developers' Consortium
+    Trackchange_Section: Track Changes
     TP_Top_Logo: images/blooper_logo.pdf
     TP_Bottom_Logo: images/clueless_devs_consortium.pdf
     C_Header_Text: Project Specifications of Blooper App
@@ -57,8 +59,7 @@ def test_docinfo_dictionary_methods():
     L_Header_Logo: images/blooper_logo.pdf
     C_Footer_Logo: images/clueless_devs_consortium.pdf
     R_Footer_Text: \small{Page \thepage\- of \pageref*{LastPage}}
-    Header_Thickness: 0.4
-    Footer_Thickness: 0.4
+    Timezone: Asia/Kolkata
     """
     doc_info = DocInfo(info_text)
     assert set(doc_info.keys()) == {
@@ -68,6 +69,7 @@ def test_docinfo_dictionary_methods():
         "doc_author",
         "client",
         "vendor",
+        "trackchange_section",
         "tp_top_logo",
         "tp_bottom_logo",
         "l_header_text",
@@ -82,6 +84,7 @@ def test_docinfo_dictionary_methods():
         "c_footer_image",
         "r_footer_text",
         "r_footer_image",
+        "timezone",
     }
     assert doc_info.get("doc_version", "") == "1.0"
     assert doc_info.get("non_existent_key", "default") == "default"

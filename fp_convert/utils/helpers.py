@@ -664,6 +664,7 @@ def truncate_string(string: str, max_length: int) -> str:
         The truncated string.
     """
     if len(string) > max_length:
+        # return string[: max_length - 3] + "\u2026"
         return string[: max_length - 3] + "..."
     else:
         return string
