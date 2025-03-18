@@ -12,10 +12,10 @@ Once upon a time, people used to understand that there existed a separation betw
 - It takes a lot of efforts to focus on certain sections of the specifications document while modifying it. The specifications are mostly inter-related, and changing one section may have its own side effects on other sections of the document, which may be tens of pages away from the current one. Then it becomes a repetitive jumping between various pages, sections, tables, and images while modifying a document.
 - Navigating through a large document, spreadsheet or presentation itself makes the whole process quite tedious. For example while looking at a particular response obtained from an API call, one may want to know the relevance of certain data point which is part of the response. Those details might have been stored somewhere in the functional specifications section in the same document. Linking those sections, and then maintaining them properly throughout the project execution and maintenance period may not be simple. Due to large spread of the content, people may find it difficult to separate and focus only on the affected sections (this is easily handled in mindmaps, by the way) of the document.
 - While writing the content of the document, using different versions of the same tool on different machines may result in changes in the document-styles. Such changes are visible mostly in the fonts and font-styles. This creates an unwanted distraction or jarring effect on the reader who wants to focus on the content rather than on its presentation.
-- If multiple people are formatting a document over a long period of time, their styles of writing as well as formatting starts changing. In large documents which have passed through multiple hands over the years, you may find that some section of the document being formatted in fixed sized fonts, while the similar content being formatted with variable sized fonts. The fonts and formatting, if assists in better readability and understanding of the content of the document, then it good. Otherwise they just add only to the clutter. A badly formatted document becomes unreadable quickly, and people would lose interest in maintaining it, unless forced to do so. We all know that anything forced on to the people do not last long.
-- Except PDF, HTML, or Markdown text, there exists no standard document formats which render properly on multiple viewers running on different operating systems. For example, documents or presentations create using Microsoft tools on Windows OS do not render properly in tools provided by say, Libre Office on Linux OS, even if those file formats are stated to be supported by it. This itself should be sufficient enough to discard such tools for managing the knowledge associated with a project. Forcing people to opt for a particular tool and OS to access common documents helps only to prop-up vendors of such tools and OS, not to the users who really need those documents.
+- If multiple people are formatting a document over a long period of time, their styles of writing as well as formatting starts changing. In large documents which have passed through multiple hands over the years, you may find that some section of the document being formatted in fixed sized fonts, while the similar content being formatted with variable sized fonts in other sections of the same document. The fonts and formatting are considered good if they are used to convery required information clearly to the reader of the document. Otherwise they just add only to the clutter. A badly formatted document quickly becomes unreadable, and people would lose interest in maintaining it over a period of time. Unmaintained documentation is as good as no documentation.
+- Except PDF, HTML, or Markdown text, there exists no standard document formats which render properly on multiple document-viewers running on different operating systems. For example, documents or presentations create using Microsoft tools on Windows OS do not render properly in tools provided by say, Libre Office on Linux OS, even if those file formats are stated to be supported by it. This itself should be sufficient enough to discard them as a knowledge management tool for any project. Forcing everyone to opt for a particular OS or program to access a particular document helps only to prop-up the bottomlines of respective companies which create those OS and documentation tools. It does not serve the users for whom those documents were created.
 
-To solve these problems, TeX/LaTeX is a good tool, which allows us to maintain the separation between content and style. It is possible to convert a TeX based document to corresponding PS or PDF file formats, which are known as portable file formats. They are guaranteed to render correctly everywhere. Now a days, a scaled down version with very limited formatting features are found in Markdown or XML based text editors too.
+To solve these problems we can opt for TeX/LaTeX as our preferred documentation tool. It is fully open source and it also allows us to maintain the separation between content and style of any document. It is possible to convert a TeX based document to corresponding PS or PDF file formats, which are known as portable file formats. They are guaranteed to render correctly everywhere and there exists many open as well as closed sourced tools to view them on any OS. Modern PDF documents support hyperlinks too which are essential for cross referencing within sections of a document.
 
 While writing the document, the author can decide to chose the right format to display a particular content. For example, the same content can be formatted in a tabular form (in spread-sheets), in paragraphs of text (in word docs), flowcharts (using Visio or LibreDraw) or in any other suitable form. This is the prerogative of the producer (author) to decide how certain content should be rendered to convey the required information to the consumer (reader) of the document. This requires good understanding on the producer's part on what to show in which format. We find that the lack of such understanding, along with misuse of existing text or data formatting tools have actually blurred the line of distinction between content and its presentation. We regularly find badly formatted documents where even the section-headers are not suitably defined. Many consider that the headers of a section means just few phrases formatted in bold-text. This kind of formatting makes it impossible to auto-generate the table of contents of a large document along with its section-headers and page numbers. If we define the structure of the documents correctly, then existing text processing tools like TeX/LaTeX, Microsoft Word, Libreoffice Writer; or cloud based text editors like Google Docs, O365 Word etc. would be able to auto-generate the table of contents of our documents for us whose sections could be accurately hyperlinked to their respective page numbers.
 
@@ -29,7 +29,57 @@ By using fp-convert and Freeplane based mindmap to capture the knowledge, one ca
 
 ## License
 
-This application is released under GNU Public License (v3). You are free to use it for commercial as well as non-commercial purposes, as long as your work remains compliant to the underlying licensing terms.
+This application is released under GNU Public License (v3). You are free to use it for commercial as well as non-commercial purposes, as long as your work remains compliant to the underlying licensing terms of GPL(v3).
+
+## Installation
+
+fp-convert is standing on the shoulders of giants like Python and TeX/LaTeX which doesn't need any introductions. But two critical components without which this endeavor would not have been possible are [PyLaTeX](https://github.com/JelteF/PyLaTeX) and [freeplane-python-io](https://github.com/nnako/freeplane-python-io) (thanks nnako for all those timely help :).
+
+This program requires a recent version of Python3 to work. You may install Python stack system-wide or to a specific vertual environment. For system-wide installation from Python package repository, please execute the following command on the console.
+
+```bash
+pip install fp-convert
+```
+
+It will download all Python based dependencies automatically. But you also need a fully functional TeX/LaTeX environment installed on your machine to use this tool. It is freely available for all major operating systems. Please refer your OS manual or user communities on the Internet to know how to install TeX/LaTeX on your favorite operating system.
+
+On Linux based machines you may find that following tex-packages get installed as part of full TeX installation.
+
+- texlive-base
+- texlive-latex-base
+- texlive-latex-recommended
+- texlive-fonts-recommended
+- texlive-fonts-extra
+- texlive-latex-extra
+- texlive-pictures
+- texlive-science
+- texlive-latex-extra
+
+If full texlive package is not available on your machine due to disk-space crunch, or due to some other reasons; then at least a TeX/LaTeX environment with following packages must be made available for fp-convert to work properly:
+
+- amssymb
+- enumitem
+- fontawesome5
+- fontenc
+- geometry
+- hyperref
+- longtable
+- makecell
+- marginnote
+- mdframed
+- multirow
+- placeins
+- ragged2e
+- tabularx
+- tcolorbox
+- titlesec
+- utopia
+- xcolor
+- xspace
+
+You should also install all those additional TeX packages on which the command-line-options to fp-convert depends on. For example, you may need to install additional font-packages, if you are not satisfied with the default `lmodern` or `roboto` font-family for your documents. In such case, you may need to install additional fonts on your system.
+
+Please note that this program was built and tested on a Manjaro Desktop which is based on Arch Linux. It is expected that it will work without any issues on other Linux distributions like Debian, Ubuntu, Fedora and all other distros built using them. In fact it should work with any unix-like system like FreeBSD, OpenBSD, NetBSD, DragonFlyBSD, etc. too provided the software dependencies of fp-convert are met. It may also work on Windows and MacOS, provided all required TeX and other Python packages are installed on in. Your mileage may vary though. We would like to hear the experience of users who could get it working on BSD, Windows and Mac.
 
 ## Usage
 
@@ -37,7 +87,7 @@ Executing `fp-convert -h` results in its help-text getting displayed.
 
 ---
 
-```
+```txt
 usage: fp-convert [-h] [-t <template-name>] [-k]
                   [-f <font-family-name:font-family-options>]
                   [-c <config-file-path>] [-d] [-g <config-file-path>]
@@ -93,51 +143,7 @@ options:
 
 ---
 
-## Software Components
-
-fp-convert is standing on the shoulders of giants like Python and TeX/LaTeX which doesn't need any introductions. But two critical components without which this endeavor would not have been possible are [PyLaTeX](https://github.com/JelteF/PyLaTeX) and [freeplane-python-io](https://github.com/nnako/freeplane-python-io) (thanks nnako for all those timely help :).
-
-## LaTeX Environment
-
-Install tex-live package on the host on which fp-convert is to be used. This is the easiest approach to start using it. On Linux systems we have noticed that following packages are usually found in the tex-live installation:
-
-- texlive-base
-- texlive-latex-base
-- texlive-latex-recommended
-- texlive-fonts-recommended
-- texlive-fonts-extra
-- texlive-latex-extra
-- texlive-pictures
-- texlive-science
-- texlive-latex-extra
-
-If full tex-live package is not available on your machine due to disk-space crunch, or due to some other reasons; then at least a TeX/LaTeX environment with following packages must be made available for fp-convert to work properly:
-
-- amssymb
-- enumitem
-- fontawesome5
-- fontenc
-- geometry
-- hyperref
-- longtable
-- makecell
-- marginnote
-- mdframed
-- multirow
-- placeins
-- ragged2e
-- tabularx
-- tcolorbox
-- titlesec
-- utopia
-- xcolor
-- xspace
-
-You will also need to install all those additional TeX packages on which the command-line-options to fp-convert depends on. For example, you may need to install additional font-packages, if you are not satisfied with the default `lmodern` or `roboto` font-family for your documents. In such case, you may also need to install additional fonts on your system. That's the reason it is advised to go with full tex-live package on the host.
-
-Please note that this program was built and tested on a Manjaro Desktop which is based on Arch Linux. It is expected that it will work without any issues on other Linux distributions like Debian, Ubuntu, Fedora and all other distros built using them. In fact it should work with any unix-like system like FreeBSD, OpenBSD, NetBSD, DragonFlyBSD, etc. too provided the software dependencies of fp-convert are met. It may also work on Windows and MacOS, provided all required TeX and other Python packages are installed on in. Your mileage may vary though. We would like to hear the experience of users who could get it working on BSD, Windows and Mac.
-
-## Features
+## Features of fp-convert
 
 fp-convert is a command-line tool written in Python which uses fp_convert module to carry out its work. The same module can be invoked from other Python programs too, to generate required PDF documents. At present it is designed to generate project specifications document for any software or IT based projects. Support for other kinds of documents would be added in future, based on the demand from the community. By the way, it should not be presumed that the document generated by fp-convert would not be useful for capturing other knowledge-items. Internally fp-convert uses LaTeX base document class `article'. Hence you can use fp-convert to generate any kind of document which can be built using that document class, as long as you follow certain conventions while creating your mindmap. The details of those conventions are given in some of the sections below.
 
