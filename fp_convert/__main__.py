@@ -17,7 +17,7 @@ import tempfile
 from importlib import import_module
 from pathlib import Path
 
-from fp_convert import templates
+# from fp_convert import templates
 from fp_convert.errors import FPConvertException, UnsupportedFileException
 
 
@@ -149,11 +149,10 @@ def main():
     mm_filepath = Path(mindmap_file_path)
     output_pdf_path = args.output_file
     pdf_filepath = Path(output_pdf_path)
-    tpl = args.template
 
     temp_dir = tempfile.TemporaryDirectory(prefix="fp-convert-", delete=False)
 
-    doc_kwargs = {
+    doc_kwargs: dict = {
         "working_dir": temp_dir.name,
     }
     if args.font_family:
@@ -182,7 +181,7 @@ def main():
         print(e)
         sys.exit(1)
 
-    shutil.copy2(temp_output, pdf_filepath)
+    shutil.copy2(str(temp_output), str(pdf_filepath))
     if args.keep_tex:
         shutil.copy2(
             Path(temp_dir.name, (pdf_filepath.stem + ".tex")),

@@ -7,7 +7,6 @@ from fp_convert.colors import Color
 # from peek import peek
 
 
-
 _local = threading.local()
 
 
@@ -45,7 +44,7 @@ def register_color(method):
     """
 
     @wraps(method)
-    def decorated(doc, color: str, *args, **kwargs):
+    def decorated(ctx, color: str, *args, **kwargs):
         registered_colors = _get_local_color_register()
 
         # Retrieve individual colors, if supplied color is a mixed one
@@ -60,9 +59,9 @@ def register_color(method):
                 c = Color(colr)
                 color_name, color_model, color_specs = c.name, "rgb", c.rgbval
 
-                doc.colors.append((color_name, color_model, color_specs))
+                ctx.colors.append((color_name, color_model, color_specs))
                 registered_colors.add(color_name)
-        return method(doc, color, *args, **kwargs)
+        return method(ctx, color, *args, **kwargs)
 
     return decorated
 

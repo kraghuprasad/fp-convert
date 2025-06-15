@@ -1,20 +1,151 @@
+"""
+Module to provide common utility classes and methods.
+"""
+
 import re
-from typing import List, Optional
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import List, Optional, Set
 
 from freeplane import Node
 
-# from peek import peek  # noqa: F401
-from pylatex import MdFramed
+from pylatex import Figure, MdFramed
 from pylatex.base_classes import LatexObject
-from pylatex.utils import NoEscape
+from pylatex.utils import NoEscape as NE
 
-from ..errors import InvalidDocInfoKey
+from ..errors import InvalidDocInfoKey, InvalidFPCBlockTypeException
+from ..utils.decorators import register_color
 
 """
 Utility functions and containers used in mindmap to LaTeX conversion.
 """
 
 field_type_pat = re.compile(r" *(varchar|char|int|decimal) *[\[\(]([\.\d]+)[\)\]] *")
+
+def compact_string(string: str) -> str:
+    """
+    Compact the string by removing leading and trailing whitespaces, and
+    replacing multiple spaces with a single space.
+
+    Parameters
+    ----------
+    string : str
+        The string to be compacted.
+
+    Returns
+    -------
+    str
+        The compacted string.
+    """
+    return re.sub(r"\s+", " ", str.strip(string)) if string else ""
+
+
+def ensure_directory_exists(dir_path: Path|str) -> None:
+    """
+    Ensure that the directory exists, creating it if necessary.
+
+    Parameters
+    ----------
+    dir_path : Path | str
+        The path to the directory to ensure existence of.
+    """
+    dir_path = Path(dir_path)
+    if dir_path.exists():
+        if dir_path.is_dir():
+            return
+        else:
+            raise FileExistsError(
+                f"Path {dir_path} exists but is not a directory."
+            )
+    else: 
+        dir_path.mkdir(parents=True, exist_ok=True)
+
+
+def node_type_detector_factory(type_code: str, type_code_repo: dict):
+    """
+    A special factory method which creates a type-detector function based on
+    the input type specified.
+
+    Parameters
+    ----------
+    type_code: str
+        One of the pedefined type-codes for which there is a special way to
+        render its text in the PDF document.
+    type_code_repo: dict
+        The dictionary containing all type-codes applicable for respective
+        module's node-types.
+
+    Returns
+    -------
+    function
+        The type-detector function.
+
+    Notes
+    -----
+    The node can be annotated with either using a predefined set of icons or
+    via attribute named fpcBlockType. It values are case insensitive and should
+    be one defined in node_type_codes container: orderedlist, unorderedlist,
+    verbatim, table, dbschema.
+    """
+
+    def detector(node: Node):
+        try:  # Check for attributes first
+            if (
+                node.attributes["fpcBlockType"].lower()
+                == type_code_repo[type_code]["attr"]
+            ):
+                return True
+        except KeyError:
+            pass
+
+        # If required attribute not found, then check node-icons
+        if node.icons and set(node.icons).intersection(
+            type_code_repo[type_code]["icons"]
+        ):
+            return True
+
+        # Node-type indicators are either missing or it is different than
+        # the supplied one
+        return False
+
+    if type_code in type_code_repo:
+        return detector
+
+    raise InvalidFPCBlockTypeException(  # Supplied type_code is not supported.
+        f"Code {type_code} is not found in given type-code-repo dictionary."
+    )
+
+
+node_type_codes = {
+    "ol": {  # Ordered List
+        "icons": {
+            "emoji-1F522",
+        },
+        "attr": "orderedlist",
+    },
+    "ul": {  # Unordered List
+        "icons": {
+            "list",
+        },
+        "attr": "unorderedlist",
+    },
+    "ig": {  # Ignore-Block
+        "icons": {
+            "broken-line",
+        },
+        "attr": "ignore",
+    },
+    "im": {  # Image
+        "icons": {
+            "image",
+        },
+        "attr": "image",
+    },
+}
+is_ordered_list_type = node_type_detector_factory("ol", node_type_codes)
+is_unordered_list_type = node_type_detector_factory("ul", node_type_codes)
+is_ignore_type = node_type_detector_factory("ig", node_type_codes)
+is_image_type = node_type_detector_factory("im", node_type_codes)
 
 
 def get_label(id: str):
@@ -78,10 +209,10 @@ def get_notes(node: Node):
 
 def append_notes_if_exists(
     node: Node,
-    segment: List[LatexObject],
+    segment: List[LatexObject|NE],
     doc,
-    prefix: Optional[LatexObject] = None,
-    suffix: Optional[LatexObject] = None,
+    prefix: Optional[LatexObject|NE] = None,
+    suffix: Optional[LatexObject|NE] = None,
 ):
     """
     Append notes to the supplied LaTeX segment from the supplied node, with
@@ -121,7 +252,7 @@ def append_notes_if_exists(
             # segment.append(MdFramed(em(str(node.notes), node), options="style=StopFrame"))
             mdf = MdFramed()
             mdf.options = "style=StopFrame"
-            mdf.append(NoEscape(rf"\small{{{doc.emr(str(node.notes), node)}}}"))
+            mdf.append(NE(rf"\small{{{doc.emr(str(node.notes), node)}}}"))
             segment.append(mdf)
         else:
             if prefix:
@@ -130,12 +261,202 @@ def append_notes_if_exists(
             # But applying NoEscape here may cause problems, if notes contain characters applicable to LaTeX.
             # Need a neater way to create references!!!
             # segment.append(build_para_per_line(em(str(node.notes), node), doc))
-            segment.append(
-                NoEscape(retrieve_note_lines(doc.emr(str(node.notes), node)))
-            )
+            segment.append(NE(retrieve_note_lines(doc.emr(str(node.notes), node))))
             if suffix:
                 segment.append(suffix)
     return segment
+
+
+class ObjectMix:
+    """
+    Mix one or more objects together - still maintaining their separate
+    existence - and fetch any attributes from them (based on priority) using
+    standard object and attribute notations. The existence of attributes are
+    tested in the same order, in which the objects are supplied to the its
+    constructor. The higher priority objects must precede the lower priority
+    ones while constructing this object. For example if attribute x exists in
+    objects a and b both, and ObjectMix o is created as o = ObjectMix(a, b);
+    then o.x will return the value of a.x, not that of b.x.
+
+    Object of this class allows only retrieval of attribute-values, provided
+    they are present in the object-mix. No attributes can be set using it. In
+    short, it is a read-only object.
+    """
+
+    def __init__(self, *objects):
+        """
+        Initialize the ObjectMix with one or more objects. It ignores duplicates
+        and maintains a set of unique objects. The order of objects is preserved
+        in the list of objects, but the duplicates are ignored.
+        Parameters
+        ----------
+        objects : objects
+            One or more objects to be mixed.
+        """
+        self._repo = set()
+        self._objects = []  # List to maintain the order of objects
+        for obj in objects:  # ignore duplicates
+            if obj not in self._repo:
+                self._repo.add(obj)
+                self._objects.append(obj)
+
+    def add_object(self, obj):
+        """
+        Add an object to the ObjectMix. If the object is already present, it is
+        ignored. This allows extending the ObjectMix with new objects at runtime
+        with default values for those attributes which are missing in the objects
+        added earlier.
+
+        Parameters
+        ----------
+        obj : object
+            The object to be added to the ObjectMix. It can be any configuration
+            object which has predefined attributes in it. For example, an instance
+            of Config class can have attributes like `toc_depth`, `sec_depth`, etc.
+        """
+        if obj not in self._repo:  # ignore duplicates
+            self._repo.add(obj)
+            self._objects.append(obj)
+    
+    def dump(self) -> dict[str, dict[str, str]]:
+        """
+        Dump the content of this container as a dictionary, ensuring that duplicate
+        parameters are not included in the result.
+        """
+        ret: dict[str, dict[str, str]] = dict()
+        for item in self._objects:
+            section = item.__class__.__name__.lower()
+            if section not in ret:
+                ret[section] = dict()
+            for key, value in item.__class__.__dict__.items():
+                if not key.startswith("__") and not callable(value) and \
+                            key not in ret[section]:
+                    ret[section][key] = value
+        return ret
+
+    def __str__(self):
+        """
+        Returns a string representation of the content of this object-mix in
+        its current state.
+        """
+        ret = list()
+        for obj in self._objects:
+            ret.append(str(obj))
+        return "\n".join(ret)
+
+    def __getattr__(self, name):
+        for obj in self._objects:
+            if hasattr(obj, name):
+                return getattr(obj, name)
+        raise AttributeError(
+            f"ObjectMix {self.__class__.__name__} has no attribute {name}. "
+            f"Probably a required object is not added into this mix."
+        )
+
+
+class Theme:
+    """
+    A class to hold the overall theme of the document which may contain various
+    objects of different types holding respective parameters. For example, for
+    the template psdoc, it may contain attributes like config, geometry, table,
+    dbschematable etc. These attributes can be passed on to the constructor of this
+    class in its constructor. For example:
+        theme = Theme(Config(), Geometry())
+
+    One or more theme-component-objects holding various parameters
+    required in building the complete theme object. It is dependent on the
+    document being constructed, and hence, it should be able to incorporate
+    those parameters too which would be required in future. 
+    For that purpose, all attributes of this class are instances of class
+    ObjectMix. The attribute-names are derived by converting the
+    class-names of supplied theme-components into their respective lower
+    case names.  Attributes of formerly added components will override the
+    same of the ones added later.
+
+    The components added later may supply default values for the attributes
+    which were not supplied by the components added earlier. Depending on
+    the template being used, all of these attributes may or may not be
+    present in the theme-object. If required, then they are expected to be
+    present in the configuration file used to initialize the theme-object
+    for whichever module gets used in the conversion of the mindmap to PDF
+    document.       
+
+    In the configuration file used to initialize the theme, all of these
+    attributes would be treated as respective sections, like [config],
+    [geometry], [table], [dbschematable], [colors] etc. The theme
+    components can be any object which has attributes defined in the
+    respective sections of the configuration file. For example, Config
+    object can have attributes like `toc_depth`, `sec_depth`, etc.
+    The Geometry object can have attributes like `inner_margin`,
+    `top_margin`, `head_height`, `figure_width` etc. The Table object can
+    have attributes like `header_row_color`, `header_text_color`, etc.
+    The DBSchemaTable object can have attributes like `dbschematable_font_size`,
+    `dbschematable_font_family`, `dbschematable_width` etc. The Colors object can
+    have attributes like `primary_color`, `background_color`,
+    `secondary_color`, etc. The list of these theme components are not
+    exhaustive, and can be extended in future to include more components
+    as required by the document template used for conversion.
+    """
+    config: ObjectMix
+    geometry: ObjectMix
+    table: ObjectMix
+    dbschematable: ObjectMix
+    colors: ObjectMix
+
+    def __init__(self, *components):
+        """
+        Initialize the Theme object with one or more theme-component-objects.
+
+        Parameters
+        ----------
+        components : object
+            One or more theme-component-objects holding various parameters
+            required in building the complete theme object. It is mostly
+            dependent on the document being constructed.
+        """
+
+        # Use default values of respective paramaters, if supplied ones
+        # are None.
+        for component in components:
+            if component:
+                name = component.__class__.__name__.lower()
+                try:
+                    attribute = getattr(self, name)
+                    attribute.add_object(component)
+                except AttributeError:
+                    attribute = ObjectMix(component)
+                    setattr(self, name, attribute)
+
+    def add_component(self, component: object) -> None:
+        """
+        Method to add a component to the theme. They are usually added at runtime,
+        as and when required. It allows extending the theme for newer modules which get
+        loaded at runtime based on the mindmap being parsed and converted.
+
+        Parameters
+        ----------
+        component : object
+            The component of the theme getting added. It is usually supplied from an
+            externally defined module, like usecase.
+        """
+        try:
+            attr = getattr(self, component.__class__.__name__.lower())
+        except AttributeError:
+            attr = ObjectMix()
+            setattr(self, component.__class__.__name__.lower(), attr)
+        attr.add_object(component)
+    
+    def dump(self) -> dict[str, dict[str, str]]:
+        """
+        Dump all the parameters of theme, categorized by their respective sections.
+        """
+        ret = dict()
+        # for name, value in self.__class__.__dict__.items():
+        #     if not name.startswith("__") and not callable(value):
+        for name, value in self.__dict__.items():
+            if not name.startswith("__") and not callable(value):
+                ret.update(value.dump())
+        return ret
 
 
 class DocInfo:
@@ -200,7 +521,7 @@ class DocInfo:
         "Timezone": "timezone",  # The timezone used for all auto-generated dates
     }
     regex_pat = "^(" + "|".join([k for k in docinfo_tpl.keys()]) + ") *:(.+)$"
-    compiled_pat = re.compile(regex_pat)
+    compiled_pat = re.compile(regex_pat)  # Regular expression pattern to match docinfo fields
 
     def __init__(self, info_text: str):
         """
@@ -220,7 +541,7 @@ class DocInfo:
             Text containing document metadata fields in Field_Name: value format.
             Can be empty/None in which case all fields are initialized to None.
         """
-        self._data = {v: None for v in DocInfo.docinfo_tpl.values()}
+        self._data = {v: "" for v in DocInfo.docinfo_tpl.values()}
         self._data["timezone"] = "UTC"
 
         if info_text:
@@ -233,8 +554,9 @@ class DocInfo:
 
     def get(self, key, default):
         """
-        Get the value for a valid key from the DocInfo object. If not found,
-        then return supplie default value.
+        Get the value for a valid key from the DocInfo object. If %% is found to be
+        the returned value, then return an empty string. If no values were found,
+        then return supplied default value.
 
         Parameters
         ----------
@@ -251,6 +573,8 @@ class DocInfo:
             exit, then supplied default.
         """
         try:
+            if self._data[key] == "%%":
+                return ""
             return self._data[key]
         except KeyError:
             return default
@@ -393,260 +717,6 @@ class DocInfo:
         return self._data.items()
 
 
-class DBTableField:
-    """
-    Class to represent a field in a database table.
-    """
-
-    def __init__(
-        self,
-        mangled_info: Optional[str] = None,
-        name: Optional[str] = None,
-        field_type: Optional[str] = None,
-        ai: Optional[str] = None,
-        pk: Optional[str] = None,
-        unique: Optional[str] = None,
-        default: Optional[str] = None,
-        null: Optional[str] = None,
-        notes: Optional[List[str]] = None,
-    ):
-        """
-        The constructor can take either exact attributes of the field, or it
-        can try to derive individual details from the input parameter named
-        mangled_info.
-
-        Parameters
-        ----------
-        mangled_info : str, optional
-            The full details of the field can be supplied in a single string
-            following certain convention. For example, following is a valid
-            mangled_info string:
-                email: varchar(64), unique=yes, null=no, desc=Email address
-                This string will be parsed to extract the name, filed_type,
-                description, unique and default values, if supplied.
-            name: str, optional
-                The name of the field of the table.
-            field_type: str, optional
-                The data-type of the field of the table.
-            ai: str, optional
-                If yes, the field value is auto incrementing.
-            pk: str, optional
-                The field is primary key of that table.
-            unique: str, optional
-                If yes, the field's value must be unique in the table.
-            default: str, optional
-                The default value used, if it is not supplied for this field.
-            null: str, optional
-                If yes, this field allows null values. Default is True.
-            notes: List[str], optional
-                The list of notes associated with this field.
-        """
-        self.name = name
-        self.field_type = field_type
-        self.ai = ai
-        self.pk = pk
-        self.unique = unique
-        self.default = default
-        self.null = null
-        if notes:
-            self.notes = retrieve_note_lines(notes)
-        else:
-            self.notes = list()
-
-        if mangled_info:
-            self._retrieve_mangled_info(mangled_info)
-        else:
-            if not (name and field_type):
-                raise ValueError(
-                    "Either mangled_info, or name, field_type, and other"
-                    "applicable details must be supplied while constructing"
-                    "the table-field."
-                )
-
-    def append_notes(self, notes: str):
-        """
-        Method to append a note-string to the existing notes container.
-        """
-        self.notes.append(notes)
-
-    def _retrieve_mangled_info(self, info: str):
-        """
-        Method to retrieve the field-specific details from a single string
-        which was written following certain conventions. One such valid string
-        is given below:
-            email: varchar(64), unique=True, null=False, desc=Email address
-
-        Parameters
-        ----------
-        info : str
-            The string containing the field-specific details.
-
-        returns: Nothing. It modifies the attributes of the object in-place.
-        """
-        f_name, f_rest = info.split(":", 1)
-        if f_rest:
-            self.name = str.strip(f_name)
-            for item in f_rest.split(","):
-                # part1, part2 = item.split("=", 1)
-                part = str.strip(item)
-                part_lower = part.lower()
-                if part_lower in ["ai", "autoincrement", "autoincrementing"]:
-                    self.ai = "yes"
-                elif part_lower in ["primarykey", "pk", "primary-key"]:
-                    self.pk = "yes"
-                elif part_lower in ["unique", "uq"]:
-                    self.unique = "yes"
-                elif part_lower in [
-                    "null",
-                ]:
-                    self.null = "yes"
-                elif re.match("not +null", part_lower):
-                    self.null = "no"
-                elif part_lower.startswith("default"):
-                    parts = re.split(" +", part, maxsplit=1)
-                    if len(parts) == 1:
-                        raise ValueError(
-                            f"No default value supplied for field {self.name}."
-                            "Please supply default value in the format"
-                            "'default xxx' or remove the keyword default."
-                        )
-                    self.default = str.strip(parts[1])
-                elif part_lower in {
-                    "int",
-                    "tinyint",
-                    "int8",
-                    "int16",
-                    "int32",
-                    "int64",
-                    "float",
-                    "text",
-                    "date",
-                    "datetime",
-                    "char",
-                    "boolean",
-                    "bool",
-                    "smallint",
-                    "mediumint",
-                    "bigint",
-                    "double",
-                    "decimal",
-                    "real",
-                    "json",
-                    "enum",
-                    "integer",
-                    "time",
-                    "timestamp",
-                    "geocolumn",
-                }:
-                    self.field_type = part_lower
-                else:
-                    mpat = field_type_pat.match(part_lower)
-                    if mpat:
-                        db_type, size = mpat.group(1), mpat.group(2)
-                        self.field_type = f"{db_type}[{size}]"
-                    else:
-                        raise ValueError(
-                            "Invalid mangled_info value supplied. Please follow"
-                            " proper convention while writing the field-specifications."
-                            " A sample valid mangled_info string is:"
-                            " email: varchar(64), null=False, ds=Email addresse,"
-                        )
-
-
-class DBTable:
-    """
-    Class to represent a table in a relational database.
-    """
-
-    def __init__(self, name: str, fields: List[DBTableField] = None, notes: str = None):
-        """
-        The constructor takes the name of the table and the list of fields
-        that it contains.
-
-        Parameters
-        ----------
-        name: str
-            The name of the table.
-        fields: List[DBTableField]
-            A list of DBTableField objects representing the fields that the table
-            contains.
-        notes: str
-            The notes associated with the database table.
-        """
-        self.name = name
-        if fields:
-            self.fields = [i for i in fields]
-        else:
-            self.fields = list()
-        if notes:
-            self.notes = notes
-        else:
-            self.notes = list()
-
-    def append_field(self, field: DBTableField):
-        """
-        Method to append a DBTableField object to this table.
-        """
-        self.fields.append(field)
-
-    def append_notes(self, notes: str):
-        """
-        Method to append a note-text to the existing notes container.
-        """
-        self.notes.append(notes)
-
-    def __repr__(self):
-        """
-        Method to return the string representation of the table.
-        """
-        return f"DBTable(name={self.name}, fields={self.fields})"
-
-    def __str__(self):
-        """
-        Method to return the string representation of the table.
-        """
-        return f"DBTable(name={self.name}, fields={self.fields})"
-
-    def __eq__(self, other):
-        """
-        Method to check if two tables are equal.
-        """
-        return self.name == other.name and self.fields == other.fields
-
-    def __hash__(self):
-        """
-        Method to return the hash of the table.
-        """
-        return hash((self.name, self.fields))
-
-    def __iter__(self):
-        """
-        Method to iterate over all the fields of this table.
-        """
-        return MyIterator(self.fields)
-
-
-class MyIterator:
-    """
-    Class to implement a simple external iterator.
-    An iterable object is required to construct the instance of this class.
-    """
-
-    def __init__(self, data):
-        self.data = data
-        self.index = 0
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        if self.index >= len(self.data):
-            raise StopIteration
-        item = self.data[self.index]
-        self.index += 1
-        return item
-
-
 def truncate_string(string: str, max_length: int) -> str:
     """
     Function to create a truncated string from a given string.
@@ -690,3 +760,73 @@ def special_truncator_factory(max_length: int):
         return re.sub(":$", "", truncate_string(string, max_length))
 
     return truncator
+
+
+# Create truncator functions for strings with limited size
+trunc80 = special_truncator_factory(80)
+trunc32 = special_truncator_factory(32)
+trunc18 = special_truncator_factory(18)
+
+
+def build_latex_figure_object(
+    image_path: Path,
+    image_width: str,
+    image_caption: str | None = None,
+    image_position: str = "!htb",
+):
+    """
+    Return a LaTeX Figure object containing supplied figure, and
+    layouts based on the supplied configuration.
+
+    Parameters
+    ----------
+    image_path: Path
+        A Path opbject pointing to the image file.
+    image_width: str
+        The width of the image expected in output.
+    image_caption: str
+        The caption of the image (optional).
+    image_position: str
+        Preferred position for image to be defined in LaTeX.
+
+    Returns
+    -------
+    A LaTeX Figure object.
+    """
+    fig = Figure(position=image_position)
+    fig.append(
+        NE(
+            rf"""
+\begin{{center}}%
+\tcbox{{\includegraphics[%
+width={image_width}]{{{image_path}}}}}%
+\end{{center}}%"""
+        )
+    )  # Build a boxed figure
+    if image_caption is not None:
+        fig.add_caption(image_caption)
+    return fig
+
+
+@dataclass
+class DocContext:
+    """
+    It holds the context specific details which can be used by modules rendering
+    various types of document-elements.
+    """
+
+    docinfo: DocInfo
+    colors: List = field(default_factory=list)
+    hypertargets: Set = field(default_factory=set)
+    changeset: List = field(default_factory=list)
+    changeset_section: str | None = field(default=None)
+    changeset_node: Node | None = field(default=None)
+    working_dir: Path | None = field(default=None)
+    images_dir: Path | None = field(default=None)
+
+    @register_color
+    def regcol(self, color):
+        """
+        Register supplied color to the document-context before proceeding
+        """
+        return color

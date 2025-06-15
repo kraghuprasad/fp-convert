@@ -80,7 +80,19 @@ class InvalidNodeException(FPConvertException):
 
     pass
 
+
 class InvalidTypeException(FPConvertException):
     """Raised when an invalid type-values is found somewhere."""
+
+    pass
+
+
+class InvalidFPCBlockTypeException(FPConvertException):
+    """Raised when an invalid or unsupported block-type-values is used."""
+
+    pass
+
+class InvalidFilePathException(FPConvertException):
+    """Raised when an invalid or no file-path is supplied."""
 
     pass

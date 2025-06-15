@@ -12,18 +12,15 @@ import yaml
 from cairosvg import svg2pdf
 from freeplane import Mindmap, Node
 
-#from peek import peek
 from pylatex import (
     Center,
     Command,
     Document,
     Enumerate,
-    Figure,
     Foot,
     Head,
     HugeText,
     Itemize,
-    Label,
     LongTable,
     MdFramed,
     MiniPage,
@@ -44,162 +41,56 @@ from pylatex.utils import italic, verbatim
 from fp_convert import FPDoc
 from fp_convert.errors import (
     IncorrectInitialization,
+    InvalidFilePathException,
     InvalidNodeException,
-    InvalidParameterException,
     InvalidRefException,
-    InvalidRefTypeException,
     InvalidTypeException,
     MaximumListDepthException,
     MaximumSectionDepthException,
+    MissingFileException,
     MissingHeaderException,
     MissingValueException,
     UnsupportedFileException,
 )
 from fp_convert.utils.decorators import track_processed_nodes
 from fp_convert.utils.helpers import (
-    DBTable,
-    DBTableField,
+    DocContext,
     DocInfo,
+    Theme,
+    build_latex_figure_object,
+    ensure_directory_exists,
     get_label,
     retrieve_note_lines,
-    special_truncator_factory,
+    trunc18,
+    trunc32,
+    trunc80,
+    is_ignore_type,
+    is_image_type,
+    is_ordered_list_type,
+    is_unordered_list_type,
+)
+from fp_convert.utils.psdoc.helpers import (
+    DBTable,
+    DBTableField,
+    is_dbschema_type,
+    is_numbertable_type,
+    is_stopframe_type,
+    is_table_type,
+    is_trackchange_type,
+    is_verbatim_type,
+)
+from fp_convert.utils.psdoc.theme import (
+    Colors, Config, DBSchemaTable, Geometry, Table)
+from fp_convert.utils.uml.theme import (
+    Config as UMLConfig,
+    Geometry as UMLGeometry,
+    Colors as UMLColors,
 )
 
-# Create truncator functions for strings with limited size
-trunc80 = special_truncator_factory(80)
-trunc32 = special_truncator_factory(32)
-trunc18 = special_truncator_factory(18)
-
-"""
-Following classes specify the default values for various parameters of Program
-Specifications Document (PSD).
-It is possible to construct and reconfigure them, before constructing the PSD
-template. Then those reconfigured classes can be supplied to the constructor of
-the template.
-"""
-
-class Config:
-    """
-    Following controls the document-specific configuration parameters.
-    """
-
-    toc_depth = 3  # Maximum depth required for the table of contents listing
-    sec_depth = 5  # Maximum depth allowed while sectioning this document
-    par_title_format = (
-        r"[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}"  # noqa
-    )
-    par_title_spacing = r"{0pt}{3.25ex plus 1ex minus .2ex}{.75em}"
-    subpar_title_format = (
-        r"[hang]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}"  # noqa
-    )
-    subpar_title_spacing = r"{0pt}{3.25ex plus 1ex minus .2ex}{.75em}"
-    sf_outer_line_width = "1pt"  # Stop-Frame outer line-width size
-    sf_round_corner_size = "3pt"  # Stop-Frame rounded corner's size
-    sf_outer_left_margin = "5pt"  # Stop-Frame outer left margin width
-    sf_inner_left_margin = "10pt"  # Stop-Frame inner left margin width
-    sf_outer_right_margin = "5pt"  # Stop-Frame outer right margin width
-    sf_inner_right_margin = "30pt"  # Stop-Frame inner right margin width
-    header_thickness = "0.4"  # Header line thickness
-    footer_thickness = "0.4"  # Footer line thickness
-    figure_width = r"0.6\textwidth"  # Width of the figure, in LaTeX
-    new_mark_text = "NEW"  # Text marking newly added nodes
-    new_mark_flag = r"\faPlus"  # FontAwesome icon for new-markings
-    del_mark_text = "CUT"  # Text marking nodes for removal
-    del_mark_flag = r"\faCut"  # FontAwesome icon for del-markings
-    timezone = "UTC"  # Timezone for all timestamps used in the document
-
-
-class Geometry:
-    """
-    Following attributes define various geometry specific parameters of the
-    page.
-    """
-
-    left_margin = "1.25in"
-    inner_margin = "1.25in"  # Applicable only in twosided mode
-    right_margin = "1.25in"
-    outer_margin = "1.25in"  # Applicable only in twosided mode
-    top_margin = "1.5in"
-    bottom_margin = "1.5in"
-    head_height = "20pt"
-    par_indent = "0pt"
-
-    # Vertical space between top logo and title-text in the title page
-    tp_top_logo_vspace = "5cm"
-    tp_top_logo_height = "3cm"  # Height of top logo on title page
-
-    # Vertical space between bottom logo and title-text in the title page
-    tp_bottom_logo_vspace = "7cm"
-    tp_bottom_logo_height = "1.5cm"  # Height of bottom logo on title page
-
-    l_header_image_height = "0.7cm"
-    c_header_image_height = "0.5cm"
-    r_header_image_height = "0.5cm"
-    l_footer_image_height = "0.5cm"
-    c_footer_image_height = "0.5cm"
-    r_footer_image_height = "0.5cm"
-
-class Table:
-    """
-    Following colors are defined for the default tables laid out in PSD.
-    """
-    header_text_color = "darkblue"
-    header_row_color = "babyblueeyes!80"
-    footer_row_color = "babyblueeyes!10"
-    rowcolor_1 = "babyblueeyes!35"
-    rowcolor_2 = "babyblueeyes!20"
-    line_color = "cornflowerblue"
-
-class DataTable:
-    """
-    Following colors are defined for the database tables laid out in PSD.
-    """
-    tab1_header_row_color = "spirodiscoball!20!white"
-    tab1_header_line_color = "fpcblue2"
-    tab1_header_text_color = "darkblue"
-    tab1_body_line_color = "gray!30"
-    tab2_header_row_color = "fpcblue1"
-    tab2_header_line_color = "fpcblue2"
-    tab2_header_text_color = "darkblue"
-    tab2_rowcolor_1 = "white"
-    tab2_rowcolor_2 = "tealblue!7!white"
-
-class Colors:
-    """
-    Following colors are defined for styling the PSD.
-    """
-    header_line_color = "airforceblue"
-    footer_line_color = "airforceblue"
-    link_color = "celestialblue"
-    url_color = "ceruleanblue"
-    file_color = "magenta"
-    mc_color = "{rgb}{0,0.5,0}"  # Color of margin comments
-    sf_line_color = "cadmiumred"  # Stop-Frame line-color
-    sf_background_color = "red!5!white"  # Stop-Frame background-color
-    new_mark_color = "cobalt"  # Color of markers for newly created nodes
-    del_mark_color = "red!80!gray"  # Color of markers for nodes marked for deletion
-
-
-class Theme:
-    """
-    A class to hold the overall theme of the document.
-    """
-
-    def __init__(
-        self,
-        config: Optional[Config] = None,
-        geometry: Optional[Geometry] = None,
-        table: Optional[Table] = None,
-        datatable: Optional[DataTable] = None,
-        colors: Optional[Colors] = None,
-    ):
-        # Use default values of respective paramaters, if supplied ones
-        # are None.
-        self.config = config if config else Config()
-        self.geometry = geometry if geometry else Geometry()
-        self.table = table if table else Table()
-        self.datatable = datatable if datatable else DataTable()
-        self.colors = colors if colors else Colors()
+from fp_convert.utils.uml.helpers import (
+    build_usecase_blocks,
+    is_ucpackage_type,
+)
 
 
 class Doc(FPDoc):
@@ -218,7 +109,7 @@ class Doc(FPDoc):
         self,
         mm_file: str|Path,
         documentclass: str = "article",
-        working_dir: Optional[str|Path] = ".",
+        working_dir: str|Path = ".",
         docinfo: Optional[DocInfo] = None,
         theme: Optional[Theme] = None,
         font_family: Optional[List] = None,
@@ -240,48 +131,67 @@ class Doc(FPDoc):
             information. If it is supplied, it would override the one obtained
             from the supplied mindmap's root node.
         :param theme: A Theme instance that defines document styling including
-            page geometry, colors, and other formatting parameters.
-            constructing the document. The styles, geometry of the page,
-            colors etc. are defined in this class. If none is supplied, then
-            default values are used.
-        :font_family: The font-family and its details to be used in the PDF
-            document.
+            page geometry, colors, and other formatting parameters required in
+            constructing the document. The configuration parameters along with
+            styling details are defined in it. The default value supplied is
+            None, which indicates that the default values for all parameters
+            should be used.
+        :font_family: The font-family to be used used while constructing the
+            PDF document.
         """
         super().__init__(
             Path(mm_file).stem,
             documentclass=documentclass)
 
+        default_theme_components = (
+            Config(), Geometry(), Table(), DBSchemaTable(), Colors(),
+            UMLConfig(), UMLGeometry(), UMLColors(),
+        )
+
         # If user-supplied theme is absent, use default one
         self.theme = theme if theme else Theme()
 
+        # Supply missing values to the theme, if any
+        for component in default_theme_components:
+            self.theme.add_component(component)
+
         self.mm_file = Path(mm_file)
-        self.working_dir = Path(working_dir)
-        self.images_dir = Path(working_dir, "images")
-        self.mm = Mindmap(self.mm_file)
+        self.mm = Mindmap(str(self.mm_file))
+
+        # Choose right value of DocInfo for this invocation. Either the
+        # DocInfo object is supplied exernally, or it is to be rerieved
+        # from the mindmap.
         if docinfo:
             if not isinstance(docinfo, DocInfo):
                 raise IncorrectInitialization(
                     "Supplied argument 'docinfo' is not an instance of"
                     "DocInfo class")
-            self.docinfo = docinfo
+            docinfo_v = docinfo
         elif self.mm.rootnode.notes:
-            self.docinfo = DocInfo(self.mm.rootnode.notes)
+            docinfo_v = DocInfo(self.mm.rootnode.notes)
         else:
             raise IncorrectInitialization(
                 "No document-information found in the mindmap supplied."
             )
 
         # Container to hold colorspecs of colors used in the document
-        self.colors = list()
+        #self.colors = list()
 
         # Container to hold all nodes for which hypertarget has been made
-        self.hypertargets = set()
+        #self.hypertargets = set()
 
         # Container to hold nodes with additions and deletions markers
-        self.changeset = list()  # List of tuple of change-set nodes and their type
-        self.changeset_section = None
-        self.changeset_node = None
+        #self.changeset = list()  # List of tuple of change-set nodes and their type
+        #self.changeset_section = None
+        #self.changeset_node = None
 
+        # Initialize document context object to hold context specific details
+        self.ctx = DocContext(docinfo_v)
+
+        self.ctx.working_dir = Path(working_dir)
+        ensure_directory_exists(self.ctx.working_dir)
+        self.ctx.images_dir = Path(working_dir, "images")
+        ensure_directory_exists(self.ctx.images_dir)
         self.packages = [
             ("geometry", tuple()),
             ("amssymb", tuple()),
@@ -329,27 +239,27 @@ class Doc(FPDoc):
             ),
             NE(
                 r"\mdfdefinestyle{StopFrame}{linecolor="
-                rf"{self.regcol(self.theme.colors.sf_line_color)}, outerlinewidth="
-                rf"{self.theme.config.sf_outer_line_width}, "
-                rf"roundcorner={self.theme.config.sf_round_corner_size},"
-                rf"rightmargin={self.theme.config.sf_outer_right_margin},"
-                rf"innerrightmargin={self.theme.config.sf_inner_right_margin},"
-                rf"leftmargin={self.theme.config.sf_outer_left_margin},"
-                rf"innerleftmargin={self.theme.config.sf_inner_left_margin},"
+                rf"{self.ctx.regcol(self.theme.colors.sf_line_color)}, outerlinewidth="
+                rf"{self.theme.geometry.sf_outer_line_width}, "
+                rf"roundcorner={self.theme.geometry.sf_round_corner_size},"
+                rf"rightmargin={self.theme.geometry.sf_outer_right_margin},"
+                rf"innerrightmargin={self.theme.geometry.sf_inner_right_margin},"
+                rf"leftmargin={self.theme.geometry.sf_outer_left_margin},"
+                rf"innerleftmargin={self.theme.geometry.sf_inner_left_margin},"
                 rf"backgroundcolor={self.theme.colors.sf_background_color}}}"
             ),
             NE(
                 fr"""
 \hypersetup{{
-pdftitle={{{self.docinfo["doc_title"]}}},
-pdfsubject={{{self.docinfo["doc_title"]}}},
-pdfauthor={{{self.docinfo["doc_author"]}}},
+pdftitle={{{self.ctx.docinfo["doc_title"]}}},
+pdfsubject={{{self.ctx.docinfo["doc_title"]}}},
+pdfauthor={{{self.ctx.docinfo["doc_author"]}}},
 pdfcreator={{"fp-convert using pylatex, freeplane-io, and LaTeX with hyperref"}},
 %pdfpagemode=FullScreen,
 colorlinks=true,
-linkcolor={self.regcol(self.theme.colors.link_color)},
-filecolor={self.regcol(self.theme.colors.file_color)},
-urlcolor={self.regcol(self.theme.colors.url_color)},
+linkcolor={self.ctx.regcol(self.theme.colors.link_color)},
+filecolor={self.ctx.regcol(self.theme.colors.file_color)},
+urlcolor={self.ctx.regcol(self.theme.colors.url_color)},
 pdftoolbar=true,
 pdfpagemode=UseNone,
 pdfstartview=FitH
@@ -375,8 +285,8 @@ bottom={self.theme.geometry.bottom_margin},
             NE(
                 rf"""
 \rowcolors{{2}}%
-{{{self.regcol(self.theme.table.rowcolor_1)}}}%
-{{{self.regcol(self.theme.table.rowcolor_2)}}}%
+{{{self.ctx.regcol(self.theme.table.rowcolor_1)}}}%
+{{{self.ctx.regcol(self.theme.table.rowcolor_2)}}}%
 """
             ),
             NE(r"\renewcommand{\arraystretch}{1.5}%"),
@@ -422,8 +332,28 @@ bottom={self.theme.geometry.bottom_margin},
 
         )  # End of the tuple named preambletexts
 
+    def get_absolute_file_path(self, file_path: str | Path):
+        """
+        Fetch absolute file path - if file exists - if a file path relative to
+        the mindmap file is provided.
 
-    def get_hypertarget(self, node: Node):
+        Parameters:
+            file_path: str|Path
+        """
+        if not Path(file_path).is_absolute():
+            # The path could be relative to the folder having mindmap file
+            abs_path = Path(self.mm_file.parent.absolute(), file_path)
+
+            if not abs_path.is_file():
+                raise MissingFileException(
+                    f"A required file ({file_path}) is missing. Either use an "
+                    "absolute file path, or a path relative to the mindmap "
+                    "itself. Also the file must exist already."
+                )
+            return abs_path
+        return Path(file_path)
+
+    def get_hypertarget(self, node: Node) -> Command|None:
         """
         Generate the hypertarget for the supplied node.
 
@@ -435,8 +365,8 @@ bottom={self.theme.geometry.bottom_margin},
             LateXObject
                 The hypertarget object generated for the supplied node.
         """
-        if node not in self.hypertargets:
-            self.hypertargets.add(node)
+        if node not in self.ctx.hypertargets:
+            self.ctx.hypertargets.add(node)
             return Command("hypertarget", arguments=(get_label(node.id), ""))
         return None
 
@@ -465,23 +395,23 @@ bottom={self.theme.geometry.bottom_margin},
         if node.icons:
             if "button_cancel" in node.icons:
                 flag = NE(
-                    fr"""\textcolor{{{self.regcol(self.theme.colors.del_mark_color)}}}{{%
+                    fr"""\textcolor{{{self.ctx.regcol(self.theme.colors.del_mark_color)}}}{{%
 {{\rotatebox{{10}}{{\tiny{{\textbf{{{self.theme.config.del_mark_text}}}}}}}}}%
 {{{self.theme.config.del_mark_flag}}}}}""")
 
                 # Register the node for deletion
-                self.changeset.append((node, "D"))
-                ret.append((flag, "D", len(self.changeset)-1))
+                self.ctx.changeset.append((node, "D"))
+                ret.append((flag, "D", len(self.ctx.changeset)-1))
 
             elif "addition" in node.icons:
                 flag = NE(
-                    fr"""\textcolor{{{self.regcol(self.theme.colors.new_mark_color)}}}{{%
+                    fr"""\textcolor{{{self.ctx.regcol(self.theme.colors.new_mark_color)}}}{{%
 {{\rotatebox{{10}}{{\tiny{{\textbf{{{self.theme.config.new_mark_text}}}}}}}}}%
 {{{self.theme.config.new_mark_flag}}}}}""")
 
                 # Register the node for addition
-                self.changeset.append((node, "A"))
-                ret.append((flag, "A", len(self.changeset)-1))
+                self.ctx.changeset.append((node, "A"))
+                ret.append((flag, "A", len(self.ctx.changeset)-1))
 
         # If required, more flags can be handled here before returning
         return ret
@@ -508,7 +438,8 @@ bottom={self.theme.geometry.bottom_margin},
         ret = list()
         if node.notes:
             # If stop-sign is present, then style a framed box accordingly
-            if node.icons and "stop-sign" in node.icons:
+            # if node.icons and "stop-sign" in node.icons:
+            if is_stopframe_type(node):
                 mdf = MdFramed()
                 mdf.options = "style=StopFrame"
                 lines = retrieve_note_lines(str(node.notes))
@@ -604,6 +535,64 @@ bottom={self.theme.geometry.bottom_margin},
 
         return ret
 
+    @track_processed_nodes
+    def build_verbatim_list(self, node: Node):
+        """
+        Build a non-nested list of parts with the contents of the children
+        printed in verbatim mode.
+        """
+        if node.children:
+            itmz = Itemize()
+            for child in node.children:
+                # Search and add any applicable flag related texts
+                #p = self.mark_flags(p, child)
+                flags = self.get_applicable_flags(child)
+                flagdata = [
+                    (x, f"CSREF:{z}", z)
+                        for x, y, z in flags if y == 'A' or y == 'D'
+                ]
+                flagtexts = [x for x, y, z in flagdata]
+                if len(flags):
+                    ht = self.get_hypertarget(child)
+                    if ht:
+                        ftext = f'{ht.dumps()}{" ".join(flagtexts)}'
+                    else:
+                        ftext = " ".join(flagtexts)
+                else:
+                    ftext = ""
+
+                p = ""
+                # If no notes are present, then item-element should start with
+                # [] to avoid bullets
+                if child.notes:
+                    # Print notes first, above the verbatim text
+                    lines = self.expand_macros(str(child.notes), child)
+                    for line in lines:
+                        p = f"{p}%\n{line}"
+
+                    # Now print the verbatim text contained in that node
+                    p = f"{ftext}\\xspace{p}%\n\\begin{{verbatim}}\n{str(child)}\n\\end{{verbatim}}"
+                else:
+                    # To avoid bullet, starting the item with []
+                    p = f"{p}%\n[]{ftext} \\begin{{verbatim}}\n{str(child)}\\end{{verbatim}}"
+
+
+                # Add back references, if any flags are present
+                if len(flagdata) and self.ctx.docinfo["trackchange_section"]:
+                    for x, y, z in flagdata:
+                        p = f'{p}\n{NE(fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}{{{self.ctx.docinfo["trackchange_section"]}: {z+1}}}}}}}")}'
+
+                # Add back references, if this node is being pointed to by other
+                # nodes (sinks for arrows)
+                for referrer in node.arrowlinked:
+                    p += NE(
+                        fr"\margincomment{{\tiny{{$\Lsh$ \autoref{{{get_label(
+                            referrer.id)}}}}}}}")
+
+                itmz.add_item(NE(p))
+            return [itmz,]
+        return list()
+
     def build_latex_figure(self, node: Node):
         """
         Build a center-aligned LaTeX figure object from the content of the
@@ -628,9 +617,7 @@ bottom={self.theme.geometry.bottom_margin},
         ret = list()
         f_ext = img_path.suffix.lower()
         if f_ext == ".svg":  # SVG images need conversion to PDF
-            if not self.images_dir.is_dir():
-                os.makedirs(self.images_dir, exist_ok=True)
-            new_img_path = Path(self.images_dir, img_path.stem+".pdf")
+            new_img_path = Path(str(self.ctx.images_dir), img_path.stem+".pdf")
 
             # Convert SVG image to PDF
             svg2pdf(url=str(img_path), write_to=str(new_img_path))
@@ -644,17 +631,9 @@ bottom={self.theme.geometry.bottom_margin},
         else:  # Use original absolute image path
             new_img_path = img_path
 
-        fig = Figure(position="!htb")
-        fig.append(
-            NE(
-                fr"""
-\begin{{center}}%
-\tcbox{{\includegraphics[%
-width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
-\end{{center}}%"""
-            )
-        )  # Build a boxed figure
-        fig.add_caption(str(node))
+        fig = build_latex_figure_object(
+            new_img_path, self.theme.geometry.figure_width, str(node)
+        )
         ret.append(fig)
         return ret
 
@@ -713,10 +692,10 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 )
 
             for field in node.children[1:]:
-                row = [NE(fr"\small{{{EL(field)}}}"""), ]
+                row = [NE(fr"\small{{{EL(field)}}}"), ]
                 if field.children:
                     for aln, hdr, val in zip(alignments[1:], headers, field.children):
-                        row.append(NE(fr"\small{{{EL(val)}}}"""))
+                        row.append(NE(fr"\small{{{EL(val)}}}"))
                         if aln == "r": # Do for numbers only
                             if hdr in totals:
                                 totals[hdr] += Decimal(str(val))
@@ -724,13 +703,13 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                     if len(row) != (len(headers) + 1):
                         raise MissingValueException(
                             'Field-count mismatch in number-table '
-                            f'"{str(field)}" for its row "{str(item)}". '
+                            f'"{str(node)}" for its row "{str(field)}". '
                             'According to its |headers|, there should '
                             f'have been {len(headers)} children for this '
                             f'node, but found {len(row)-1} instead.')
                 else:  # No fields for this node, and hence empty row
                     for item in headers:
-                        row.append("")
+                        row.append(NE(""))
                 rows.append(row)
 
                 if field.notes:
@@ -745,49 +724,49 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
             # Build table-content first
             tab = Tabular("".join(alignments), pos="c")
-            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            tab.add_hline(color=self.ctx.regcol(self.theme.table.line_color))
             row = [
                 NE(
                     fr"""
-\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\small{{\color{{{self.ctx.regcol(self.theme.table.header_text_color)}}}%
 \textsf{{{bold(tabprops["column1"])}}}}}"""
                 ),
             ]
             row.extend(
                 [
                     NE(fr"""
-\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\small{{\color{{{self.ctx.regcol(self.theme.table.header_text_color)}}}%
 \textsf{{{bold(hdr)}}}}}"""
                     ) for hdr in headers
                 ]
             )
             tab.add_row(
                 *row,
-                color=self.regcol(self.theme.table.header_row_color),
+                color=self.ctx.regcol(self.theme.table.header_row_color),
                 strict=True)
-            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            tab.add_hline(color=self.ctx.regcol(self.theme.table.line_color))
             for row in rows:
                 tab.add_row(*row)
-            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            tab.add_hline(color=self.ctx.regcol(self.theme.table.line_color))
 
             # If summing required, then add a row for totals
             if totals:
                 row = [NE(fr"""
-\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\small{{\color{{{self.ctx.regcol(self.theme.table.header_text_color)}}}%
 \textsf{{{bold("Total")}}}}}"""), ]
                 for hdr in headers:
                     if totals.get(hdr, None):
                         row.append(NE(fr"""
-\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\small{{\color{{{self.ctx.regcol(self.theme.table.header_text_color)}}}%
 \textsf{{{bold(totals[hdr])}}}}}"""))
                     else:
-                        row.append("")
+                        row.append(NE(""))
                 tab.add_row(
                     *row,
-                    color=self.regcol(self.theme.table.footer_row_color),
+                    color=self.ctx.regcol(self.theme.table.footer_row_color),
                     strict=True
                 )
-                tab.add_hline(color=self.regcol(self.theme.table.line_color))
+                tab.add_hline(color=self.ctx.regcol(self.theme.table.line_color))
 
             # Then check if notes are to be collected for the same node
             if notes:
@@ -829,35 +808,35 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
             # Build table-content first
             tab = Tabular("l" * (1 + len(col_hdrs)), pos="c")
-            tab.add_hline(color=self.regcol(self.theme.table.line_color))
-            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            tab.add_hline(color=self.ctx.regcol(self.theme.table.line_color))
+            tab.add_hline(color=self.ctx.regcol(self.theme.table.line_color))
             col1_hdr = re.sub(r":$", "", str(node))
             row = [
                 NE(
                     fr"""
-\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\small{{\color{{{self.ctx.regcol(self.theme.table.header_text_color)}}}%
 \textsf{{{col1_hdr}}}}}"""
                 ),
             ]
             row.extend(
                 [
                     NE(fr"""
-\small{{\color{{{self.regcol(self.theme.table.header_text_color)}}}%
+\small{{\color{{{self.ctx.regcol(self.theme.table.header_text_color)}}}%
 \textsf{{{hdr}}}}}"""
                     ) for hdr in col_hdrs
                 ]
             )
             tab.add_row(
                 *row,
-                color=self.regcol(self.theme.table.header_row_color),
+                color=self.ctx.regcol(self.theme.table.header_row_color),
                 strict=True)
-            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            tab.add_hline(color=self.ctx.regcol(self.theme.table.line_color))
             for field in sorted(col1.keys()):
                 row = [field, ]
                 for col in col_hdrs:
                     row.append(col1[field].get(col, ""))
                 tab.add_row(row)
-            tab.add_hline(color=self.regcol(self.theme.table.line_color))
+            tab.add_hline(color=self.ctx.regcol(self.theme.table.line_color))
 
             # Then check if notes are to be collected for the same node
             if notes:
@@ -871,7 +850,8 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         Build a list of LaTeX object capable of rendering a table from the
         supplied node and its children.
         """
-        if "emoji-1F522" in node.icons:  # Numerical table required
+        # if "abacus" in node.icons:  # Numerical table required
+        if is_numbertable_type(node):  # Numerical table required
             tab_notes = self.build_number_table_and_notelist(node)
         else:  # Textual table required
             tab_notes = self.build_table_and_notelist(node)
@@ -920,6 +900,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         return mdf
 
 
+
     def build_list_recursively(self, node: Node, level: int):
         """
         Build and return a list of lists as long as child nodes are present
@@ -931,14 +912,16 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 "The number of nested lists should not go beyond 3.")
 
         if node.children:
-            if "emoji-1F522" in node.icons:  # Ordered list
+            # if "emoji-1F522" in node.icons:  # Ordered list
+            if is_ordered_list_type(node):  # Ordered list
                 lst =  Enumerate()
             else:  # Unordered list is the default
                 lst =  Itemize()
 
             for child in node.children:
                 # Do not process items which are annotated with broken-line icon
-                if child.icons and "broken-line" in child.icons:
+                # if child.icons and "broken-line" in child.icons:
+                if is_ignore_type(child):
                     continue
 
                 # If any flags are present in the node, then include
@@ -987,15 +970,20 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
                 # If required, then add a hyperlink back to the changeset or other sections
                 # from where this node is being pointed to.
-                if len(flagdata) and self.docinfo["trackchange_section"]:
+                if len(flagdata) and self.ctx.docinfo["trackchange_section"]:
                     for x, y, z in flagdata:
                         lst.append(
-                            NE(fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}{{{self.docinfo["trackchange_section"]}: {z+1}}}}}}}")
+                            NE(
+                                fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}"
+                                f"{{{self.ctx.docinfo["trackchange_section"]}"
+                                f": {z+1}}}}}}}"
+                            )
                         )
 
                 # If notes exists in supplied node, then include it too
                 if child.notes:
-                    if child.icons and "stop-sign" in child.icons:
+                    # if child.icons and "stop-sign" in child.icons:
+                    if is_stopframe_type(child):
                         lst.append(self.build_stop_notes(child))
                     else:
                         note_lines = retrieve_note_lines(str(child.notes))
@@ -1014,14 +1002,16 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                             )}}}}}}}"))
 
                 if child.children:
-                    if child.icons and 'links/file/generic' in child.icons:  # Table is to be built
+                    # if child.icons and 'links/file/generic' in child.icons:  # Table is to be built
+                    if is_table_type(child) or is_numbertable_type(child):  # Table is to be built
                         for obj in self.build_table_from_child_nodes(child):
                             lst.append(obj)
 
                     # Else check if children should be formatted verbatim
-                    elif 'links/file/json' in child.icons or \
-                    'links/file/xml' in child.icons or \
-                    'links/file/html' in child.icons:
+                    # elif 'links/file/json' in child.icons or \
+                    # 'links/file/xml' in child.icons or \
+                    # 'links/file/html' in child.icons:
+                    elif is_verbatim_type(child):
                         for item in self.build_verbatim_list(child):
                             lst.append(item)
 
@@ -1052,8 +1042,8 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         if not node:
             return ret
 
+        dbtables = list()
         if node.children:
-            dbtables = list()
             for table in node.children:
                 dbtable = DBTable(str(table))
                 dbtable.label = get_label(table.id)  # LaTeX label for table
@@ -1077,7 +1067,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             return ret
 
         longtab = LongTable(r"p{0.6\textwidth} p{0.34\textwidth}", pos="t")
-#        longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
+#        longtab.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab1_header_line_color))
 
         # Ordering of attributes of fields in displayed table
         fields = OrderedDict()
@@ -1090,34 +1080,34 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         # Build blocks for tables
         for idx, dbtable in enumerate(dbtables):
             longtab.add_row(
-                [NE(fr"\textbf{{\textcolor{{{self.regcol(self.theme.datatable.tab1_header_text_color)}}}{{{idx+1}. {EL(dbtable.name)}}}}}"), ""],
-                color=self.regcol(self.theme.datatable.tab1_header_row_color))
-#            longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
+                [NE(fr"\textbf{{\textcolor{{{self.ctx.regcol(self.theme.dbschematable.tab1_header_text_color)}}}{{{idx+1}. {EL(dbtable.name)}}}}}"), ""],
+                color=self.ctx.regcol(self.theme.dbschematable.tab1_header_row_color))
+#            longtab.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab1_header_line_color))
             longtab.append(NE(r"\rowcolor{white}"))
 
-            mp1 = MiniPage(width=r"\linewidth", pos="t")
+            mp1 = MiniPage(width=NE(r"\linewidth"), pos="t")
             mp1.append(NE(r"\small"))
             mp1.append(NE(fr'\hypertarget{{{dbtable.label}}}{{}}'))
-            mp1.append(NE(fr"\rowcolors{{2}}{{{self.regcol(self.theme.datatable.tab2_rowcolor_1)}}}"))
-            mp1.append(NE(fr"{{{self.regcol(self.theme.datatable.tab2_rowcolor_2)}}}"))
+            mp1.append(NE(fr"\rowcolors{{2}}{{{self.ctx.regcol(self.theme.dbschematable.tab2_rowcolor_1)}}}"))
+            mp1.append(NE(fr"{{{self.ctx.regcol(self.theme.dbschematable.tab2_rowcolor_2)}}}"))
             tab_mp1 = Tabularx(NE(r">{\raggedright\arraybackslash}l l X X l"), width_argument=NE(r"\linewidth"), pos="t")
-            tab_mp1.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+            tab_mp1.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab2_header_line_color))
 
             header_text = list()
             for f in fields.keys():
                 header_text.append(
                     NE(
-                        fr"\textcolor{{{self.regcol(self.theme.datatable.tab2_header_text_color)}}}{{{EL(italic(fields[f]))}}}"
+                        fr"\textcolor{{{self.ctx.regcol(self.theme.dbschematable.tab2_header_text_color)}}}{{{EL(italic(fields[f]))}}}"
                     )
                 )
 
             tab_mp1.add_row(
                 header_text,
-                color=self.regcol(
-                    self.theme.datatable.tab2_header_row_color
+                color=self.ctx.regcol(
+                    self.theme.dbschematable.tab2_header_row_color
                 )
             )
-            tab_mp1.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+            tab_mp1.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab2_header_line_color))
 
             # Build blocks for fields
             field_notes = OrderedDict()
@@ -1151,10 +1141,10 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                         row_text.append(val if val else " ")
                 tab_mp1.add_row(row_text)
 
-            tab_mp1.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+            tab_mp1.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab2_header_line_color))
             mp1.append(tab_mp1)
 
-            mp2 = MiniPage(width=r"\linewidth", pos="t")
+            mp2 = MiniPage(width=NE(r"\linewidth"), pos="t")
             mp2.append(NE(r"\vspace{0.08cm}"))
             mp2.append(NE(r"\tinytosmall"))
 
@@ -1177,7 +1167,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             longtab.add_row(mp1, mp2)
             longtab.append(NE(r"\rowcolor{white}"))
 
-            mp3 = MiniPage(width=r"\linewidth", pos="t")
+            mp3 = MiniPage(width=NE(r"\linewidth"), pos="t")
             mp3.append(NE(r"\tinytosmall"))
             if dbtable.notes:
                 itmz = Itemize(options=["nolistsep", "noitemsep"])
@@ -1189,12 +1179,12 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             longtab.append(NE(r"\multicolumn{2}{l}{"))
             longtab.append(mp3)
             longtab.append(NE(r"}\\"))
-#            longtab.add_hline(color=self.regcol(self.theme.datatable.tab1_header_line_color))
+#            longtab.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab1_header_line_color))
         ret.append(NE(r"\reversemarginpar"))
         ret.append(longtab)
         return ret
 
-    def build_changeset_note_lines(self, node: Node):
+    def build_changeset_note_lines(self, node: Node) -> List[str]:
         """
         Return a list of LaTeX objects representing the note-lines for the sections pertaining
         to the changeset section of the document. It should be supplied with a node which is
@@ -1207,13 +1197,13 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
         Returns
         -------
-        List[LatexObject]
-            A list of LaTeX objects representing the note-lines of changeset nodes.
+        List[str]
+            A list of strings representing the content of note-lines of changeset nodes.
         """
         retblocks = list()
         if node.notes:
             for note in retrieve_note_lines(node.notes): # node.notes:
-                retblocks.append(NE(r"\noindent"))
+                retblocks.append(NE("\\noindent"))
                 segments = re.split(Doc.param_pat, note)
                 if len(segments) > 1:  # Docinfo parameters are present
                     for segment in segments:
@@ -1221,8 +1211,10 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                             retblocks.append(segment)
                         else:
                             key = segment[1:-1]
-                            if key in self.docinfo.docinfo_tpl:
-                                retblocks.append(self.docinfo[self.docinfo.docinfo_tpl[key]])
+                            if key in self.ctx.docinfo.docinfo_tpl:
+                                retblocks.append(
+                                    self.ctx.docinfo[
+                                        self.ctx.docinfo.docinfo_tpl[key]])
                             else:
                                 raise InvalidRefException(
                                     f"Node [{str(node)}(ID: {node.id})] contains "
@@ -1236,7 +1228,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 retblocks.append(NE(r"\par"))
         return retblocks
 
-    def build_changeset_table(self, cslist: List):
+    def build_changeset_table(self, cslist: List) -> LatexObject:
         """
         Build a LaTeX table containing the references to the additions or deletions
         made in the mindmap to generate the current version of the document. A node
@@ -1253,54 +1245,54 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             A LaTeX objects representing a changeset table.
         """
         tab = LongTable(r"l c p{0.75\linewidth}")
-        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        tab.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab2_header_line_color))
         header_text = list()
         header_text.append(
             NE(
-                fr"""\textcolor{{{self.regcol(self.theme.datatable.tab2_header_text_color)}}}%
+                fr"""\textcolor{{{self.ctx.regcol(self.theme.dbschematable.tab2_header_text_color)}}}%
                 {{\tinytosmall{{{EL(italic("No."))}}}}}"""
             )
         )
         header_text.append(
             NE(
-                fr"""\textcolor{{{self.regcol(self.theme.datatable.tab2_header_text_color)}}}%
+                fr"""\textcolor{{{self.ctx.regcol(self.theme.dbschematable.tab2_header_text_color)}}}%
                 {{\tinytosmall{{{EL(italic("Type"))}}}}}"""
             )
         )
         header_text.append(
             NE(
-                fr"""\textcolor{{{self.regcol(self.theme.datatable.tab2_header_text_color)}}}%
+                fr"""\textcolor{{{self.ctx.regcol(self.theme.dbschematable.tab2_header_text_color)}}}%
                 {{\tinytosmall{{{EL(italic("Changes"))}}}}}"""
             )
         )
         tab.add_row(
             header_text,
-            color=self.regcol(
-                self.theme.datatable.tab2_header_row_color
+            color=self.ctx.regcol(
+                self.theme.dbschematable.tab2_header_row_color
             )
         )
-        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        tab.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab2_header_line_color))
         tab.end_table_header()
-        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        tab.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab2_header_line_color))
         tab.add_row((MultiColumn(3, align="r", data=NE(r"\faEllipsisH \xspace \faArrowRight")),))
-        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        tab.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab2_header_line_color))
         tab.end_table_footer()
-        tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        tab.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab2_header_line_color))
         # tab.add_row(
         #     (MultiColumn(3, align="r", data="Changeset Finished"),)
         # )
-        #tab.add_hline(color=self.regcol(self.theme.datatable.tab2_header_line_color))
+        #tab.add_hline(color=self.ctx.regcol(self.theme.dbschematable.tab2_header_line_color))
         tab.end_table_last_footer()
         for idx, item in enumerate(cslist):
             sr_no = NE(fr"\tinytosmall{{\hyperlink{{{get_label(item[0].id)}}}{{{idx+1}}}}}")
             flag = None
             if item[1] == "D":
                 flag = NE(
-                    fr"""\textcolor{{{self.regcol(self.theme.colors.del_mark_color)}}}%
+                    fr"""\textcolor{{{self.ctx.regcol(self.theme.colors.del_mark_color)}}}%
 {{\tiny{{{self.theme.config.del_mark_flag}\xspace {self.theme.config.del_mark_text}}}}}""")
             elif item[1] == "A":
                 flag = NE(
-                    fr"""\textcolor{{{self.regcol(self.theme.colors.new_mark_color)}}}%
+                    fr"""\textcolor{{{self.ctx.regcol(self.theme.colors.new_mark_color)}}}%
 {{\tiny{{{self.theme.config.new_mark_flag}\xspace {self.theme.config.new_mark_text}}}}}""")
             else:
                 raise InvalidTypeException(
@@ -1311,7 +1303,7 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             tab.add_row((sr_no, flag, cs_text))
         return tab
 
-    def build_changeset_section(self, node: Node):
+    def build_changeset_section(self, node: Node) -> List[str]:
         """
         Build a set of tables along with its section-text, containing the
         details of the applicable changeset between two versions of the
@@ -1325,23 +1317,24 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
         Returns
         -------
-        List[LatexObject]
-            A list of LaTeX objects representing the changeset table.
+        List[str]
+            A list of strings equivalent to render LaTeX elements representing
+            the changeset table.
         """
         retblocks = list()
-        if not len(self.changeset): # Nothing to be done
+        if not len(self.ctx.changeset): # Nothing to be done
             return retblocks
 
         if node.notes:
             retblocks.extend(self.build_changeset_note_lines(node))
         retblocks.append(NE("\\begin{center}\\vspace{-0.5cm}"))
-        retblocks.append(self.build_changeset_table(self.changeset))
+        retblocks.append(self.build_changeset_table(self.ctx.changeset))
         retblocks.append(NE("\\end{center}"))
         return retblocks
 
     @track_processed_nodes
     def traverse_children(
-        self, node: Node, level: int, blocks: List[LatexObject]
+        self, node: Node, level: int, blocks: List
     ):
         """
         Traverse the node-tree and build document sections based on node depth.
@@ -1369,7 +1362,8 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
 
         if node:
             # Do not process which are annotated with broken-line icon
-            if node.icons and "broken-line" in node.icons:
+            # if node.icons and "broken-line" in node.icons:
+            if is_ignore_type(node):
                 return list()
 
             # Get hypertarget before pertient flags are fetched (to fix a bug)
@@ -1388,16 +1382,16 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 node_text = EL(str(node))
 
             if level == 1:
-                blocks.append(Section(NE(node_text), label=None))
+                blocks.append(Section(NE(node_text), label=False))
             elif level == 2:
-                blocks.append(Subsection(NE(node_text), label=None))
+                blocks.append(Subsection(NE(node_text), label=False))
             elif level == 3:
-                blocks.append(Subsubsection(NE(node_text), label=None))
+                blocks.append(Subsubsection(NE(node_text), label=False))
             elif level == 4:
-                blocks.append(Paragraph(NE(node_text), label=None))
+                blocks.append(Paragraph(NE(node_text), label=False))
             elif level == 5:
                 blocks.append(
-                    Subparagraph(NE(node_text), label=None)
+                    Subparagraph(NE(node_text), label=False)
                 )
             else:
                 # Any nodes beyond subparagraph (level=5) is not allowed.
@@ -1412,28 +1406,43 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
                 )
 
             # Icon inverted red triangle along with trackchange section defined in docinfo
-            if node.icons and "emoji-1F53B" in node.icons and self.docinfo["trackchange_section"]:
-                if self.changeset_node:  # Ensure changeset node doesn't exist already
+            # if node.icons and "emoji-1F53B" in node.icons and self.docinfo["trackchange_section"]:
+            if is_trackchange_type(node) and self.ctx.docinfo["trackchange_section"]:
+                if self.ctx.changeset_node:  # Ensure changeset node doesn't exist already
                     raise InvalidNodeException(
-                        f'Node "{str(self.changeset_node)}(ID: {self.changeset_node.id})" is '
+                        f'Node "{str(self.ctx.changeset_node)}(ID: {self.ctx.changeset_node.id})" is '
                         " already marked as changeset node. More than one changeset "
                         "nodes are not allowed to be maintained in a document. "
                         f'Remove either that node or the node "{str(node)}" (ID: {node.id}) '
                         "from the mindmap to continue."
                     )
-                self.changeset_node = node
-                self.changeset_section = blocks[-1]  # Add to changeset section
+                self.ctx.changeset_node = node
+                self.ctx.changeset_section = blocks[-1]  # Add to changeset section
                 return list()
 
             if hypertarget:
                 blocks.append(hypertarget)
 
-            if len(flagdata) and self.docinfo["trackchange_section"]:
+            if len(flagdata) and self.ctx.docinfo["trackchange_section"]:
                 # Back references to changeset sections are required
                 for x, y, z in flagdata:
                     blocks.append(
-                        NE(fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}{{{self.docinfo["trackchange_section"]}: {z+1}}}}}}}")
+                        NE(
+                            fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}"
+                            fr"{{{self.ctx.docinfo["trackchange_section"]}:"
+                            fr" {z+1}}}}}}}"
+                        )
                     )
+
+            # Build blocks which are part of use-cases which would terminate
+            # further processing of nodes
+            if is_ucpackage_type(node):
+                # Collect use-case diagram blocks and additional data-blocks
+                uc_blocks = build_usecase_blocks(node, self.ctx, self.theme)
+                if uc_blocks:
+                    blocks.extend(uc_blocks)
+                    # No further processing of child nodes needed
+                return
 
             if node.arrowlinked:
                 for referrer in node.arrowlinked:
@@ -1450,32 +1459,37 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             blocks.extend(notes_elements)
 
             # Build LaTeX image, if icon of the node indicates that
-            if node.icons and "image" in node.icons:
+            # if node.icons and "image" in node.icons:
+            if is_image_type(node):
                 fig = self.build_latex_figure(node)
                 if fig:
                     blocks.extend(fig)
 
             if node.children:  # Non-section specific things are handled here
                 # If a list is to be built from node and its children
-                if node.icons and "list" in node.icons:
+                #if node.icons and "list" in node.icons:
+                if is_unordered_list_type(node) or is_ordered_list_type(node):
                     blocks.append(self.build_list_recursively(node, 1))
                     stop_traversing = True  # No more section processing needed
 
                 # If a table is to be built from the node and its children
-                elif node.icons and "links/file/generic" in node.icons:
+                #elif node.icons and "links/file/generic" in node.icons:
+                elif is_table_type(node):
                     tab = self.build_table_from_child_nodes(node)
                     if tab:
                         blocks.extend(tab)
                     stop_traversing = True  # No more section processing needed
 
                 # If some verbatim block is to be build for node's children
-                elif node.icons and (
-                    "links/file/json" in node.icons
-                    or "links/file/xml" in node.icons
-                    or "links/file/html" in node.icons):
+                # elif node.icons and (
+                #     "links/file/json" in node.icons
+                #     or "links/file/xml" in node.icons
+                #     or "links/file/html" in node.icons):
+                elif is_verbatim_type(node):
                     blocks.extend(self.build_verbatim_list(node))
-                elif node.icons and (
-                    "links/libreoffice/file_doc_database" in node.icons):
+                # elif node.icons and (
+                #     "links/libreoffice/file_doc_database" in node.icons):
+                elif is_dbschema_type(node):
                     blocks.extend(self.build_db_schema(node))
                     stop_traversing = True  # No more section processing needed
 
@@ -1503,15 +1517,15 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
         """
         headfoot = PageStyle(
             "header",
-            header_thickness=self.theme.config.header_thickness,
-            footer_thickness=self.theme.config.footer_thickness,
+            header_thickness=self.theme.geometry.header_thickness,
+            footer_thickness=self.theme.geometry.footer_thickness,
             data=NE(
                 rf"""
 \renewcommand{{\headrule}}%
-{{\color{{{self.regcol(self.theme.colors.header_line_color)}}}%
+{{\color{{{self.ctx.regcol(self.theme.colors.header_line_color)}}}%
 \hrule width \headwidth height \headrulewidth}}
 \renewcommand{{\footrule}}%
-{{\color{{{self.regcol(self.theme.colors.footer_line_color)}}}%
+{{\color{{{self.ctx.regcol(self.theme.colors.footer_line_color)}}}%
 \hrule width \headwidth height \footrulewidth}}"""
             ),
         )
@@ -1520,55 +1534,55 @@ width={self.theme.config.figure_width}]{{{new_img_path}}}}}%
             (None for i in range(6))
         credits_marked = False
 
-        if self.docinfo.get("l_header_image", None):
+        if self.ctx.docinfo.get("l_header_image", None):
             lheader = NE(
                 rf"""
 \includegraphics[%
 height={self.theme.geometry.l_header_image_height}]%
-{{{self.get_absolute_file_path(self.docinfo['l_header_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['l_header_image'])}}}"""
             )
-        elif self.docinfo.get("l_header_text", None):
-            lheader = NE(rf"{self.docinfo['l_header_text']}")
+        elif self.ctx.docinfo.get("l_header_text", None):
+            lheader = NE(rf"{self.ctx.docinfo['l_header_text']}")
         if lheader:
             with headfoot.create(Head("L")):
                 headfoot.append(lheader)
 
-        if self.docinfo.get("c_header_image", None):
+        if self.ctx.docinfo.get("c_header_image", None):
             cheader = NE(
                 rf"""
 \includegraphics[%
 height={self.theme.geometry.c_header_image_height}]%
-{{{self.get_absolute_file_path(self.docinfo['c_header_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['c_header_image'])}}}"""
             )
-        elif self.docinfo.get("c_header_text", None):
-            cheader = NE(rf"{self.docinfo['c_header_text']}")
+        elif self.ctx.docinfo.get("c_header_text", None):
+            cheader = NE(rf"{self.ctx.docinfo['c_header_text']}")
         if cheader:
             with headfoot.create(Head("C")):
                 headfoot.append(cheader)
 
-        if self.docinfo.get("r_header_image", None):
+        if self.ctx.docinfo.get("r_header_image", None):
             rheader = NE(
                 rf"""
 \includegraphics[%
 height={self.theme.geometry.r_header_image_height}]%
-{{{self.get_absolute_file_path(self.docinfo['r_header_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['r_header_image'])}}}"""
             )
-        elif self.docinfo.get("r_header_text", None):
-            rheader = NE(rf"{self.docinfo['r_header_text']}")
+        elif self.ctx.docinfo.get("r_header_text", None):
+            rheader = NE(rf"{self.ctx.docinfo['r_header_text']}")
         if rheader:
             with headfoot.create(Head("R")):
                 headfoot.append(rheader)
 
-        if self.docinfo.get("l_footer_image", None):
+        if self.ctx.docinfo.get("l_footer_image", None):
             lfooter = NE(
                 rf"""
 \includegraphics[%
 height={self.theme.geometry.l_footer_image_height}]%
-{{{self.get_absolute_file_path(self.docinfo['l_footer_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['l_footer_image'])}}}"""
             )
-        elif self.docinfo.get("l_footer_text", None):
-            if self.docinfo['l_footer_text'] != "%%":
-                lfooter = NE(rf"{self.docinfo['l_footer_text']}")
+        elif self.ctx.docinfo.get("l_footer_text", None):
+            if self.ctx.docinfo['l_footer_text'] != "%%":
+                lfooter = NE(rf"{self.ctx.docinfo['l_footer_text']}")
         else:
             lfooter = NE(fr"\tiny{{{DocInfo.credits}}}")  # Credit-text
             credits_marked = True
@@ -1577,16 +1591,16 @@ height={self.theme.geometry.l_footer_image_height}]%
             with headfoot.create(Foot("L", data=Command("normalcolor"))):
                 headfoot.append(lfooter)
 
-        if self.docinfo.get("c_footer_image", None):
+        if self.ctx.docinfo.get("c_footer_image", None):
             cfooter = NE(
                 rf"""
 \includegraphics[%
 height={self.theme.geometry.c_footer_image_height}]%
-{{{self.get_absolute_file_path(self.docinfo['c_footer_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['c_footer_image'])}}}"""
             )
-        elif self.docinfo.get("c_footer_text", None):
-            if self.docinfo['c_footer_text'] != "%%":
-                cfooter = NE(rf"{self.docinfo['c_footer_text']}")
+        elif self.ctx.docinfo.get("c_footer_text", None):
+            if self.ctx.docinfo['c_footer_text'] != "%%":
+                cfooter = NE(rf"{self.ctx.docinfo['c_footer_text']}")
         elif not credits_marked:
             cfooter = NE(fr"\tiny{{{DocInfo.credits}}}")
             credits_marked = True
@@ -1595,16 +1609,16 @@ height={self.theme.geometry.c_footer_image_height}]%
             with headfoot.create(Foot("C", data=Command("normalcolor"))):
                 headfoot.append(cfooter)
 
-        if self.docinfo.get("r_footer_image", None):
+        if self.ctx.docinfo.get("r_footer_image", None):
             rfooter = NE(
                 rf"""
 \includegraphics[%
 height={self.theme.geometry.r_footer_image_height}]%
-{{{self.get_absolute_file_path(self.docinfo['r_footer_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['r_footer_image'])}}}"""
             )
-        elif self.docinfo.get("r_footer_text", None):
-            if self.docinfo['r_footer_text'] != "%%":
-                rfooter = NE(fr"\small{{{self.docinfo['r_footer_text']}}}")
+        elif self.ctx.docinfo.get("r_footer_text", None):
+            if self.ctx.docinfo['r_footer_text'] != "%%":
+                rfooter = NE(fr"\small{{{self.ctx.docinfo['r_footer_text']}}}")
         elif not credits_marked:
             rfooter = NE(fr"\tiny{{{DocInfo.credits}}}")
             credits_marked = True
@@ -1617,14 +1631,15 @@ height={self.theme.geometry.r_footer_image_height}]%
 
 
     def generate_pdf(
-        self, output_file_path,
-        clean: Optional[bool]=True, clean_tex: Optional[bool]=True):
+        self, filepath=None, *,
+        clean=None, clean_tex=None, compiler=None,
+        compiler_args=None, silent: bool=True):
         """
         Generate PDF document from the supplied content of the mindmap.
 
         Parameters
         ----------
-        output_file : str
+        filepath : str
             The file name (with path if required) to which the generated PDF
             is to be saved.
         """
@@ -1638,23 +1653,23 @@ height={self.theme.geometry.r_footer_image_height}]%
         for item in self.preambletexts:  # Populate default preamble-items
             doc.preamble.append(item)
 
-        if self.docinfo.get("doc_version", None):
-            doc_version = self.docinfo["doc_version"]
+        if self.ctx.docinfo.get("doc_version", None):
+            doc_version = self.ctx.docinfo["doc_version"]
         else:
             doc_version = ""
 
-        if self.docinfo.get("doc_title", None):
-            doc_title = self.docinfo["doc_title"]
+        if self.ctx.docinfo.get("doc_title", None):
+            doc_title = self.ctx.docinfo["doc_title"]
         else:
             doc_title = "<Missing Document Title>"
 
-        if self.docinfo.get("doc_author", None):
-            doc_author = self.docinfo["doc_author"]
+        if self.ctx.docinfo.get("doc_author", None):
+            doc_author = self.ctx.docinfo["doc_author"]
         else:
             doc_author = "<Missing Document Author>"
 
-        if self.docinfo.get("doc_date", None):
-            doc_date = self.docinfo["doc_date"]
+        if self.ctx.docinfo.get("doc_date", None):
+            doc_date = self.ctx.docinfo["doc_date"]
         else:
             doc_date = NE(r"\today")
 
@@ -1669,12 +1684,12 @@ height={self.theme.geometry.r_footer_image_height}]%
 \centering
 \vspace*{\fill}"""))
 
-        if self.docinfo.get("tp_top_logo", None):
+        if self.ctx.docinfo.get("tp_top_logo", None):
             doc.append(
                 NE(fr"""
 \includegraphics[%
 height={self.theme.geometry.tp_top_logo_height}]%
-{{{self.get_absolute_file_path(self.docinfo['tp_top_logo'])}}}\\
+{{{self.get_absolute_file_path(self.ctx.docinfo['tp_top_logo'])}}}\\
 \vspace*{{{self.theme.geometry.tp_top_logo_vspace}}}"""))
 
         doc.append(
@@ -1687,13 +1702,13 @@ height={self.theme.geometry.tp_top_logo_height}]%
 {doc_date}\\
 \normalsize"""))
 
-        if self.docinfo.get("tp_bottom_logo", None):
+        if self.ctx.docinfo.get("tp_bottom_logo", None):
             doc.append(
                 NE(fr"""
 \vspace*{{{self.theme.geometry.tp_bottom_logo_vspace}}}
 \includegraphics[%
 height={self.theme.geometry.tp_bottom_logo_height}]%
-{{{self.get_absolute_file_path(self.docinfo['tp_bottom_logo'])}}}\\"""))
+{{{self.get_absolute_file_path(self.ctx.docinfo['tp_bottom_logo'])}}}\\"""))
 
         doc.append(
             NE(r"""
@@ -1718,19 +1733,20 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
         # node is marked already to hold the changeset entries (by annotating
         # it with an icon of inverted red triangle), then append such a section
         # at the end of the document.
-        if self.docinfo["trackchange_section"]:
-            if self.changeset_node:
-                cslist = self.build_changeset_section(self.changeset_node)
+        if self.ctx.docinfo["trackchange_section"]:
+            if self.ctx.changeset_node:
+                cslist = self.build_changeset_section(self.ctx.changeset_node)
                 for item in cslist:
-                    self.changeset_section.append(item)
+                    self.ctx.changeset_section.append(item)
             else:
-                cs_section = Section(self.docinfo["trackchange_section"])
+                cs_section = Section(self.ctx.docinfo["trackchange_section"])
                 cs_section.append(NE("\\begin{center}\\vspace{-0.5cm}"))
-                cs_section.append(self.build_changeset_table(self.changeset))
+                cs_section.append(
+                    self.build_changeset_table(self.ctx.changeset))
                 cs_section.append(NE("\\end{center}"))
                 blocks.append(cs_section)
 
-        for color in self.colors:
+        for color in self.ctx.colors:
             doc.add_color(color[0], color[1], color[2])
 
         for obj in blocks:
@@ -1741,8 +1757,8 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
             doc.append(HugeText(bold(r"* * * * *")))
 
             # docinfo based timezone is preferred
-            if self.docinfo.get("timezone", None):
-                tz = self.docinfo["timezone"]
+            if self.ctx.docinfo.get("timezone", None):
+                tz = self.ctx.docinfo["timezone"]
             else:  # then comes option of confuguration based timezone
                 tz = self.theme.config.timezone
             retrieaval_date = datetime.now(
@@ -1752,12 +1768,17 @@ height={self.theme.geometry.tp_bottom_logo_height}]%
                 NE(fr"\tiny{{(Document prepared on {retrieaval_date})}}")))
 
         # Create folder to store images, if any
-        file_path = Path(output_file_path)
+        if not filepath:
+            raise InvalidFilePathException(
+                "File path is not specified. Please provide a valid file path "
+                "to save the generated PDF document."
+            )
+        file_path = Path(filepath)
         if file_path.suffix.lower() == ".pdf":
             file_path = file_path.with_suffix("")
         curr_dir = os.getcwd()
-        os.chdir(self.working_dir)
-        doc.generate_pdf(file_path, clean=clean, clean_tex=clean_tex)
+        os.chdir(str(self.ctx.working_dir))
+        doc.generate_pdf(str(file_path), clean=clean, clean_tex=clean_tex)
         os.chdir(curr_dir)
 
 def get_sample_config():
@@ -1771,22 +1792,16 @@ def get_sample_config():
     """
 
     theme = Theme()
-    data = dict()
-
-
-    def get_class_attributes(cls):
-        return {
-            key: value
-            for key, value in cls.__class__.__dict__.items()
-            if not key.startswith("__") and not callable(value)
-        }
-
-    for attr in [i for i in dir(theme) if not callable(i) and not i.startswith("__")]:
-        data[attr] = get_class_attributes(getattr(theme, attr))
-
-        #{k:v for k, v in getattr(theme, attr).__class__.__dict__.items() if not k.startswith("__")}
+    theme.add_component(Colors())
+    theme.add_component(Config())
+    theme.add_component(DBSchemaTable())
+    theme.add_component(Geometry())
+    theme.add_component(Table())
+    theme.add_component(UMLConfig())
+    theme.add_component(UMLGeometry())
+    theme.add_component(UMLColors())
+    data = theme.dump()
     return yaml.dump(data, default_flow_style=False)
-
 
 def create_theme_from_config(conf_file):
     """
@@ -1805,7 +1820,7 @@ def create_theme_from_config(conf_file):
     config = Config()
     geometry = Geometry()
     table = Table()
-    datatable = DataTable()
+    dbschematable = DBSchemaTable()
     colors = Colors()
     conf = yaml.safe_load(open(conf_file))
     if conf:
@@ -1816,9 +1831,9 @@ def create_theme_from_config(conf_file):
             elif key == "table":
                 for k in conf[key].keys():
                     setattr(table, k, conf[key][k])
-            elif key == "datatable":
+            elif key == "dbschematable":
                 for k in conf[key].keys():
-                    setattr(datatable, k, conf[key][k])
+                    setattr(dbschematable, k, conf[key][k])
             elif key == "colors":
                 for k in conf[key].keys():
                     setattr(colors, k, conf[key][k])
@@ -1832,9 +1847,13 @@ def create_theme_from_config(conf_file):
     else:
         raise UnsupportedFileException(f"Malformed configuration file {conf_file}.")
 
-    return Theme(
-        config=config, geometry=geometry, table=table,
-        datatable=datatable, colors=colors)
+    theme = Theme(config, geometry, table, dbschematable, colors)
+
+    # Add usecase related missing attributes in the respective components of this theme
+    for component in (UMLConfig(), UMLColors(), UMLGeometry()):
+        theme.add_component(component)
+
+    return theme
 
 
 class DBItemize(Itemize):
