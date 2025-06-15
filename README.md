@@ -404,27 +404,27 @@ You may define a set of actors in your mindmap as shown below. The parent node,
 holding them can be marked to be ignored using a broken-line icon, so that it
 won't get rendered in the resultant document.
 
-(![Actors Node](docs/examples/blooper-specs/images/actors.png))
+![Actors Node](docs/examples/blooper-specs/images/actors.png)
 
 The usecase-nodes can be created using as shown below. They need correct
 fpcBlockType attribute set in them. (You may do this via suitable templates as
 described later in this document.)
 
-(![Usecase Nodes](docs/examples/blooper-specs/images/usecases.png))
+![Usecase Nodes](docs/examples/blooper-specs/images/usecases.png)
 
 The rendered pages using these actors and usecase-nodes are shown below. The UML diagrams and the flows defined for each usecase are rendered cleanly in respective sections of the document.
 
-(![Usecase Details - Page 1](docs/examples/blooper-specs/images/usecase-page1.png))
-(![Usecase Details - Page 2](docs/examples/blooper-specs/images/usecase-page2.png))
-(![Usecase Details - Page 3](docs/examples/blooper-specs/images/usecase-page3.png))
+![Usecase Details - Page 1](docs/examples/blooper-specs/images/usecase-page1.png)
+![Usecase Details - Page 2](docs/examples/blooper-specs/images/usecase-page2.png)
+![Usecase Details - Page 3](docs/examples/blooper-specs/images/usecase-page3.png)
 
 You may create various usecase-specific nodes dynamically using appropriate
 templates. The templates used to create the sample mindmap are shown below.
 
-(![Templates for Usecase Specific Nodes - 1](docs/examples/blooper-specs/images/template-dfinitions-1.png))
-(![Templates for Usecase Specific Nodes - 2](docs/examples/blooper-specs/images/template-dfinitions-2.png))
+![Templates for Usecase Specific Nodes - 1](docs/examples/blooper-specs/images/template-definitions-1.png)
+![Templates for Usecase Specific Nodes - 2](docs/examples/blooper-specs/images/template-definitions-2.png)
 
-As shown in the diagrams, for generating usecase diagrams, following node-attributes must be set on applicable nodes.
+For generating proper usecase diagrams, following node-attributes must be set on applicable nodes.
 
 - fpcBlockType: It should possess values like UCPackage, UCActors, UCAction, etc. for respective nodes.
 - fpcUCPDirection: It decides the flow-direction of arrows from actors to usecases. It can be either LR (left to right), or TB (top to bottom).
