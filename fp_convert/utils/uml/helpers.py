@@ -59,7 +59,7 @@ def is_actor_node(node: Node) -> bool:
             return True
     return False
 
-def build_ucaction_tabular_segments(action_nodes: List[Node]) -> List[LongTable]:
+def build_ucaction_tabular_segments(action_nodes: List[Node]) -> List[LongTable] | None:
     """
     Build and return a tabular segment for the usecase actions.
 
@@ -88,6 +88,8 @@ def build_ucaction_tabular_segments(action_nodes: List[Node]) -> List[LongTable]
         if not conditions:
             continue  # Nothing to do if relevant nodes are absent
 
+        tbl_required = False  # Flag to check if tabular segment is required
+
         tbl = LongTable(
             r"|p{0.15\textwidth} p{0.78\textwidth}|"
             # "ll"
@@ -99,17 +101,22 @@ def build_ucaction_tabular_segments(action_nodes: List[Node]) -> List[LongTable]
 
         # Build tabular conent having conditions and flow details
         for condition, flows in conditions.items():
+            row_required = len(flows) >= 1
             for idx, item in enumerate(flows[:-1]):
-                tbl.add_row("", f"{str(item)}")
+                if row_required:
+                    tbl.add_row("", f"{str(item)}")
+                    tbl_required = True
 
-            # Add the multirow section at the end to ensure that row-text
-            # always renders on top layer. Otherwise it may get hidden.
-            tbl.add_row((MultiRow(NE(-abs(len(flows))), data=f"{str(condition)}"), f"{str(flows[-1])}"))
-            tbl.add_hline()
+            if row_required:
+                # Add the multirow section at the end to ensure that row-text
+                # always renders on top layer. Otherwise it may get hidden.
+                tbl.add_row((MultiRow(NE(-abs(len(flows))), data=f"{str(condition)}"), f"{str(flows[-1])}"))
+                tbl.add_hline()
 
-        ret.append(tbl)
+        if tbl_required:
+            ret.append(tbl) 
 
-    return ret
+    return ret if len(ret) else None
 
 def build_usecase_blocks(node: Node, ctx: DocContext, theme: Theme) -> List:
     """
@@ -179,8 +186,6 @@ def build_usecase_blocks(node: Node, ctx: DocContext, theme: Theme) -> List:
         pdf_file_path = Path(str(ctx.images_dir), f"{file_name}.pdf")
         svg2pdf(url=str(svg_file_path), write_to=str(pdf_file_path))
 
-        # Two-column layout with small font-size for the usecase details
-        ret.append(NE(r"\small"))
         ret.append(NE(r"\noindent"))
 
         # image part
@@ -191,9 +196,13 @@ def build_usecase_blocks(node: Node, ctx: DocContext, theme: Theme) -> List:
         )
         ret.append(img_segment)
 
-        # Build text segment for the usecase diagram
-        ret.extend(build_ucaction_tabular_segments(action_nodes))
-        ret.append(NE(r"\normalsize"))
+        # Build tabular segment for the usecase-details
+        tbl_segment = build_ucaction_tabular_segments(action_nodes)
+        if tbl_segment:
+            # Small font-size for the usecase details
+            ret.append(NE(r"\small"))
+            ret.extend(tbl_segment)
+            ret.append(NE(r"\normalsize"))
     return ret
 
 def puml2svg(puml_cmd: str, puml_file: Path, output_dir: Path) -> None:
