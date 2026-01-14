@@ -78,6 +78,11 @@ class InvalidParameterException(FPConvertException):
 
     pass
 
+class InvalidNodeException(FPConvertException):
+    """Raised when an invalid node is supplied."""
+
+    pass
+
 
 class InvalidAttributeException(FPConvertException):
     """Raised when the value of an invalid attribute is sought."""

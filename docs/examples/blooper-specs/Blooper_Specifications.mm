@@ -243,7 +243,7 @@
   </body>
 </html></richcontent>
 </node>
-<node TEXT="Functional Specifications" POSITION="bottom_or_right" ID="ID_997066569" CREATED="1729268896352" MODIFIED="1753291422996"><richcontent TYPE="NOTE">
+<node TEXT="Functional Specifications" FOLDED="true" POSITION="bottom_or_right" ID="ID_997066569" CREATED="1729268896352" MODIFIED="1753291422996"><richcontent TYPE="NOTE">
 <html>
   <head>
 
@@ -254,7 +254,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="User Registration" POSITION="bottom_or_right" ID="ID_86526980" CREATED="1727287685882" MODIFIED="1753291422996"><richcontent TYPE="NOTE">
+<node TEXT="User Registration" FOLDED="true" POSITION="bottom_or_right" ID="ID_86526980" CREATED="1727287685882" MODIFIED="1753291422996"><richcontent TYPE="NOTE">
 <html>
   <head>
 
@@ -311,7 +311,7 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="Wireframes" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1767010367874"><richcontent TYPE="NOTE">
+<node TEXT="Wireframes" FOLDED="true" POSITION="bottom_or_right" ID="ID_777556651" CREATED="1728232476682" MODIFIED="1767010367874"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -322,7 +322,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="User-Registration Form" ID="ID_1996528256" CREATED="1767010263349" MODIFIED="1767010367868"><richcontent TYPE="NOTE">
+<node TEXT="User-Registration Form" FOLDED="true" ID="ID_1996528256" CREATED="1767010263349" MODIFIED="1767010367868"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -1268,7 +1268,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Effort Estimations" POSITION="top_or_left" ID="ID_441564016" CREATED="1767101008462" MODIFIED="1767258177938">
+<node TEXT="Effort Estimations" FOLDED="true" POSITION="top_or_left" ID="ID_441564016" CREATED="1767101008462" MODIFIED="1767258177938">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="90.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="NumberTable"/>
 <attribute NAME="fpcNotesPosition" VALUE="North"/>
@@ -1292,7 +1292,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Column Headers" ID="ID_1538716124" CREATED="1767101207318" MODIFIED="1767258083699">
+<node TEXT="Column Headers" FOLDED="true" ID="ID_1538716124" CREATED="1767101207318" MODIFIED="1767258083699">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="102 pt"/>
 <attribute NAME="fpcBlockType" VALUE="ColumnHeaders"/>
 <richcontent TYPE="NOTE">
@@ -1336,7 +1336,7 @@
 <attribute NAME="fpcColumnType" VALUE="Text"/>
 </node>
 </node>
-<node TEXT="Table Data" ID="ID_1434920654" CREATED="1767101544111" MODIFIED="1767101571556">
+<node TEXT="Table Data" FOLDED="true" ID="ID_1434920654" CREATED="1767101544111" MODIFIED="1767101571556">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="73.5 pt"/>
 <attribute NAME="fpcBlockType" VALUE="TableData"/>
 <node TEXT="User Registration" FOLDED="true" ID="ID_1472978607" CREATED="1738048934038" MODIFIED="1738130597170">
@@ -1365,7 +1365,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Risks" POSITION="top_or_left" ID="ID_906916785" CREATED="1767779685699" MODIFIED="1768376286909" VGAP_QUANTITY="3 pt">
+<node TEXT="Risks" FOLDED="true" POSITION="top_or_left" ID="ID_906916785" CREATED="1767779685699" MODIFIED="1768376286909" VGAP_QUANTITY="3 pt">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="49.5 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Risks"/>
 <richcontent TYPE="NOTE">
@@ -1449,7 +1449,7 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="Modules and Deliverables" POSITION="top_or_left" ID="ID_299773748" CREATED="1767777237639" MODIFIED="1767777338419"><richcontent TYPE="NOTE">
+<node TEXT="Modules and Deliverables" FOLDED="true" POSITION="top_or_left" ID="ID_299773748" CREATED="1767777237639" MODIFIED="1767777338419"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -1586,7 +1586,7 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="Program Specifications" POSITION="top_or_left" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1753291423003">
+<node TEXT="Program Specifications" FOLDED="true" POSITION="top_or_left" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1753291423003">
 <node TEXT="User-registration Module" FOLDED="true" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1739974972373">
 <arrowlink DESTINATION="ID_86526980" STARTINCLINATION="58.5 pt;65.25 pt;" ENDINCLINATION="252.74999 pt;0 pt;"/>
 <richcontent TYPE="NOTE">
@@ -1801,10 +1801,10 @@
 <attribute NAME="created" VALUE="07-01-26"/>
 </node>
 </node>
-<node TEXT="Subsection 7.2" ID="ID_1722806927" CREATED="1727287739014" MODIFIED="1768380818155">
+<node TEXT="Subsection 7.2" FOLDED="true" ID="ID_1722806927" CREATED="1727287739014" MODIFIED="1768380818155">
 <node TEXT="Subsubsection 7.2.1" ID="ID_1376132053" CREATED="1727287742535" MODIFIED="1768380823188"/>
 <node TEXT="Subsubsection 7.2.2" ID="ID_684849006" CREATED="1727287747054" MODIFIED="1768380828561"/>
-<node TEXT="Subsubsection 7.2.3" ID="ID_1332164782" CREATED="1727287750969" MODIFIED="1768380833893">
+<node TEXT="Subsubsection 7.2.3" FOLDED="true" ID="ID_1332164782" CREATED="1727287750969" MODIFIED="1768380833893">
 <node TEXT="Subsubsubsection 7.2.3.1" POSITION="bottom_or_right" ID="ID_892716213" CREATED="1727283986116" MODIFIED="1768380844577"/>
 <node TEXT="Subsubsubsection 7.2.3.2" POSITION="bottom_or_right" ID="ID_1108084290" CREATED="1734512022113" MODIFIED="1768380849326"/>
 </node>

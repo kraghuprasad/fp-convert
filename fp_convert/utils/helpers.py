@@ -32,7 +32,7 @@ from pylatex.utils import (
 from ..errors import (
     InvalidAttributeException, InvalidNodeException, InvalidRefException, InvalidDocInfoKey, InvalidFPCBlockTypeException, MissingHeaderException, MissingNodeException, MissingValueException
 )
-from ..utils.decorators import _get_local__flagged_nodes, register_color, track_flagged_nodes
+from ..utils.decorators import _get_local_flagged_nodes, register_color, track_flagged_nodes
 from fp_convert.config import Config
 
 """
@@ -1226,8 +1226,6 @@ def get_applicable_flags(
     ctx: DocContext,
     config: Config) -> list[tuple[NE, str, int, str]]:
     """
-    config: Config) -> list[Optional[tuple[NE, str, int]]]:
-    """
     Check if node has any applicable flags like for deletion or addition of
     text-blocks or graphical elements etc. and return a list with appropriate
     flags, icons or notes. If no flags are present, then return an empty list.
@@ -1262,7 +1260,7 @@ def get_applicable_flags(
 {{\rotatebox{{10}}{{\tiny{{\textbf{{{config.main.del_mark_text}}}}}}}}}%
 {{{config.main.del_mark_flag}}}}}""")
 
-            if node.id not in _get_local__flagged_nodes():
+            if node.id not in _get_local_flagged_nodes():
                 # Register the node for deletion if not done already
                 ctx.changeset.append((node, "D"))
             ret.append((flag, "D", len(ctx.changeset)-1, node.id))
@@ -1273,7 +1271,7 @@ def get_applicable_flags(
 {{\rotatebox{{10}}{{\tiny{{\textbf{{{config.main.new_mark_text}}}}}}}}}%
 {{{config.main.new_mark_flag}}}}}""")
 
-            if node.id not in _get_local__flagged_nodes():
+            if node.id not in _get_local_flagged_nodes():
                 # Register the node for addition
                 ctx.changeset.append((node, "A"))
             ret.append((flag, "A", len(ctx.changeset)-1, node.id))
