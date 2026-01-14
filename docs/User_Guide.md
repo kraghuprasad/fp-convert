@@ -1,4 +1,6 @@
 # User Guide of fp-convert
+| |
+|:-:|
 
 This document provides detailed information on how to prepare the Freeplane based mindmaps to get them rendered properly by fp-convert. The fp-convert can generate PDF files using TeX/LaTeX text processing system. It creates properly formatted compact documents which follow almost all typographic conventions followed in a standard TeX based document template.
 
@@ -295,12 +297,10 @@ Here too, the convention for rendering text in bold case is to end the intended 
 
 ## Tracking Changes Manually
 | |
-|:-:|
 |![Trackchanges captured in the nodes of the mindmap](images/trackchanges_mm.png)|
 
 The changes between two versions of the same mindmap and its resultant documents can be tracked manually by adding suitable icons to the node being created afresh or marked for removal. The additions should be marked with Plus(![Addition icon in blue](images/blue_plus.png)) icon and removals should with Cross(![Not OK icon in red](images/red_cross.png)) icon. They result in prepending respective markers for additions and proposed removals. Examples are shown in the above diagram which is rendering two items of the ordered list with those markers prefixed to them. These markers contain any plain text and fontawesome icons. They are customizable too. You may supply different text and icons for the same purpose by modifying the YAML based configuration file supplied to fp-convert. The resultant document-segment rendering node-content from mindmap is shown below.
 
-| |
 |:-:|
 |![Trackchanges rendered in PDF](images/trackchanges_pdf.png)|
 
