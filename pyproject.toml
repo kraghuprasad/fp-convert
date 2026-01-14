@@ -28,9 +28,7 @@ Repository = "https://github.com/kraghuprasad/fp-convert"
 packages = [
     "fp_convert",
     "fp_convert.resources",
-    "fp_convert.templates",
     "fp_convert.utils",
-    "fp_convert.utils.psdoc",
     "fp_convert.utils.uml",
 ]
 include-package-data = true
