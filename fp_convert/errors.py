@@ -63,6 +63,11 @@ class MissingHeaderException(FPConvertException):
     pass
 
 
+class MissingNodeException(FPConvertException):
+    """Raised when one ore more expected nodes are not found in a mindmap."""
+
+    pass
+
 class MissingValueException(FPConvertException):
     """Raised when an expected column-value is not found in a node for table."""
 
@@ -74,6 +79,11 @@ class InvalidParameterException(FPConvertException):
 
     pass
 
+
+class InvalidAttributeException(FPConvertException):
+    """Raised when values of an invalid attribute is sought."""
+
+    pass
 
 class InvalidNodeException(FPConvertException):
     """Raised when an invalid node is found at a particular location."""
@@ -94,5 +104,15 @@ class InvalidFPCBlockTypeException(FPConvertException):
 
 class InvalidFilePathException(FPConvertException):
     """Raised when an invalid or no file-path is supplied."""
+
+    pass
+
+class MissingPermissionException(FPConvertException):
+    """Raised when required permission is missing to do something."""
+
+    pass
+
+class FileConversionException(FPConvertException):
+    """Raised when a file conversion operation fails."""
 
     pass

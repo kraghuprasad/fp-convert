@@ -1,100 +1,179 @@
 # Configuration parameters of fp-convert. You may modify it to suit your needs.
-# While doing so, do not forget to supply it with commandline argument -c to
-# fp-convert.
+# While doing so, do not forget to supply it with commandline argument -c while
+# executing fp-convert.
 
-# Color speicific parameters
-colors:
-  del_mark_color: "red!80!gray" # Color of trash-markers for nodes marked for deletion
-  file_color: "magenta" # Color of file-links used in the document
-  footer_line_color: "airforceblue" # Color of footer line of the document
-  header_line_color: "airforceblue" # Color of header line of the document
-  link_color: "celestialblue" # Color of hyperlinks in the document
-  mc_color: "{rgb}{0,0.5,0}" # Color of margin comment-links in the document
-  new_mark_color: "cobalt" # Color of new-markers used for newly added nodes
-  sf_background_color: "red!5!white" # Background color of the Stop-Frame
-  sf_line_color: "cadmiumred" # Color of the boundary lines of the Stop-Frame
-  uml_actor_background_color: '#d8f0fd' # Background color of UML actor images
-  uml_actor_border_color: '#4e98c4' # Border color of UML actor images
-  uml_actor_color: '#4e98c4' # Color of UML actor images
-  uml_background_color: '#ffffff' # Background color of UML diagrams
-  uml_component_background_color: '#ffffff' # Background color of UML components
-  uml_component_border_color: '#000000' # Border color of UML components
-  uml_component_color: '#d0d0d0' # Color of UML component images
-  uml_note_background_color: '#f7f3de' # Background color of UML notes
-  uml_note_border_color: '#867c1c' # Border color of UML notes
-  uml_note_color: '#c0c0c0' # Color of UML notes
-  uml_package_border_color: '#3a2f2f' # Border color of UML package diagram
-  uml_package_color: '#ebf6fa' # Color of UML package diagram
-  uml_usecase_border_color: '#0542C5' # Border color of UML usecase diagram
-  uml_usecase_color: '#b1dafc' # Color of UML usecase diagram
-  url_color: "ceruleanblue" # Color of URLs used in the document
-
-config:
-  del_mark_flag: \faCut # Fontawesome symbol to indicate removed element
-  del_mark_text: CUT # Text to be displayed against removed element
-  footer_thickness: '0.4' # Thickness of the footer line
-  header_thickness: '0.4' # Thickness of the header line
-  new_mark_flag: \faPlus # Fontawesome symbol to indicate newly added element
-  new_mark_text: NEW # Text to be displayed against newly added element
+# Primary configuration parameters for the document
+main:
+  bottom_margin: '1.5in' # Bottom margin (with unit)
+  del_mark_color: 'red!80!gray' # Color of trash-markers for nodes marked for deletion
+  del_mark_flag: '\faCut' # Fontawesome symbol to indicate removed element
+  del_mark_text: 'CUT' # Text to be displayed against removed element
+  figure_width: '0.6\textwidth' # Figure-with for all figures as a factor of text-width
+  file_color: 'magenta' # Color of file-links used in the document
+  footer_line_color: 'airforceblue' # Color of footer line of the document
+  footer_thickness: '0.4' # Footer line thickness
+  header_line_color: 'airforceblue' # Color of header line of the document
+  header_thickness: '0.4' # Header line thickness
+  head_height: '25pt' # Head height (with unit)
+  inner_margin: '1.25in' # Inner margin (with unit)
+  left_margin: '1.25in' # Left margin (with unit)
+  link_color: 'celestialblue' # Color of hyperlinks in the document
+  mc_color: '{rgb}{0,0.5,0}' # Color of margin comment-links in the document
+  new_mark_color: 'cobalt' # Color of new-markers used for newly added nodes
+  new_mark_flag: '\faPlus' # Fontawesome symbol to indicate newly added element
+  new_mark_text: 'NEW' # Text to be displayed against newly added element
+  outer_margin: '1.25in' # Outer margin (with unit)
+  par_indent: '0pt' # Paragraph indentation (with unit)
   par_title_format: '[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}' # Specifications for additional paragraph section
   par_title_spacing: '{0pt}{3.25ex plus 1ex minus .2ex}{.75em}' # Title spacing for paragraph section
-  sec_depth: "5" # Maximum depth allowed in sectionins of the document
+  right_margin: '1.25in' # Right margin (with unit)
+  sec_depth: 5 # Maximum depth allowed in sectionins of the document
   subpar_title_format: '[hang]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}' # Specifications for additional subparagraph section
   subpar_title_spacing: '{0pt}{3.25ex plus 1ex minus .2ex}{.75em}' # Title spacing for subparagraph section
-  timezone: UTC # The timezone to be used to generate timestapms in document
-  toc_depth: "3" # Maximum depth allowed in table of contents listing
-  uml_connector_line_type: default # Line-type used in connectors in UML diagram
-  uml_default_text_alignment: left # Text alignment used in UML diagrams
-  uml_plantuml_cmd: /usr/bin/plantuml # Full path of plantuml executable
+  timezone: 'UTC' # The timezone to be used to generate timestapms in document
+  toc_depth: 3 # Maximum depth allowed in table of contents listing
+  top_margin: '1.5in' # Top margin (with unit)
+  tp_bottom_logo_height: '1.5cm' # Height of bottom logo on title page
+  tp_bottom_logo_vspace: '7cm' # Vertical space between bottom logo and title text on title page
+  tp_top_logo_height: '3cm' # Height of top logo on title page
+  tp_top_logo_vspace: '5cm' # Vertical space between top logo and title text on title page
+  url_color: 'ceruleanblue' # Color of URLs used in the document
 
-# Parameters specific to tables describing database schema
-dbschematable:
-  tab1_body_line_color: "gray!30" # Body line color for table type 1
-  tab1_header_line_color: "fpcblue2" # Header line color for table type 1
-  tab1_header_row_color: "spirodiscoball!20!white" # Header row color for table type 1
-  tab1_header_text_color: "darkblue" # Header text color for table type 1
-  tab2_header_line_color: "fpcblue2" # Header line color for table type 2
-  tab2_header_row_color: "fpcblue1" # Header row color for table type 2
-  tab2_header_text_color: "darkblue" # Header text color for table type 2
-  tab2_rowcolor_1: "white" # Row color 1 of alternate row colors for table type 2
-  tab2_rowcolor_2: "tealblue!7!white" # Row color 2 of alternate row colors for table type 2
+  # Height of various images used in header and footer of pages
+  c_footer_image_height: '0.5cm' # Center footer image height in all pages (with unit)
+  c_header_image_height: '0.5cm' # Center header image height in all pages (with unit)
+  l_footer_image_height: '0.5cm' # Left footer image height in all pages (with unit)
+  l_header_image_height: '0.7cm' # Left header image height in all pages (with unit)
+  r_footer_image_height: '0.5cm' # Right footer image height in all pages (with unit)
+  r_header_image_height: '0.5cm' # Right header image height in all pages (with unit)
+ 
+# Stop-frame speific parameters
+stopframe:
+  background_color: 'red!5!white' # Background color of the Stop-Frame
+  inner_left_margin: '5pt' # Stop-Frame inner left margin width (with unit)
+  inner_right_margin: '5pt' # Stop-Frame inner right margin width (with unit)
+  line_color: 'cadmiumred' # Color of the boundary lines of the Stop-Frame
+  outer_left_margin: '5pt' # Stop-Frame outer left margin width (with unit)
+  outer_line_width: '1pt' # Stop-Frame outer line-width size (with unit)
+  outer_right_margin: '5pt' # Stop-Frame outer right margin width (with unit)
+  round_corner_size: '3pt' # Stop-Frame rounded corner's size (with unit)
 
-# Document-geometry and structural parameters
-geometry:
-  bottom_margin: "1.5in" # Bottom margin (with unit)
-  c_footer_image_height: "0.5cm" # Center footer image height in all pages (with unit)
-  c_header_image_height: "0.5cm" # Center header image height in all pages (with unit)
-  figure_width: "0.6" # Figure-with for all figures as a factor of text-width
-  footer_thickness: "0.4" # Footer line thickness
-  head_height: "20pt" # Head height (with unit)
-  header_thickness: "0.4" # Header line thickness
-  inner_margin: "1.25in" # Inner margin (with unit)
-  left_margin: "1.25in" # Left margin (with unit)
-  l_footer_image_height: "0.5cm" # Left footer image height in all pages (with unit)
-  l_header_image_height: "0.7cm" # Left header image height in all pages (with unit)
-  outer_margin: "1.25in" # Outer margin (with unit)
-  par_indent: "0pt" # Paragraph indentation (with unit)
-  r_footer_image_height: "0.5cm" # Right footer image height in all pages (with unit)
-  r_header_image_height: "0.5cm" # Right header image height in all pages (with unit)
-  right_margin: "1.25in" # Right margin (with unit)
-  sf_inner_left_margin: "5pt" # Stop-Frame inner left margin width (with unit)
-  sf_inner_right_margin: "5pt" # Stop-Frame inner right margin width (with unit)
-  sf_outer_left_margin: "5pt" # Stop-Frame outer left margin width (with unit)
-  sf_outer_line_width: "1pt" # Stop-Frame outer line-width size (with unit)
-  sf_outer_right_margin: "5pt" # Stop-Frame outer right margin width (with unit)
-  sf_round_corner_size: "3pt" # Stop-Frame rounded corner's size (with unit)
-  top_margin: "1.5in" # Top margin (with unit)
-  tp_bottom_logo_height: "1.5cm" # Height of bottom logo on title page
-  tp_bottom_logo_vspace: "7cm" # Vertical space between bottom logo and title text on title page
-  tp_top_logo_height: "3cm" # Height of top logo on title page
-  tp_top_logo_vspace: "5cm" # Vertical space between top logo and title text on title page
-  uml_usecase_diagram_width: 0.9\textwidth # Width of UML usecase diagram
-
-# Parameters specific to tables used in the general sections of the document
+# Parameters specific to general tables in the document
 table:
-  header_row_color: "babyblueeyes!60" # Header row color
-  header_text_color: "darkblue" # Header text color
-  line_color: "cornflowerblue" # Color of lines shown in table
-  rowcolor_1: "babyblueeyes!30" # Row color 1 of alternate row colors
-  rowcolor_2: "babyblueeyes!10" # Row color 2 of alternate row colors
+  footer_row_color: 'babyblueeyes!10'  # Footer row color for default table
+  header_row_color: 'babyblueeyes!60'  # Header row color for default table
+  header_text_color: 'darkblue' # Header text color for default table
+  line_color: 'cornflowerblue'  # Color of lines shown in default table
+  rowcolor_1: 'babyblueeyes!30' # Row color 1 of alternate row colors for default table
+  rowcolor_2: 'babyblueeyes!10' # Row color 2 of alternate row colors for default table
+  rowcolor_3: 'lightapricot!50' # Row color 5 is for rendering the row containing deliverable-name
+  rowcolor_4: 'lightapricot!30' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
+  rowcolor_5: 'lightapricot!10' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
 
+# Parameters specific to database schema blocks
+dbschema:
+  tbl1_body_line_color: 'gray!30' # Body line color for dbschema table type 1
+  tbl1_header_line_color: 'fpcblue2' # Header line color for dbschema table type 1
+  tbl1_header_row_color: 'spirodiscoball!20!white' # Header row color for dbschema table type 1
+  tbl1_header_text_color: 'darkblue' # Header text color for dbschema table type 1
+  tbl2_header_line_color: 'fpcblue2' # Header line color for dbschema table type 2
+  tbl2_header_row_color: 'fpcblue1' # Header row color for dbschema table type 2
+  tbl2_header_text_color: 'darkblue' # Header text color for dbschema table type 2
+  tbl2_rowcolor_1: 'white' # Row color 1 of alternate row colors for dbschema table type 2
+  tbl2_rowcolor_2: 'tealblue!7!white' # Row color 2 of alternate row colors for dbschema table type 2
+
+# UML diagram specific parameters
+uml:
+  actor_background_color: '#d8f0fd' # Background color of UML actor images
+  actor_border_color: '#4e98c4' # Border color of UML actor images
+  actor_color: '#4e98c4' # Color of UML actor images
+  background_color: '#ffffff' # Background color of UML diagrams
+  component_background_color: '#ffffff' # Background color of UML components
+  component_border_color: '#000000' # Border color of UML components
+  component_color: '#d0d0d0' # Color of UML component images
+  connector_line_type: default # Line-type used in connectors in UML diagram
+  default_text_alignment: left # Text alignment used in UML diagrams
+  note_background_color: '#f7f3de' # Background color of UML notes
+  note_border_color: '#867c1c' # Border color of UML notes
+  note_color: '#c0c0c0' # Color of UML notes
+  package_border_color: '#3a2f2f' # Border color of UML package diagram
+  package_color: '#ebf6fa' # Color of UML package diagram
+  plantuml_cmd: /usr/bin/plantuml # Full path of plantuml executable
+  usecase_border_color: '#0542C5' # Border color of UML usecase diagram
+  usecase_color: '#b1dafc' # Color of UML usecase diagram
+  usecase_diagram_width: '0.9\textwidth' # Width of UML usecase diagram
+
+# Colorbox specific parameters
+colorbox:
+  background_color: 'blue!5!white'  # Background color of colorbox
+  box_arc_size: '2.5mm'             # Arc size of colorbox
+  box_rule_width: '0.8pt'           # Rule width of colorbox
+  frame_color: 'blue!75!black'      # Frame color of colorbox
+  left: '5mm'                       # Left margin of colorbox
+  right: '5mm'                      # Right margin of colorbox
+  top: '2mm'                        # Top margin of colorbox
+  bottom: '2mm'                     # Bottom margin of colorbox
+
+# Fancybox parameters used to render risks
+fancybox:
+    title_color: 'black'
+    title_font: '\bfseries\large'
+    title_background_color: 'red!20!white'
+    title_frame_color: 'red!80!white'
+    # title_attributes: 'sharp corners'
+    title_attributes: 'rounded corners'
+    title_position: 'top left'
+    title_xshift: '1.5mm'
+    title_yshift: '-1mm'
+    title_drop_shadow: 'false'
+    title_bullet: '\faChevronCircleRight'
+    frame_bg_color: 'red!5!white'
+    frame_color: 'red!80!white'
+    frame_arc_size: '1mm'
+    frame_rule_width: '0.8pt'
+    frame_width: '0.9\textwidth'
+    frame_left_margin: '6pt'
+    frame_right_margin: '6pt'
+    frame_top_margin: '6pt'
+    frame_bottom_margin: '6pt'
+    frame_alignment: 'center'  # left, center or right
+    frame_drop_shadow: 'false'
+
+# Fancybox parameters used to render deliverables
+fancybox2:
+    title_color: 'white'
+    title_font: '\bfseries\large'
+    title_background_color: 'purple!70!black'
+    title_frame_color: 'purple!70!black'
+    # title_attributes: 'sharp corners'
+    title_attributes: 'rounded corners'
+    title_position: 'top left'
+    title_xshift: '1.5mm'
+    title_yshift: '-1mm'
+    title_drop_shadow: 'false'
+    title_bullet: '\faChevronCircleRight'
+    frame_bg_color: 'white'
+    frame_color: 'purple!70!black'
+    frame_arc_size: '1mm'
+    frame_rule_width: '0.8pt'
+    frame_width: '0.85\textwidth'
+    frame_left_margin: '6pt'
+    frame_right_margin: '6pt'
+    frame_top_margin: '6pt'
+    frame_bottom_margin: '6pt'
+    frame_alignment: 'center'  # left, center or right
+    frame_drop_shadow: 'false'
+    table_rowcolor_1: 'lightapricot!50'
+    table_rowcolor_2: 'lightapricot!30'
+    table_rowcolor_3: 'lightapricot!10'
+    table1_width: '\textwidth' # width for tabled-content
+    table2_width: '\textwidth' # width for child-node-content
+    hrule_width: '0.4pt' # width of horizontal rule inside this box
+
+translations:   # Translations for auto-filled segments of the document
+  deliverable: 'Deliverable'
+  deliverable_id: 'Deliverable-ID'
+  accountable: 'Accountability'
+  delivery_date: 'Date of Delivery'
+  risk_types: 'Risk-Types'
+  risk_id: 'Risk-ID'

@@ -152,10 +152,10 @@ class Diagram:
     This class provides a common interface for all diagrams and
     allows for easy extension and customization.
     """
-    def __init__(self, theme=None):
+    def __init__(self, uml_config=None):
         self.components = []
         self.repo: set[PUMLEntity] = set()
-        self.theme = theme
+        self.config = uml_config
 
     def add_component(self, component: PUMLEntity) -> None:
         """
@@ -172,7 +172,6 @@ class Diagram:
 
         self.repo.add(component)
         self.components.append(component)
-
 
     def _build_package_blocks(
             self,
@@ -216,23 +215,29 @@ class Diagram:
             The PlantUML text representation of the diagram.
         """
         ret: List[str] = []
-        if self.theme:
-            ret.append(f"skinparam actorBackgroundColor {self.theme.colors.uml_actor_background_color}")
-            ret.append(f"skinparam actorBorderColor {self.theme.colors.uml_actor_border_color}")
-            ret.append(f"skinparam actorColor {self.theme.colors.uml_actor_color}")
-            ret.append(f"skinparam backgroundColor {self.theme.colors.uml_background_color}")
-            ret.append(f"skinparam componentBackgroundColor {self.theme.colors.uml_component_background_color}")
-            ret.append(f"skinparam componentBorderColor {self.theme.colors.uml_component_border_color}")
-            ret.append(f"skinparam componentColor {self.theme.colors.uml_component_color}")
-            ret.append(f"skinparam defaultTextAlignment {self.theme.config.uml_default_text_alignment}")
-            ret.append(f"skinparam lineType {self.theme.config.uml_connector_line_type}")
-            ret.append(f"skinparam noteBackgroundColor {self.theme.colors.uml_note_background_color}")
-            ret.append(f"skinparam noteBorderColor {self.theme.colors.uml_note_border_color}")
-            ret.append(f"skinparam noteColor {self.theme.colors.uml_note_color}")
-            ret.append(f"skinparam packageBackgroundColor {self.theme.colors.uml_package_color}")
-            ret.append(f"skinparam packageBorderColor {self.theme.colors.uml_package_border_color}")
-            ret.append(f"skinparam usecaseBackgroundColor {self.theme.colors.uml_usecase_color}")
-            ret.append(f"skinparam usecaseBorderColor {self.theme.colors.uml_usecase_border_color}")
+        if self.config:
+            mapping = {
+                "actorBackgroundColor":      "actor_background_color",
+                "actorBorderColor":          "actor_border_color",
+                "actorColor":                "actor_color",
+                "backgroundColor":           "background_color",
+                "componentBackgroundColor":  "component_background_color",
+                "componentBorderColor":      "component_border_color",
+                "componentColor":            "component_color",
+                "defaultTextAlignment":      "default_text_alignment",
+                "linetype":                  "connector_line_type",
+                "noteBackgroundColor":       "note_background_color",
+                "noteBorderColor":           "note_border_color",
+                "noteColor":                 "note_color",
+                "packageBackgroundColor":    "package_background_color",
+                "packageBorderColor":        "package_border_color",
+                "usecaseBackgroundColor":    "usecase_background_color",
+                "usecaseBorderColor":        "usecase_border_color",
+            }
+            for key, attr in mapping.items():
+                value = getattr(self.config, attr, None)
+                if value not in (None, ""):
+                    ret.append(f"skinparam {key} {value}")
 
         for idx, component in enumerate(self.components):
             if isinstance(component, Package):
@@ -260,58 +265,58 @@ class Diagram:
 
 
 class UseCaseDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class SequenceDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class ContextDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class TreeDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class WBSDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class ActivityDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class StateDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class StateMachineDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class ClassDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class ComponentDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 
 class DeploymentDiagram(Diagram):
-    def __init__(self, theme=None):
-        super().__init__(theme)
+    def __init__(self, config=None):
+        super().__init__(uml_config=config)
 
 @contextmanager
 def container(obj: PUMLEntity, lst: List[str]):
@@ -325,4 +330,3 @@ def container(obj: PUMLEntity, lst: List[str]):
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__.lower()} {self.node} as {self.node.name}"
-

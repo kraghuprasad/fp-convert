@@ -1,14 +1,23 @@
 import re
+from freeplane import Node
 import threading
 from functools import wraps
 
 from fp_convert.colors import Color
+from fp_convert.errors import MaximumSectionDepthException
 
 # from peek import peek
 
 
 _local = threading.local()
 
+def if_processed_already(node: Node):
+    processed_nodes = _get_local_processed_nodes()
+    return node.id in processed_nodes
+
+def mark_as_processed(node: Node):
+    processed_nodes = _get_local_processed_nodes()
+    processed_nodes.add(node.id)
 
 def _get_local_processed_nodes():
     try:
@@ -17,6 +26,12 @@ def _get_local_processed_nodes():
         _local.processed_nodes = set()
         return _local.processed_nodes
 
+def _get_local__flagged_nodes():
+    try:
+        return _local.flagged_nodes
+    except AttributeError:
+        _local.flagged_nodes = set()
+        return _local.flagged_nodes
 
 def _get_local_color_register():
     try:
@@ -50,7 +65,6 @@ def register_color(method):
         # Retrieve individual colors, if supplied color is a mixed one
         if "!" in color:
             mixed_colors = re.findall(r"([a-z]+[)'a-z0-9(/]+)", color)
-            # peek(mixed_colors)
         else:  # add supplied single color to this list
             mixed_colors = [color]
 
@@ -73,21 +87,71 @@ def track_processed_nodes(method):
     and need to track which nodes have been processed to avoid duplicates.
 
     The decorator will:
-    1. Create a processed_nodes set as a thread-local variable if it doesn't exist
+    1. Create a processed_nodes set as a thread-local variable if it doesn't
+       exist
     2. Maintain the set's state throughout the recursion
 
     Parameters
     ----------
     method : callable
-        The method to be decorated. Should be an instance method that processes nodes.
+        The method to be decorated which should not be an instance method, by
+        the way.
     """
 
     @wraps(method)
-    def decorated(self, node, *args, **kwargs):
+    def decorated(node, doc, *args, **kwargs):
         processed_nodes = _get_local_processed_nodes()
         if node.id in processed_nodes:
-            return None
+            return []
         processed_nodes.add(node.id)
-        return method(self, node, *args, **kwargs)
+        return method(node, doc, *args, **kwargs)
 
+    return decorated
+
+def track_flagged_nodes(method):
+    """
+    A decorator that maintains a set of flagged nodes across recursive calls.
+
+    The decorator will:
+    1. Create a flagged_nodes set as a thread-local variable if it doesn't
+       exist
+    2. Maintain the set's state throughout the recursion
+
+    Parameters
+    ----------
+    method : callable
+        The method to be decorated which should not be an instance method, by
+        the way.
+    """
+
+    @wraps(method)
+    def decorated(node, config, ctx, *args, **kwargs):
+        flagged_nodes = _get_local__flagged_nodes()
+        if node.id in flagged_nodes:
+            return []
+        flagged_nodes.add(node.id)
+        return method(node, config, ctx, *args, **kwargs)
+
+    return decorated
+
+def limit_depth(method):
+    """
+    A decorator that limits the depth of sections to config.main.max_sec_depth.
+
+    Parameters
+    ----------
+    method : callable
+        The function to be decorated to ensure compliance to max-depth while
+        building various sections of the document. Only build_*_block kind of
+        builder functions are expected to be decorated by it.
+    """
+
+    @wraps(method)
+    def decorated(node, doc, depth, builders, *args, **kwargs):
+        if depth > doc.config.main.max_sec_depth:
+            raise MaximumSectionDepthException(
+                f"Maximum depth of {doc.config.main.max_sec_depth} has been "
+                f"reached for node {str(node)}(id: {node.id})."
+                )
+        return method(node, doc, depth, builders, *args, **kwargs)
     return decorated
