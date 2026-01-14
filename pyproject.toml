@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fp-convert"
-version = "0.3.0"
+version = "0.3.1"
 description = "A tool to convert Freeplane mindmaps to print-quality PDF documents."
 authors = [
     { name = "K Raghu Prasad", email = "raghuprasad@duck.com" }
@@ -27,6 +27,7 @@ Repository = "https://github.com/kraghuprasad/fp-convert"
 [tool.setuptools]
 packages = [
     "fp_convert",
+    "fp_convert.docs",
     "fp_convert.resources",
     "fp_convert.utils",
     "fp_convert.utils.uml",
@@ -47,7 +48,7 @@ lint.extend-select = []
 lint.ignore = []
 
 [tool.bumpver]
-current_version = "0.3.0"
+current_version = "0.3.1"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "Bump version {old_version} -> {new_version}"
 tag_message = "{new_version}"
