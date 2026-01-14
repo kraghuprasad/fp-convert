@@ -26,7 +26,7 @@ def _get_local_processed_nodes():
         _local.processed_nodes = set()
         return _local.processed_nodes
 
-def _get_local__flagged_nodes():
+def _get_local_flagged_nodes():
     try:
         return _local.flagged_nodes
     except AttributeError:
@@ -126,7 +126,7 @@ def track_flagged_nodes(method):
 
     @wraps(method)
     def decorated(node, config, ctx, *args, **kwargs):
-        flagged_nodes = _get_local__flagged_nodes()
+        flagged_nodes = _get_local_flagged_nodes()
         if node.id in flagged_nodes:
             return []
         flagged_nodes.add(node.id)

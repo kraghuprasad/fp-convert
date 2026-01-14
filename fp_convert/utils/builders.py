@@ -372,9 +372,8 @@ def build_deliverable_block(
             raise ValueError(
                 f"Could not parse delivery-date '{delivery_date}' supplied "
                 f"for the attribute fpcDeliveryDate in node {node} with id "
-                f"'{deliverable_id}'. Stacktrace of the raised exception is:\n"
-                f"'{ec.stacktrace()}'"
-            )
+                f"'{deliverable_id}'. Original error: {ec}"
+            ) from ec
     else:
         delivery_date = NE(r"\faChevronLeft not specified\faChevronRight")
 
@@ -463,13 +462,13 @@ def build_deliverable_block(
     if idx > 0:  # If children of this node has non-ignore type nodes
         fbody.extend(child_content)
 
+    # Revert to normal text
+    fbody.append(Command("normalsize"))
+
     # Build blocks required to render fancybox2
     ret.extend(
         create_box( title, fbody, doc, doc.config, box_type="fancybox2")
     )
-
-    # Revert to normal text
-    fbody.append(Command("normalsize"))
 
     # Include backreferences, if any
     if brefs := get_references(node, back_ref=True):
@@ -559,6 +558,7 @@ def build_trackchanges_block(
             doc.sections[depth](NE(EL(str(node))), label=False),
             doc.ctx.changeset_table,
         ]
+    return []
 
 @track_processed_nodes
 def build_dbschema_block(
@@ -1051,7 +1051,7 @@ def build_image_block(
     # Other images must be either of type JPEG, or PNG only
     elif f_ext not in {".jpg", ".png", ".jpeg"}:
         raise UnsupportedFileException(
-            f"File {node.imagepath} is not of type embeddable to PDF"
+            f"File {node.imagepath} is not of type embeddable to PDF "
                 "document. Please use an image file of type JPG, PNG, or SVG."
         )
     else:  # Use original absolute image path
@@ -1410,13 +1410,15 @@ def build_default_block(
     doc.ctx.flush_margin_comments(get_references(node, back_ref=True), ret)
     
     # Process children (if any) too in the same manner
-    for child in node.children:
-        block_type = get_fpc_block_type(child, "default")
-        child_content = builders[block_type](child, doc, depth+1, builders)
-        ret.extend(child_content)
+    if node.children:
+        for child in node.children:
+            block_type = get_fpc_block_type(child, "default")
+            child_content = builders[block_type](child, doc, depth+1, builders)
+            ret.extend(child_content)
 
     return ret
 
+@track_processed_nodes
 def build_numbertable_block(
         node: Node,
         doc: GeneralDoc,
@@ -1542,7 +1544,7 @@ def build_numbertable_block(
     # Now return the full block's content
     return ret
 
-
+@track_processed_nodes
 def build_table_block(
         node: Node,
         doc: GeneralDoc,

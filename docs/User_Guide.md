@@ -4,7 +4,7 @@ This document provides detailed information on how to prepare the Freeplane base
 
 ## Metadata of Document
 
-While writing any document, ideally the its content should be maintained separately from the standard meta-data like page-geometry, logo-images and their dimensions, colors of various artifacts etc. In fp-convert's ecosystem, all page-layout and styling related metadata is managed via special classes like Config class whose attributes are specific to the types of content-block getting rendered in the PDF. Primary attributes of Config class are data classes, and their list is given below, which holds the applicable configuration-parameters required to build respective content-blocks in the document:
+While writing any document, ideally its content should be maintained separately from the standard meta-data like page-geometry, logo-images and their dimensions, colors of various artifacts etc. In fp-convert's ecosystem, all page-layout and styling related metadata is managed via special classes like Config class whose attributes are specific to the types of content-block getting rendered in the PDF. Primary attributes of Config class are data classes, and their list is given below, which holds the applicable configuration-parameters required to build respective content-blocks in the document:
 
 - ColorBox
 - DBSchema
@@ -32,7 +32,7 @@ Title: Project Specifications of Blooper App (document title)
 Date: 21 January, 2025 (document-date to be printed on title page)
 Author: Whoopie Bard $<$whoopie@clueless.dev$>$ (author-name with email)
 Client: Blooper Inc. (client for whom project is being executed)
-Vendor: Clueless Developers' Consortium (vender who is executing the project)
+Vendor: Clueless Developers' Consortium (vendor who is executing the project)
 Trackchange_Section: Track Changes (needs to prepare track-change-list and render it in a section as named here)
 TP_Top_Logo: images/tp_top_logo.pdf (top-logo image path for title page)
 TP_Bottom_Logo: images/tp_bottom_logo.pdf (bottom-logo image path for title page)
@@ -54,7 +54,7 @@ Timezone: Asia/Kolkata (timezone - default is UTC - to be used while calculating
 ---
 The page number format shown above for right-footer-text is using the LaTeX macros \thepage and \pageref\*{LastPage}. It prints the text "Page X of Y" on every page, where X is the current page-number, and Y is the total number of pages in the document. You may use the value "\small{\thepage} if you want only the current page-number to be printed on every page.
 
-The credit text "Prepared using [fp-convert](https://github.com/kraghuprasad/fp-convert)" would be automatically included in the footer of every page by default. If you do not want that, then you need to supply some text (or image) for all the three footer blocks, namely left (L_Footer\_\*), center (C_Footer\_\*), and right (R_Footer\_\*) as shown in the example given above. If you want certain blocks to be kept empty, but do not want it to be auto-filled using the credit-text mentioned above, then please ensure that all the keys used for defining footer-texts (\*\_Footer_Text) are either supplied with some valid values or with %%; provided no images are defined for those sections either. For example, if there are no images supplied for left section of the footer, and no text is supplied for it either, then the credit text would be automatically included there. But if you supply %% as value for L_Footer_Text, then that section would be left empty. Please note that this trick is possible only with keys used for specifying the text parts of the footer. If you are using any keys meant for specifying the logo (image) paths, then they must be supplied with proper image-paths, i.e. fp-contert doesn't accept %% as values for any of them.
+The credit text "Prepared using [fp-convert](https://github.com/kraghuprasad/fp-convert)" would be automatically included in the footer of every page by default. If you do not want that, then you need to supply some text (or image) for all the three footer blocks, namely left (L_Footer\_\*), center (C_Footer\_\*), and right (R_Footer\_\*) as shown in the example given above. If you want certain blocks to be kept empty, but do not want it to be auto-filled using the credit-text mentioned above, then please ensure that all the keys used for defining footer-texts (\*\_Footer_Text) are either supplied with some valid values or with %%; provided no images are defined for those sections either. For example, if there are no images supplied for left section of the footer, and no text is supplied for it either, then the credit text would be automatically included there. But if you supply %% as value for L_Footer_Text, then that section would be left empty. Please note that this trick is possible only with keys used for specifying the text parts of the footer. If you are using any keys meant for specifying the logo (image) paths, then they must be supplied with proper image-paths, i.e. fp-convert doesn't accept %% as values for any of them.
 
 The geometry, colors etc. can be modified too, but using a different configuration mechanism. If you are using fp_convert module in your python program, then you can create respective configuration classes Config, Main, StopFrame, ColorBox, FancyBox, FancyBox2, Table, DBSchema, UML, etc. When executing the program on commandline you may supply a YAML based configuration file to it to define those configuration parameters. The command-line option -c should be used to supply the YAML based configuration file while invoking fp-convert. The details of configuration file is given in the following section.
 
@@ -97,7 +97,7 @@ main:
   sec_depth: 5 # Maximum depth allowed in sectioning of the document
   subpar_title_format: '[hang]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}' # Specifications for additional subparagraph section
   subpar_title_spacing: '{0pt}{3.25ex plus 1ex minus .2ex}{.75em}' # Title spacing for subparagraph section
-  timezone: 'UTC' # The timezone to be used to generate timestapms in document
+  timezone: 'UTC' # The timezone to be used to generate timestamps in document
   toc_depth: 3 # Maximum depth allowed in table of contents listing
   top_margin: '1.5in' # Top margin (with unit)
   tp_bottom_logo_height: '1.5cm' # Height of bottom logo on title page
@@ -498,7 +498,7 @@ If a particular node is annotated with broken line icon (![broken line icon](ima
 
 ## Additional Text
 
-Besides rendering the contents of nodes, additional text can be included as note-text in each node. Depending on the which kind of node this note is attached to, those note-texts would be rendered too in the resultant PDF file. For example, in stop-frame (warning) type of nodes, the note-text would be rendered in a prominently colored box, but in a list-item or default node (which doesn't contain any annotations), it could be rendered as one ore more paragraphs. In the later case, each unbroken line of text is treated as a paragraph; i.e. a linebreadk i n the note-text would open a new paragraph.
+Besides rendering the contents of nodes, additional text can be included as note-text in each node. Depending on the which kind of node this note is attached to, those note-texts would be rendered too in the resultant PDF file. For example, in stop-frame (warning) type of nodes, the note-text would be rendered in a prominently colored box, but in a list-item or default node (which doesn't contain any annotations), it could be rendered as one or more paragraphs. In the latter case, each unbroken line of text is treated as a paragraph; i.e. a linebreak in the note-text would open a new paragraph.
 
 ## Templates for Defining Nodes
 
@@ -558,8 +558,7 @@ Following images describe how those templates are defined for each of the above.
 
 ### Usecase Templates
 
-You can create various usecase-specific nodes dynamically using appropriate templates found in 
-The usecase specific templates are are shown below.
+You can create various usecase-specific nodes dynamically using appropriate node-templates. The usecase-specific node-templates are shown below.
 
 ![Templates for usecase specific nodes part 1](images/usecase_templates_1_mm.png)
 ![Templates for usecase specific nodes part 2](images/usecase_templates_2_mm.png)
@@ -570,7 +569,7 @@ All font-styles defined in LaTeX are supported by fp-convert. You may supply fon
 
 `fp-convert -f nunito Blooper_Specifications.mm Blooper_Specifications.pdf`
 
-There are other variations for the same. One such various is: 
+There are other variations for the same. One such variation is:
 
 `fp-convert -f "nunito:tabular:scaled=1" Blooper_Specifications.mm Blooper_Specifications.pdf`
 
@@ -605,9 +604,3 @@ Running
 generates the following PDF.
 
 ![PDF generated with option -f set to montserrat:defaultfam:tabular:lining:alternates](images/montserrat_defaultfam_tabular_lining_alternates_pdf.png)
-        //
-        // "docs/examples/cdc-planner/CDC_Planner.mm",
-        // "docs/examples/cdc-planner/CDC_Planner.pdf",
-        "docs/examples/blooper-specs/Blooper_Specifications.mm",
-        "docs/examples/blooper-specs/Blooper_Specifications.pdf"
-

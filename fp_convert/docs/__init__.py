@@ -157,7 +157,7 @@ class GeneralDoc(Document):
         if docinfo:
             if not isinstance(docinfo, DocInfo):
                 raise IncorrectInitialization(
-                    "Supplied argument 'docinfo' is not an instance of"
+                    "Supplied argument 'docinfo' is not an instance of "
                     "DocInfo class")
             docinfo_v = docinfo
         elif self.mm.rootnode.notes:
@@ -356,7 +356,8 @@ bottom={self.config.main.bottom_margin},
         for lst in lines:
             ret.extend(lst)
             ret.append(Command("par"))
-        ret[-1] = ""  # remove last \par to prevent unnecessary newline
+        if ret:
+            ret[-1] = ""  # remove last \par to prevent unnecessary newline
         return ret
 
     # def reset(self):
@@ -903,6 +904,8 @@ height={self.config.main.tp_bottom_logo_height}]%
         if file_path.suffix.lower() == ".pdf":
             file_path = file_path.with_suffix("")
         curr_dir = os.getcwd()
-        os.chdir(str(self.ctx.working_dir))
-        doc.generate_pdf(str(file_path), clean=clean, clean_tex=clean_tex)
-        os.chdir(curr_dir)
+        try:
+            os.chdir(str(self.ctx.working_dir))
+            doc.generate_pdf(str(file_path), clean=clean, clean_tex=clean_tex)
+        finally:
+            os.chdir(curr_dir)

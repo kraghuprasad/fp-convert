@@ -37,10 +37,9 @@ class Color:
             The dictionary containing the color definitions.
         """
         if name not in colordefs["colors"]:
-            raise ValueError(f"Color {name} not found in color definitions"
-                             f" maintained in {colordefs_file_path} or"
-                             " whichever color-definition file you are using"
-                             " to retrieve color-values.")
+            raise ValueError(f"Color {name} not found in system's color "
+                             f"definition-file {colordefs_file_path} or "
+                             "the one supplied at runtime.")
 
         self.name = name
         self.rgbval = colordefs["colors"][name][1]

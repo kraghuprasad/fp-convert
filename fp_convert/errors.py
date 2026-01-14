@@ -64,10 +64,9 @@ class MissingHeaderException(FPConvertException):
 
 
 class MissingNodeException(FPConvertException):
-    """Raised when one ore more expected nodes are not found in a mindmap."""
+    """Raised when one or more expected nodes are not found in a mindmap."""
 
     pass
-
 class MissingValueException(FPConvertException):
     """Raised when an expected column-value is not found in a node for table."""
 
@@ -81,11 +80,9 @@ class InvalidParameterException(FPConvertException):
 
 
 class InvalidAttributeException(FPConvertException):
-    """Raised when values of an invalid attribute is sought."""
+    """Raised when the value of an invalid attribute is sought."""
 
     pass
-
-class InvalidNodeException(FPConvertException):
     """Raised when an invalid node is found at a particular location."""
 
     pass

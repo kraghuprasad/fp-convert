@@ -4,7 +4,7 @@ Author: K. Raghu Prasad
 License: GPL(v3)
 """
 import yaml
-from typing import Dict, Union
+from typing import Any, Dict, Union
 
 from fp_convert.errors import InvalidTypeException, MissingFileException, MissingPermissionException, UnsupportedFileException
 
@@ -60,7 +60,7 @@ class ObjectMix:
             self._repo.add(obj)
             self._objects.append(obj)
     
-    def dump(self) -> dict[str, dict[str, str]]:
+    def dump(self) -> dict[str, dict[str, Any]]:
         """
         Dump the content of this container as a dictionary, ensuring that duplicate
         parameters are not included in the result.
@@ -208,8 +208,7 @@ class UML:
     note_border_color: str = "#867c1c"          # blackish yellow border for note
     note_color: str = "#c0c0c0"                 # light gray for note
     package_border_color: str = "#3a2f2f"       # brownish black for package border
-    plantuml_cmd: str = "plantuml"       # command name (relies on PATH) or full path
-    plantuml_cmd: str = "/usr/bin/plantuml"       # command path for Linux/Unix systems only
+    plantuml_cmd: str = "plantuml"       # command name (relies on PATH environment) or OS dependent full path
     usecase_border_color: str = "#0542C5"       # dark blue for usecase border
     usecase_color: str = "#b1dafc"              # darker shade of blue for usecase
     usecase_diagram_width: str = r"0.9\textwidth" # width of usecase diagram
@@ -397,7 +396,7 @@ class Config:
             setattr(self, component.__class__.__name__.lower(), attr)
         attr.add_object(component)
     
-    def dump(self) -> dict[str, dict[str, str]]:
+    def dump(self) -> dict[str, dict[str, Any]]:
         """
         Dump all the parameters of theme, categorized by their respective sections.
         """

@@ -270,7 +270,8 @@ def fpc_attr_fetcher_factory(
             try:
                 return str.lower(node.attributes[f"fpc{attr_name}"])
             except KeyError:
-                return str(default)
+                # return str(default)
+                return str.lower(default) if default is not None else None
         return node.attributes.get(f"fpc{attr_name}", default)
 
     return fetcher
@@ -923,7 +924,9 @@ def retrieve_number_table_data(node: Node, ctx: DocContext) -> Dict[str, Any]:
                         col_type = get_fpc_column_type(item)
                         if col_type in valid_ra_column_types:
                             alignments.append("r") # Right align the values
-                            if to_bool(get_fpc_sum_it(item)):
+                            # if to_bool(get_fpc_sum_it(item)):
+                            sum_it_val = get_fpc_sum_it(item, "false")
+                            if sum_it_val and to_bool(sum_it_val):
                                 totals[str(item)] = 0
                         elif col_type in valid_la_column_types:
                             alignments.append("l") # Left align the values
@@ -1218,11 +1221,11 @@ def expand_macros(text: str, node: Node, ctx: DocContext):
         #ret.append(segments[0])
         ret.append(EL(segments[0]))
     return ret
-
-
 def get_applicable_flags(
     node: Node,
     ctx: DocContext,
+    config: Config) -> list[tuple[NE, str, int, str]]:
+    """
     config: Config) -> list[Optional[tuple[NE, str, int]]]:
     """
     Check if node has any applicable flags like for deletion or addition of
@@ -1406,8 +1409,9 @@ def get_processed_note_lines(
     ret = list()
 
     # If one or more note-lines exist, then process them
-    for line in retrieve_note_lines(str(node.notes)):
-        ret.append(expand_macros(line, node, ctx))
+    if node.notes:
+        for line in retrieve_note_lines(str(node.notes)):
+            ret.append(expand_macros(line, node, ctx))
     return ret
 
 

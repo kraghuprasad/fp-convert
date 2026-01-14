@@ -187,9 +187,9 @@ class DBTableField:
                 self.null = "yes"; continue
 
             # default without = operator
-            if lower.startswith("default"):
-                key, val = lower.split(" ", 1)
-                self.default = str.strip(val)
+            if lower.startswith("default "):
+                _, val = lower.split(" ", 1)
+                self.default = val.strip()
                 continue
 
             # Type with optional size/precision: varchar(64), int[11], decimal(10,2)

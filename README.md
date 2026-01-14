@@ -6,7 +6,7 @@ version: 0.3.0
 
 The fp-convert uses TeX/LaTeX to generate beautiful print-quality documents from the content obtained from [Freeplane](https://docs.freeplane.org/) mindmaps.
 
-If you use mindmaps to capture and manage information, but others working with you find them quite cumbersome to read and understand, then fp-convert is for you. It converts a [Freeplane](https://docs.freeplane.org/) mindmap to print-quality PDF documents, provided the attribute fpcBlockType of its nodes are properly annotated with valid bock-types. At present it supports rendering following block-types:
+If you use mindmaps to capture and manage information, but others working with you find them quite cumbersome to read and understand, then fp-convert is for you. It converts a [Freeplane](https://docs.freeplane.org/) mindmap to print-quality PDF documents, provided the attribute fpcBlockType of its nodes are properly annotated with valid block-types. At present it supports rendering following block-types:
 - DBSchema: Tables, fields and other details of database schema
 - Default: Section, Subsection, SubSubSection, ... up to five levels
 - Deliverable: The deliverable of a project
@@ -22,7 +22,7 @@ If you use mindmaps to capture and manage information, but others working with y
 - TrackChanges: Change-set trackers based on appropriately annotated nodes
 - UCAction: UML usecase action
 - UCActors: UML actors (a numbered list, at present)
-- UCPackage: UL package
+- UCPackage: UML package
 - UnorderedList: Bullet-list
 - Verbatim: Textual blocks rendered as it is with monospaces font
 
@@ -61,12 +61,7 @@ There are multiple scenarios where the document formats used commonly don't suff
 In this section we would focus on documentation tools suitable for system architecture and design. For many decades now, the mindmaps have turned out to be quite useful to brainstorm ideas, and to design and document solutions for various problems. If one writes the project specifications in a mindmap, while following certain conventions, the fp-convert can generate properly typeset document from it. The resultant document would be portable across all major operating systems. Also the text (XML) based mindmap created by Freeplane can be easily stored in any code and configuration repository like git, subversion, VSS etc., along with other project assets. This ensures single source of knowledge for the whole project under strict version-controls.
 
 Almost all kinds of designing is a non-linear activity where a person focuses on certain aspect of a design for certain period of time, and then jumps over to another aspect to work on for another stretch of time. While working on the design document of a system, it is required to add or remove sections too in a non-linear manner. While doing so, it is important to maintain required cross-references between its sections correctly. This is required not only during the design and development phase, but also needed to be done for every change-requests received from the client after the application has gone in production. The system specifications may need various kinds of diagrams, tables, lists of entities etc. along with respective descriptive texts to define the underlying functional or implementation specific details. Though we can create such contents in plain text using any WYSIWYG text processor, soon it becomes tedious to maintain it for a long period of time. Sometimes such documents are to be updated and maintained for decades. Even using TeX/LaTeX to create it would make that work quite tedious and cumbersome as user is forced to write long lines of LaTeX specific texts or commands to control the style of the text-blocks. For example, LaTeX requires the following four lines to render a bullet-list containing two items:
-```
-\begin{itemize}
-  \item Lits-item 1
-  \item Lits-item 2
-\end{itemize}
-```
+
 Some may suggest to opt for markdown text, instead of LaTeX. But the documents generated directly from markdown text look quite bland in terms of their styles. The PDF pages generated from markdown texts do not look like professionally type-set ones. The markdown is more suitable to get converted to an HTML document which can be rendered well in a web browser.
 
 Besides such verbosity required in LaTeX, it is also a pain to create and maintain cross references among sections, tables, lists etc. It requires large amount of text-elements to define labels and hyperlinks. Besides that, one needs to know basic concepts of TeX quite well to debug issues which may crop up during the compilation of the document. These problems can be avoided by avoiding direct use of LaTeX and using fp-convert instead.
@@ -136,7 +131,7 @@ You should download [Template_Repository.mm](https://github.com/kraghuprasad/fp-
 
 ## Operating Systems
 
-This program was built and tested on a Desktop running Manjaro Linux. It is expected that it will work without any issues on other Linux distributions like Debian, Ubuntu, Fedora and other distros which are based on them. In fact it should work with any unix-like operating system like FreeBSD, OpenBSD, NetBSD, etc., provided all the software-dependencies of fp-convert are met. It may also work on Windows and MacOS, provided all required packages of TeX and Python are installed on in. Your mileage may vary though. The users who could get it working on BSD, Windows and Mac are welcome to share their experiences.
+This program was built and tested on a Desktop running Manjaro Linux. It is expected that it will work without any issues on other Linux distributions like Debian, Ubuntu, Fedora and other distros which are based on them. In fact it should work with any unix-like operating system like FreeBSD, OpenBSD, NetBSD, etc., provided all the software-dependencies of fp-convert are met. It may also work on Windows and MacOS, provided all required packages of TeX and Python are installed on it. Your mileage may vary though. The users who could get it working on BSD, Windows and Mac are welcome to share their experiences.
 
 ## Usage
 
@@ -177,7 +172,7 @@ options:
                         supplied, would result in TeX-compilation failures.
                         The option -k can be used to debug such issues by
                         preserving the resultant TeX file for further
-                        inspection. Some of the valid values it are given below
+                        inspection. Some of the valid values are given below
                         roboto (The Roboto family of fonts to be used),
                         roboto:sfdefault (The Roboto family along with LaTeX
                         option sfdefault),

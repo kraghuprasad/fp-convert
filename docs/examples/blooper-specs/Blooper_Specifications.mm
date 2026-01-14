@@ -3,7 +3,7 @@
 <bookmarks>
     <bookmark nodeId="ID_1090958577" name="Root" opensAsRoot="true"/>
 </bookmarks>
-<node TEXT="Blooper Specifications" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1767100530575" VGAP_QUANTITY="3 pt">
+<node TEXT="Blooper Specifications" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1768387330111" VGAP_QUANTITY="3 pt">
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <font BOLD="true"/>
 <richcontent TYPE="NOTE">
@@ -1268,7 +1268,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Effort Estimations" FOLDED="true" POSITION="top_or_left" ID="ID_441564016" CREATED="1767101008462" MODIFIED="1767258177938">
+<node TEXT="Effort Estimations" POSITION="top_or_left" ID="ID_441564016" CREATED="1767101008462" MODIFIED="1767258177938">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="90.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="NumberTable"/>
 <attribute NAME="fpcNotesPosition" VALUE="North"/>
@@ -1292,7 +1292,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Column Headers" FOLDED="true" ID="ID_1538716124" CREATED="1767101207318" MODIFIED="1767258083699">
+<node TEXT="Column Headers" ID="ID_1538716124" CREATED="1767101207318" MODIFIED="1767258083699">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="102 pt"/>
 <attribute NAME="fpcBlockType" VALUE="ColumnHeaders"/>
 <richcontent TYPE="NOTE">
@@ -1311,10 +1311,10 @@
 <attribute NAME="fpcColumnType" VALUE="Decimal"/>
 <attribute NAME="fpcSumIt" VALUE="yes"/>
 </node>
-<node TEXT="Dev." ID="ID_1975498941" CREATED="1738051549014" MODIFIED="1767101783625">
+<node TEXT="Dev." ID="ID_1975498941" CREATED="1738051549014" MODIFIED="1768388613910">
 <attribute_layout NAME_WIDTH="99 pt" VALUE_WIDTH="63.75 pt"/>
-<attribute NAME="fpcColumnType" VALUE="Decimal"/>
-<attribute NAME="fpcSumIt" VALUE="yes"/>
+<attribute NAME="fpcColumnType" VALUE="Number"/>
+<attribute NAME="fpcSumIt" VALUE="true"/>
 </node>
 <node TEXT="U. Test." ID="ID_1057638170" CREATED="1738051561555" MODIFIED="1767101759377">
 <attribute_layout NAME_WIDTH="99 pt" VALUE_WIDTH="63.75 pt"/>
@@ -1336,7 +1336,7 @@
 <attribute NAME="fpcColumnType" VALUE="Text"/>
 </node>
 </node>
-<node TEXT="Table Data" FOLDED="true" ID="ID_1434920654" CREATED="1767101544111" MODIFIED="1767101571556">
+<node TEXT="Table Data" ID="ID_1434920654" CREATED="1767101544111" MODIFIED="1767101571556">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="73.5 pt"/>
 <attribute NAME="fpcBlockType" VALUE="TableData"/>
 <node TEXT="User Registration" FOLDED="true" ID="ID_1472978607" CREATED="1738048934038" MODIFIED="1738130597170">
@@ -1745,7 +1745,7 @@
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="90.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="UnorderedList"/>
 <node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1738900662380">
-<arrowlink DESTINATION="ID_571525042" STARTINCLINATION="81.75 pt;0 pt;" ENDINCLINATION="293.24999 pt;-72 pt;"/>
+<arrowlink DESTINATION="ID_571525042" STARTINCLINATION="81.75 pt;0 pt;" ENDINCLINATION="293.24999 pt;-71.25 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -1773,7 +1773,7 @@
 </node>
 </node>
 <node TEXT="Error-Message Box for Existing Record" FOLDED="true" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1738900651702">
-<arrowlink DESTINATION="ID_1641632316" STARTINCLINATION="118.5 pt;38.25 pt;" ENDINCLINATION="284.24999 pt;-114.75 pt;"/>
+<arrowlink DESTINATION="ID_1641632316" STARTINCLINATION="118.5 pt;38.25 pt;" ENDINCLINATION="284.24999 pt;-114 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
