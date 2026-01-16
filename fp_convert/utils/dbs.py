@@ -9,7 +9,7 @@ import re
 from typing import List, Optional
 from freeplane import Node
 from pylatex import Itemize
-
+from pylatex import escape_latex as EL
 
 from fp_convert.utils.helpers import (
     MyIterator,    
@@ -134,9 +134,10 @@ class DBTableField:
             return items
 
         KNOWN_TYPES = {
-            "int","tinyint","int8","int16","int32","int64","float","text","date","datetime",
-            "char","boolean","bool","smallint","mediumint","bigint","double","decimal","real",
-            "json","enum","integer","time","timestamp","geocolumn","varchar"
+            "int", "tinyint", "int8", "int16", "int32", "int64", "float", "text", "date",
+            "datetime", "char", "boolean", "bool", "smallint", "mediumint", "bigint",
+            "double", "decimal", "real", "json", "jsonb", "enum", "integer", "time",
+            "timestamp", "geocolumn", "varchar",
         }
 
         def as_yes_no(val: str) -> str:
@@ -168,9 +169,9 @@ class DBTableField:
                 elif key in {"null"}:
                     self.null = as_yes_no(val)
                 elif key in {"default","def"}:  # default with = or : operator
-                    self.default = val
+                    self.default = EL(val)
                 elif key in {"desc","description","note","notes"}:
-                    self.notes.append(val)
+                    self.notes.append(EL(val))
                 else:
                     # Could be a type alias accidentally written as key=value; fall through validation below.
                     pass
@@ -189,7 +190,7 @@ class DBTableField:
             # default without = operator
             if lower.startswith("default "):
                 _, val = lower.split(" ", 1)
-                self.default = val.strip()
+                self.default = EL(val.strip())
                 continue
 
             # Type with optional size/precision: varchar(64), int[11], decimal(10,2)
@@ -205,8 +206,8 @@ class DBTableField:
                 continue
 
             raise ValueError(
-                "Invalid mangled_info token encountered while parsing field-specifications. "
-                "Sample valid string: 'email: varchar(64), unique=True, null=False, desc=Email address'."
+                f"Invalid mangled_info token '{raw}' encountered while parsing field-specifications. "
+                "Example of a valid info: 'email: varchar(64), unique=True, null=False, desc=Email address'."
             )
 
         if not self.field_type:

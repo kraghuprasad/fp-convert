@@ -6,6 +6,10 @@ version: 0.3.1
 
 The fp-convert uses TeX/LaTeX to generate beautiful print-quality documents from the content obtained from [Freeplane](https://docs.freeplane.org/) mindmaps.
 
+To know how to use fp-convert effectively, please refer to its [User Guide](docs/User_Guide.md). All bugs found in fp-convert or in its documentation should be reported [here](https://github.com/kraghuprasad/fp-convert/issues).
+
+## Why fp-convert?
+
 If you use mindmaps to capture and manage information, but others working with you find them quite cumbersome to read and understand, then fp-convert is for you. It converts a [Freeplane](https://docs.freeplane.org/) mindmap to print-quality PDF documents, provided the attribute fpcBlockType of its nodes are properly annotated with valid block-types. At present it supports rendering following block-types:
 - DBSchema: Tables, fields and other details of database schema
 - Default: Section, Subsection, SubSubSection, ... up to five levels
@@ -29,7 +33,7 @@ If you use mindmaps to capture and manage information, but others working with y
 Following image summarizes what fp-convert can do if it is provided with a suitably prepared freeplane mindmap.
 ![fp-convert [options] mindmap-file pdf-file](docs/images/fp-convert-summary-image.png)
 
-## Document Structure
+## Structure of a Document
 
 Once upon a time, people used to understand that there existed a separation between contents of a document and its representation. But that has mostly been blurred for majority of people today who jump onto any available writing or presentation tool to capture and maintain information. Until we understand this separation, it would not be possible to select the most suitable tool for any knowledge management needs. While dealing with projects - and specifically software projects - we regularly find people capturing and maintaining functional and program specifications in Word docs, Excel spreadsheets and (Horror!!!) Powerpoint presentations. Those who have used such tools to write project specifications also know the inherent challenges in maintaining them over a long period of time, sometimes stretching over decades. Some of the common problems associated with these kinds of tools are listed below.
 
@@ -66,7 +70,7 @@ Some may suggest to opt for markdown text, instead of LaTeX. But the documents g
 
 Besides such verbosity required in LaTeX, it is also a pain to create and maintain cross references among sections, tables, lists etc. It requires large amount of text-elements to define labels and hyperlinks. Besides that, one needs to know basic concepts of TeX quite well to debug issues which may crop up during the compilation of the document. These problems can be avoided by avoiding direct use of LaTeX and using fp-convert instead.
 
-## The Swiss Army Knife for Document Generation
+## Swiss Army Knife for Documentation
 
 The solution to these kinds of problems lies in selecting two separate tools for writing and reading. One can use a mindmap to capture and maintain the information, where it allows the author to focus on specific nodes while writing. By linking these nodes together, one can create a well cross-referenced document, without taking much pain. The nodes of the mindmap requires certain kinds of annotations, which can easily be provided by using suitable template in the same mindmap. New annotated nodes can be created quickly using the excellent [Dynamic Types Creator](https://github.com/i-plasm/freeplane-types-creator) script built for Freeplane by the open source community.
 
@@ -129,11 +133,11 @@ If you are planning to generate UML usecase diagrams too, then you must install 
 
 You should download [Template_Repository.mm](https://github.com/kraghuprasad/fp-convert/blob/main/docs/examples/Template_Repository.mm), open it in freeplane, copy the required template-nodes from it, and paste the same into a node named "Templates" in the root node of your own mindmap to be used by fp-convert. You can leave the child-nodes of "Templates" node in collapsed state to minimize the distractions caused by it when you review the content of your mindmap. To avoid rendering the content of nodes under "Templates" from getting included in the resultant document, you may mark its fpcBlokType attribute to Ignore. You need to include only those node-templates, which you plan to use in your mindmap. Rest can be removed altogether. The details of syntax and semantics applicable to define such templates can be found in this [discussion thread](https://github.com/freeplane/freeplane/discussions/2365#discussioncomment-12807085).
 
-## Operating Systems
+## Supported Operating Systems
 
 This program was built and tested on a Desktop running Manjaro Linux. It is expected that it will work without any issues on other Linux distributions like Debian, Ubuntu, Fedora and other distros which are based on them. In fact it should work with any unix-like operating system like FreeBSD, OpenBSD, NetBSD, etc., provided all the software-dependencies of fp-convert are met. It may also work on Windows and MacOS, provided all required packages of TeX and Python are installed on it. Your mileage may vary though. The users who could get it working on BSD, Windows and Mac are welcome to share their experiences.
 
-## Usage
+## Using fp-convert
 
 Executing `fp-convert -h` results in its help-text getting displayed.
 
@@ -212,4 +216,3 @@ You may download and use the sample mindmap [Blooper_Specifications.mm](https://
 
 This code can reasonably be extended to include additional document types. For example it would be possible to come up with a schema for composing music using freeplane, and it could be rendered as sheet music using MusiXTeX. Similarly using CircuiTikz, one can come up with a scheme to build and render electronic circuits too. Similar possibilities are endless. If one can design a convention to build a mindmap and define a template to render its content using TeX/LaTeX/Tikz, a function to build that block-type can be implemented and included in the builders module of fp-convert.
 
-The details of various content-blocks required to be set in the nodes of a Freeplane mindmap are provided in [The User Guide](docs/User_Guide.md) of fp-convert. You should study and understand it before converting your mindmap to PDF using fp-convert. You are requested to report all bugs found in fp-convert [here](https://github.com/kraghuprasad/fp-convert/issues).

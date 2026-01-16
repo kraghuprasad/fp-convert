@@ -709,12 +709,12 @@ def build_dbschema_block(
                     itmz.add_item(NE(verbatim(field_name+": ")))
                     inner_itmz = Itemize(options=("nolistsep", "noitemsep"))
                     for line in field_notes[field_name]:
-                        inner_itmz.add_item(line)
+                        inner_itmz.add_item(EL(line))
                     itmz.append(inner_itmz)
                 else:
                     itmz.add_item(
                         NE(fr"""
-{verbatim(field_name)}: {field_notes[field_name][0]}
+{verbatim(field_name)}: {EL(field_notes[field_name][0])}
 """))
             mp2.append(itmz)
 
@@ -726,7 +726,7 @@ def build_dbschema_block(
         if dbtable.notes:
             itmz = Itemize(options=["nolistsep", "noitemsep"])
             for note in dbtable.notes:
-                itmz.add_item(note)
+                itmz.add_item(EL(note))
             mp3.append(itmz)
             mp3.append(NE(r"\vspace{.2cm}"))
 
