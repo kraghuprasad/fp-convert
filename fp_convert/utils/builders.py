@@ -1,7 +1,6 @@
 """
 Various builders for the components of the LaTeX document.
 """
-from decimal import Decimal
 import re
 from dateutil import parser as dateparser
 from typing import Dict, List, Set, Optional, Callable
@@ -38,6 +37,7 @@ from fp_convert.errors import (
 )
 from fp_convert.utils.helpers import (
     build_latex_figure_object,
+    build_row_notes,
     build_ucaction_tabular_segments,
     get_references,
     get_direction,
@@ -52,11 +52,10 @@ from fp_convert.utils.helpers import (
     is_actor_node,
     puml2svg,
     retrieve_note_lines,
-    retrieve_table_and_notelist,
     to_bool,
     dump,
     list_exists_in_parent_path,
-    retrieve_number_table_data,
+    retrieve_generic_table_data,
     is_ignore_type,
     is_ucaction_type,
     is_ucpackage_type,
@@ -351,7 +350,7 @@ def build_deliverable_block(
     deliverable_id = EL(get_fpc_id(
         node, NE(r"\faChevronLeft not specified\faChevronRight"))
     )
-    accountable_person = EL(
+    accountable_person = (
         ", ".join(
             re.split(
                 r" *; *",
@@ -1049,10 +1048,10 @@ def build_image_block(
                 f"Failed to convert SVG file {node.imagepath} to PDF: {str(e)}"
             )
     # Other images must be either of type JPEG, or PNG only
-    elif f_ext not in {".jpg", ".png", ".jpeg"}:
+    elif f_ext not in {".jpg", ".png", ".jpeg", ".pdf"}:
         raise UnsupportedFileException(
             f"File {node.imagepath} is not of type embeddable to PDF "
-                "document. Please use an image file of type JPG, PNG, or SVG."
+             "document. Please use an image file of type JPG, PNG, SVG, or PDF."
         )
     else:  # Use original absolute image path
         new_img_path = img_path
@@ -1071,12 +1070,16 @@ def build_image_block(
         notes_position = get_direction(
             get_fpc_notes_position(node, "s"))
         if notes_position == "n":
-            for line in note_text:
+            ret.extend(note_text[0])
+            for line in note_text[1:]:
+                ret.append(Command("par"))
                 ret.extend(line)
             ret.append(fig)
         elif notes_position == "s":
             ret.append(fig)
-            for line in note_text:
+            ret.extend(note_text[0])
+            for line in note_text[1:]:
+                ret.append(Command("par"))
                 ret.extend(line)
         else:
             raise ValueError(
@@ -1419,20 +1422,21 @@ def build_default_block(
     return ret
 
 @track_processed_nodes
-def build_numbertable_block(
+def build_tabular_block(
         node: Node,
         doc: GeneralDoc,
         depth: int,
         builders: Dict[str, Callable]
     ) -> List[str|LatexObject|NE]:
     """
-    Build a number-table-block in LaTeX using the contents of the chidren of
-    the supplied node.
+    Build a common table block in LaTeX using the contents of the chidren of
+    the supplied node. It can either contain plaintext based cells; or the
+    numerical data-cells which can be summed up in the last row, if required.
 
     Parameters
     ----------
     node : Node
-        The current node containing the content of the number-table
+        The current node containing the content of the generic table
     doc : GeneralDoc
         The document being built
     depth : int
@@ -1448,6 +1452,7 @@ def build_numbertable_block(
     if is_ignore_type(node):  # do not proceed if node is to be ignored
         return ret
 
+    enter_floating_environment(doc)  # Getting into the floating environment
     if ht := get_hypertarget(node, doc.ctx):
         ret.append(ht)
 
@@ -1471,8 +1476,8 @@ def build_numbertable_block(
             ret.append(doc.sections[depth](NE(EL(str(node))), label=False))
 
     # Following keys are expected in the following dictionary:
-    # "alingments", "headers", "rows", "totals", "notes", "tblprops"
-    tbl_data = retrieve_number_table_data(node, doc.ctx)
+    # "alingments", "headers", "rows", "hts", "totals", "notes", "tblprops"
+    tbl_data = retrieve_generic_table_data(node, doc.ctx)
 
     tab = Tabular("".join(tbl_data["alignments"]), pos="c")
     tab.add_hline(color=doc.ctx.regcol(doc.config.table.line_color))
@@ -1480,7 +1485,7 @@ def build_numbertable_block(
         NE(
             fr"""
 \small{{\color{{{doc.ctx.regcol(doc.config.table.header_text_color)}}}%
-\textsf{{{bold(tbl_data["tblprops"]["column1"])}}}}}"""
+\textsf{{{bold(tbl_data["tblprops"]["cell00_text"])}}}}}"""
         ),
     ]
     row.extend(
@@ -1496,7 +1501,9 @@ def build_numbertable_block(
         color=doc.ctx.regcol(doc.config.table.header_row_color),
         strict=True)
     tab.add_hline(color=doc.ctx.regcol(doc.config.table.line_color))
-    for row in tbl_data["rows"]:
+    for row, hts in zip(tbl_data["rows"], tbl_data["hts"]):
+        for ht in hts:
+            tab.append(ht)
         tab.add_row(*row)
     tab.add_hline(color=doc.ctx.regcol(doc.config.table.line_color))
 
@@ -1528,13 +1535,16 @@ def build_numbertable_block(
             ret.append(Command("par"))
 
     # Append tabular object
-    ret.append(Command("begin", arguments=("center", )))
+    # ret.append(Command("begin", arguments=("center", )))
     ret.append(tab)
+    exit_floating_environment(doc, ret)
 
     # Then check if notes are to be collected for the same node
     if tbl_data["notes"]:
-        ret.append(tbl_data["notes"])
-    ret.append(Command("end", arguments=("center", )))
+        ret.append(NE(r"{\footnotesize"))
+        ret.append(build_row_notes(tbl_data["notes"])) # List of note-texts
+        ret.append(NE(r"}"))
+    # ret.append(Command("end", arguments=("center", )))
 
     if notes_position == "s":
         for line in section_note_lines:
@@ -1542,62 +1552,6 @@ def build_numbertable_block(
             ret.append(Command("par"))
 
     # Now return the full block's content
-    return ret
-
-@track_processed_nodes
-def build_table_block(
-        node: Node,
-        doc: GeneralDoc,
-        depth: int,
-        builders: Dict[str, Callable]
-    ) -> List[str|LatexObject|NE]:
-    """
-    Build a table-block in LaTeX using the contents of the chidren of the
-    supplied node.
-
-    Parameters
-    ----------
-    node : Node
-        The current node containing the content of the table
-    doc : GeneralDoc
-        The document being built
-    depth : int
-        Depth of the node supplied in the mindmap (not used here)
-    builders: Dict[str, Callable]
-        Dictionary of builder functions (not used here)
-    Returns
-    -------
-    list[str|LatexObject|NE]
-        A list of LaTeX objects containing a table block
-    """
-    ret = list()
-    if is_ignore_type(node):  # do not proceed if node is to be ignored
-        return ret
-
-    if tab_notes := retrieve_table_and_notelist(
-        node, doc.config, doc.ctx):
-        if ht := get_hypertarget(node, doc.ctx):
-            ret.append(ht)
-
-        ret.append(Command("begin", arguments=("center", )))  # Align center
-        ret.append(tab_notes[0])
-        ret.append(Command("end", arguments=("center", )))
-        if len(tab_notes) > 1:  # Note-text is to be rendered
-            itmz = Itemize()
-            for h, c in tab_notes[1]:
-                if len(c) == 1:  # Single line note is to be rendered
-                    itmz.add_item(NE(f"{bold(h)}: "))
-                    for i in c[0]:
-                        itmz.append(i)
-                else:  # Multiline notes are rendered as unordered list
-                    itmz.add_item(NE(f"{bold(h)}:\n"))
-                    item = Itemize()
-                    for i in c:
-                        item.append(Command("item"))
-                        for j in i:
-                            item.append(j)
-                    itmz.append(item)
-            ret.append(itmz)
     return ret
 
 # Reusing some of the existing builder functions for certain block-types

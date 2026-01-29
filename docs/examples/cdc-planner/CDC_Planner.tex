@@ -6,6 +6,7 @@
 \usepackage{lastpage}%
 \usepackage{geometry}%
 \usepackage{amssymb}%
+\usepackage{relsize}%
 \usepackage[dvipsnames,table]{xcolor}%
 \usepackage[most]{tcolorbox}%
 \usepackage[section]{placeins}%
@@ -24,6 +25,7 @@
 \usepackage{enumitem}%
 \usepackage[framemethod=TikZ]{mdframed}%
 \usepackage[raggedrightboxes]{ragged2e}%
+\usepackage{draftwatermark}%
 \usepackage{nunito}%
 \usepackage{color}%
 \usepackage{mdframed}%
@@ -159,6 +161,13 @@ bottom=1.5in,
 \newcommand{\savecurrentfontsize}{\let\savedlastfontsize\@currsize}
 \makeatother
 %
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}%
+\SetWatermarkText{\sffamily\bfseries }%
+\SetWatermarkScale{0.2}%
+\SetWatermarkAngle{0}%
+\SetWatermarkColor{orangepeel!20}%
+\SetWatermarkHorCenter{0.5\paperwidth}%
+\SetWatermarkVerCenter{0.95\paperheight}%
 
 \newtcolorbox{fancybox}[2][]{%
     enhanced,
@@ -220,6 +229,7 @@ bottom=1.5in,
 \definecolor{magenta}{rgb}{1.0, 0.0, 1.0}%
 \definecolor{ceruleanblue}{rgb}{0.16, 0.32, 0.75}%
 \definecolor{babyblueeyes}{rgb}{0.63, 0.79, 0.95}%
+\definecolor{orangepeel}{rgb}{1.0, 0.62, 0.0}%
 \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}%
 \definecolor{red}{rgb}{1.0, 0.0, 0.0}%
 \definecolor{gray}{rgb}{0.5, 0.5, 0.5}%
@@ -625,7 +635,7 @@ Following actions were discussed on project Blooper App.%
 \tinytosmall{\sout{Translation for user authentication module}}%
 \\%
 
-\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\textbackslash{}faChevronLeft not specified\textbackslash{}faChevronRight} \\
+\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\faChevronLeft not specified\faChevronRight} \\
 \rowcolor{lightapricot!10} \tinytosmall{\textbf{Date of Delivery}} & \tinytosmall{July 21, 2025} \\
 \end{tabularx}%
 \par%
@@ -658,7 +668,7 @@ The user{-}authentication module must be translated in at least two languages: E
 \tinytosmall{Role management module}%
 \\%
 
-\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\textbackslash{}faChevronLeft not specified\textbackslash{}faChevronRight} \\
+\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\faChevronLeft not specified\faChevronRight} \\
 \rowcolor{lightapricot!10} \tinytosmall{\textbf{Date of Delivery}} & \tinytosmall{July 20, 2025} \\
 \end{tabularx}%
 \par%
@@ -718,7 +728,7 @@ All users by default are considered to be general employees. Additional roles ca
 \tinytosmall{Get Business Requirement Document (BRD) sign{-}off from client.}%
 \\%
 
-\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\textbackslash{}faChevronLeft not specified\textbackslash{}faChevronRight} \\
+\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\faChevronLeft not specified\faChevronRight} \\
 \rowcolor{lightapricot!10} \tinytosmall{\textbf{Date of Delivery}} & \tinytosmall{July 20, 2025} \\
 \end{tabularx}%
 \par%
@@ -836,7 +846,7 @@ Following action{-}items were discussed in the meeting.%
 \tinytosmall{Preparation of test cases for user authentication module}%
 \\%
 
-\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\textbackslash{}faChevronLeft not specified\textbackslash{}faChevronRight} \\
+\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\faChevronLeft not specified\faChevronRight} \\
 \rowcolor{lightapricot!10} \tinytosmall{\textbf{Date of Delivery}} & \tinytosmall{July 27, 2025} \\
 \end{tabularx}%
 \par%
@@ -862,7 +872,7 @@ Following action{-}items were discussed in the meeting.%
 \tinytosmall{Translation for user authentication module}%
 \\%
 
-\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\textbackslash{}faChevronLeft not specified\textbackslash{}faChevronRight} \\
+\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\faChevronLeft not specified\faChevronRight} \\
 \rowcolor{lightapricot!10} \tinytosmall{\textbf{Date of Delivery}} & \tinytosmall{July 24, 2005} \\
 \end{tabularx}%
 \par%
@@ -911,6 +921,6 @@ Following action{-}items were discussed in the meeting.%
 \end{large}%
 
 %
-\tiny{(Document prepared on 14 January, 2026 at 05:02:01 PM IST)}%
+\tiny{(Document prepared on 29 January, 2026 at 07:17:58 PM IST)}%
 \end{center}%
 \end{document}

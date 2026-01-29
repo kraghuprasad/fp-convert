@@ -38,6 +38,12 @@ main:
   tp_top_logo_height: '3cm' # Height of top logo on title page
   tp_top_logo_vspace: '5cm' # Vertical space between top logo and title text on title page
   url_color: 'ceruleanblue' # Color of URLs used in the document
+  watermark_color: 'orangepeel!20' # Color of watermark
+  watermark_angle: '0' # Watermark angle
+  watermark_scale: '0.2' # Watermark-font or image scale
+  watermark_font_family: '\sffamily\bfseries' # Watermark font-family
+  watermark_center_x: '0.5\paperwidth' # Watermark center position on X-axis
+  watermark_center_y: '0.95\paperheight' # Watermark vertical position on Y-axis
 
   # Height of various images used in header and footer of pages
   c_footer_image_height: '0.5cm' # Center footer image height in all pages (with unit)

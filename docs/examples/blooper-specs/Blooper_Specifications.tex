@@ -6,6 +6,7 @@
 \usepackage{lastpage}%
 \usepackage{geometry}%
 \usepackage{amssymb}%
+\usepackage{relsize}%
 \usepackage[dvipsnames,table]{xcolor}%
 \usepackage[most]{tcolorbox}%
 \usepackage[section]{placeins}%
@@ -24,6 +25,7 @@
 \usepackage{enumitem}%
 \usepackage[framemethod=TikZ]{mdframed}%
 \usepackage[raggedrightboxes]{ragged2e}%
+\usepackage{draftwatermark}%
 \usepackage{nunito}%
 \usepackage{color}%
 \usepackage[table]{xcolor}%
@@ -51,11 +53,8 @@
 height=0.7cm]%
 {/home/raghu/secure/Projects/fp-convert/docs/examples/blooper-specs/images/blooper_logo.pdf}%
 }%
-\fancyhead[C]{%
-Project Specifications of Blooper App%
-}%
 \fancyhead[R]{%
-Non-Confidential%
+Project Specifications of Blooper App%
 }%
 \fancyfoot[L]{%
 \normalcolor%
@@ -159,6 +158,13 @@ bottom=1.5in,
 \newcommand{\savecurrentfontsize}{\let\savedlastfontsize\@currsize}
 \makeatother
 %
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}%
+\SetWatermarkText{\sffamily\bfseries Non-Confidential}%
+\SetWatermarkScale{0.2}%
+\SetWatermarkAngle{0}%
+\SetWatermarkColor{orangepeel!20}%
+\SetWatermarkHorCenter{0.5\paperwidth}%
+\SetWatermarkVerCenter{0.95\paperheight}%
 
 \newtcolorbox{fancybox}[2][]{%
     enhanced,
@@ -220,6 +226,7 @@ bottom=1.5in,
 \definecolor{magenta}{rgb}{1.0, 0.0, 1.0}%
 \definecolor{ceruleanblue}{rgb}{0.16, 0.32, 0.75}%
 \definecolor{babyblueeyes}{rgb}{0.63, 0.79, 0.95}%
+\definecolor{orangepeel}{rgb}{1.0, 0.62, 0.0}%
 \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}%
 \definecolor{cornflowerblue}{rgb}{0.39, 0.58, 0.93}%
 \definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}%
@@ -269,66 +276,90 @@ height=1.5cm]%
 \section{Document Info}%
 
 %
-\hypertarget{ID:266847688}{}%
+\hypertarget{ID:1548336319}{}%
 \subsection{Authors}%
 
 %
-\hypertarget{ID:33215046}{}%
-\begin{center}%
+Following authors were invovled in preparation of this document.%
+\par%
 \begin{tabular}[c]{lll}%
 \arrayrulecolor{cornflowerblue}%
 \hline%
-\arrayrulecolor{cornflowerblue}%
-\hline%
 \rowcolor{babyblueeyes!60}%
 
 \small{\color{darkblue}%
-\textsf{Authors}}&
+\textsf{\textbf{Authors}}}&
 \small{\color{darkblue}%
-\textsf{Email}}&
+\textsf{\textbf{Email}}}&
 \small{\color{darkblue}%
-\textsf{Nickname}}\\%
+\textsf{\textbf{Nickname}}}\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
-Changu Bhai&changu.bhai@clueless.dev&changu\\%
-Whoopie Bard&whoopie@clueless.dev&whoopie\\%
+\hypertarget{ID:744495954}{}%
+\hypertarget{ID:1827948814}{}%
+\hypertarget{ID:1056128208}{}%
+\small{Whoopie Bard}&\small{whoopie@clueless.dev}&\small{whoopie}\\%
+\hypertarget{ID:1399251755}{}%
+\hypertarget{ID:783873037}{}%
+\hypertarget{ID:553673619}{}%
+\small{Changu Bhai}&\small{changu@clueless.dev}&\small{changu}\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
 \end{tabular}%
-\end{center}%
-\hypertarget{ID:1476248103}{}%
+\hypertarget{ID:1588984940}{}%
 \subsection{Document Versions}%
 
 %
-\hypertarget{ID:813916523}{}%
-\begin{center}%
+Following table summarizes the details contained in various versions of this docment.%
+\par%
 \begin{tabular}[c]{llll}%
-\arrayrulecolor{cornflowerblue}%
-\hline%
 \arrayrulecolor{cornflowerblue}%
 \hline%
 \rowcolor{babyblueeyes!60}%
 
 \small{\color{darkblue}%
-\textsf{Versions}}&
+\textsf{\textbf{Versions}}}&
 \small{\color{darkblue}%
-\textsf{Author}}&
+\textsf{\textbf{Changes}}}&
 \small{\color{darkblue}%
-\textsf{Changes}}&
+\textsf{\textbf{Author}}}&
 \small{\color{darkblue}%
-\textsf{Date}}\\%
+\textsf{\textbf{Date}}}\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
-v 1.0&whoopie&Added introductory text&2 October, 2024\\%
-v 1.1&changu&Completed functional specifications&28 October, 2024\\%
-v 1.2&whoopie&Updated partial program specifications&15 November, 2024\\%
-v 1.3&whoopie&Added DB schema&24 December, 2024\\%
-v 1.4&changu&Added section Track Changes&9 February, 2025\\%
-v 1.5&whoopie&Added use{-}cases&14 June, 2025\\%
+\hypertarget{ID:1239024947}{}%
+\hypertarget{ID:1783872964}{}%
+\hypertarget{ID:1027468099}{}%
+\hypertarget{ID:1278135825}{}%
+\small{v1.5}&\small{Added use{-}cases}&\small{whoopie}&\small{14 June, 2025}\\%
+\hypertarget{ID:1288999912}{}%
+\hypertarget{ID:1822004348}{}%
+\hypertarget{ID:390398480}{}%
+\hypertarget{ID:411753166}{}%
+\small{v1.4}&\small{Added section Track Changes}&\small{changu}&\small{9 February, 2025}\\%
+\hypertarget{ID:1827306491}{}%
+\hypertarget{ID:647318253}{}%
+\hypertarget{ID:1389367568}{}%
+\hypertarget{ID:917512200}{}%
+\small{v1.3}&\small{Added DB schema}&\small{whoopie}&\small{24 December, 2024}\\%
+\hypertarget{ID:1918080192}{}%
+\hypertarget{ID:1626570634}{}%
+\hypertarget{ID:1657260568}{}%
+\hypertarget{ID:396374720}{}%
+\small{v1.2}&\small{Updated partial program specifications}&\small{whoopie}&\small{15 November, 2024}\\%
+\hypertarget{ID:1498227768}{}%
+\hypertarget{ID:412008954}{}%
+\hypertarget{ID:384298059}{}%
+\hypertarget{ID:529241957}{}%
+\small{v1.1}&\small{Completed functional specifications}&\small{changu}&\small{28 October, 2024}\\%
+\hypertarget{ID:35074242}{}%
+\hypertarget{ID:1399755129}{}%
+\hypertarget{ID:828269092}{}%
+\hypertarget{ID:129158486}{}%
+\small{v1.0}&\small{Added introductory text}&\small{whoopie}&\small{2 October, 2024}\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
 \end{tabular}%
-\end{center}%
 \subsection{Track Changes}%
 
 %
@@ -479,44 +510,61 @@ width=0.6\textwidth]{/home/raghu/secure/Projects/fp-convert/docs/examples/bloope
 \margincomment{\tiny{$\Lsh$ \hyperlink{ID:1075973711}{Wireframes for User Registrat...}}}%
 \margincomment{\tiny{$\Lsh$ \hyperlink{ID:169009377}{User-registration Screen}}}%
 \margincomment{\tiny{$\Lsh$ \hyperlink{ID:1684803624}{Login}}}%
-\hypertarget{ID:45187852}{}%
+\hypertarget{ID:861642195}{}%
 \subparagraph{Form{-}Fields}%
 
 %
 Following fields are expected to be present in this form.%
-\hypertarget{ID:861642195}{}%
-\begin{center}%
-\begin{tabular}[c]{lllll}%
-\arrayrulecolor{cornflowerblue}%
-\hline%
+\par%
+\begin{tabular}[c]{llrll}%
 \arrayrulecolor{cornflowerblue}%
 \hline%
 \rowcolor{babyblueeyes!60}%
 
 \small{\color{darkblue}%
-\textsf{Form-Fields}}&
+\textsf{\textbf{Field{-}Names}}}&
 \small{\color{darkblue}%
-\textsf{Allowed Values}}&
+\textsf{\textbf{Required}}}&
 \small{\color{darkblue}%
-\textsf{Max Size}}&
+\textsf{\textbf{Max{-}Size}}}&
 \small{\color{darkblue}%
-\textsf{Required}}&
+\textsf{\textbf{Allowed Values}}}&
 \small{\color{darkblue}%
-\textsf{Unique}}\\%
+\textsf{\textbf{Unique}}}\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
-Address&A{-}Z, a{-}z, 0{-}9, {-} +&char(512)&No&\\%
-Email Address&.a{-}z0{-}9{-}\_+@&char(128)&Yes&Yes\\%
-Full Name&A to Z, and a to z&char(128)&No&\\%
-Mobile Number&+{-}0123456789&char(12)&Yes&Yes\\%
+\hypertarget{ID:1704485931}{}%
+\hypertarget{ID:7222657}{}%
+\hypertarget{ID:1247841701}{}%
+\hypertarget{ID:877938460}{}%
+\hypertarget{ID:635656157}{}%
+\small{Email Address}&\small{Yes}&\small{char(128)}&\small{.a{-}z0{-}9{-}\_+@}&\small{Yes}\\%
+\hypertarget{ID:1429610052}{}%
+\hypertarget{ID:1469988345}{}%
+\hypertarget{ID:1156785736}{}%
+\hypertarget{ID:707937760}{}%
+\hypertarget{ID:1488265487}{}%
+\small{Mobile Number}&\small{Yes}&\small{char(12)}&\small{+{-}0123456789}&\small{Yes}\\%
+\hypertarget{ID:1876960572}{}%
+\hypertarget{ID:300463963}{}%
+\hypertarget{ID:640962968}{}%
+\hypertarget{ID:1236504577}{}%
+\hypertarget{ID:1038265002}{}%
+\small{Full Name}&\small{No}&\small{char(128)}&\small{A to Z, and a to z}&\small{No}\\%
+\hypertarget{ID:615179840}{}%
+\hypertarget{ID:464726609}{}%
+\hypertarget{ID:1132425753}{}%
+\hypertarget{ID:213268044}{}%
+\hypertarget{ID:1732362812}{}%
+\small{Address}&\small{No}&\small{char(512)}&\small{A{-}Z, a{-}z, 0{-}9, {-} +}&\small{No}\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
 \end{tabular}%
-\end{center}%
+\margincomment{\tiny{$\Lsh$ \hyperlink{ID:678039943}{Row 1}}}%
+{\footnotesize%
 \begin{itemize}%
 \item%
-\textbf{Email Address}:
-%
+\textbf{Email Address}: %
 \begin{itemize}%
 \item%
 It would be unique across the user{-}database.%
@@ -524,8 +572,7 @@ It would be unique across the user{-}database.%
 That means, no two users can have same email address.%
 \end{itemize}%
 \item%
-\textbf{Mobile Number}:
-%
+\textbf{Mobile Number}: %
 \begin{itemize}%
 \item%
 Mobile number should be unique across the application{-}database.%
@@ -533,6 +580,7 @@ Mobile number should be unique across the application{-}database.%
 No two users using this application can have same mobile number.%
 \end{itemize}%
 \end{itemize}%
+}%
 \hypertarget{ID:303877642}{}%
 \subparagraph{Buttons}%
 
@@ -613,6 +661,7 @@ Following hyperlinks are expected to be present on the screen.%
 : %
 If account is present, click to sign{-}in.%
 \par%
+\margincomment{\tiny{$\Lsh$ \hyperlink{ID:678039943}{Row 1}}}%
 \end{itemize}%
 \hypertarget{ID:662584316}{}%
 \paragraph{Warning Message for Duplicate User{-}Account}%
@@ -673,61 +722,108 @@ Q: How can Subsubsection 3.1.3 be used as a section heading?%
 \savedlastfontsize%
 \margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:2}{Track Changes: 3}}}%
 \hypertarget{ID:380908046}{}%
-\begin{center}%
-\begin{tabular}[c]{lllll}%
-\arrayrulecolor{cornflowerblue}%
-\hline%
+\paragraph{Sample Table}%
+
+%
+A Sample table is given below.%
+\par%
+\begin{tabular}[c]{llrll}%
 \arrayrulecolor{cornflowerblue}%
 \hline%
 \rowcolor{babyblueeyes!60}%
 
 \small{\color{darkblue}%
-\textsf{Sample Table}}&
+\textsf{\textbf{Cell 00}}}&
 \small{\color{darkblue}%
-\textsf{Header 1}}&
+\textsf{\textbf{Header 1}}}&
 \small{\color{darkblue}%
-\textsf{Header 2}}&
+\textsf{\textbf{Header 2}}}&
 \small{\color{darkblue}%
-\textsf{Header 3}}&
+\textsf{\textbf{Header 3}}}&
 \small{\color{darkblue}%
-\textsf{Header 4}}\\%
+\textsf{\textbf{Header 4}}}\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
-Row 1&1.1&1.2&1.3&1.4\\%
-Row 2&2.1&2.2&2.3&2.4\\%
-Row 3&3.1&3.2&3.3&3.4\\%
-Row 4&4.1&4.2&4.3&4.4\\%
-Row 5&5.1&5.2&5.3&5.4\\%
+\hypertarget{ID:678039943}{}%
+\hypertarget{ID:1168632952}{}%
+\hypertarget{ID:841339020}{}%
+\hypertarget{ID:1488382579}{}%
+\hypertarget{ID:182723351}{}%
+\small{Row 1}&\small{Cell 1.1}&\small{21.05}&\small{Cell 1.3}&\small{Cell 1.4}\\%
+\hypertarget{ID:398741834}{}%
+\hypertarget{ID:1442058181}{}%
+\hypertarget{ID:1264376687}{}%
+\hypertarget{ID:704670966}{}%
+\hypertarget{ID:1237494604}{}%
+\small{Row 2}&\small{Cell 2.1}&\small{301.75}&\small{Cell 2.3}&\small{Cell 2.4}\\%
+\hypertarget{ID:59339138}{}%
+\hypertarget{ID:1323387877}{}%
+\hypertarget{ID:1804861774}{}%
+\hypertarget{ID:1219827303}{}%
+\hypertarget{ID:364534120}{}%
+\small{Row 3}&\small{Cell 3.1}&\small{8.18}&\small{Cell 3.3}&\small{Cell 3.4}\\%
+\hypertarget{ID:1979086283}{}%
+\hypertarget{ID:1041448954}{}%
+\hypertarget{ID:1861374801}{}%
+\hypertarget{ID:1934932066}{}%
+\hypertarget{ID:295475780}{}%
+\small{Row 4}&\small{Cell 4.1}&\small{{-}76.41}&\small{Cell 4.3}&\small{Cell 4.4}\\%
+\hypertarget{ID:1999442722}{}%
+\hypertarget{ID:1587946401}{}%
+\hypertarget{ID:19115582}{}%
+\hypertarget{ID:117214824}{}%
+\hypertarget{ID:747637555}{}%
+\small{Row 5}&\small{Cell 5.1}&\small{1.87}&\small{Cell 5.3}&\small{Cell 5.4}\\%
+\arrayrulecolor{cornflowerblue}%
+\hline%
+\rowcolor{babyblueeyes!10}%
+
+\small{\color{darkblue}%
+\textsf{\textbf{Total}}}&&
+\small{\color{darkblue}%
+\textsf{\textbf{256.44}}}&&\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
 \end{tabular}%
-\end{center}%
+\margincomment{\tiny{$\Lsh$ \hyperlink{ID:59339138}{Row 3}}}%
+{\footnotesize%
 \begin{itemize}%
 \item%
-\textbf{Row 1}:
-%
+\textbf{Row 1}: %
 \begin{itemize}%
 \item%
 First note for Row 1.%
 \item%
-Second note for Row1.%
+Second note for Row1 which refers to %
+\hyperlink{ID:1580478443}{Login Here: If account is pre...}%
+\xspace%
+.%
 \item%
-Third note for Row1.%
+Third note for Row1 (see also %
+\hyperlink{ID:1429610052}{Mobile Number}%
+\xspace%
+).%
 \end{itemize}%
 \item%
-\textbf{Row 3}:
-%
+\textbf{Row 2}: %
+First note for Row2.%
+\item%
+\textbf{Row 3}: %
 \begin{itemize}%
 \item%
 First note for Row 3.%
 \item%
-Second note for Row 3.%
+Second note for Row 3 depends on %
+\hyperlink{ID:678039943}{Row 1}%
+\xspace%
+.%
 \item%
 Third note for Row 3.%
 \item%
 Fourth note for Row 3.%
 \end{itemize}%
 \end{itemize}%
+}%
 \hypertarget{ID:770066387}{}%
 \subsubsection{Subsubsection 3.1.4}%
 
@@ -856,7 +952,7 @@ Following use{-}cases are applicable for the Blooper App.%
 This package contains usecases pertaining to the administrative activities of the application.%
 \hypertarget{ID:1708326071}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-k5s7vqyn/images/ID_1708326071.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-hx3ws4ez/images/ID_1708326071.pdf}\end{center}%
 \small%
 \begin{longtable}{|p{0.15\textwidth} p{0.78\textwidth}|}%
 \hline%
@@ -906,7 +1002,7 @@ This package contains usecases pertaining to the administrative activities of th
 This package defines usecases involved in generation of bloopers.%
 \hypertarget{ID:336619791}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-k5s7vqyn/images/ID_336619791.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-hx3ws4ez/images/ID_336619791.pdf}\end{center}%
 \hypertarget{ID:1662234785}{}%
 \subsubsection{Blooper Control}%
 
@@ -914,7 +1010,7 @@ This package defines usecases involved in generation of bloopers.%
 Following are the usecases pertaining to controlling bloopers.%
 \hypertarget{ID:980625400}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-k5s7vqyn/images/ID_980625400.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-hx3ws4ez/images/ID_980625400.pdf}\end{center}%
 \small%
 \begin{longtable}{|p{0.15\textwidth} p{0.78\textwidth}|}%
 \hline%
@@ -939,7 +1035,7 @@ Following are the usecases pertaining to controlling bloopers.%
 All report{-}related usecases are collected here.%
 \hypertarget{ID:1950237555}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-k5s7vqyn/images/ID_1950237555.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-hx3ws4ez/images/ID_1950237555.pdf}\end{center}%
 \hypertarget{ID:441564016}{}%
 \section{Effort Estimations}%
 
@@ -952,7 +1048,6 @@ The estimation of work is calculated using function{-}point analysis method. It 
 \par%
 Following table summarizes the approximate efforts (in person{-}hours) required for designing, developing, preparation of unit tests, functional testing, and documentation for each module of this application.%
 \par%
-\begin{center}%
 \begin{tabular}[c]{lrrrrrl}%
 \arrayrulecolor{cornflowerblue}%
 \hline%
@@ -974,8 +1069,29 @@ Following table summarizes the approximate efforts (in person{-}hours) required 
 \textsf{\textbf{Remarks}}}\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
+\hypertarget{ID:1472978607}{}%
+\hypertarget{ID:168306167}{}%
+\hypertarget{ID:95359505}{}%
+\hypertarget{ID:392130114}{}%
+\hypertarget{ID:1023999044}{}%
+\hypertarget{ID:774531667}{}%
+\hypertarget{ID:1707397738}{}%
 \small{User Registration}&\small{2}&\small{9}&\small{6}&\small{2}&\small{1}&\small{}\\%
+\hypertarget{ID:1777806651}{}%
+\hypertarget{ID:135413322}{}%
+\hypertarget{ID:1560408513}{}%
+\hypertarget{ID:408225825}{}%
+\hypertarget{ID:1258267957}{}%
+\hypertarget{ID:155775457}{}%
+\hypertarget{ID:663632266}{}%
 \small{Password Reset}&\small{3}&\small{4}&\small{4}&\small{6}&\small{2}&\small{}\\%
+\hypertarget{ID:1333512474}{}%
+\hypertarget{ID:426462257}{}%
+\hypertarget{ID:21972510}{}%
+\hypertarget{ID:1179735166}{}%
+\hypertarget{ID:715674083}{}%
+\hypertarget{ID:1162468031}{}%
+\hypertarget{ID:1184299058}{}%
 \small{Blooper Generation}&\small{4}&\small{10}&\small{8}&\small{2}&\small{2}&\small{Complex module}\\%
 \arrayrulecolor{cornflowerblue}%
 \hline%
@@ -996,7 +1112,6 @@ Following table summarizes the approximate efforts (in person{-}hours) required 
 \arrayrulecolor{cornflowerblue}%
 \hline%
 \end{tabular}%
-\end{center}%
 \hypertarget{ID:906916785}{}%
 \section{Risks}%
 
@@ -1162,7 +1277,7 @@ DLV{-}02%
 \tinytosmall{\sout{Password Reset Form}}%
 \\%
 
-\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{Jojo Dey} \\
+\rowcolor{lightapricot!30} \tinytosmall{\textbf{Accountability}} & \tinytosmall{\faChevronLeft not specified\faChevronRight} \\
 \rowcolor{lightapricot!10} \tinytosmall{\textbf{Date of Delivery}} & \tinytosmall{November 12, 2025} \\
 \end{tabularx}%
 \par%
@@ -1893,6 +2008,6 @@ Kubernetes too can be used to manage the deployment of these applications.%
 \end{large}%
 
 %
-\tiny{(Document prepared on 14 January, 2026 at 05:04:18 PM IST)}%
+\tiny{(Document prepared on 29 January, 2026 at 07:16:39 PM IST)}%
 \end{center}%
 \end{document}

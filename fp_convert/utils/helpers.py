@@ -15,6 +15,7 @@ from freeplane import Node
 from pylatex import (
     Command,
     Figure,
+    Itemize,
     LongTable,
     MdFramed,
     MultiColumn,
@@ -91,17 +92,11 @@ valid_node_type_codes = {
         "icons": {"links/file/xml", "links/file/json", "links/file/html"},
         "attr": "verbatim",
     },
-    "tb": {  # Table
+    "tb": {  # Tabular
         "icons": {
             "links/file/generic",
         },
-        "attr": "table",
-    },
-    "nt": {  # Number Table
-        "icons": {
-            "emoji-1F9EE",
-        },
-        "attr": "numbertable",
+        "attr": "tabular",
     },
     "db": {  # DB Schema
         "icons": {
@@ -194,9 +189,8 @@ is_image_type = node_type_detector_factory("im")
 is_stopframe_type = node_type_detector_factory("sf")
 is_trackchanges_type = node_type_detector_factory("tc")
 is_verbatim_type = node_type_detector_factory("vb")
-is_table_type = node_type_detector_factory("tb")
+is_tabular_type = node_type_detector_factory("tb")
 is_dbschema_type = node_type_detector_factory("db")
-is_numbertable_type = node_type_detector_factory("nt")
 is_ucpackage_type = node_type_detector_factory("up")
 is_ucactors_type = node_type_detector_factory("ur")
 is_ucaction_type = node_type_detector_factory("ua")
@@ -250,7 +244,7 @@ def fpc_attr_fetcher_factory(
             "Please ensure that it is one of the following:\n"
             f"{valid_node_attr_names}")
 
-    def fetcher(node: Node, default: str = None):
+    def fetcher(node: Node, default: str = Any|None):
         """
         Fetch value of the supplied attribute in lower case, or return the
         supplied default value in lower case.
@@ -263,17 +257,15 @@ def fpc_attr_fetcher_factory(
             The default value to be returned if the node-attribute is not found.
         Returns
         -------
-        str
+        str|Any
             The value of the node-attribute (in applicable case) or default.
         """
-        if lower_case:
-            try:
+        try:
+            if lower_case:
                 return str.lower(node.attributes[f"fpc{attr_name}"])
-            except KeyError:
-                # return str(default)
-                return str.lower(default) if default is not None else None
-        return node.attributes.get(f"fpc{attr_name}", default)
-
+            return node.attributes[f"fpc{attr_name}"]
+        except KeyError:
+            return default
     return fetcher
 
 # Functions to fetch value of given attribute from a node. The second argument
@@ -513,6 +505,7 @@ class DocInfo:
         "C_Footer_Logo": "c_footer_image",
         "R_Footer_Text": "r_footer_text",
         "R_Footer_Logo": "r_footer_image",
+        "Watermark_Text": "watermark_text",
         "Timezone": "timezone",  # The timezone used for all auto-generated dates
     }
     regex_pat = "^(" + "|".join([k for k in docinfo_tpl.keys()]) + ") *:(.+)$"
@@ -865,7 +858,7 @@ class DocContext:
             else:
                 ret.extend([c[0] for c in comments])
         
-def retrieve_number_table_data(node: Node, ctx: DocContext) -> Dict[str, Any]:
+def retrieve_generic_table_data(node: Node, ctx: DocContext) -> Dict[str, Any]:
     """
     Fetch the data required to build a number-table from the supplied node.
 
@@ -885,8 +878,9 @@ def retrieve_number_table_data(node: Node, ctx: DocContext) -> Dict[str, Any]:
             alingnments: List[str]
             headers: List[str]
             rows: List[List[str]]
+            hts: List[List[Command]]
             totals: Dict[str, Decimal]
-            notes: List[str]
+            notes: List[List[Node, List[str]]]
             tblprops: Dict[str, str]
     """
     ret = dict()
@@ -895,10 +889,11 @@ def retrieve_number_table_data(node: Node, ctx: DocContext) -> Dict[str, Any]:
         ret["alignments"] = alignments = ["l", ]  # Alignment specifications for column-values
         ret["headers"] = headers = list()  # List of table-headers
         ret["rows"] = rows = list()  # List of rows with column-values
+        ret["hts"] = hts = list()  # List of hypertargets for cells of the rows
         ret["totals"] = totals = dict()  # Dict for storing sum of column-values
         ret["notes"] = notes = list()  # List of notes (if they exist)
         ret["tblprops"] = tblprops = {  # Valid table-properties (only one now)
-            "column1": "",  # Header for first column
+            "cell00_text": "",  # Default content for the first cell
         }
         for child in node.children:
             if is_ignore_type(child):
@@ -908,10 +903,12 @@ def retrieve_number_table_data(node: Node, ctx: DocContext) -> Dict[str, Any]:
                 note_lines = retrieve_note_lines(child.notes)
                 for line in note_lines:
                     try:
+                        # Here only "Cell00_Text" or any of its case-insensitive
+                        # variant is accepted as valid at the moment.
                         key, val = [
                             str.strip(x) for x in line.split(":", 1)
                         ]
-                        key = str.lower(key)
+                        key = str.lower(key)  # Convert all keys to lower-case
                         if key in tblprops:
                             tblprops[key] = val
                     except ValueError:
@@ -957,18 +954,32 @@ def retrieve_number_table_data(node: Node, ctx: DocContext) -> Dict[str, Any]:
                     )
                 note_lines = get_processed_note_lines(child, ctx)
                 for field in child.children:
+                    row_hts = list()
+                    if ht := get_hypertarget(field, ctx):
+                        row_hts.append(ht)
+                        ctx.flush_margin_comments(get_references(field, back_ref=True), ret)
+
                     row = [NE(fr"\small{{{EL(field)}}}"), ]
+
                     if field.children:
                         for aln, hdr, val in zip(
                             alignments[1:], headers, field.children
                         ):
+                            if ht := get_hypertarget(val, ctx):
+                                row_hts.append(ht)
+                                # ctx.flush_margin_comments(get_references(val, back_ref=True), ret)
+                                # Pushing backreferences to the list of
+                                # hypertargets here, for rendering it later,
+                                # which is not a very clean way to do it.
+                                ctx.flush_margin_comments(get_references(val, back_ref=True), row_hts)
+
                             row.append(NE(fr"\small{{{EL(val)}}}"))
                             if aln == "r":
                                 if hdr in totals:
                                     totals[hdr] += Decimal(str(val))
                         if len(row) != len(headers) + 1:
                             raise MissingValueException(
-                                'Field-count mismatch in number-table '
+                                'Field-count mismatch in generic-table '
                                 f'"{str(node)}" for its row "{str(field)}". '
                                 'According to its header-node, there should '
                                 f'have been {len(headers)} children for this '
@@ -976,7 +987,9 @@ def retrieve_number_table_data(node: Node, ctx: DocContext) -> Dict[str, Any]:
                     else:  # No fields for this node, and hence empty row
                         for item in headers:
                             row.append(NE(""))
+                    hts.append(row_hts)
                     rows.append(row)
+                    # rows.extend(hts)
 
                     if field.notes:
                         note_lines = retrieve_note_lines(field.notes)
@@ -1078,8 +1091,6 @@ def retrieve_table_and_notelist(node: Node, config: Config, ctx: DocContext):
     # node.
     return list()
 
-# TODO: Refactor psdoc.py to remove get_hypertarget from it, and use this
-# function there instead.
 def get_hypertarget(node: Node, ctx: DocContext) -> NE|None:
     """
     Generate the hypertarget for the supplied node.
@@ -1141,8 +1152,6 @@ def get_stopframe_block(node: Node, ctx: DocContext):
 
     return ret
 
-# TODO: Refactor psdoc.py to remove expand_macros from it, and use this
-# function there instead.
 def expand_macros(text: str, node: Node, ctx: DocContext):
     """
     Function to expand macros to get applicable reference-details. It is
@@ -1215,7 +1224,7 @@ def expand_macros(text: str, node: Node, ctx: DocContext):
 
         # Add a label to this node for back reference
         if ht := get_hypertarget(node, ctx):
-            ret.append(NE(ht))
+            ret.append(ht)
 
     else:  # No references are present in the supplied text
         #ret.append(segments[0])
@@ -1766,3 +1775,31 @@ def list_exists_in_parent_path(
 
     # This is root-node. So no list existed in the path traversed so far
     return False
+
+def build_row_notes(notes: list[tuple[Node, list[str]]]) -> LatexObject:
+    """
+    Create an unordered list(LatexObject Itemize) from the supplied row-notes.
+    
+    Parameters:
+    notes: list[list[Node, list[str]]]
+         format: [[node1, [note1, note2, ...]], [node2, [note3, note4, ...], ...]]
+    Returns:
+    LatexObject
+        An bullet-list(LatexObject Itemize) of fields and their respective notes.
+    """
+    ret = Itemize()
+    for pair in notes:
+        if pair[1]:
+            ret.add_item(NE(f"{bold(EL(pair[0]))}: "))
+            if len(pair[1]) > 1:
+                itmz = Itemize()
+                for item_list in pair[1]:
+                    itmz.add_item(item_list[0])
+                    if len(item_list) > 1:
+                        for rest in item_list[1:]:
+                            itmz.append(rest)
+                ret.append(itmz)
+            else:
+                for item_list in pair[1]:
+                    ret.append(pair[1][0][0])
+    return ret

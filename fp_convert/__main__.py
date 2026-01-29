@@ -10,18 +10,21 @@ Copyright: ©2024-25 K. Raghu Prasad <raghuprasad AT duck.com>
 ALL RIGHTS RESERVED.
 """
 import logging
+import string
 import argparse
 import os
 import shutil
 import sys
 import tempfile
-from pathlib import Path
+from pathlib import Path, PosixPath
+from datetime import date
 
 from fp_convert import __version__
 from fp_convert.config import Config, create_config_from_file
 from fp_convert.docs import GeneralDoc
 from fp_convert.errors import FPConvertException
 from fp_convert.utils.helpers import fetch_builders
+from fp_convert.utils.fileproc import create_file_with_replaced_texts
 from fp_convert.utils import builders
 
 
@@ -102,11 +105,23 @@ folder on the same machine on which fp-convert was executed to generate it.
     parser.add_argument(
         "-g",
         "--generate-config",
-        metavar="<config-file-path>",
+        metavar="<sample-config-file-path>",
         help=(
             "generates a sample configuration file of YAML type which "
             "contains all pertinent configuration parameters with their "
             "default values"
+        ),
+    )
+    parser.add_argument(
+        "-i",
+        "--init-mindmap",
+        metavar="<sample-mindmap-file-path>",
+        help=(
+            "generates a sample Freeplane mindmap file with applicable placeholder-"
+            "texts which can be used as base to start an fp-convert compatible "
+            "documentation project. It contains template-nodes required to "
+            "generate various content-blocks of the docuement using Freeplane's "
+            "dynamic type creator plugin."
         ),
     )
     parser.add_argument(
@@ -151,7 +166,36 @@ folder on the same machine on which fp-convert was executed to generate it.
         with open(args.generate_config, "w", encoding="utf-8") as f:
             f.write(cnf.dump_yml())
         print(
-            "Generated a sample configuration file in {}".format(args.generate_config)
+            "Generated a sample configuration file {}".format(args.generate_config)
+        )
+        sys.exit(0)
+
+    elif args.init_mindmap:
+        if os.path.exists(args.init_mindmap):
+            print("The file {} already exists".format(args.init_mindmap))
+            sys.exit(1)
+
+        # Ensure that the parent directory exists
+        Path(args.init_mindmap).parent.mkdir(parents=True, exist_ok=True)
+
+
+        # Create a new mindmap from the existing one embedded in the fp-convert distribution
+        in_file = PosixPath(os.path.join(
+                os.path.dirname(__file__),
+                "resources",
+                "Template_Repository.mm")
+        )
+        out_file = PosixPath(args.init_mindmap)
+
+        # Create replacement-texts for the placeholder-texts
+        replacements = {
+            r"&lt;--Template Repository--&gt;": string.capwords(str.replace(out_file.stem, "_", " ")),
+            r"&lt;--Today--&gt;": date.today().strftime("%d %B %Y"),
+        }
+        print(replacements)
+        create_file_with_replaced_texts(in_file, out_file, replacements)
+        print(
+            "Generated mindmap file {}".format(args.init_mindmap)
         )
         sys.exit(0)
 

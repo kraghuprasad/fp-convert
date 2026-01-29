@@ -28,7 +28,7 @@ from pylatex.section import (
     Subsubsection,
 )
 from freeplane import Mindmap, Node
-from typing import List, Dict, Callable, Optional, Union
+from typing import List, Dict, Callable, Optional, Tuple, Union
 
 from fp_convert.config import (
     Config, config_classes,
@@ -177,9 +177,10 @@ class GeneralDoc(Document):
         # Create LongTable object to render the changeset-content
         self.ctx.changeset_table = LongTable(r"l c p{0.75\linewidth}")
 
-        self.packages: List[str] = [
+        self.packages: List[Tuple[str, Tuple[str|None]]] = [
             ("geometry", tuple()),
             ("amssymb", tuple()),
+            ("relsize", tuple()),
             ("xcolor", ("dvipsnames", "table")),
             ("tcolorbox", ("most",)),
             ("placeins", ("section",)),
@@ -200,6 +201,18 @@ class GeneralDoc(Document):
             ("ragged2e", ("raggedrightboxes",)),
             # ("roboto", ("sfdefault",)),
         ]
+
+        # Add package for rendering watermark-text in the document.
+        # If it is set to %% in the docinfo, then watermark is not added.
+        watermark = self.ctx.docinfo.get("watermark_text", "%%")
+        if watermark == "%%":
+            watermark = None
+        else:
+            watermark = fr"{self.config.main.watermark_font_family} {watermark}"
+
+        if watermark:
+            self.packages.append(("draftwatermark", tuple())) 
+
         self.preambles: Dict[str, List[Union[NE, LatexObject, str]]] = dict()
         self.preambles["main"] = [  # Commonly needed preamble-blocks in a list
             NE(rf"\setcounter{{secnumdepth}}{{{self.config.main.max_sec_depth}}}"),
@@ -319,9 +332,20 @@ bottom={self.config.main.bottom_margin},
 \makeatother
 """
             ),
-            # Additional preamble-blocks for other modules can be added
-            # here in future.
+            # Improves figure-scaling
+            NE(
+                r"\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}"
+            ),
+            # Additional preamble-blocks for other modules can be added here in future.
         ]  # Main preamble-blocks end here
+
+        if watermark:
+            self.preambles["main"].append(NE(fr"\SetWatermarkText{{{watermark}}}"))
+            self.preambles["main"].append(NE(fr"\SetWatermarkScale{{{self.config.main.watermark_scale}}}"))
+            self.preambles["main"].append(NE(fr"\SetWatermarkAngle{{{self.config.main.watermark_angle}}}"))
+            self.preambles["main"].append(NE(fr"\SetWatermarkColor{{{self.ctx.regcol(self.config.main.watermark_color)}}}"))
+            self.preambles["main"].append(NE(fr"\SetWatermarkHorCenter{{{self.config.main.watermark_center_x}}}"))
+            self.preambles["main"].append(NE(fr"\SetWatermarkVerCenter{{{self.config.main.watermark_center_y}}}"))
             
         if font_family:
             if len(font_family) < 2:

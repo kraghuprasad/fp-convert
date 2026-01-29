@@ -129,7 +129,7 @@ stopframe:
   outer_right_margin: '5pt' # Stop-Frame outer right margin width (with unit)
   round_corner_size: '3pt' # Stop-Frame rounded corner's size (with unit)
 
-# Parameters specific to general tables in the document
+# Parameters specific to tables with textual and numerical data in the document
 table:
   footer_row_color: 'babyblueeyes!10'  # Footer row color for default table
   header_row_color: 'babyblueeyes!60'  # Header row color for default table
@@ -338,41 +338,27 @@ As discussed earlier, you may annotate certain nodes as newly added, and some ot
 
 If you want to position this section as a named node in some other parts of the document - like in the beginning of the document itself - then create a node with appropriate section-name, and set its attribute `fpcBlockType` to `TrackChanges`. In this case the value supplied against the key `Trackchange_Section` in the document's meta data would be ignored and the table would be rendered in the position where this particular node is defined. Please note that if you annotate more than one node to render the track-changes, then an exception would be raised asking you to keep only one such node in the mindmap. Also, if you do not supply the key `Trackchange_Section` in the document's meta data, then even annotating any node's attribute `fpcBlockType` with `TrackChanges` would not generate the intended table anywhere in the document.
 
-## Tabular Views
+## Table with Textual and Numerical Content
 
-There is support for two kinds of tables. First one is for generic table, mostly containing columns with textual content. The second is the number table where most of the columns are expected to contain numerical values, which could be summed for respective columns in the last row of the table.
-
-### Tables with Textual Content
-
-| |
-|:-:|
-|![Text based table generation in the mindmap](images/table_mm.png)|
-
-If attribute `fpcBlockType` is assigned the value `Table` for any node, then it indicates its content and their child-nodes would be used to construct a generic table. The first level of children after such node would be rendered as first column of the table. For each cell of the first column, the rest of the values for rest of the cells for respective rows would required to be supplied as children of that node in the subsequent (second) level in the hierarchy of nodes. Please refer to the diagram above for more clarity on this. Each such node must contain the text in X:Y format, where X would be the column header, and Y would be the column-value. Please ensure that the value X remains the same -- avoid misspelled X -- in all the sibling nodes. Otherwise new columns would get generated for the table. Check the sample mindmap and the resultant PDF file to know how the contents of nodes for the table are to be created and how fp-convert renders them.
-
-| |
-|:-:|
-|![Text based table rendered in the document](images/table_pdf.png)|
-
-### Number Tables
-
-By providing `NumberedTable` as value for the attribute `fpcBlockType` for a given node, a number-table can be built. The rules applicable to construct nodes for a number-table are elaborated in this section.
+By providing `Tabular` as value for the attribute `fpcBlockType` for a given node, a table with textual and numerical content can be built. The rules applicable to construct nodes for a table are elaborated in this section.
 
 There should be only two child node duly annotated as `ColumnHeaders` and `TableData` for their respective attributes `fpcBlockType`. The former contains details for headers, and the later for actual data to be stored in the table.
 
 | |
 |:-:|
-|![Defining headers of a number-table in the mindmap](images/numbertable_headers_mm.png)|
+|![Defining headers of a number-table in the mindmap](images/table_headers_mm.png)|
 
-The number of child-nodes in the column-header table indicates the number of columns to be rendered in the table. It will be the number of those nodes plus one (to hold the row-header's content). These nodes can possess two attributes, namely `fpcColumnType` (values can be 'Text` `Int`, `Float`, or `Decimal`, etc.) and `fpcSumIt` (values can be `Yes`, `No`, 'True`, `False`, etc.) The former indicates the type of data getting stored in the cells of the column, and the later flags whether summing of those values at the last row is required or not (provided they are numbers).
+The number of child-nodes in the column-headers section indicates the number of data columns to be rendered in the table. The first column of the rendered table will automatically hold the row-header's content, which are fetched from the children (first-level) of the table-data node. The child-nodes of the column-headers node can possess two attributes, namely `fpcColumnType` (values can be `Text` `Int`, `Float`, or `Decimal`, etc.) and `fpcSumIt` (values can be `Yes`, `No`, `True`, `False`, etc.) The former indicates the type of data getting stored in the cells of the column, and the later flags whether summing of those values are required or not. If required, then the summed-up value for that column would be placed in the last row of it, provided they all contain numerical values. Supplying non-numerical values for columns specified as numerical ones would raise errors during the document-conversion process.
 
-The text found in these nodes would be placed in the first row of the table as column-headers. The length of the text should be manually inspected to ensure that it doesn't get overflowed outside the allowed page-width. This width-overflow is not checked or prevented by fp-convert. The note-text -- if any -- found in this node must be of form `Column1: XXX` and nothing more. The value XXX would be placed into the first cell of the table in its first row, when the table gets rendered. Otherwise this cell would remain empty.
+
+The text found in these nodes would be placed in the first row of the table as column-headers. The length of the text should be manually inspected to ensure that it doesn't get overflowed outside the allowed page-width. This width-overflow is not checked or prevented by fp-convert. The note-text -- if any -- found in this node must be of form `Cell00_Text: xxx` and nothing more. Please note that this is a breaking change from version 0.3.x where the earlier format of it was `Column1: xxx`. This format is not supported anymore. The `Cell00` refers to the top-left cell (row 0, column 0) of the table. The value xxx would be placed into the first cell of the table in its first row, when the table gets rendered. Otherwise this cell would remain empty.
+
 
 | |
 |:-:|
-|![Defining nodes with table-data in the mindmap](images/numbertable_data_mm.png)|
+|![Defining nodes with table-data in the mindmap](images/table_data_mm.png)|
 
-The children of table-data nodes must have only two levels. The text of the first-level children would be rendered as row-headers. For each of such nodes, there must be child-nodes with their respective content matching the types defined in their respective header-nodes earlier. The number of such nodes must match exactly with the number of column-headers. Even if some cells do not contain data, the nodes for them should be included with no values.
+The children of table-data nodes must have only two levels. The text of the first-level children would be rendered as row-headers. For each of such nodes, there must be child-nodes with their respective content matching the types defined in their respective header-nodes earlier. The number of such nodes must match exactly with the number of column-headers. Even if some cells do not contain data, the nodes for them should be included with no content.
 
 The content for the last row of the table would be computed based on whether summing of respective column-data was sought or not. If summing was not requested for certain column, those cells of the last row would remain empty.
 
@@ -380,7 +366,7 @@ All number-values and their sum would be right-aligned in the table-cells, if th
 
 | |
 |:-:|
-|![Number Table in PDF](images/numbertable_pdf.png)|
+|![Table in PDF](images/table_pdf.png)|
 
 ## Code Blocks
 

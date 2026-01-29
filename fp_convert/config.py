@@ -127,6 +127,12 @@ class Main:
     top_margin: str = "1.5in"
     bottom_margin: str = "1.5in"
     url_color: str = "ceruleanblue"       # Color of URLs in the document
+    watermark_color: str = "orangepeel!20" # Color to render the watermark-text
+    watermark_angle: str = "0"  # Angle of watermark-text on the page
+    watermark_scale: str = "0.2" # Watermark-font or image scale
+    watermark_font_family: str = r"\sffamily\bfseries" # Watermark font-family
+    watermark_center_x: str = "0.5\paperwidth" # Watermark horizontal-center position
+    watermark_center_y: str = "0.95\paperheight" # Watermark vertical-center position
 
     # Paramaters for top and bottom logos of title-page
     tp_bottom_logo_height: str = "1.5cm"  # Height of bottom logo on title page

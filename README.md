@@ -1,4 +1,4 @@
-version: 0.3.1
+version: 0.4.0
 
 # fp-convert 
 
@@ -16,13 +16,12 @@ If you use mindmaps to capture and manage information, but others working with y
 - Deliverable: The deliverable of a project
 - Ignore: Ignores rendering of the node and its children
 - Image: Scalar and vector image
-- NumberTable: Table with summable columns
 - OrderedList: Numbered list
 - PageBreak: New page
 - PlainText: Plain text
 - Risk: Risk in a task or project
 - StopFrame: Warning-text in a frame
-- Table: Table to display textual data
+- Tabular: Table to display textual as well as numerical data
 - TrackChanges: Change-set trackers based on appropriately annotated nodes
 - UCAction: UML usecase action
 - UCActors: UML actors (a numbered list, at present)
