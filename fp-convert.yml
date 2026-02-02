@@ -40,7 +40,7 @@ main:
   url_color: 'ceruleanblue' # Color of URLs used in the document
   watermark_color: 'orangepeel!20' # Color of watermark
   watermark_angle: '0' # Watermark angle
-  watermark_scale: '0.2' # Watermark-font or image scale
+  watermark_scale: '0.2' # Watermark-font scaling factor (1 is too huge)
   watermark_font_family: '\sffamily\bfseries' # Watermark font-family
   watermark_center_x: '0.5\paperwidth' # Watermark center position on X-axis
   watermark_center_y: '0.95\paperheight' # Watermark vertical position on Y-axis

@@ -14,7 +14,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-5.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-4.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -472,7 +472,7 @@
 </node>
 </node>
 </node>
-<node TEXT="List Templates" FOLDED="true" POSITION="top_or_left" ID="ID_1571657878" CREATED="1753974178630" MODIFIED="1766403681016">
+<node TEXT="List Templates" POSITION="top_or_left" ID="ID_1571657878" CREATED="1753974178630" MODIFIED="1766403681016">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
 <richcontent TYPE="NOTE">
@@ -491,10 +491,10 @@
 <attribute NAME="*fpcBlockType" VALUE="OrderedList"/>
 <attribute NAME="*fpcNotesPosition" VALUE="north"/>
 </node>
-<node TEXT="Template: Unordered List" ID="ID_1017065751" CREATED="1752078894829" MODIFIED="1766403613191">
+<node TEXT="Template: Unordered List" ID="ID_1017065751" CREATED="1752078894829" MODIFIED="1769781072940">
 <attribute_layout NAME_WIDTH="92.25 pt" VALUE_WIDTH="90.75 pt"/>
-<attribute NAME="*fpcBlocktype" VALUE="UnorderedList"/>
-<attribute NAME="*fpcNotesPosition" VALUE="south"/>
+<attribute NAME="*fpcBlockType" VALUE="UnorderedList"/>
+<attribute NAME="*fpcNotesPosition" VALUE="north"/>
 </node>
 </node>
 <node TEXT="Project Templates" FOLDED="true" POSITION="top_or_left" ID="ID_649403774" CREATED="1743571867496" MODIFIED="1767940502548"><richcontent TYPE="NOTE">

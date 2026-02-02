@@ -21,10 +21,10 @@
         // "josefin:sfdefault:light:medium:scaled=1.1",
         // "josefin:sfdefault:medium:scaled=1.1",
         // "montserrat:defaultfam:tabular:lining:alternates",
-        // "docs/examples/cdc-planner/CDC_Planner.mm",
-        // "docs/examples/cdc-planner/CDC_Planner.pdf",
-        "docs/examples/blooper-specs/Blooper_Specifications.mm",
-        "docs/examples/blooper-specs/Blooper_Specifications.pdf"
+        "docs/examples/cdc-planner/CDC_Planner.mm",
+        "docs/examples/cdc-planner/CDC_Planner.pdf",
+        // "docs/examples/blooper-specs/Blooper_Specifications.mm",
+        // "docs/examples/blooper-specs/Blooper_Specifications.pdf"
       ],
       "console": "integratedTerminal",
       "justMyCode": true,

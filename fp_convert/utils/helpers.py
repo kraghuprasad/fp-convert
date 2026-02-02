@@ -1384,7 +1384,7 @@ def get_references(node: Node, back_ref: bool = False) -> list[tuple[NE, str]]:
         ret.append(
             (
                 NE(fr"\margincomment{{\tiny{{{icon} \hyperlink{{{get_label(
-                referrer.id)}}}{{{trunc32(str(referrer))}}}}}}}"),
+                referrer.id)}}}{{{EL(trunc32(str(referrer)))}}}}}}}"),
                 referrer.id
             )
         )
@@ -1763,8 +1763,6 @@ def list_exists_in_parent_path(
         True if the supplied node's parent or grand parents were ever of
         a list type, False otherwise.
     """
-    # func_name = builders[
-    #     node.attributes.get("fpcBlockType", "default")].__name__
     func_name = builders[get_fpc_block_type(node, "default")].__name__
     if func_name in {
             "build_orderedlist_block", "build_unorderedlist_block"}:

@@ -871,7 +871,7 @@ def _construct_list_of_type(
         return ret
     if ht := get_hypertarget(node, doc.ctx):
         ret.append(ht)
-    
+        
     # Register current list-type which would be used by appropriate builder
     # functions of child nodes to identify the type of list to be built, if
     # none were specified explicitly.
@@ -887,7 +887,13 @@ def _construct_list_of_type(
         node_text_blocks = get_node_text_blocks(node, doc.config, doc.ctx)
         note_position = get_fpc_notes_position(node, "n")
     else:
-        node_text_blocks = doc.sections[depth](NE(EL(str(node))), label=False)
+        fblocks = get_flag_blocks(node, doc.config, doc.ctx)
+        ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
+        frefs = get_flag_refs(node, doc.config, doc.ctx)
+        node_text_blocks = list()
+        node_text_blocks.append(doc.sections[depth](NE(ftext + EL(str(node))), label=False))
+        if len(frefs):
+            doc.ctx.flush_margin_comments(frefs, node_text_blocks)
 
         # notes always come after section-name, but before child-content
         note_position = "n"
@@ -925,8 +931,15 @@ def _construct_list_of_type(
 
     # Based on the note-position, arrange node's text-block, child-contents
     # and note-text in ret list and return it.
-    ret.append(node_text_blocks) if type(node_text_blocks) is not list \
-        else ret.extend(node_text_blocks)
+    # ret.append(node_text_blocks) if type(node_text_blocks) is not list \
+    #     else ret.extend(node_text_blocks)
+    ret.extend(node_text_blocks)
+    
+    # Add required back-references to the ret list
+    doc.ctx.flush_margin_comments(
+        get_flag_refs(node, doc.config, doc.ctx), ret)
+    doc.ctx.flush_margin_comments(get_references(node, back_ref=True), ret)
+
     if note_position == "s":
         ret.extend(children_block)
         ret.append(Command("par"))
@@ -1135,8 +1148,8 @@ def build_verbatim_block(
 
     fblocks = get_flag_blocks(node, doc.config, doc.ctx)
     ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
-
     frefs = get_flag_refs(node, doc.config, doc.ctx)
+
     note_lines = []
     if node.notes:
         note_lines.extend(get_processed_note_lines(node, doc.ctx))
@@ -1225,9 +1238,74 @@ def build_verbatimnotes_block(
 
     # The node-text is captured and rendered first as no direction for notes
     # is applicable in this mode of rendering. Notes always come later.
-    ret.extend(get_node_text_blocks(node, doc.config, doc.ctx))
+    # ret.extend(get_node_text_blocks(node, doc.config, doc.ctx))
+    node_text_blocks = get_node_text_blocks(node, doc.config, doc.ctx)
+    note_text_blocks = list()
+    note_position = get_fpc_notes_position(node, "n")
+
     if node.notes:
-        ret.append(f"\\begin{{verbatim}}\n{node.notes}\n\\end{{verbatim}}")
+        note_lines = list()
+        for idx, line in enumerate(str.split(node.notes, "\n")):
+            if str.strip(line) != "":
+                # Second line onward, remove initial 6 blank spaces introducted by
+                # Freeplane/SimplyHTML/PyLaTeX (didn't check which one it was).
+                note_lines.append(str(line[6:])) if idx != 0 else note_lines.append(str(line))
+        # ret.append(NE(fr'\begin{{verbatim}}{"\n".join(note_lines)}\end{{verbatim}}'))
+        note_text_blocks.append(NE(fr'\begin{{verbatim}}{"\n".join(note_lines)}\end{{verbatim}}'))
+    
+    # Now process children, if any. If parent-node contained any list
+    # then children too would be of same type, even though the current
+    # node is specified to be of VerbatimNotes type.
+    children_block = list()
+    list_type = doc.ctx.list_type_stack[-1]  # last list-type used
+    if node.children:
+        if list_exists_in_parent_path(node, builders):
+            # Initialize the list-type based on the parent's list-type
+            begin_cmd = Command("begin", "itemize") if list_type == "ul" \
+                else Command("begin", "enumerate")
+            end_cmd = Command("end", "itemize") if list_type == "ul" \
+                else Command("end", "enumerate")
+        else: # Use default unordered list-type 
+            begin_cmd = Command("begin", "itemize")
+            end_cmd = Command("end", "itemize")
+        
+        child_blocks = list()
+        for child in node.children:
+            if is_ignore_type(child):
+                continue
+            block_type = get_fpc_block_type(child, "plaintext")
+            child_content = [Command("item"), ]
+            child_content.extend(
+                builders[block_type](child, doc, depth, builders))
+            child_blocks.extend(child_content)
+        if child_blocks:
+            children_block.append(begin_cmd)
+            children_block.extend(child_blocks)
+            children_block.append(end_cmd)
+
+    # Now arrange blocks correctly in the returned list
+    ret.extend(node_text_blocks)
+
+    # Register the current list-type
+    doc.ctx.list_type_stack.append(list_type)
+
+    # Add required back-references to the ret list
+    doc.ctx.flush_margin_comments(
+        get_flag_refs(node, doc.config, doc.ctx), ret)
+    doc.ctx.flush_margin_comments(get_references(node, back_ref=True), ret)
+
+    if note_position == "s":
+        ret.extend(children_block)
+        # ret.append(Command("par"))
+        ret.extend(note_text_blocks)
+    else:  # it is "n"
+        # ret.append(Command("par"))
+        ret.extend(note_text_blocks)
+        ret.extend(children_block)
+
+    # Unregister current list-type and return the block built by now
+    doc.ctx.list_type_stack.pop()
+
     return ret
 
 @track_processed_nodes

@@ -101,52 +101,52 @@ class Main:
     """
     The main configuration parameters for building the document
     """
-    timezone: str = "UTC"  # Timezone for all timestamps used in the document
+    timezone: str = r"UTC"  # Timezone for all timestamps used in the document
     max_sec_depth: int = 5  # Maximum nested sections allowed (capped to 6)
     toc_depth: int = 3  # Maximum section-depths in the table of contents
     figure_width: str = r"0.6\textwidth"  # Width of the figure, in LaTeX
-    del_mark_color: str = "red!80!gray"  # Color of markers for nodes marked for deletion
+    del_mark_color: str = r"red!80!gray"  # Color of markers for nodes marked for deletion
     del_mark_flag: str = r"\faCut"  # FontAwesome icon for del-markings
-    del_mark_text: str = "CUT"  # Text marking nodes for removal
-    new_mark_color: str = "cobalt"    # Color of markers for newly created nodes
+    del_mark_text: str = r"CUT"  # Text marking nodes for removal
+    new_mark_color: str = r"cobalt"    # Color of markers for newly created nodes
     new_mark_flag: str = r"\faPlus"   # FontAwesome icon for new-markings
-    new_mark_text: str = "NEW"    # Text marking newly added nodes
-    file_color: str = "magenta"        # Color of file names in the document
-    header_line_color: str = "airforceblue"  # Color of header line
+    new_mark_text: str = r"NEW"    # Text marking newly added nodes
+    file_color: str = r"magenta"        # Color of file names in the document
+    header_line_color: str = r"airforceblue"  # Color of header line
     header_thickness: Union[float, int] = 0.4  # Header line thickness
-    footer_line_color: str = "airforceblue"  # Color of footer line
+    footer_line_color: str = r"airforceblue"  # Color of footer line
     footer_thickness: Union[float, int] = 0.4  # Footer line thickness
-    head_height: str = "25pt"
-    inner_margin: str = "1.25in"  # Applicable only in twosided mode
-    outer_margin: str = "1.25in"  # Applicable only in twosided mode
-    link_color: str = "celestialblue" # Color of hyperlinks in the document
-    mc_color: str = "{rgb}{0,0.5,0}"  # Color of margin comments in the document
-    par_indent: str = "0pt"
-    left_margin: str = "1.25in"
-    right_margin: str = "1.25in"
-    top_margin: str = "1.5in"
-    bottom_margin: str = "1.5in"
-    url_color: str = "ceruleanblue"       # Color of URLs in the document
-    watermark_color: str = "orangepeel!20" # Color to render the watermark-text
-    watermark_angle: str = "0"  # Angle of watermark-text on the page
-    watermark_scale: str = "0.2" # Watermark-font or image scale
+    head_height: str = r"25pt"
+    inner_margin: str = r"1.25in"  # Applicable only in twosided mode
+    outer_margin: str = r"1.25in"  # Applicable only in twosided mode
+    link_color: str = r"celestialblue" # Color of hyperlinks in the document
+    mc_color: str = r"{rgb}{0,0.5,0}"  # Color of margin comments in the document
+    par_indent: str = r"0pt"
+    left_margin: str = r"1.25in"
+    right_margin: str = r"1.25in"
+    top_margin: str = r"1.5in"
+    bottom_margin: str = r"1.5in"
+    url_color: str = r"ceruleanblue"       # Color of URLs in the document
+    watermark_color: str = r"orangepeel!20" # Color to render the watermark-text
+    watermark_angle: str = r"0"  # Angle of watermark-text on the page
+    watermark_scale: str = r"0.2" # Watermark-font or image scale
     watermark_font_family: str = r"\sffamily\bfseries" # Watermark font-family
-    watermark_center_x: str = "0.5\paperwidth" # Watermark horizontal-center position
-    watermark_center_y: str = "0.95\paperheight" # Watermark vertical-center position
+    watermark_center_x: str = r"0.5\paperwidth" # Watermark horizontal-center position
+    watermark_center_y: str = r"0.95\paperheight" # Watermark vertical-center position
 
     # Paramaters for top and bottom logos of title-page
-    tp_bottom_logo_height: str = "1.5cm"  # Height of bottom logo on title page
-    tp_bottom_logo_vspace: str = "7cm"
-    tp_top_logo_height: str = "3cm"       # Height of top logo on title page
-    tp_top_logo_vspace: str = "5cm"
+    tp_bottom_logo_height: str = r"1.5cm"  # Height of bottom logo on title page
+    tp_bottom_logo_vspace: str = r"7cm"
+    tp_top_logo_height: str = r"3cm"       # Height of top logo on title page
+    tp_top_logo_vspace: str = r"5cm"
 
     # Height of various images used in headers and footers of all pages
-    c_footer_image_height: str = "0.5cm"
-    c_header_image_height: str = "0.5cm"
-    l_footer_image_height: str = "0.5cm"
-    l_header_image_height: str = "0.7cm"
-    r_footer_image_height: str = "0.5cm"
-    r_header_image_height: str = "0.5cm"
+    c_footer_image_height: str = r"0.5cm"
+    c_header_image_height: str = r"0.5cm"
+    l_footer_image_height: str = r"0.5cm"
+    l_header_image_height: str = r"0.7cm"
+    r_footer_image_height: str = r"0.5cm"
+    r_header_image_height: str = r"0.5cm"
 
     # Various parameters for paragraphs and subparagraphs
     par_title_format: str = r"[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}"
@@ -159,150 +159,150 @@ class StopFrame:
     """
     The configuration parameters for building stopframe-blocks
     """
-    background_color: str = "red!5!white"    # Stop-Frame background-color
-    inner_left_margin: str = "10pt"  # Stop-Frame inner left margin width
-    inner_right_margin: str = "30pt"  # Stop-Frame inner right margin width
-    line_color: str = "cadmiumred"           # Stop-Frame line-color
-    outer_left_margin: str = "5pt"  # Stop-Frame outer left margin width
-    outer_line_width: str = "1pt"  # Stop-Frame outer line-width size
-    outer_right_margin: str = "5pt"  # Stop-Frame outer right margin width
-    round_corner_size: str = "3pt"  # Stop-Frame rounded corner's size
+    background_color: str = r"red!5!white"    # Stop-Frame background-color
+    inner_left_margin: str = r"10pt"  # Stop-Frame inner left margin width
+    inner_right_margin: str = r"30pt"  # Stop-Frame inner right margin width
+    line_color: str = r"cadmiumred"           # Stop-Frame line-color
+    outer_left_margin: str = r"5pt"  # Stop-Frame outer left margin width
+    outer_line_width: str = r"1pt"  # Stop-Frame outer line-width size
+    outer_right_margin: str = r"5pt"  # Stop-Frame outer right margin width
+    round_corner_size: str = r"3pt"  # Stop-Frame rounded corner's size
 
 class Table:
     """
     The configuration parameters for building table-blocks
     """
-    footer_row_color: str = "babyblueeyes!10"
-    header_row_color: str = "babyblueeyes!80"
-    header_text_color: str = "darkblue"
-    line_color: str = "cornflowerblue"
-    rowcolor_1: str = "babyblueeyes!35" # Row colors 1 and 2 belowng to rendering of rows in default table
-    rowcolor_2: str = "babyblueeyes!20" # Row colors 1 and 2 belowng to rendering of rows in default table
-    rowcolor_3: str = 'lightapricot!30' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
-    rowcolor_4: str = 'lightapricot!10' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
-    rowcolor_5: str = 'lightapricot!50' # Row color 5 is for rendering the row containing deliverable-name
+    footer_row_color: str = r"babyblueeyes!10"
+    header_row_color: str = r"babyblueeyes!80"
+    header_text_color: str = r"darkblue"
+    line_color: str = r"cornflowerblue"
+    rowcolor_1: str = r"babyblueeyes!35" # Row colors 1 and 2 belowng to rendering of rows in default table
+    rowcolor_2: str = r"babyblueeyes!20" # Row colors 1 and 2 belowng to rendering of rows in default table
+    rowcolor_3: str = r'lightapricot!30' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
+    rowcolor_4: str = r'lightapricot!10' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
+    rowcolor_5: str = r'lightapricot!50' # Row color 5 is for rendering the row containing deliverable-name
 
 
 class DBSchema:
     """
     The configuration parameters bilding DB schema-blocks
     """
-    tbl1_body_line_color: str = "gray!30"
-    tbl1_header_line_color: str = "fpcblue2"
-    tbl1_header_row_color: str = "spirodiscoball!20!white"
-    tbl1_header_text_color: str = "darkblue"
-    tbl2_header_line_color: str = "fpcblue2"
-    tbl2_header_row_color: str = "fpcblue1"
-    tbl2_header_text_color: str = "darkblue"
-    tbl2_rowcolor_1: str = "white"
-    tbl2_rowcolor_2: str = "tealblue!7!white"
+    tbl1_body_line_color: str = r"gray!30"
+    tbl1_header_line_color: str = r"fpcblue2"
+    tbl1_header_row_color: str = r"spirodiscoball!20!white"
+    tbl1_header_text_color: str = r"darkblue"
+    tbl2_header_line_color: str = r"fpcblue2"
+    tbl2_header_row_color: str = r"fpcblue1"
+    tbl2_header_text_color: str = r"darkblue"
+    tbl2_rowcolor_1: str = r"white"
+    tbl2_rowcolor_2: str = r"tealblue!7!white"
 
 class UML:
     """
     The configuration parameters for building UML diagram-blocks
     """
-    actor_background_color: str = "#d8f0fd"     # light blue for background of actor
-    actor_border_color: str = "#4e98c4"         # blue for border of actor
-    actor_color: str = "#4e98c4"                # blue for actor
-    background_color: str = "#ffffff"           # white background
-    component_background_color: str = "#ffffff" # white background for component
-    component_border_color: str = "#000000"     # black border for component
-    component_color: str = "#d0d0d0"            # gray for component
-    connector_line_type: str = "default"          # default, ortho or polyline
-    default_text_alignment: str = "left"          # left, center or right
-    note_background_color: str = "#f7f3de"      # light yellow background for note
-    note_border_color: str = "#867c1c"          # blackish yellow border for note
-    note_color: str = "#c0c0c0"                 # light gray for note
-    package_border_color: str = "#3a2f2f"       # brownish black for package border
-    plantuml_cmd: str = "plantuml"       # command name (relies on PATH environment) or OS dependent full path
-    usecase_border_color: str = "#0542C5"       # dark blue for usecase border
-    usecase_color: str = "#b1dafc"              # darker shade of blue for usecase
+    actor_background_color: str = r"#d8f0fd"     # light blue for background of actor
+    actor_border_color: str = r"#4e98c4"         # blue for border of actor
+    actor_color: str = r"#4e98c4"                # blue for actor
+    background_color: str = r"#ffffff"           # white background
+    component_background_color: str = r"#ffffff" # white background for component
+    component_border_color: str = r"#000000"     # black border for component
+    component_color: str = r"#d0d0d0"            # gray for component
+    connector_line_type: str = r"default"          # default, ortho or polyline
+    default_text_alignment: str = r"left"          # left, center or right
+    note_background_color: str = r"#f7f3de"      # light yellow background for note
+    note_border_color: str = r"#867c1c"          # blackish yellow border for note
+    note_color: str = r"#c0c0c0"                 # light gray for note
+    package_border_color: str = r"#3a2f2f"       # brownish black for package border
+    plantuml_cmd: str = r"plantuml"       # command name (relies on PATH environment) or OS dependent full path
+    usecase_border_color: str = r"#0542C5"       # dark blue for usecase border
+    usecase_color: str = r"#b1dafc"              # darker shade of blue for usecase
     usecase_diagram_width: str = r"0.9\textwidth" # width of usecase diagram
 
 class ColorBox:
     """
     The configuration parameters for building colorbox-blocks
     """
-    background_color: str = "blue!10!white"
-    frame_color: str = "blue!80!black"
-    title_color: str = "black"
-    box_rule_width: str = "0.8pt"
-    box_arc_size: str = "2.5mm"
-    left: str = "5mm"
-    right: str = "5mm"
-    top: str = "2mm"
-    bottom: str = "2mm"
+    background_color: str = r"blue!10!white"
+    frame_color: str = r"blue!80!black"
+    title_color: str = r"black"
+    box_rule_width: str = r"0.8pt"
+    box_arc_size: str = r"2.5mm"
+    left: str = r"5mm"
+    right: str = r"5mm"
+    top: str = r"2mm"
+    bottom: str = r"2mm"
 
 class FancyBox:
     """
     The configuration parameters for building colorbox-blocks
     """
-    title_color: str = "black"
+    title_color: str = r"black"
     title_font: str = r"\bfseries\large"
-    title_background_color: str = "red!20!white"
-    title_frame_color: str = "red!80!white"
-    title_attributes: str = "sharp corners"
-    # title_attributes: str = "rounded corners"
-    title_position: str = "top left"
-    title_xshift: str = "1.5mm"
-    title_yshift: str = "-1mm"
-    title_drop_shadow: str = "false"
+    title_background_color: str = r"red!20!white"
+    title_frame_color: str = r"red!80!white"
+    title_attributes: str = r"sharp corners"
+    # title_attributes: str = r"rounded corners"
+    title_position: str = r"top left"
+    title_xshift: str = r"1.5mm"
+    title_yshift: str = r"-1mm"
+    title_drop_shadow: str = r"false"
     title_bullet: str = r"\faChevronCircleRight"
-    frame_bg_color: str = "red!5!white"
-    frame_color: str = "red!80!white"
-    frame_arc_size: str = "1mm"
-    frame_rule_width: str = "0.8pt"
+    frame_bg_color: str = r"red!5!white"
+    frame_color: str = r"red!80!white"
+    frame_arc_size: str = r"1mm"
+    frame_rule_width: str = r"0.8pt"
     frame_width: str = r"0.9\textwidth"
-    frame_left_margin: str = "6pt"
-    frame_right_margin: str = "6pt"
-    frame_top_margin: str = "6pt"
-    frame_bottom_margin: str = "6pt"
-    frame_alignment: str = "center"  # left, center or right
-    frame_drop_shadow: str = "false"
+    frame_left_margin: str = r"6pt"
+    frame_right_margin: str = r"6pt"
+    frame_top_margin: str = r"6pt"
+    frame_bottom_margin: str = r"6pt"
+    frame_alignment: str = r"center"  # left, center or right
+    frame_drop_shadow: str = r"false"
 
 class FancyBox2:
     """
     The configuration parameters for building colorbox-blocks
     """
-    title_color: str = "white"
+    title_color: str = r"white"
     title_font: str = r"\bfseries\large"
-    title_background_color: str = "purple!70!black"
-    title_frame_color: str = "purple!70!black"
-    title_attributes: str = "sharp corners"
-    # title_attributes: str = "rounded corners"
-    title_position: str = "top left"
-    title_xshift: str = "1.5mm"
-    title_yshift: str = "-1mm"
-    title_drop_shadow: str = "false"
+    title_background_color: str = r"purple!70!black"
+    title_frame_color: str = r"purple!70!black"
+    title_attributes: str = r"sharp corners"
+    # title_attributes: str = r"rounded corners"
+    title_position: str = r"top left"
+    title_xshift: str = r"1.5mm"
+    title_yshift: str = r"-1mm"
+    title_drop_shadow: str = r"false"
     title_bullet: str = r"\faChevronCircleRight"
-    frame_bg_color: str = "white"
-    frame_color: str = "purple!70!black"
-    frame_arc_size: str = "1mm"
-    frame_rule_width: str = "0.8pt"
+    frame_bg_color: str = r"white"
+    frame_color: str = r"purple!70!black"
+    frame_arc_size: str = r"1mm"
+    frame_rule_width: str = r"0.8pt"
     frame_width: str = r"0.85\textwidth"
-    frame_left_margin: str = "6pt"
-    frame_right_margin: str = "6pt"
-    frame_top_margin: str = "6pt"
-    frame_bottom_margin: str = "6pt"
-    frame_alignment: str = "center"  # left, center or right
-    frame_drop_shadow: str = "false"
-    table_rowcolor_1: str = "lightapricot!50"
-    table_rowcolor_2: str = "lightapricot!30"
-    table_rowcolor_3: str = "lightapricot!10"
+    frame_left_margin: str = r"6pt"
+    frame_right_margin: str = r"6pt"
+    frame_top_margin: str = r"6pt"
+    frame_bottom_margin: str = r"6pt"
+    frame_alignment: str = r"center"  # left, center or right
+    frame_drop_shadow: str = r"false"
+    table_rowcolor_1: str = r"lightapricot!50"
+    table_rowcolor_2: str = r"lightapricot!30"
+    table_rowcolor_3: str = r"lightapricot!10"
     table1_width: str = r"\textwidth" # width for tabled-content
     table2_width: str = r"0.8\textwidth" # width for child-node-content
-    hrule_width: str = "0.4pt"  # width of horizontal rule in the fancy box
+    hrule_width: str = r"0.4pt"  # width of horizontal rule in the fancy box
 
 class Translations:
     """
     The translation-texts for automatically generated text segments
     """
-    deliverable: str = "Deliverable"
-    deliverable_id: str = "Deliverable-ID"
-    accountable: str = "Accountability"
-    delivery_date: str = "Date of Delivery"
-    risk_types: str = "Risk-Types"
-    risk_id: str = "Risk-ID"
+    deliverable: str = r"Deliverable"
+    deliverable_id: str = r"Deliverable-ID"
+    accountable: str = r"Accountability"
+    delivery_date: str = r"Date of Delivery"
+    risk_types: str = r"Risk-Types"
+    risk_id: str = r"Risk-ID"
 
 config_classes = [
     Main, StopFrame, Table, DBSchema, UML, ColorBox, FancyBox,
