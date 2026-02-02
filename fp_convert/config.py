@@ -178,14 +178,14 @@ class Table:
     line_color: str = r"cornflowerblue"
     rowcolor_1: str = r"babyblueeyes!35" # Row colors 1 and 2 belowng to rendering of rows in default table
     rowcolor_2: str = r"babyblueeyes!20" # Row colors 1 and 2 belowng to rendering of rows in default table
-    rowcolor_3: str = r'lightapricot!30' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
-    rowcolor_4: str = r'lightapricot!10' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
-    rowcolor_5: str = r'lightapricot!50' # Row color 5 is for rendering the row containing deliverable-name
+    rowcolor_3: str = r"lightapricot!30" # Row colors 3 and 4 belong to rendering of rows in deliverable-table
+    rowcolor_4: str = r"lightapricot!10" # Row colors 3 and 4 belong to rendering of rows in deliverable-table
+    rowcolor_5: str = r"lightapricot!50" # Row color 5 is for rendering the row containing deliverable-name
 
 
 class DBSchema:
     """
-    The configuration parameters bilding DB schema-blocks
+    The configuration parameters for building DB schema-blocks
     """
     tbl1_body_line_color: str = r"gray!30"
     tbl1_header_line_color: str = r"fpcblue2"

@@ -935,10 +935,10 @@ def _construct_list_of_type(
     #     else ret.extend(node_text_blocks)
     ret.extend(node_text_blocks)
     
-    # Add required back-references to the ret list
-    doc.ctx.flush_margin_comments(
-        get_flag_refs(node, doc.config, doc.ctx), ret)
-    doc.ctx.flush_margin_comments(get_references(node, back_ref=True), ret)
+    # # Add required back-references to the ret list
+    # doc.ctx.flush_margin_comments(
+    #     get_flag_refs(node, doc.config, doc.ctx), ret)
+    # doc.ctx.flush_margin_comments(get_references(node, back_ref=True), ret)
 
     if note_position == "s":
         ret.extend(children_block)
@@ -1257,9 +1257,9 @@ def build_verbatimnotes_block(
     # then children too would be of same type, even though the current
     # node is specified to be of VerbatimNotes type.
     children_block = list()
-    list_type = doc.ctx.list_type_stack[-1]  # last list-type used
+    list_type = doc.ctx.list_type_stack[-1] if doc.ctx.list_type_stack else "ul"  # default to "ul" if stack is empty
     if node.children:
-        if list_exists_in_parent_path(node, builders):
+        if list_exists_in_parent_path(node.parent, builders):
             # Initialize the list-type based on the parent's list-type
             begin_cmd = Command("begin", "itemize") if list_type == "ul" \
                 else Command("begin", "enumerate")
@@ -1269,6 +1269,9 @@ def build_verbatimnotes_block(
             begin_cmd = Command("begin", "itemize")
             end_cmd = Command("end", "itemize")
         
+        # Register the current list-type
+        doc.ctx.list_type_stack.append(list_type)
+
         child_blocks = list()
         for child in node.children:
             if is_ignore_type(child):
@@ -1283,11 +1286,11 @@ def build_verbatimnotes_block(
             children_block.extend(child_blocks)
             children_block.append(end_cmd)
 
+        # Unregister current list-type and return the block built by now
+        doc.ctx.list_type_stack.pop()
+
     # Now arrange blocks correctly in the returned list
     ret.extend(node_text_blocks)
-
-    # Register the current list-type
-    doc.ctx.list_type_stack.append(list_type)
 
     # Add required back-references to the ret list
     doc.ctx.flush_margin_comments(
@@ -1302,9 +1305,6 @@ def build_verbatimnotes_block(
         # ret.append(Command("par"))
         ret.extend(note_text_blocks)
         ret.extend(children_block)
-
-    # Unregister current list-type and return the block built by now
-    doc.ctx.list_type_stack.pop()
 
     return ret
 

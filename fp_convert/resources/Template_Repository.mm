@@ -14,7 +14,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-4.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-3.75 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -308,7 +308,7 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="List: Risk Types" FOLDED="true" POSITION="top_or_left" ID="ID_1862848855" CREATED="1747662701353" MODIFIED="1769687781121">
+<node TEXT="List: Risk Types" POSITION="top_or_left" ID="ID_1862848855" CREATED="1747662701353" MODIFIED="1769687781121">
 <icon BUILTIN="broken-line"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -376,7 +376,7 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="Common Templates" FOLDED="true" POSITION="top_or_left" ID="ID_1495832884" CREATED="1743571867496" MODIFIED="1766403694189"><richcontent TYPE="NOTE">
+<node TEXT="Common Templates" POSITION="top_or_left" ID="ID_1495832884" CREATED="1743571867496" MODIFIED="1766403694189"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -404,13 +404,13 @@
 <attribute_layout NAME_WIDTH="89.25 pt" VALUE_WIDTH="95.25 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="VerbatimNotes"/>
 </node>
-<node TEXT="Template: Stop Frame" ID="ID_372009767" CREATED="1754488613867" MODIFIED="1766403574979">
+<node TEXT="Template: Stop Frame" ID="ID_372009767" CREATED="1754488613867" MODIFIED="1770031164041">
 <attribute_layout NAME_WIDTH="92.25 pt" VALUE_WIDTH="75.75 pt"/>
-<attribute NAME="*fpcBlocktype" VALUE="StopFrame"/>
+<attribute NAME="*fpcBlockType" VALUE="StopFrame"/>
 </node>
-<node TEXT="Template: Track Changes" ID="ID_1384230311" CREATED="1766581252628" MODIFIED="1766581276036">
+<node TEXT="Template: Track Changes" ID="ID_1384230311" CREATED="1766581252628" MODIFIED="1770031145265">
 <attribute_layout NAME_WIDTH="92.25 pt" VALUE_WIDTH="91.5 pt"/>
-<attribute NAME="*fpcBlocktype" VALUE="TrackChanges"/>
+<attribute NAME="*fpcBlockType" VALUE="TrackChanges"/>
 </node>
 <node TEXT="Template: Ignored Node" ID="ID_373636099" CREATED="1767008569327" MODIFIED="1767008596736">
 <attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="59.25 pt"/>
@@ -420,7 +420,7 @@
 <attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="78 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="PageBreak"/>
 </node>
-<node TEXT="Template: Tabular" FOLDED="true" POSITION="bottom_or_right" ID="ID_1154598465" CREATED="1769405618688" MODIFIED="1769450808629" VGAP_QUANTITY="3 pt">
+<node TEXT="Template: Tabular" POSITION="bottom_or_right" ID="ID_1154598465" CREATED="1769405618688" MODIFIED="1769450808629" VGAP_QUANTITY="3 pt">
 <attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="90.75 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="Tabular"/>
 <node TEXT="Column Headers" ID="ID_354907108" CREATED="1769149795291" MODIFIED="1769416277200">
@@ -497,7 +497,7 @@
 <attribute NAME="*fpcNotesPosition" VALUE="north"/>
 </node>
 </node>
-<node TEXT="Project Templates" FOLDED="true" POSITION="top_or_left" ID="ID_649403774" CREATED="1743571867496" MODIFIED="1767940502548"><richcontent TYPE="NOTE">
+<node TEXT="Project Templates" POSITION="top_or_left" ID="ID_649403774" CREATED="1743571867496" MODIFIED="1767940502548"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -510,7 +510,7 @@
 </html></richcontent>
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
-<node TEXT="Template: Project" FOLDED="true" POSITION="top_or_left" ID="ID_588680388" CREATED="1755668071868" MODIFIED="1766403621139">
+<node TEXT="Template: Project" POSITION="top_or_left" ID="ID_588680388" CREATED="1755668071868" MODIFIED="1766403621139">
 <attribute_layout NAME_WIDTH="93.75 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="Project"/>
 <node TEXT="Template Settings" ID="ID_1866884154" CREATED="1755671119580" MODIFIED="1755929843553">
@@ -545,10 +545,10 @@
 </node>
 </node>
 </node>
-<node TEXT="Template: Meeting" FOLDED="true" POSITION="top_or_left" ID="ID_491603540" CREATED="1743604919960" MODIFIED="1766403630377">
+<node TEXT="Template: Meeting" POSITION="top_or_left" ID="ID_491603540" CREATED="1743604919960" MODIFIED="1766403630377">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="66 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="Meeting"/>
-<node TEXT="Template Settings" FOLDED="true" ID="ID_1463015507" CREATED="1744615842545" MODIFIED="1753256467857">
+<node TEXT="Template Settings" ID="ID_1463015507" CREATED="1744615842545" MODIFIED="1753256467857">
 <node TEXT="Title" POSITION="top_or_left" ID="ID_549995539" CREATED="1746016575609" MODIFIED="1753256467858">
 <attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="174.74999 pt"/>
 <attribute NAME="destinationType" VALUE="core"/>
@@ -558,7 +558,7 @@
 <attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="81 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="participants"/>
 </node>
-<node TEXT="Participants" FOLDED="true" POSITION="top_or_left" ID="ID_1771930149" CREATED="1744615750756" MODIFIED="1761827753950">
+<node TEXT="Participants" POSITION="top_or_left" ID="ID_1771930149" CREATED="1744615750756" MODIFIED="1761827753950">
 <attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="72 pt"/>
 <attribute NAME="destinationType" VALUE="child"/>
 <attribute NAME="comboType" VALUE="closed"/>
@@ -586,7 +586,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Template: Deliverable" FOLDED="true" POSITION="top_or_left" ID="ID_766990367" CREATED="1747640958172" MODIFIED="1766403632777">
+<node TEXT="Template: Deliverable" POSITION="top_or_left" ID="ID_766990367" CREATED="1747640958172" MODIFIED="1766403632777">
 <attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="78.75 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="Deliverable"/>
 <node TEXT="Template Settings" POSITION="top_or_left" ID="ID_1475510114" CREATED="1744816573826" MODIFIED="1755929843551">
@@ -599,7 +599,7 @@
 <attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="60.75 pt"/>
 <attribute NAME="destinationType" VALUE="header"/>
 </node>
-<node TEXT="fpcAccountables" FOLDED="true" ID="ID_1219318258" CREATED="1744816596514" MODIFIED="1756022914031">
+<node TEXT="fpcAccountables" ID="ID_1219318258" CREATED="1744816596514" MODIFIED="1756022914031">
 <attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="72.75 pt"/>
 <attribute NAME="comboType" VALUE="closed"/>
 <attribute NAME="multiple" VALUE="true"/>
@@ -622,7 +622,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Template: Risks" FOLDED="true" POSITION="top_or_left" ID="ID_1226545062" CREATED="1761828195187" MODIFIED="1769450743042" VGAP_QUANTITY="3 pt">
+<node TEXT="Template: Risks" POSITION="top_or_left" ID="ID_1226545062" CREATED="1761828195187" MODIFIED="1769450743042" VGAP_QUANTITY="3 pt">
 <attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="48 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="Risks"/>
 <node TEXT="Risk1" ID="ID_1084082000" CREATED="1769450531025" MODIFIED="1769450743040" VSHIFT_QUANTITY="26.25 pt">
@@ -640,7 +640,7 @@
 <attribute NAME="fpcIsActive" VALUE="yes"/>
 </node>
 </node>
-<node TEXT="Template: Risk" FOLDED="true" POSITION="top_or_left" ID="ID_1307352825" CREATED="1747661840658" MODIFIED="1766403645350">
+<node TEXT="Template: Risk" POSITION="top_or_left" ID="ID_1307352825" CREATED="1747661840658" MODIFIED="1766403645350">
 <attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="43.5 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="Risk"/>
 <node TEXT="Template Settings" ID="ID_818394880" CREATED="1747661850769" MODIFIED="1755929843555">
@@ -686,7 +686,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Usecase Templates" FOLDED="true" POSITION="bottom_or_right" ID="ID_1923525478" CREATED="1753974103110" MODIFIED="1755929843556">
+<node TEXT="Usecase Templates" POSITION="bottom_or_right" ID="ID_1923525478" CREATED="1753974103110" MODIFIED="1755929843556">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="ignore"/>
 <richcontent TYPE="NOTE">
@@ -757,9 +757,9 @@
 <attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="94.5 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="UCAF"/>
 </node>
-<node TEXT="Header: Exception Flow" ID="ID_361544298" CREATED="1746114127495" MODIFIED="1747312075417">
+<node TEXT="Header: Exception Flow" ID="ID_361544298" CREATED="1746114127495" MODIFIED="1770031109513">
 <attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="95.25 pt"/>
-<attribute NAME="*fpcBlocktype" VALUE="UCEF"/>
+<attribute NAME="*fpcBlockType" VALUE="UCEF"/>
 <attribute NAME="header" VALUE="Exception Flow"/>
 </node>
 <node TEXT="Header: Postconditions" ID="ID_133656076" CREATED="1746113474769" MODIFIED="1747324285553">
