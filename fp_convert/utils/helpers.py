@@ -1375,7 +1375,7 @@ def get_flag_refs(
     if len(flagdata) and ctx.docinfo["trackchange_section"]:
         for x, y, z, node_id in flagdata:
             frefs.append((NE(fr"\margincomment{{\tiny{{$\Lsh$ \hyperlink{{{y}}}"
-                            fr"{{{ctx.docinfo["trackchange_section"]}"
+                            fr"{{{ctx.docinfo['trackchange_section']}"
                             fr": {z+1}}}}}}}"), f"{y}-{node_id}"))
     return frefs
 

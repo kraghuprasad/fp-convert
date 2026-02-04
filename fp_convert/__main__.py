@@ -84,7 +84,7 @@ folder on the same machine on which fp-convert was executed to generate it.
         supplied here.
         """
         ),
-        default="lmodern",
+        default=None,
     )
     parser.add_argument(
         "-c",
@@ -244,7 +244,7 @@ folder on the same machine on which fp-convert was executed to generate it.
         temp_output = Path(temp_dir.name, f"{pdf_filepath.name}")
 
         try:  # Try building the PDF
-            doc.generate_pdf(temp_output, clean=args.debug, clean_tex=(not args.keep_tex))
+            doc.generate_pdf(temp_output, clean=(not args.debug), clean_tex=(not args.keep_tex))
         except FPConvertException as e:
             print(e)
             sys.exit(1)
