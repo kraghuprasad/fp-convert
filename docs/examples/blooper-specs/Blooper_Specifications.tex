@@ -26,7 +26,7 @@
 \usepackage[framemethod=TikZ]{mdframed}%
 \usepackage[raggedrightboxes]{ragged2e}%
 \usepackage{draftwatermark}%
-\usepackage[defaultfam,tabular,lining,alternates]{montserrat}%
+\usepackage{nunito}%
 \usepackage{color}%
 \usepackage[table]{xcolor}%
 \usepackage{mdframed}%
@@ -795,7 +795,7 @@ A Sample table is given below.%
 First note for Row 1.%
 \item%
 Second note for Row1 which refers to %
-\hyperlink{ID:1580478443}{Login Here: If account is pre...}%
+\hyperlink{ID:1580478443}{Login Here}%
 \xspace%
 .%
 \item%
@@ -952,7 +952,7 @@ Following use{-}cases are applicable for the Blooper App.%
 This package contains usecases pertaining to the administrative activities of the application.%
 \hypertarget{ID:1708326071}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-vdxclhqu/images/ID_1708326071.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-8e_3hd31/images/ID_1708326071.pdf}\end{center}%
 \small%
 \begin{longtable}{|p{0.15\textwidth} p{0.78\textwidth}|}%
 \hline%
@@ -1002,7 +1002,7 @@ This package contains usecases pertaining to the administrative activities of th
 This package defines usecases involved in generation of bloopers.%
 \hypertarget{ID:336619791}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-vdxclhqu/images/ID_336619791.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-8e_3hd31/images/ID_336619791.pdf}\end{center}%
 \hypertarget{ID:1662234785}{}%
 \subsubsection{Blooper Control}%
 
@@ -1010,7 +1010,7 @@ This package defines usecases involved in generation of bloopers.%
 Following are the usecases pertaining to controlling bloopers.%
 \hypertarget{ID:980625400}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-vdxclhqu/images/ID_980625400.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-8e_3hd31/images/ID_980625400.pdf}\end{center}%
 \small%
 \begin{longtable}{|p{0.15\textwidth} p{0.78\textwidth}|}%
 \hline%
@@ -1035,7 +1035,7 @@ Following are the usecases pertaining to controlling bloopers.%
 All report{-}related usecases are collected here.%
 \hypertarget{ID:1950237555}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-vdxclhqu/images/ID_1950237555.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-8e_3hd31/images/ID_1950237555.pdf}\end{center}%
 \hypertarget{ID:441564016}{}%
 \section{Effort Estimations}%
 
@@ -1563,7 +1563,7 @@ It is also possible that some partial data is supplied by ignoring optional deta
 %
 \par%
 On{-}click, it empties all the fields of the form as also explained in %
-\hyperlink{ID:1737270551}{Reset: Reset all fields of th...}%
+\hyperlink{ID:1737270551}{Reset}%
 \xspace%
 .%
 \begin{itemize}%
@@ -1625,9 +1625,190 @@ Clicking on this button takes the user to the login page.%
 \par%
 \end{enumerate}%
 \hypertarget{ID:1181162309}{}%
-\subsubsection{Unordered List}%
+\subsubsection{Classes}%
 
 %
+Following classes are used in this module.%
+\hypertarget{ID:769627122}{}%
+\paragraph{User:}%
+
+%
+The User class acts mostly like a data container, in which all user{-}related attributes are captured. But at the same time it allows certain methods like deactivate() to exist which, as its name suggests, deactivates the underlying user{-}account.%
+\hypertarget{ID:1735010627}{}%
+\subparagraph{Attributes}%
+
+%
+\par%
+Following attributes are defined in the User class:%
+\begin{itemize}%
+\item%
+\hypertarget{ID:1844661890}{}%
+\textbf{username}%
+: %
+A string containing the username which is used to login to the application.%
+\par%
+\item%
+\hypertarget{ID:1299979721}{}%
+\textbf{password\_hash}%
+: %
+A string containing the SHA256 hash of the user{-}password%
+\par%
+\item%
+\hypertarget{ID:1081071464}{}%
+\textbf{email}%
+: %
+A string containing the email address of the user%
+\par%
+\item%
+\hypertarget{ID:1823299193}{}%
+\textbf{status}%
+: %
+A string which has following valid values:%
+\par%
+\begin{itemize}%
+\item%
+\hypertarget{ID:1441197924}{}%
+\textbf{A}%
+: %
+Active%
+\par%
+\item%
+\hypertarget{ID:1105028337}{}%
+\textbf{I}%
+: %
+Inactive%
+\par%
+\item%
+\hypertarget{ID:446076673}{}%
+\textbf{D}%
+: %
+Deleted%
+\par%
+\end{itemize}%
+\end{itemize}%
+\hypertarget{ID:1216735107}{}%
+\subparagraph{Methods}%
+
+%
+\par%
+Details of~~methods defined for this class are given below.%
+\begin{enumerate}%
+\item%
+\hypertarget{ID:534947597}{}%
+get\_current\_blooper\_count()%
+\par%
+\begin{itemize}%
+\item%
+\hypertarget{ID:1579955282}{}%
+\textbf{Type}%
+: %
+Public%
+\par%
+\item%
+\hypertarget{ID:1758420829}{}%
+\textbf{Arguments}%
+: %
+None%
+\par%
+\item%
+\hypertarget{ID:1951265888}{}%
+\textbf{Returns}%
+: %
+A number indicating the current blooper{-}counts of the user%
+\par%
+\item%
+\hypertarget{ID:1891638076}{}%
+\textbf{Raises}%
+: %
+Nothing%
+\par%
+No exceptions are raised in this method.%
+\end{itemize}%
+\item%
+\hypertarget{ID:551725938}{}%
+get\_reportees()%
+\par%
+\begin{itemize}%
+\item%
+\hypertarget{ID:943550741}{}%
+\textbf{Type}%
+: %
+Public%
+\par%
+\item%
+\hypertarget{ID:248920619}{}%
+\textbf{Arguments}%
+: %
+None%
+\par%
+\item%
+\hypertarget{ID:1676819113}{}%
+\textbf{Returns}%
+: %
+It returns a JSON string containing the User objects associated with the reportees of this user. A sample JSON string is given below.%
+\begin{verbatim}[
+  {
+    "username": "Jagmeet Chautala",
+    "email": "jagmeet.chautala@clueless.dev"
+  },
+  {
+    "username": "Madhuri Varma",
+    "email": "madhuri.verma@clueless.dev"
+  }
+]\end{verbatim}%
+\item%
+\hypertarget{ID:236083018}{}%
+\textbf{Raises}%
+%
+\par%
+\begin{itemize}%
+\item%
+\hypertarget{ID:1007325261}{}%
+\textbf{NotFound}%
+: %
+No reportees are found for this user.%
+\par%
+\end{itemize}%
+\end{itemize}%
+\item%
+\hypertarget{ID:838820146}{}%
+deactivate()%
+\par%
+Deactivates the user{-}account by setting its attribute "status" to "D".%
+\begin{itemize}%
+\item%
+\hypertarget{ID:1773996792}{}%
+\textbf{Type}%
+: %
+Public%
+\par%
+\item%
+\hypertarget{ID:1448632089}{}%
+\textbf{Arguments}%
+: %
+None%
+\par%
+\item%
+\hypertarget{ID:804888589}{}%
+\textbf{Returns}%
+: %
+Nothing%
+\par%
+\item%
+\hypertarget{ID:935430280}{}%
+\textbf{Raises}%
+%
+\par%
+\begin{itemize}%
+\item%
+\hypertarget{ID:1171585127}{}%
+\textbf{OperationFailed}%
+: %
+The user{-}record is already inactive.%
+\par%
+\end{itemize}%
+\end{itemize}%
+\end{enumerate}%
 \hypertarget{ID:1722806927}{}%
 \subsection{Subsection 7.2}%
 
@@ -2008,6 +2189,6 @@ Kubernetes too can be used to manage the deployment of these applications.%
 \end{large}%
 
 %
-\tiny{(Document prepared on 02 February, 2026 at 05:20:40 PM IST)}%
+\tiny{(Document prepared on 04 February, 2026 at 02:08:38 PM IST)}%
 \end{center}%
 \end{document}

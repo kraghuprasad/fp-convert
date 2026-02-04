@@ -5,7 +5,7 @@
 </bookmarks>
 <node TEXT="&lt;--Template Repository--&gt;" FOLDED="false" ID="ID_1090958577" CREATED="1409300609620" MODIFIED="1769688102980" VGAP_QUANTITY="3 pt">
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
-<hook NAME="MapStyle" background="#f5f5dcff" zoom="0.82644624">
+<hook NAME="MapStyle" background="#f5f5dcff">
     <properties edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" showTagCategories="false" show_icon_for_attributes="true" auto_compact_layout="true" show_notes_in_map="true" show_tags="UNDER_NODES" show_note_icons="true" followedMapLastTime="1767727458000" fit_to_viewport="false" show_icons="BESIDE_NODES"/>
     <tags category_separator="::"/>
 
@@ -14,7 +14,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-3.75 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-2.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -643,7 +643,7 @@
 <node TEXT="Template: Risk" POSITION="top_or_left" ID="ID_1307352825" CREATED="1747661840658" MODIFIED="1766403645350">
 <attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="43.5 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="Risk"/>
-<node TEXT="Template Settings" ID="ID_818394880" CREATED="1747661850769" MODIFIED="1755929843555">
+<node TEXT="Template Settings" FOLDED="true" ID="ID_818394880" CREATED="1747661850769" MODIFIED="1755929843555">
 <node TEXT="Title" ID="ID_1188594991" CREATED="1747661860139" MODIFIED="1755929843555">
 <attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
 <attribute NAME="destinationType" VALUE="core"/>
@@ -672,7 +672,30 @@
 <attribute NAME="*fpcBlockType" VALUE="DBSchema"/>
 </node>
 </node>
-<node TEXT="UML Templates" FOLDED="true" POSITION="top_or_left" ID="ID_171329611" CREATED="1753974321275" MODIFIED="1766403667818">
+<node TEXT="Specs Templates" ID="ID_1396155186" CREATED="1770115385878" MODIFIED="1770117529346">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Ignore"/>
+<node TEXT="Template: Method" ID="ID_1721941788" CREATED="1770115425348" MODIFIED="1770116008600">
+<attribute_layout NAME_WIDTH="81 pt" VALUE_WIDTH="85.5 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="UnorderedList"/>
+<node TEXT="Type: Public" POSITION="top_or_left" ID="ID_574413296" CREATED="1769778931688" MODIFIED="1770117507369"/>
+<node TEXT="Arguments:" POSITION="top_or_left" ID="ID_977861889" CREATED="1769778845310" MODIFIED="1770117507371">
+<node TEXT="arg1:" ID="ID_920324147" CREATED="1769778853649" MODIFIED="1770117521950"/>
+</node>
+<node TEXT="Returns: Nothing" POSITION="top_or_left" ID="ID_1525129679" CREATED="1769778951380" MODIFIED="1770117507372"/>
+<node TEXT="Raises:" POSITION="top_or_left" ID="ID_354571878" CREATED="1769778960538" MODIFIED="1770117507373">
+<node TEXT="NotFound:" ID="ID_1581119335" CREATED="1769778991332" MODIFIED="1770117521953"/>
+</node>
+<node TEXT="Template Settings" POSITION="top_or_left" ID="ID_1469968066" CREATED="1770115728216" MODIFIED="1770117507374">
+<node TEXT="Title" ID="ID_434744890" CREATED="1770115734563" MODIFIED="1770117521952">
+<attribute_layout NAME_WIDTH="92.25 pt" VALUE_WIDTH="85.5 pt"/>
+<attribute NAME="destinationType" VALUE="core"/>
+<attribute NAME="defaultText" VALUE="method():"/>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="UML Templates" POSITION="top_or_left" ID="ID_171329611" CREATED="1753974321275" MODIFIED="1766403667818">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
 <richcontent TYPE="NOTE">
@@ -700,7 +723,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Template: Usecase Package" ID="ID_1085154687" CREATED="1743571882420" MODIFIED="1755929843556">
+<node TEXT="Template: Usecase Package" FOLDED="true" ID="ID_1085154687" CREATED="1743571882420" MODIFIED="1755929843556">
 <attribute_layout NAME_WIDTH="108 pt" VALUE_WIDTH="78.75 pt"/>
 <attribute NAME="*fpcBlockType" VALUE="UCPackage"/>
 <attribute NAME="*fpcUCPDirection" VALUE="LR"/>

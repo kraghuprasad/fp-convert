@@ -211,50 +211,54 @@ folder on the same machine on which fp-convert was executed to generate it.
     pdf_filepath = Path(output_pdf_path)
 
     temp_dir = tempfile.TemporaryDirectory(prefix="fp-convert-", delete=False)
+    try:
+        doc_kwargs: dict = {
+            "working_dir": temp_dir.name,
+        }
+        if args.font_family:
+            details = args.font_family.split(":")
+            ff = list()
+            ff_opts = list()
+            ff.append(str.strip(details[0]))
+            if len(details) > 1:
+                for item in details[1:]:
+                    ff_opts.append(str.strip(item))
+            ff.append(ff_opts)
+            doc_kwargs["font_family"] = ff
+        else:
+            doc_kwargs["font_family"] = ["lmodern", []]
 
-    doc_kwargs: dict = {
-        "working_dir": temp_dir.name,
-    }
-    if args.font_family:
-        details = args.font_family.split(":")
-        ff = list()
-        ff_opts = list()
-        ff.append(str.strip(details[0]))
-        if len(details) > 1:
-            for item in details[1:]:
-                ff_opts.append(str.strip(item))
-        ff.append(ff_opts)
-        doc_kwargs["font_family"] = ff
-    else:
-        doc_kwargs["font_family"] = ["lmodern", []]
+        if args.config:
+            cnf = create_config_from_file(args.config)
+            doc_kwargs["config"] = cnf
 
-    if args.config:
-        cnf = create_config_from_file(args.config)
-        doc_kwargs["config"] = cnf
+        if args.debug:
+            logger.setLevel(logging.DEBUG)
 
-    if args.debug:
-        logger.setLevel(logging.DEBUG)
+        doc = GeneralDoc(
+            mm_filepath,
+            fetch_builders(builders),
+            logger=logger,
+            **doc_kwargs)
 
-    doc = GeneralDoc(
-        mm_filepath,
-        fetch_builders(builders),
-        logger=logger,
-        **doc_kwargs)
+        temp_output = Path(temp_dir.name, f"{pdf_filepath.name}")
 
-    temp_output = Path(temp_dir.name, f"{pdf_filepath.name}")
+        try:  # Try building the PDF
+            doc.generate_pdf(temp_output, clean=args.debug, clean_tex=(not args.keep_tex))
+        except FPConvertException as e:
+            print(e)
+            sys.exit(1)
 
-    try:  # Try building the PDF
-        doc.generate_pdf(temp_output, clean=args.debug, clean_tex=(not args.keep_tex))
+        shutil.copy2(str(temp_output), str(pdf_filepath))
+        if args.keep_tex:
+            shutil.copy2(
+                Path(temp_dir.name, (pdf_filepath.stem + ".tex")),
+                Path(pdf_filepath.parent, (pdf_filepath.stem + ".tex")),
+            )
     except FPConvertException as e:
         print(e)
         sys.exit(1)
-
-    shutil.copy2(str(temp_output), str(pdf_filepath))
-    if args.keep_tex:
-        shutil.copy2(
-            Path(temp_dir.name, (pdf_filepath.stem + ".tex")),
-            Path(pdf_filepath.parent, (pdf_filepath.stem + ".tex")),
-        )
+    finally:
         if not args.debug:
             temp_dir.cleanup()
         else:

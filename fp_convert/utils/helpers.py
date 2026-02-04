@@ -1152,6 +1152,26 @@ def get_stopframe_block(node: Node, ctx: DocContext):
 
     return ret
 
+def cleanup_for_linkname(text: str) -> str:
+    """
+    Clean up the supplied text to be suitable for use as a link-name.
+    Following processing is done on the supplied text:
+    1. Select everything prior to text matching the regex pattern %ref\d%,
+       if patterns like %ref1%, $%ref2%, ..., %ref% are present.
+    2. Remove everything after colon, if colon is present.
+
+    Parameters
+    ----------
+    text : str
+        The text which is to be cleaned up.
+
+    Returns
+    -------
+    str
+        The cleaned up text.
+    """
+    return re.split(ref_pat, text.split(":")[0])[0]
+
 def expand_macros(text: str, node: Node, ctx: DocContext):
     """
     Function to expand macros to get applicable reference-details. It is
@@ -1183,7 +1203,7 @@ def expand_macros(text: str, node: Node, ctx: DocContext):
             for idx, node_to in enumerate(node.arrowlinks):
                 refs[fr"%ref{idx+1}%"] = Command(
                     "hyperlink",
-                    arguments=(get_label(node_to.id), trunc32(str(node_to))))
+                    arguments=(get_label(node_to.id), cleanup_for_linkname(trunc32(str(node_to)))))
         else:
             raise InvalidRefException(
                 f"Node [{str(node)}(ID: {node.id})] without any "
@@ -1384,7 +1404,7 @@ def get_references(node: Node, back_ref: bool = False) -> list[tuple[NE, str]]:
         ret.append(
             (
                 NE(fr"\margincomment{{\tiny{{{icon} \hyperlink{{{get_label(
-                referrer.id)}}}{{{EL(trunc32(str(referrer)))}}}}}}}"),
+                referrer.id)}}}{{{EL(cleanup_for_linkname(trunc32(str(referrer))))}}}}}}}"),
                 referrer.id
             )
         )
