@@ -192,7 +192,6 @@ folder on the same machine on which fp-convert was executed to generate it.
             r"&lt;--Template Repository--&gt;": string.capwords(str.replace(out_file.stem, "_", " ")),
             r"&lt;--Today--&gt;": date.today().strftime("%d %B %Y"),
         }
-        print(replacements)
         create_file_with_replaced_texts(in_file, out_file, replacements)
         print(
             "Generated mindmap file {}".format(args.init_mindmap)

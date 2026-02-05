@@ -1414,7 +1414,7 @@ def build_ucpackage_block(
         # image part
         img_segment = NE(
             r"\begin{center}"
-            fr"\includegraphics[width={doc.config.uml.usecase_diagram_width}]{{{pdf_file_path}}}"
+            fr"\includegraphics[width={doc.config.uml.usecase_diagram_width}]{{{pdf_file_path.as_posix()}}}"
             r"\end{center}"
         )
         ret.append(img_segment)

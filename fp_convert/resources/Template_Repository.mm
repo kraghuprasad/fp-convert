@@ -471,6 +471,26 @@
 </node>
 </node>
 </node>
+<node TEXT="Template: Text Column" ID="ID_605681871" CREATED="1770205883622" MODIFIED="1770206527748" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="104.25 pt" VALUE_WIDTH="85.5 pt"/>
+<attribute NAME="*fpcColumnType" VALUE="Text"/>
+<attribute NAME="destinationType" VALUE="Child"/>
+<attribute NAME="defaultText" VALUE="Text-Column"/>
+</node>
+<node TEXT="Template: Number Column" ID="ID_1062803646" CREATED="1770205883622" MODIFIED="1770206533211" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="104.25 pt" VALUE_WIDTH="85.5 pt"/>
+<attribute NAME="*fpcColumnType" VALUE="Number"/>
+<attribute NAME="*fpcSumIt" VALUE="True"/>
+<attribute NAME="destinationType" VALUE="Child"/>
+<attribute NAME="defaultText" VALUE="Text-Column"/>
+</node>
+<node TEXT="Template: Decimal Column" ID="ID_757941202" CREATED="1770205883622" MODIFIED="1770206541529" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="104.25 pt" VALUE_WIDTH="85.5 pt"/>
+<attribute NAME="*fpcColumnType" VALUE="Decimal"/>
+<attribute NAME="*fpcSumIt" VALUE="True"/>
+<attribute NAME="destinationType" VALUE="Child"/>
+<attribute NAME="defaultText" VALUE="Text-Column"/>
+</node>
 </node>
 <node TEXT="List Templates" POSITION="top_or_left" ID="ID_1571657878" CREATED="1753974178630" MODIFIED="1766403681016">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>

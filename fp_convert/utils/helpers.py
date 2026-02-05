@@ -788,7 +788,7 @@ def build_latex_figure_object(
             rf"""
 \begin{{center}}%
 \tcbox{{\includegraphics[%
-width={image_width}]{{{image_path}}}}}%
+width={image_width}]{{{image_path.as_posix()}}}}}%
 \end{{center}}%"""
         )
     )  # Build a boxed figure
@@ -1153,7 +1153,7 @@ def get_stopframe_block(node: Node, ctx: DocContext):
     return ret
 
 def cleanup_for_linkname(text: str) -> str:
-    """
+    r"""
     Clean up the supplied text to be suitable for use as a link-name.
     Following processing is done on the supplied text:
     1. Select everything prior to text matching the regex pattern %ref\d%,
@@ -1400,7 +1400,7 @@ def get_references(node: Node, back_ref: bool = False) -> list[tuple[NE, str]]:
     ret = list()
     arrows = node.arrowlinked if back_ref else node.arrowlinks
     for referrer in arrows:
-        icon = "$\Lsh$" if back_ref else "$\Rsh$"
+        icon = r"$\Lsh$" if back_ref else r"$\Rsh$"
         ret.append(
             (
                 NE(fr"\margincomment{{\tiny{{{icon} \hyperlink{{{get_label(

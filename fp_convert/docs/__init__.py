@@ -519,7 +519,7 @@ bottom={self.config.main.bottom_margin},
                 rf"""
 \includegraphics[%
 height={self.config.main.l_header_image_height}]%
-{{{self.get_absolute_file_path(self.ctx.docinfo['l_header_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['l_header_image']).as_posix()}}}"""
             )
         elif self.ctx.docinfo.get("l_header_text", None):
             lheader = NE(rf"{self.ctx.docinfo['l_header_text']}")
@@ -532,7 +532,7 @@ height={self.config.main.l_header_image_height}]%
                 rf"""
 \includegraphics[%
 height={self.config.main.c_header_image_height}]%
-{{{self.get_absolute_file_path(self.ctx.docinfo['c_header_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['c_header_image']).as_posix()}}}"""
             )
         elif self.ctx.docinfo.get("c_header_text", None):
             cheader = NE(rf"{self.ctx.docinfo['c_header_text']}")
@@ -545,7 +545,7 @@ height={self.config.main.c_header_image_height}]%
                 rf"""
 \includegraphics[%
 height={self.config.main.r_header_image_height}]%
-{{{self.get_absolute_file_path(self.ctx.docinfo['r_header_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['r_header_image']).as_posix()}}}"""
             )
         elif self.ctx.docinfo.get("r_header_text", None):
             rheader = NE(rf"{self.ctx.docinfo['r_header_text']}")
@@ -558,7 +558,7 @@ height={self.config.main.r_header_image_height}]%
                 rf"""
 \includegraphics[%
 height={self.config.main.l_footer_image_height}]%
-{{{self.get_absolute_file_path(self.ctx.docinfo['l_footer_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['l_footer_image']).as_posix()}}}"""
             )
         elif self.ctx.docinfo.get("l_footer_text", None):
             if self.ctx.docinfo['l_footer_text'] != "%%":
@@ -576,7 +576,7 @@ height={self.config.main.l_footer_image_height}]%
                 rf"""
 \includegraphics[%
 height={self.config.main.c_footer_image_height}]%
-{{{self.get_absolute_file_path(self.ctx.docinfo['c_footer_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['c_footer_image']).as_posix()}}}"""
             )
         elif self.ctx.docinfo.get("c_footer_text", None):
             if self.ctx.docinfo['c_footer_text'] != "%%":
@@ -594,7 +594,7 @@ height={self.config.main.c_footer_image_height}]%
                 rf"""
 \includegraphics[%
 height={self.config.main.r_footer_image_height}]%
-{{{self.get_absolute_file_path(self.ctx.docinfo['r_footer_image'])}}}"""
+{{{self.get_absolute_file_path(self.ctx.docinfo['r_footer_image']).as_posix()}}}"""
             )
         elif self.ctx.docinfo.get("r_footer_text", None):
             if self.ctx.docinfo['r_footer_text'] != "%%":
@@ -835,7 +835,7 @@ height={self.config.main.r_footer_image_height}]%
                 NE(fr"""
 \includegraphics[%
 height={self.config.main.tp_top_logo_height}]%
-{{{self.get_absolute_file_path(self.ctx.docinfo['tp_top_logo'])}}}\\
+{{{self.get_absolute_file_path(self.ctx.docinfo['tp_top_logo']).as_posix()}}}\\
 \vspace*{{{self.config.main.tp_top_logo_vspace}}}"""))
 
         doc.append(
@@ -854,7 +854,7 @@ height={self.config.main.tp_top_logo_height}]%
 \vspace*{{{self.config.main.tp_bottom_logo_vspace}}}
 \includegraphics[%
 height={self.config.main.tp_bottom_logo_height}]%
-{{{self.get_absolute_file_path(self.ctx.docinfo['tp_bottom_logo'])}}}\\"""))
+{{{self.get_absolute_file_path(self.ctx.docinfo['tp_bottom_logo']).as_posix()}}}\\"""))
 
         doc.append(
             NE(r"""
