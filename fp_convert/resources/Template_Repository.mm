@@ -14,7 +14,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-2.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-1.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -170,7 +170,7 @@
   </body>
 </html></richcontent>
 </node>
-<node TEXT="Templates" FOLDED="true" POSITION="top_or_left" ID="ID_145552192" CREATED="1769687790131" MODIFIED="1769688102977" HGAP_QUANTITY="32 pt" VSHIFT_QUANTITY="-122.25 pt">
+<node TEXT="Templates" FOLDED="true" POSITION="top_or_left" ID="ID_145552192" CREATED="1769687790131" MODIFIED="1770372152983" HGAP_QUANTITY="32 pt" VSHIFT_QUANTITY="-114 pt" VGAP_QUANTITY="3 pt">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
 <richcontent TYPE="NOTE">
@@ -184,7 +184,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="List: People" POSITION="top_or_left" ID="ID_1336652352" CREATED="1743603447217" MODIFIED="1769687729141">
+<node TEXT="List: People" FOLDED="true" POSITION="top_or_left" ID="ID_1336652352" CREATED="1743603447217" MODIFIED="1770372142325">
 <icon BUILTIN="broken-line"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -308,7 +308,7 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="List: Risk Types" POSITION="top_or_left" ID="ID_1862848855" CREATED="1747662701353" MODIFIED="1769687781121">
+<node TEXT="List: Risk Types" FOLDED="true" POSITION="top_or_left" ID="ID_1862848855" CREATED="1747662701353" MODIFIED="1770372142326">
 <icon BUILTIN="broken-line"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -360,7 +360,7 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="MacroGroup: Custom Macros" POSITION="top_or_left" ID="ID_1461784750" CREATED="1746016823611" MODIFIED="1766403735583" VSHIFT_QUANTITY="3.75 pt">
+<node TEXT="MacroGroup: Custom Macros" FOLDED="true" POSITION="top_or_left" ID="ID_1461784750" CREATED="1746016823611" MODIFIED="1770372142327" VSHIFT_QUANTITY="3.75 pt">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
 <node TEXT="{{today}}" ID="ID_1199160513" CREATED="1746016958356" MODIFIED="1755929843561"><richcontent TYPE="NOTE">
@@ -376,7 +376,7 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="Common Templates" POSITION="top_or_left" ID="ID_1495832884" CREATED="1743571867496" MODIFIED="1766403694189"><richcontent TYPE="NOTE">
+<node TEXT="Common Templates" FOLDED="true" POSITION="top_or_left" ID="ID_1495832884" CREATED="1743571867496" MODIFIED="1770372142324"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -492,7 +492,7 @@
 <attribute NAME="defaultText" VALUE="Text-Column"/>
 </node>
 </node>
-<node TEXT="List Templates" POSITION="top_or_left" ID="ID_1571657878" CREATED="1753974178630" MODIFIED="1766403681016">
+<node TEXT="List Templates" FOLDED="true" POSITION="top_or_left" ID="ID_1571657878" CREATED="1753974178630" MODIFIED="1770372142328">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
 <richcontent TYPE="NOTE">
@@ -517,7 +517,7 @@
 <attribute NAME="*fpcNotesPosition" VALUE="north"/>
 </node>
 </node>
-<node TEXT="Project Templates" POSITION="top_or_left" ID="ID_649403774" CREATED="1743571867496" MODIFIED="1767940502548"><richcontent TYPE="NOTE">
+<node TEXT="Project Templates" FOLDED="true" POSITION="top_or_left" ID="ID_649403774" CREATED="1743571867496" MODIFIED="1770372142328"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -692,7 +692,7 @@
 <attribute NAME="*fpcBlockType" VALUE="DBSchema"/>
 </node>
 </node>
-<node TEXT="Specs Templates" ID="ID_1396155186" CREATED="1770115385878" MODIFIED="1770117529346">
+<node TEXT="Specs Templates" FOLDED="true" ID="ID_1396155186" CREATED="1770115385878" MODIFIED="1770372142329">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
 <node TEXT="Template: Method" ID="ID_1721941788" CREATED="1770115425348" MODIFIED="1770116008600">
@@ -715,7 +715,7 @@
 </node>
 </node>
 </node>
-<node TEXT="UML Templates" POSITION="top_or_left" ID="ID_171329611" CREATED="1753974321275" MODIFIED="1766403667818">
+<node TEXT="UML Templates" FOLDED="true" POSITION="top_or_left" ID="ID_171329611" CREATED="1753974321275" MODIFIED="1770372142330">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
 <richcontent TYPE="NOTE">

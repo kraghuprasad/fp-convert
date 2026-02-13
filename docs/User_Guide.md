@@ -137,21 +137,22 @@ table:
   line_color: 'cornflowerblue'  # Color of lines shown in default table
   rowcolor_1: 'babyblueeyes!30' # Row color 1 of alternate row colors for default table
   rowcolor_2: 'babyblueeyes!10' # Row color 2 of alternate row colors for default table
-  rowcolor_3: 'lightapricot!50' # Row color 5 is for rendering the row containing deliverable-name
-  rowcolor_4: 'lightapricot!30' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
-  rowcolor_5: 'lightapricot!10' # Row colors 3 and 4 belong to rendering of rows in deliverable-table
+  rowcolor_3: 'lightapricot!50' # Row color 3 is for rendering the row containing deliverable-name
+  rowcolor_4: 'lightapricot!30' # Row color 4 is to render the rows in deliverable-table
+  rowcolor_5: 'lightapricot!10' # Row color 5 is to render the rows in deliverable-table
 
 # Parameters specific to database schema blocks
 dbschema:
-  tbl1_body_line_color: 'gray!30' # Body line color for dbschema table type 1
-  tbl1_header_line_color: 'fpcblue2' # Header line color for dbschema table type 1
-  tbl1_header_row_color: 'spirodiscoball!20!white' # Header row color for dbschema table type 1
-  tbl1_header_text_color: 'darkblue' # Header text color for dbschema table type 1
-  tbl2_header_line_color: 'fpcblue2' # Header line color for dbschema table type 2
-  tbl2_header_row_color: 'fpcblue1' # Header row color for dbschema table type 2
-  tbl2_header_text_color: 'darkblue' # Header text color for dbschema table type 2
-  tbl2_rowcolor_1: 'white' # Row color 1 of alternate row colors for dbschema table type 2
-  tbl2_rowcolor_2: 'tealblue!7!white' # Row color 2 of alternate row colors for dbschema table type 2
+  table_name_text_color: 'darkblue'  # Color of table-schema header-text(table-name)
+  tbl_header_line_color: 'fpcblue2'  # Header line color for dbschema-table
+  tbl_header_row_color: 'fpcblue1'   # Header row color for dbschema-table
+  tbl_header_text_color: 'darkblue'  # Header text color for dbschema-table
+  tbl_rowcolor_1: 'white'            # Odd row background color of dbschema-table
+  tbl_rowcolor_2: 'tealblue!7!white' # Even row background color of dbschema table
+  bullet_label_separation: '0.3em'   # Space between bullet and text in note-list
+  additional_field_types: # These column-types would be accepted in addition to default ones
+    - 'geometry'
+    - 'geography'
 
 # UML diagram specific parameters
 uml:

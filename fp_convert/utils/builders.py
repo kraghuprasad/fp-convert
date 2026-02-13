@@ -33,7 +33,7 @@ from fp_convert.utils.decorators import (
 from fp_convert.docs import GeneralDoc
 from fp_convert.config import Config
 from fp_convert.errors import (
-    FileConversionException, InvalidNodeException, InvalidRefException, UnsupportedFileException
+    FileConversionException, InvalidFPCBlockTypeException, InvalidNodeException, InvalidParameterException, InvalidRefException, UnsupportedFileException
 )
 from fp_convert.utils.helpers import (
     build_latex_figure_object,
@@ -308,6 +308,92 @@ def build_risk_block(
     doc.ctx.flush_margin_comments(get_references(node, back_ref=True), ret)
     return ret
 
+def build_block_of_type(
+        block_type: str,
+        node: Node,
+        doc: GeneralDoc,
+        depth: int,
+        builders: Dict[str, Callable]) -> List[str|LatexObject|NE]:
+    """
+    Function to call the corresponding builder function for the requested
+    block-type for the supplied node.
+
+    Parameters
+    ----------
+    block_type : str
+        The type of block to be built.
+    node : Node
+        The node for which the content-block is to be built.
+    doc : GeneralDoc
+        The document being built
+    depth : int
+        Depth of the node supplied in the mindmap
+    builders: Dict[str, Callable]
+        A dictionary of builders to be used for building the document
+        components. The keys are the node types and values are the
+        corresponding builder functions
+    Returns
+    -------
+    list[str|LatexObject|NE]
+        A list of strings, LaTeX objects, or NE objects representing the
+        content of block.
+    """
+    try:
+        return builders[block_type](node, doc, depth, builders)
+    except KeyError:
+        raise InvalidFPCBlockTypeException(
+            f"Invalid block-type '{block_type}' was supplied to build "
+            f"the content-block for the node {str(node)}(ID: {node.id})."
+        )
+
+def build_block_from_node(
+        node: Node,
+        default_type: str,
+        doc: GeneralDoc,
+        depth: int,
+        builders: Dict[str, Callable]
+    ) -> List[str|LatexObject|NE]:
+    """
+    Function to check the build-type requested, and raise error if incorrect
+    type were requested.
+    
+    Parameters
+    ----------
+    node : Node
+        The node for which the content-block is to be built.
+    default_type : str
+        The default type of block to be built, if node is not annotated with
+        required block-type.
+    doc : GeneralDoc
+        The document being built
+    depth : int
+        Depth of the node supplied in the mindmap
+    builders: Dict[str, Callable]
+        A dictionary of builders to be used for building the document
+        components. The keys are the node types and values are the
+        corresponding builder functions
+    Returns
+    -------
+    list[str|LatexObject|NE]
+        A list of strings, LaTeX objects, or NE objects representing the
+        content of block.
+    Raises
+    ------
+    InvalidFPCBlockTypeException
+        If the requested block-type is not supported by fp-convert.
+    """
+    try:
+        return builders[get_fpc_block_type(node, default_type)](
+            node, doc, depth, builders)
+    except KeyError:
+        raise InvalidFPCBlockTypeException(
+            f"While trying to render the content of the node {str(node)}"
+            f"(ID: {node.id}), it was found that the value used/requested "
+            "for its attribute fpcBlockType was "
+            f"'{get_fpc_block_type(node, default_type)}'. It is not a "
+            "block-type supported by fp-convert."
+        )
+
 @track_processed_nodes
 @limit_depth
 def build_deliverable_block(
@@ -453,8 +539,10 @@ def build_deliverable_block(
                 continue
             idx += 1
             child_content.append(fr"{idx}. ")
+            # child_content.extend(
+            #     builders[get_fpc_block_type(child, "plaintext")](child, doc, depth, builders))
             child_content.extend(
-                builders[get_fpc_block_type(child, "plaintext")](child, doc, depth, builders))
+                build_block_from_node(child, "plaintext", doc, depth, builders))
             child_content.append(NE(r"\\"))
         child_content.append(Command("end", "tabularx"))
 
@@ -595,33 +683,64 @@ def build_dbschema_block(
 
     if ht := get_hypertarget(node, doc.ctx):
         ret.append(ht)
-    
- 
+
+    if list_exists_in_parent_path(node.parent, builders):
+        node_text_blocks = get_node_text_blocks(node, doc.config, doc.ctx)
+    else:
+        fblocks = get_flag_blocks(node, doc.config, doc.ctx)
+        ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
+        frefs = get_flag_refs(node, doc.config, doc.ctx)
+        node_text_blocks = list()
+        node_text_blocks.append(doc.sections[depth](NE(ftext + EL(str(node))), label=False))
+        if len(frefs):
+            doc.ctx.flush_margin_comments(frefs, node_text_blocks)
+
+    # Render node and notes' texts of current node
+    ret.extend(node_text_blocks)
+    ret.append(Command("par"))
+    ret.extend(get_note_text_blocks(node, doc.config, doc.ctx))
+
+    if not node.children:  # No table-specs found in current node
+        return ret
+
     dbtables = list()
-    if node.children:
-        for table in node.children:
-            dbtable = DBTable(str(table))
-            dbtable.label = get_label(table.id)  # LaTeX label for table
-            dbtable.node = table  # To identify and build cross-references
+    for table in node.children:
+        fblocks = get_flag_blocks(table, doc.config, doc.ctx)
+        ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
+        frefs = get_flag_refs(table, doc.config, doc.ctx)
+        dbtable = DBTable(str(table), frefs=frefs, ftext=ftext)
+        dbtable.label = get_label(table.id)  # LaTeX label for table
+        dbtable.node = table  # To identify and build cross-references
 
-            if table.notes:
-                dbtable.notes = retrieve_note_lines(str(table.notes))
-            if table.children:
-                for field in table.children:
+        if table.notes:
+            dbtable.notes = retrieve_note_lines(str(table.notes))
+        if table.children:
+            for field in table.children:
+                fblocks = get_flag_blocks(field, doc.config, doc.ctx)
+                ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
+                frefs = get_flag_refs(field, doc.config, doc.ctx)
+                try:
                     tbfield = DBTableField(
-                        mangled_info=str.strip(str(field))
+                        mangled_info=str.strip(str(field)),
+                        node=field,
+                        frefs=frefs,
+                        ftext=ftext
                     )
+                except InvalidParameterException as e:
+                    raise InvalidParameterException(
+                        f"Invalid parameter in node '{str(field)}(ID: {field.id})': {str(e)}"
+                    ) from e
 
-                    tbfield.node = field  # To build cross-references
-                    if field.notes:
-                        tbfield.notes = retrieve_note_lines(field.notes)
-                    dbtable.append_field(tbfield)
-            dbtables.append(dbtable)
+                # tbfield.node = field  # To build cross-references
+                if field.notes:
+                    tbfield.notes = retrieve_note_lines(field.notes)
+                dbtable.append_field(tbfield)
+        dbtables.append(dbtable)
 
     if not dbtables:
         return ret
-
-    longtab = LongTable(r"p{0.6\textwidth} p{0.34\textwidth}", pos="t")
+   
+    ret.append(Command("begin", "enumerate"))
 
     # Ordering of attributes of fields in displayed table
     fields = OrderedDict()
@@ -632,35 +751,32 @@ def build_dbschema_block(
     fields["default"] = "default"
 
     # Build blocks for tables
-    for idx, dbtable in enumerate(dbtables):
-        longtab.add_row(
-            [NE(fr"\textbf{{\textcolor{{{doc.ctx.regcol(doc.config.dbschema.tbl1_header_text_color)}}}{{{idx+1}. {EL(dbtable.name)}}}}}"), ""],
-            color=doc.ctx.regcol(doc.config.dbschema.tbl1_header_row_color))
-        longtab.append(NE(r"\rowcolor{white}"))
-
-        mp1 = MiniPage(width=NE(r"\linewidth"), pos="t")
+    for dbtable in dbtables:
+        mp1 = MiniPage(width=NE(r"0.65\linewidth"), pos="t")
+        mp1.append(NE(r"\reversemarginpar"))
         mp1.append(NE(r"\small"))
-        mp1.append(NE(fr'\hypertarget{{{dbtable.label}}}{{}}'))
-        mp1.append(NE(fr"\rowcolors{{2}}{{{doc.ctx.regcol(doc.config.dbschema.tbl2_rowcolor_1)}}}"))
-        mp1.append(NE(fr"{{{doc.ctx.regcol(doc.config.dbschema.tbl2_rowcolor_2)}}}"))
+        # mp1.append(NE(fr'\hypertarget{{{dbtable.label}}}{{}}'))
+        mp1.append(NE(fr'\hypertarget{{{get_label(dbtable.node.id)}}}{{}}'))
+        mp1.append(NE(fr"\rowcolors{{2}}{{{doc.ctx.regcol(doc.config.dbschema.tbl_rowcolor_1)}}}"))
+        mp1.append(NE(fr"{{{doc.ctx.regcol(doc.config.dbschema.tbl_rowcolor_2)}}}"))
         tab_mp1 = Tabularx(NE(r">{\raggedright\arraybackslash}l l X X l"), width_argument=NE(r"\linewidth"), pos="t")
-        tab_mp1.add_hline(color=doc.ctx.regcol(doc.config.dbschema.tbl2_header_line_color))
+        tab_mp1.add_hline(color=doc.ctx.regcol(doc.config.dbschema.tbl_header_line_color))
 
         header_text = list()
         for f in fields.keys():
             header_text.append(
                 NE(
-                    fr"\textcolor{{{doc.ctx.regcol(doc.config.dbschema.tbl2_header_text_color)}}}{{{EL(italic(fields[f]))}}}"
+                    fr"\textcolor{{{doc.ctx.regcol(doc.config.dbschema.tbl_header_text_color)}}}{{{EL(italic(fields[f]))}}}"
                 )
             )
 
         tab_mp1.add_row(
             header_text,
             color=doc.ctx.regcol(
-                doc.config.dbschema.tbl2_header_row_color
+                doc.config.dbschema.tbl_header_row_color
             )
         )
-        tab_mp1.add_hline(color=doc.ctx.regcol(doc.config.dbschema.tbl2_header_line_color))
+        tab_mp1.add_hline(color=doc.ctx.regcol(doc.config.dbschema.tbl_header_line_color))
 
         # Build blocks for fields
         field_notes = OrderedDict()
@@ -688,52 +804,91 @@ def build_dbschema_block(
                         else:
                             fk_label = get_label(tbfield.node.arrowlinks[0].id)
                             cell_content = fr"\mbox{{\makecell[l]{{{cell_content} \\ \tiny{{(\faKey \xspace \hyperlink{{{fk_label}}}{{{EL(tbfield.node.arrowlinks[0].parent)}}}}})}}}}\hypertarget{{{get_label(tbfield.node.id)}}}"
-                    row_text.append(NE(cell_content))
+                    if tbfield.ftext:
+                        row_text.append(NE(fr"{{\tiny{{{tbfield.ftext}}}}}\xspace{cell_content}"))
+                    else:
+                        row_text.append(NE(cell_content))
                 else:
                     val = getattr(tbfield, f)
                     row_text.append(val if val else " ")
             tab_mp1.add_row(row_text)
 
-        tab_mp1.add_hline(color=doc.ctx.regcol(doc.config.dbschema.tbl2_header_line_color))
+        tab_mp1.add_hline(color=doc.ctx.regcol(doc.config.dbschema.tbl_header_line_color))
         mp1.append(tab_mp1)
+        mp1.append(NE(r"\reversemarginpar"))
+        # for tbfield in dbtable:
+        #     doc.ctx.flush_margin_comments(tbfield.frefs, mp1)
 
-        mp2 = MiniPage(width=NE(r"\linewidth"), pos="t")
-        mp2.append(NE(r"\vspace{0.08cm}"))
+        mp2 = MiniPage(width=NE(r"0.3\linewidth"), pos="t")
+        mp2.append(NE(r"\vspace{0.75em}"))
+        mp2.append(NE(r"\vspace{0pt}%"))
         mp2.append(NE(r"\tinytosmall"))
 
         if field_notes:
-            itmz = DBItemize(options=("nolistsep", "noitemsep"))
+            itmz = DBItemize(options=(
+                # Requires LaTeX enumitem package
+                NE(f"labelsep={doc.config.dbschema.bullet_label_separation}"),
+                "nolistsep",
+                "noitemsep")
+            )
             for field_name in field_notes.keys():
                 if len(field_notes[field_name]) > 1:
                     itmz.add_item(NE(verbatim(field_name+": ")))
-                    inner_itmz = Itemize(options=("nolistsep", "noitemsep"))
+                    inner_itmz = Itemize(options=(
+                        NE(f"labelsep={doc.config.dbschema.bullet_label_separation}"),
+                        NE("leftmargin=*"),
+                        "nolistsep",
+                        "noitemsep")
+                    )
+                    # inner_itmz = Itemize(options=(NE("leftmargin=*")))
                     for line in field_notes[field_name]:
                         inner_itmz.add_item(EL(line))
+                    itmz.append(NE(r"\item[]"))
                     itmz.append(inner_itmz)
                 else:
                     itmz.add_item(
-                        NE(fr"""
-{verbatim(field_name)}: {EL(field_notes[field_name][0])}
-"""))
+                        NE(
+                            fr"{verbatim(field_name)}: {EL(field_notes[field_name][0])}"
+                        )
+                    )
             mp2.append(itmz)
 
-        longtab.add_row(mp1, mp2)
-        longtab.append(NE(r"\rowcolor{white}"))
+        ret.append(Command(
+            "item", 
+            NE(fr"{dbtable.ftext}\xspace\textbf{{\textcolor{{{doc.ctx.regcol(doc.config.dbschema.table_name_text_color)}}}{{{EL(dbtable.name)}}}}}")
+        ))
+        ret.append(NE(r"\par\nointerlineskip\nopagebreak"))
 
-        mp3 = MiniPage(width=NE(r"\linewidth"), pos="t")
-        mp3.append(NE(r"\tinytosmall"))
-        if dbtable.notes:
-            itmz = Itemize(options=["nolistsep", "noitemsep"])
+        ret.append(mp1)  # Table's field-specifications
+        doc.ctx.flush_margin_comments(dbtable.frefs, ret)
+        ret.append(Command("hspace", "0.75em"))
+        ret.append(mp2)  # Fields' notes
+
+        # Render all trackchanges related backreferences for this table
+        for tbfield in dbtable:
+            doc.ctx.flush_margin_comments(tbfield.frefs, ret)
+
+        # Render table-level notes, if available
+        if len(dbtable.notes) > 0:
+            mp3 = MiniPage(width=NE(r"\linewidth"), pos="t")
+            mp3.append(NE(r"\tinytosmall"))
+            mp3.append(Command("vspace", "1em"))
+            itmz = Itemize(options=(  # Requires LaTeX package enumitem for the following
+                    NE(f"labelsep={doc.config.dbschema.bullet_label_separation}"),
+                    "nolistsep",
+                    "noitemsep"
+                )
+            )
             for note in dbtable.notes:
-                itmz.add_item(EL(note))
+                if nt := str.strip(note):
+                    itmz.add_item(EL(nt))
             mp3.append(itmz)
-            mp3.append(NE(r"\vspace{.2cm}"))
+            # mp3.append(NE(r"\vspace{1em}"))
+            ret.append(Command("newline"))
+            ret.append(mp3)
 
-        longtab.append(NE(r"\multicolumn{2}{l}{"))
-        longtab.append(mp3)
-        longtab.append(NE(r"}\\"))
-    ret.append(NE(r"\reversemarginpar"))
-    ret.append(longtab)
+    ret.append(Command("end", "enumerate"))
+    # ret.append(NE(r"\normalmarginpar"))
     return ret
 
 @track_processed_nodes
@@ -799,7 +954,8 @@ def build_plaintext_block(
                 block_type = get_fpc_block_type(child, doc.ctx.list_type_stack[-1])
             else:
                 block_type = "plaintext"
-            child_content = builders[block_type](child, doc, depth, builders)
+            # child_content = builders[block_type](child, doc, depth, builders)
+            child_content = build_block_of_type(block_type, child, doc, depth, builders)
             child_list.extend(child_content)
 
         if is_in_list_tree:
@@ -899,10 +1055,7 @@ def _construct_list_of_type(
         note_position = "n"
 
     # Build current node's note-blocks.
-    if is_stopframe_type(node):
-        note_text_blocks = get_stopframe_block(node, doc.ctx)
-    else:
-        note_text_blocks = get_note_text_blocks(node, doc.config, doc.ctx)
+    note_text_blocks = get_note_text_blocks(node, doc.config, doc.ctx)
 
     # Now build children-blocks, if any, using suitable builder functions and
     # create a unified list of all childred and grandchildren.
@@ -921,8 +1074,11 @@ def _construct_list_of_type(
                 continue
             block_type = get_fpc_block_type(child, "plaintext")
             child_content = [Command("item"), ]
+            # child_content.extend(
+            #     builders[block_type](child, doc, depth, builders))
             child_content.extend(
-                builders[block_type](child, doc, depth, builders))
+                build_block_of_type(block_type, child, doc, depth, builders)
+            )
             child_blocks.extend(child_content)
         if child_blocks:
             children_block.append(begin_cmd)
@@ -942,10 +1098,8 @@ def _construct_list_of_type(
 
     if note_position == "s":
         ret.extend(children_block)
-        ret.append(Command("par"))
         ret.extend(note_text_blocks)
     else:  # it is "n"
-        ret.append(Command("par"))
         ret.extend(note_text_blocks)
         ret.extend(children_block)
 
@@ -1278,8 +1432,11 @@ def build_verbatimnotes_block(
                 continue
             block_type = get_fpc_block_type(child, "plaintext")
             child_content = [Command("item"), ]
+            # child_content.extend(
+            #     builders[block_type](child, doc, depth, builders))
             child_content.extend(
-                builders[block_type](child, doc, depth, builders))
+                build_block_of_type(block_type, child, doc, depth, builders)
+            )
             child_blocks.extend(child_content)
         if child_blocks:
             children_block.append(begin_cmd)
@@ -1494,7 +1651,8 @@ def build_default_block(
     if node.children:
         for child in node.children:
             block_type = get_fpc_block_type(child, "default")
-            child_content = builders[block_type](child, doc, depth+1, builders)
+            # child_content = builders[block_type](child, doc, depth+1, builders)
+            child_content = build_block_of_type(block_type, child, doc, depth+1, builders)
             ret.extend(child_content)
 
     return ret
@@ -1612,8 +1770,13 @@ def build_tabular_block(
             ret.extend(line)
             ret.append(Command("par"))
 
+        ret.append(Command(
+                "vspace",
+                (NE(r"0.5\baselineskip"), )
+            )
+        )
+
     # Append tabular object
-    # ret.append(Command("begin", arguments=("center", )))
     ret.append(tab)
     exit_floating_environment(doc, ret)
 
@@ -1622,7 +1785,6 @@ def build_tabular_block(
         ret.append(NE(r"{\footnotesize"))
         ret.append(build_row_notes(tbl_data["notes"])) # List of note-texts
         ret.append(NE(r"}"))
-    # ret.append(Command("end", arguments=("center", )))
 
     if notes_position == "s":
         for line in section_note_lines:

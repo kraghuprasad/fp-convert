@@ -11,6 +11,7 @@
 \usepackage[most]{tcolorbox}%
 \usepackage[section]{placeins}%
 \usepackage{titlesec}%
+\usepackage{parskip}%
 \usepackage{ulem}%
 \usepackage{xspace}%
 \usepackage{fontawesome5}%
@@ -119,6 +120,7 @@ bottom=1.5in,
 {babyblueeyes!30}%
 {babyblueeyes!10}%
 %
+\newcommand{\coloredhrule}[1]{\noalign{\color{#1}\hrule height \lightrulewidth}}%
 \renewcommand{\arraystretch}{1.5}%%
 \newlist{dbitemize}{itemize}{3}%
 \setlist[dbitemize,1]{label=\textbullet,leftmargin=0.2cm}%
@@ -290,7 +292,6 @@ This section provides details of the Blooper App.%
 \subsubsection{Broad Requirements}%
 
 %
-\par%
 Following broad requirements are defined for this project.%
 \begin{enumerate}%
 \item%
@@ -325,7 +326,6 @@ Screen mock{-}ups (wireframes) of Blooper App's frontend is to be prepared.%
 \item%
 \hypertarget{ID:536903490}{}%
 Following modules of backend of Blooper App are needed in the first phase of the project.%
-\par%
 \begin{itemize}%
 \item%
 \hypertarget{ID:1760718219}{}%
@@ -343,7 +343,6 @@ This module should allocate a default role %
 \item%
 \hypertarget{ID:297064582}{}%
 UML diagrams of the Blooper App. Primarily three types of diagrams are to be prepared.%
-\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:121948874}{}%
@@ -363,7 +362,6 @@ State Diagrams%
 \subsubsection{Risks}%
 
 %
-\par%
 Following are the major risks identified so far in the project.%
 \begin{enumerate}%
 \item%
@@ -470,7 +468,6 @@ Smart Ticketing System is an AI driven ticketing application which can create a 
 \subsubsection{Broad Requirements of STS}%
 
 %
-\par%
 Following broad requirements are defined for the Smart Ticketing System.%
 \begin{enumerate}%
 \item%
@@ -490,18 +487,16 @@ Based on the BRD, a document should be prepared and submitted to the client cont
 \textbf{Test Schedule}%
 %
 \par%
-\begin{mdframed}[style=StopFrame]%
+\begin{mdframed}[style=StopFrame,skipabove=\baselineskip]%
 \small{The schedule may get affected if all required information are not made available on time.}%
 \end{mdframed}%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:1970805510}{}%
 Unit Test Schedule%
-\par%
 \item%
 \hypertarget{ID:1689608409}{}%
 Functional Test Schedule%
-\par%
 \end{enumerate}%
 \item%
 \hypertarget{ID:1548505465}{}%
@@ -514,10 +509,11 @@ As delivery in phase 1, user{-}management module should be implemented.%
 \subsubsection{Risks of STS}%
 
 %
-\par%
-\begin{mdframed}[style=StopFrame]%
-\small{There might be additional risk{-}types, which are not mentioned here yet.}%
+\savecurrentfontsize%
+\begin{mdframed}[style=StopFrame,skipabove=\baselineskip]%
+There might be additional risk{-}types, which are not mentioned here yet.%
 \end{mdframed}%
+\savedlastfontsize%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:885652931}{}%
@@ -576,7 +572,6 @@ Lack of skilled resources may affect the delivery{-}timelines.%
 \subsubsection{Participants}%
 
 %
-\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:951258175}{}%
@@ -595,7 +590,6 @@ Mai In Jun%
 \subsubsection{Agenda}%
 
 %
-\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:1985055068}{}%
@@ -606,7 +600,6 @@ Taking stock of ongoing projects.%
 \subsubsection{Action Items}%
 
 %
-\par%
 Following action{-}items were part of the discussions.%
 \begin{enumerate}%
 \item%
@@ -788,7 +781,6 @@ Based on the %
 \subsubsection{Participants}%
 
 %
-\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:326064087}{}%
@@ -807,7 +799,6 @@ Whoopie Bard%
 \subsubsection{Agenda}%
 
 %
-\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:1061016650}{}%
@@ -818,7 +809,6 @@ Tracking of project{-}progress%
 \subsubsection{Action Items}%
 
 %
-\par%
 Following action{-}items were discussed in the meeting.%
 \begin{enumerate}%
 \item%
@@ -921,6 +911,6 @@ Following action{-}items were discussed in the meeting.%
 \end{large}%
 
 %
-\tiny{(Document prepared on 05 February, 2026 at 03:37:00 PM IST)}%
+\tiny{(Document prepared on 13 February, 2026 at 02:02:33 PM IST)}%
 \end{center}%
 \end{document}

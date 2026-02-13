@@ -1,66 +1,69 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+    requires = ["setuptools>=61.0", "wheel"]
+    build-backend = "setuptools.build_meta"
 
 [project]
-name = "fp-convert"
-version = "0.4.2"
-description = "A tool to convert Freeplane mindmaps to print-quality PDF documents."
-authors = [
-    { name = "K Raghu Prasad", email = "raghuprasad@duck.com" }
-]
-license = "GPL-3.0-or-later"
-readme = "README.md"
-requires-python = ">=3.8"
-dependencies = [
-    "freeplane-io>=0.10.0",
-    "pylatex>=1.4.2",
-    "cairosvg>=2.7.1",
-    "pytz>=2025.1",
-    "PyYAML>=5.4",
-]
+    name = "fp-convert"
+    version = "0.4.3"
+    description = "A tool to convert Freeplane mindmaps to print-quality PDF documents."
+    authors = [
+        { name = "K Raghu Prasad", email = "raghuprasad@duck.com" }
+    ]
+    license = "GPL-3.0-or-later"
+    readme = "README.md"
+    requires-python = ">=3.8"
+    dependencies = [
+        "freeplane-io>=0.10.0",
+        "pylatex>=1.4.2",
+        "cairosvg>=2.7.1",
+        "pytz>=2025.1",
+        "PyYAML>=5.4",
+    ]
 
 [project.urls]
-Homepage = "https://github.com/kraghuprasad/fp-convert"
-Repository = "https://github.com/kraghuprasad/fp-convert"
+    Homepage = "https://github.com/kraghuprasad/fp-convert"
+    Repository = "https://github.com/kraghuprasad/fp-convert"
 
 [tool.setuptools]
-packages = [
-    "fp_convert",
-    "fp_convert.docs",
-    "fp_convert.resources",
-    "fp_convert.utils",
-    "fp_convert.utils.uml",
-]
+    packages = [
+        "fp_convert",
+        "fp_convert.docs",
+        "fp_convert.resources",
+        "fp_convert.utils",
+        "fp_convert.utils.uml",
+    ]
 include-package-data = true
 
 [project.scripts]
-fp-convert = "fp_convert.__main__:main"
+    fp-convert = "fp_convert.__main__:main"
 
 [tool.setuptools.package-data]
-fp_convert = ["resources/*"]
+    fp_convert = ["resources/*"]
 
 [tool.setuptools.exclude-package-data]
-fp_convert = ["tests*"]
+    fp_convert = ["tests*"]
 
 [tool.ruff]
-lint.extend-select = []
-lint.ignore = []
+    lint.extend-select = []
+    lint.ignore = []
 
 [tool.bumpver]
-current_version = "0.4.2"
-version_pattern = "MAJOR.MINOR.PATCH"
-commit_message = "Bump version {old_version} -> {new_version}"
-tag_message = "{new_version}"
-commit = true
-tag = true
-push = false
+    current_version = "0.4.3"
+    version_pattern = "MAJOR.MINOR.PATCH"
+    commit_message = "Bump version {old_version} -> {new_version}"
+    tag_message = "{new_version}"
+    commit = true
+    tag = true
+    push = false
 
 [tool.bumpver.file_patterns]
-"pyproject.toml" = [
-    "version = \"{version}\"",
-    "current_version = \"{version}\""
-]
-"README.md" = [
-    "version: {version}"
-]
+    "pyproject.toml" = [
+        "version = \"{version}\"",
+        "current_version = \"{version}\""
+    ]
+    "README.md" = [
+        "version: {version}"
+    ]
+    "__init__.py" = [
+        "__version__ = \"{version}\""
+    ]

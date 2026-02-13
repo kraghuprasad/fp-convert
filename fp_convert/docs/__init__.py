@@ -185,6 +185,7 @@ class GeneralDoc(Document):
             ("tcolorbox", ("most",)),
             ("placeins", ("section",)),
             ("titlesec", tuple()),
+            ("parskip", tuple()),
             ("ulem", tuple()),  # for strikethrough
             ("xspace", tuple()),
             ("fontawesome5", tuple()),
@@ -287,6 +288,10 @@ bottom={self.config.main.bottom_margin},
 {{{self.ctx.regcol(self.config.table.rowcolor_2)}}}%
 """
             ),
+
+            # Setting the color for the horizontal rule used in long table
+            NE(r"\newcommand{\coloredhrule}[1]{\noalign{\color{#1}\hrule height \lightrulewidth}}"),
+
             NE(r"\renewcommand{\arraystretch}{1.5}%"),
             NE(r"\newlist{dbitemize}{itemize}{3}"),
             NE(r"\setlist[dbitemize,1]{label=\textbullet,leftmargin=0.2cm}"),
@@ -419,7 +424,7 @@ bottom={self.config.main.bottom_margin},
         if len(node.children):  # If node has children
             if depth > max_depth:
                 raise MaximumSectionDepthException(
-                    f"Maximum depth ({depth}) of sections reached for ndoe: "
+                    f"Maximum depth ({depth}) of sections reached for node: "
                     f"'{node}'. Move this node to a lower level by "
                     "rearranging the structure/sections of your document in "
                     "the mindmap."
@@ -451,15 +456,7 @@ bottom={self.config.main.bottom_margin},
                     self.blocks.extend(
                         self.builders["default"](
                             child, self, depth, self.builders))
-                    # self.blocks.append(self.sections[depth](NE(EL(str(child))), label=False))
 
-                    # Build section-content from the notes of the node
-                    # self.blocks.extend(
-                    #     self.build_section_content(child)
-                    # )
-
-                # Similarly build content from child's children too
-                # self.traverse_and_build(child, depth+1, max_depth)
 
     def get_absolute_file_path(self, file_path: str | Path) -> Path:
         """
@@ -673,40 +670,40 @@ height={self.config.main.r_footer_image_height}]%
         tab = self.ctx.changeset_table  # It was created earlier in the constructor
         tab.add_hline(
             color=self.ctx.regcol(
-                self.config.dbschema.tbl2_header_line_color))
+                self.config.dbschema.tbl_header_line_color))
         header_text = list()
         header_text.append(
             NE(
                 fr"""\textcolor{{{self.ctx.regcol(
-                    self.config.dbschema.tbl2_header_text_color)}}}%
+                    self.config.dbschema.tbl_header_text_color)}}}%
                 {{\tinytosmall{{{EL(italic("No."))}}}}}"""
             )
         )
         header_text.append(
             NE(
                 fr"""\textcolor{{{self.ctx.regcol(
-                    self.config.dbschema.tbl2_header_text_color)}}}%
+                    self.config.dbschema.tbl_header_text_color)}}}%
                 {{\tinytosmall{{{EL(italic("Type"))}}}}}"""
             )
         )
         header_text.append(
             NE(
                 fr"""\textcolor{{{self.ctx.regcol(
-                    self.config.dbschema.tbl2_header_text_color)}}}%
+                    self.config.dbschema.tbl_header_text_color)}}}%
                 {{\tinytosmall{{{EL(italic("Changes"))}}}}}"""
             )
         )
         tab.add_row(
             header_text,
             color=self.ctx.regcol(
-                self.config.dbschema.tbl2_header_row_color
+                self.config.dbschema.tbl_header_row_color
             )
         )
         tab.add_hline(color=self.ctx.regcol(
-            self.config.dbschema.tbl2_header_line_color))
+            self.config.dbschema.tbl_header_line_color))
         tab.end_table_header()
         tab.add_hline(color=self.ctx.regcol(
-            self.config.dbschema.tbl2_header_line_color))
+            self.config.dbschema.tbl_header_line_color))
         tab.add_row(
             (
                 MultiColumn(
@@ -717,13 +714,13 @@ height={self.config.main.r_footer_image_height}]%
         )
         tab.add_hline(
             color=self.ctx.regcol(
-                self.config.dbschema.tbl2_header_line_color
+                self.config.dbschema.tbl_header_line_color
             )
         )
         tab.end_table_footer()
         tab.add_hline(
             color=self.ctx.regcol(
-                self.config.dbschema.tbl2_header_line_color
+                self.config.dbschema.tbl_header_line_color
             )
         )
         tab.end_table_last_footer()

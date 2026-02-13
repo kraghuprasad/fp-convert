@@ -176,8 +176,8 @@ class Table:
     header_row_color: str = r"babyblueeyes!80"
     header_text_color: str = r"darkblue"
     line_color: str = r"cornflowerblue"
-    rowcolor_1: str = r"babyblueeyes!35" # Row colors 1 and 2 belowng to rendering of rows in default table
-    rowcolor_2: str = r"babyblueeyes!20" # Row colors 1 and 2 belowng to rendering of rows in default table
+    rowcolor_1: str = "babyblueeyes!35"  # Row colors 1 and 2 belong to rendering of rows in default table
+    rowcolor_2: str = "babyblueeyes!20"  # Row colors 1 and 2 belong to rendering of rows in default table
     rowcolor_3: str = r"lightapricot!30" # Row colors 3 and 4 belong to rendering of rows in deliverable-table
     rowcolor_4: str = r"lightapricot!10" # Row colors 3 and 4 belong to rendering of rows in deliverable-table
     rowcolor_5: str = r"lightapricot!50" # Row color 5 is for rendering the row containing deliverable-name
@@ -187,15 +187,14 @@ class DBSchema:
     """
     The configuration parameters for building DB schema-blocks
     """
-    tbl1_body_line_color: str = r"gray!30"
-    tbl1_header_line_color: str = r"fpcblue2"
-    tbl1_header_row_color: str = r"spirodiscoball!20!white"
-    tbl1_header_text_color: str = r"darkblue"
-    tbl2_header_line_color: str = r"fpcblue2"
-    tbl2_header_row_color: str = r"fpcblue1"
-    tbl2_header_text_color: str = r"darkblue"
-    tbl2_rowcolor_1: str = r"white"
-    tbl2_rowcolor_2: str = r"tealblue!7!white"
+    table_name_text_color: str = r"darkblue"  # The name of the table used as heading of table-schema
+    tbl_header_line_color: str = r"fpcblue2"
+    tbl_header_row_color: str = r"fpcblue1"
+    tbl_header_text_color: str = r"darkblue"
+    tbl_rowcolor_1: str = r"white"
+    tbl_rowcolor_2: str = r"tealblue!7!white"
+    bullet_label_separation: str = r"0.3em"
+    additional_field_types: list[str] = ['geometry', 'geography']
 
 class UML:
     """
@@ -235,7 +234,7 @@ class ColorBox:
 
 class FancyBox:
     """
-    The configuration parameters for building colorbox-blocks
+    The configuration parameters for building fancybox-blocks
     """
     title_color: str = r"black"
     title_font: str = r"\bfseries\large"
@@ -262,7 +261,7 @@ class FancyBox:
 
 class FancyBox2:
     """
-    The configuration parameters for building colorbox-blocks
+    The configuration parameters for building second type of fancy-blocks
     """
     title_color: str = r"white"
     title_font: str = r"\bfseries\large"
@@ -299,7 +298,7 @@ class Translations:
     """
     deliverable: str = r"Deliverable"
     deliverable_id: str = r"Deliverable-ID"
-    accountable: str = r"Accountability"
+    accountable: str = "Accountability"
     delivery_date: str = r"Date of Delivery"
     risk_types: str = r"Risk-Types"
     risk_id: str = r"Risk-ID"

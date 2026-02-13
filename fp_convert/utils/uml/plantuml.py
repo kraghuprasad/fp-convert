@@ -152,6 +152,25 @@ class Diagram:
     This class provides a common interface for all diagrams and
     allows for easy extension and customization.
     """
+    _SKINPARAM_MAPPING = {
+        "actorBackgroundColor":      "actor_background_color",
+        "actorBorderColor":          "actor_border_color",
+        "actorColor":                "actor_color",
+        "backgroundColor":           "background_color",
+        "componentBackgroundColor":  "component_background_color",
+        "componentBorderColor":      "component_border_color",
+        "componentColor":            "component_color",
+        "defaultTextAlignment":      "default_text_alignment",
+        "linetype":                  "connector_line_type",
+        "noteBackgroundColor":       "note_background_color",
+        "noteBorderColor":           "note_border_color",
+        "noteColor":                 "note_color",
+        "packageBackgroundColor":    "package_background_color",
+        "packageBorderColor":        "package_border_color",
+        "usecaseBackgroundColor":    "usecase_background_color",
+        "usecaseBorderColor":        "usecase_border_color",
+    }
+
     def __init__(self, uml_config=None):
         self.components = []
         self.repo: set[PUMLEntity] = set()
@@ -216,25 +235,10 @@ class Diagram:
         """
         ret: List[str] = []
         if self.config:
-            mapping = {
-                "actorBackgroundColor":      "actor_background_color",
-                "actorBorderColor":          "actor_border_color",
-                "actorColor":                "actor_color",
-                "backgroundColor":           "background_color",
-                "componentBackgroundColor":  "component_background_color",
-                "componentBorderColor":      "component_border_color",
-                "componentColor":            "component_color",
-                "defaultTextAlignment":      "default_text_alignment",
-                "linetype":                  "connector_line_type",
-                "noteBackgroundColor":       "note_background_color",
-                "noteBorderColor":           "note_border_color",
-                "noteColor":                 "note_color",
-                "packageBackgroundColor":    "package_background_color",
-                "packageBorderColor":        "package_border_color",
-                "usecaseBackgroundColor":    "usecase_background_color",
-                "usecaseBorderColor":        "usecase_border_color",
-            }
-            for key, attr in mapping.items():
+            if not hasattr(self.config, '__dict__'):
+                raise TypeError(f"Expected config to be an object with attributes, got {type(self.config)}.")
+    
+            for key, attr in self._SKINPARAM_MAPPING.items():
                 value = getattr(self.config, attr, None)
                 if value not in (None, ""):
                     ret.append(f"skinparam {key} {value}")

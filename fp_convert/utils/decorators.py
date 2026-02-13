@@ -52,9 +52,8 @@ def register_color(method):
     ----------
     method : callable
         The method to be decorated. Should be an instance method of class of
-        Doc from one of the supported templates - like psdoc.
-        class that accepts a color-name string. The decorator injects the
-        same into the instance of the FPDoc class. Then it invokes the called
+        GeneralDoc. It accepts a color-name string. The decorator injects the
+        same into the instance of the GeneralDoc class. Then it invokes the called
         method and returns the result.
     """
 

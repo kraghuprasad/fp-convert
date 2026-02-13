@@ -244,7 +244,7 @@ def fpc_attr_fetcher_factory(
             "Please ensure that it is one of the following:\n"
             f"{valid_node_attr_names}")
 
-    def fetcher(node: Node, default: str = Any|None):
+    def fetcher(node: Node, default: str | None = None) -> str | None:
         """
         Fetch value of the supplied attribute in lower case, or return the
         supplied default value in lower case.
@@ -1133,7 +1133,7 @@ def get_stopframe_block(node: Node, ctx: DocContext):
     mdf = None
     if note_lines:
         mdf = MdFramed()
-        mdf.options = "style=StopFrame"
+        mdf.options = ("style=StopFrame", NE(r"skipabove=\baselineskip"))
 
         # Process first note-line
         for item in expand_macros(note_lines[0], node, ctx):
@@ -1533,7 +1533,7 @@ def get_note_text_blocks(
         if is_stopframe_type(node):
             note_list.append(Command("savecurrentfontsize"))
             mdf = MdFramed()
-            mdf.options = "style=StopFrame"
+            mdf.options = ("style=StopFrame", NE(r"skipabove=\baselineskip"))
             for element in note_lines[0]:  # Process first note-line
                 mdf.append(element)
 

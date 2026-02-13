@@ -6,17 +6,27 @@ License: GPL(v3)
 """
 
 import re
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from freeplane import Node
 from pylatex import Itemize
 from pylatex import escape_latex as EL
+from pylatex.utils import NoEscape as NE
 
+from fp_convert.errors import InvalidParameterException
 from fp_convert.utils.helpers import (
     MyIterator,    
     retrieve_note_lines
 )
 
-field_type_pat = re.compile(r"^\s*(varchar|char|int|decimal)\s*[\[\(]\s*([\d,\s]+)\s*[\)\]]\s*$")
+field_type_pat = re.compile(r"^\s*(bits|varchar|char|int|decimal)\s*[\[\(]\s*([\d,\s]+)\s*[\)\]]\s*$")
+
+# Set of known field-types usable in definition of DB schema
+KNOWN_TYPES = {
+    "int", "tinyint", "int8", "int16", "int32", "int64", "float", "text", "date",
+    "datetime", "char", "bits", "blob", "boolean", "bool", "smallint", "mediumint", "bigint",
+    "double", "decimal", "real", "json", "jsonb", "enum", "integer", "time",
+    "timestamp", "geocolumn", "varchar",
+}
 
 
 class DBTableField:
@@ -27,6 +37,7 @@ class DBTableField:
     def __init__(
         self,
         mangled_info: Optional[str] = None,
+        node: Optional[Node] = None,
         name: Optional[str] = None,
         field_type: Optional[str] = None,
         ai: Optional[str] = None,
@@ -35,6 +46,8 @@ class DBTableField:
         default: Optional[str] = None,
         null: Optional[str] = None,
         notes: Optional[List[str]] = None,
+        frefs: Optional[List[Tuple[NE, str]]] = [],
+        ftext: Optional[str] = "",
     ):
         """
         The constructor can take either exact attributes of the field, or it
@@ -66,8 +79,15 @@ class DBTableField:
                 If yes, this field allows null values. Default is True.
             notes: List[str], optional
                 The list of notes associated with this field.
+            frefs: List[Tuple[NE, str]], optional
+                A list of tuples containing two values: non-escaped LaTeX block
+                of strings containing the back-references to records found in the
+                track-change table, and a string of flag-type and the applicable
+            ftext: str, optional
+                A string containing the flags and their associated icons.
         """
         self.name = name
+        self.node = node
         self.field_type = field_type
         self.ai = ai
         self.pk = pk
@@ -75,9 +95,10 @@ class DBTableField:
         self.default = default
         self.null = null
         self.notes = list()
-        self.node: Optional[Node] = None  # The node representing this field in the mindmap
         if notes:
             self.notes.extend(notes)
+        self.frefs = frefs
+        self.ftext = ftext
 
         if mangled_info:
             self._retrieve_mangled_info(mangled_info)
@@ -105,7 +126,14 @@ class DBTableField:
         info : str
             The string containing the field-specific details.
 
-        returns: Nothing. It modifies the attributes of the object in-place.
+        Returns:
+        --------
+        Nothing as it modifies the attributes of the object in-place.
+        
+        Raises:
+        -------
+            InvalidParameterException gets raised if field-specifications contain
+            any error.
         """
 
         # Revised version for rigourous testing
@@ -132,13 +160,6 @@ class DBTableField:
             if cur:
                 items.append("".join(cur))
             return items
-
-        KNOWN_TYPES = {
-            "int", "tinyint", "int8", "int16", "int32", "int64", "float", "text", "date",
-            "datetime", "char", "boolean", "bool", "smallint", "mediumint", "bigint",
-            "double", "decimal", "real", "json", "jsonb", "enum", "integer", "time",
-            "timestamp", "geocolumn", "varchar",
-        }
 
         def as_yes_no(val: str) -> str:
             return "yes" if val.strip().lower() in {"1","true","t","yes","y"} else "no"
@@ -188,9 +209,15 @@ class DBTableField:
                 self.null = "yes"; continue
 
             # default without = operator
-            if lower.startswith("default "):
-                _, val = lower.split(" ", 1)
-                self.default = EL(val.strip())
+            if lower.startswith("default"):
+                parts = lower.split(" ", 1)
+                if len(parts) < 2 or not parts[1].strip():
+                    raise ValueError(
+                        f"No default value supplied for field '{self.name}'. "
+                        "Use 'default xxx' or 'default=xxx', or remove the keyword "
+                        "'default'."
+                    )
+                self.default = EL(parts[1].strip())
                 continue
 
             # Type with optional size/precision: varchar(64), int[11], decimal(10,2)
@@ -205,9 +232,10 @@ class DBTableField:
                 self.field_type = lower
                 continue
 
-            raise ValueError(
-                f"Invalid mangled_info token '{raw}' encountered while parsing field-specifications. "
-                "Example of a valid info: 'email: varchar(64), unique=True, null=False, desc=Email address'."
+            raise InvalidParameterException(
+                f"Invalid token '{raw}' encountered while parsing field-specifications. "
+                "A valid sample-field would be something like 'email: varchar(64), unique=true, "
+                "null=false, desc=Email address'."
             )
 
         if not self.field_type:
@@ -221,7 +249,10 @@ class DBTable:
 
     def __init__(
             self, name: str, fields: List[DBTableField]|None = None,
-            notes: str|None = None):
+            notes: str|None = None,
+            frefs: List[Tuple[NE, str]] = [],
+            ftext: str = ""
+        ):
         """
         The constructor takes the name of the table and the list of fields
         that it contains.
@@ -235,6 +266,13 @@ class DBTable:
             contains. Default is None.
         notes: str
             The notes associated with the database table.
+        frefs: List[Tuple[NE, str]]
+            A list of tuples containing two values: non-escaped LaTeX block
+            of strings containing the back-references to records found in the
+            track-change table, and a string of flag-type and the applicable
+            node-id separated by a hyphen.
+        ftext: str
+            A string containing the flags and their associated icons.
         """
         self.name = name
         if fields:
@@ -244,8 +282,10 @@ class DBTable:
         self.notes = list()
         if notes:
             self.notes.extend(retrieve_note_lines(notes))
-        self.label: str = ""
+        # self.label: str = ""
         self.node: Optional[Node] = None  # The node representing this table in the mindmap
+        self.frefs = frefs
+        self.ftext = ftext
 
     def append_field(self, field: DBTableField):
         """

@@ -1,4 +1,4 @@
-version: 0.4.2
+version: 0.4.3
 
 # fp-convert 
 
@@ -48,14 +48,14 @@ While writing the document, the author can decide to chose the right format to d
 
 ## Why TeX?
 
-Proper typesetting of the supplied content is necessary to make a document easily comprehendable to its readers. TeX/LaTeX provides advanced text processing capabilities which makes its users to focus mostly on the content and structure of the document, while it takes care of applying correct typesetting rules to while building the document. Using various standard document templates prudently, we can ensure that the resultant document would get built correctly without any special interventions from us. Since many people are not familiar with the rules of document typesetting, it is always better to leave that job to a suitable tool like TeX. 
+Proper typesetting of the supplied content is necessary to make a document easily comprehendable to its readers. TeX/LaTeX provides advanced text processing capabilities which enable its users to focus mostly on the content and structure of the document, while it takes care of applying correct typesetting rules while building the document. Using various standard document templates prudently, we can ensure that the resultant document would get built correctly without any special interventions from us. Since many people are not familiar with the rules of document typesetting, it is always better to leave that job to a suitable tool like TeX.
 
 Though it is easy to generate any kind of document using WYSIWYG text editors, there are scenarios where the end results may not turn out to be useful for the consumers of those documents. Following are some of the examples of scenarios, where careful selection of document format is important:
 
-- Imagine writing the functional or implementation specifications of a project. For this, usually people resort to MS Word, Excel sheets or Powerpoint presentations. Each of them have their own set of problems to capture and manage the information pertaining to a project. Once the document becomes large, cross-referencing its content becomes are big problem. Developers are forced to access such documents in a non-linear manner. While reading the program specifications of an API, it would be quite handy to access concerned database schema with a single-click. Usually it takes a lot of efforts to maintain such references within the document which gets updated by multiple people during the course of execution of a project.
+- Imagine writing the functional or implementation specifications of a project. For this, usually people resort to MS Word, Excel sheets or Powerpoint presentations. Each of them have their own set of problems to capture and manage the information pertaining to a project. Once the document becomes large, cross-referencing its content becomes a big problem. Developers are forced to access such documents in a non-linear manner. While reading the program specifications of an API, it would be quite handy to access concerned database schema with a single-click. Usually it takes a lot of efforts to maintain such references within the document which gets updated by multiple people during the course of execution of a project.
 - Another example is about maintaining the schema of a relational database used in an enterprise application. It is important to ensure that the details of the schema is made available to the developers in a concise format which should be easy to comprehend within a short period of time. It too requires cross-referencing between primary and foreign keys used in different tables. A spreadsheet or a presentation slide may not be the most suitable format to capture and render such information to the people.
 - Preparing a usecase diagram is easy using a diagramming tool. But how can one introduce such diagrams within a functional specification document in such a way that when the usecase changes, respective diagrams too get updated and get inserted at the right place automatically?
-- Those who have created minutes of meetings know the depth up to which one needs to go to capture and track action-items, delivery-dates for each of them, and concerned actors who would be working on them. It is also required to capture and track older an incomplete action-items in newer meetings. Unless a suitable application is used to cross-link and track those meetings and their respective MoMs, it is not easy to manage them using a single document. 
+- Those who have created minutes of meetings know the depth up to which one needs to go to capture and track action-items, delivery-dates for each of them, and concerned actors who would be working on them. It is also required to capture and track older and incomplete action-items in newer meetings. Unless a suitable application is used to cross-link and track those meetings and their respective MoMs, it is not easy to manage them using a single document. 
 
 There are multiple scenarios where the document formats used commonly don't suffice to take care of underlying issues. The fp-convert tool is a document generation tool, which can be employed to manage some of the scenarios mentioned above. It is evolving in its functionalities, and over a period of time, it is expected to cover many more scenarios to capture, maintain and render information in different fields of operations.
 
@@ -73,7 +73,7 @@ Besides such verbosity required in LaTeX, it is also a pain to create and mainta
 
 The solution to these kinds of problems lies in selecting two separate tools for writing and reading. One can use a mindmap to capture and maintain the information, where it allows the author to focus on specific nodes while writing. By linking these nodes together, one can create a well cross-referenced document, without taking much pain. The nodes of the mindmap requires certain kinds of annotations, which can easily be provided by using suitable template in the same mindmap. New annotated nodes can be created quickly using the excellent [Dynamic Types Creator](https://github.com/i-plasm/freeplane-types-creator) script built for Freeplane by the open source community.
 
-By converting that mindmap into a properly cross-referenced PDF document, one can avoid almost all kinds problems listed above. That's what fp-convert does. It converts mindmaps created by Freeplane into correctly formatted documents in PDF format. Using supplied templates and script, one can quickly prepare the base mindmap for very complex documents containing even hundreds or thousands of sections, tables, and images; which would get converted to a proper print-quality PDF file using fp-covert.
+By converting that mindmap into a properly cross-referenced PDF document, one can avoid almost all kinds problems listed above. That's what fp-convert does. It converts mindmaps created by Freeplane into correctly formatted documents in PDF format. Using supplied templates and script, one can quickly prepare the base mindmap for very complex documents containing even hundreds or thousands of sections, tables, and images; which would get converted to a proper print-quality PDF file using fp-convert.
 
 ## License
 
@@ -81,7 +81,7 @@ This application is released under GNU Public License (v3).
 
 ## Installation
 
-fp-convert is standing on the shoulders of giants like Python and TeX/LaTeX which don't need any introductions. But two critical components without which this endeavor would not have fructified are [PyLaTeX](https://github.com/JelteF/PyLaTeX) and [freeplane-python-io](https://github.com/nnako/freeplane-python-io) (thanks nnako, for all those timely help provided by you :).
+fp-convert is standing on the shoulders of giants like Python and TeX/LaTeX which don't need any introductions. But two critical components without which this endeavor would not have fructified are [PyLaTeX](https://github.com/JelteF/PyLaTeX) and [freeplane-python-io](https://github.com/nnako/freeplane-python-io). (thanks nnako, for all those timely assistance :)
 
 This program requires a recent version of Python3 (already tested on Python 3.13) to work. You may install it on the system-provided Python or on a Python virtual environment. For system-wide installation from Python package repository, please execute the following command on the console.
 
@@ -104,8 +104,9 @@ On Linux based machines, you may find that following tex-packages get installed 
 - texlive-latex-extra
 
 If full texlive package is not available on your machine due to disk-space crunch, or due to some other reason; then at least a TeX/LaTeX environment with following packages must be made available for fp-convert to work properly:
-
 - amssymb
+- booktabs
+- draftwatermark
 - enumitem
 - fontawesome5
 - fontenc
@@ -116,19 +117,23 @@ If full texlive package is not available on your machine due to disk-space crunc
 - marginnote
 - mdframed
 - multirow
+- parskip
 - placeins
 - ragged2e
+- relsize
 - tabularx
 - tcolorbox
 - titlesec
+- ulem
 - utopia
 - xcolor
 - xspace
+
 [It is possible that versions of fp-convert released in future may add or remove some of the items in this list.]
 
 You should also install all those additional TeX packages on which the command-line-options to fp-convert depends on. For example, you may need to install additional font-packages, if you are not satisfied with the default `lmodern` or `roboto` font-family for your documents. In such case, you may need to install additional fonts on your system.
 
-If you are planning to generate UML usecase diagrams too, then you must install [PlantUML](https://plantuml.com/) on you machine. Adding node-level attributes required by fp-convert to generate UML diagrams or many other document-elements may turn out to be quite boring chore. To ease that process, [i-plasm](https://github.com/i-plasm) and [euu2021](https://github.com/euu2021) have collaborated to create an excellent groovy script named [Dynamic Types Creator](https://github.com/i-plasm/freeplane-types-creator) which should be placed in the scripts folder of your [Freeplane](https://docs.freeplane.org/) installation folder. You should map a keyboard shortcut -- I use "Alt+t" -- to run Dynamic Type Creator script on a selected node. This can be configured from within the freeplane program by going to "Tools -> Assign hot key", then selecting applicable script, and then pressing those keyboard shortcuts to register it in Freeplane. Please refer the documentation of [Freeplane Hot Keys](https://docs.freeplane.org/user-documentation/hot-keys-and-beyond.html) for further information on installation, configuration and enabling keyboard shortcuts for any script based plugins.
+If you are planning to generate UML usecase diagrams too, then you must install [PlantUML](https://plantuml.com/) on your machine. Adding node-level attributes required by fp-convert to generate UML diagrams or many other document-elements may turn out to be quite boring chore. To ease that process, [i-plasm](https://github.com/i-plasm) and [euu2021](https://github.com/euu2021) have collaborated to create an excellent groovy script named [Dynamic Types Creator](https://github.com/i-plasm/freeplane-types-creator) which should be placed in the scripts folder of your [Freeplane](https://docs.freeplane.org/) installation folder. You should map a keyboard shortcut -- I use "Alt+t" -- to run Dynamic Type Creator script on a selected node. This can be configured from within the freeplane program by going to "Tools -> Assign hot key", then selecting applicable script, and then pressing those keyboard shortcuts to register it in Freeplane. Please refer the documentation of [Freeplane Hot Keys](https://docs.freeplane.org/user-documentation/hot-keys-and-beyond.html) for further information on installation, configuration and enabling keyboard shortcuts for any script based plugins.
 
 You should download [Template_Repository.mm](https://github.com/kraghuprasad/fp-convert/blob/main/docs/examples/Template_Repository.mm), open it in freeplane, copy the required template-nodes from it, and paste the same into a node named "Templates" in the root node of your own mindmap to be used by fp-convert. You can leave the child-nodes of "Templates" node in collapsed state to minimize the distractions caused by it when you review the content of your mindmap. To avoid rendering the content of nodes under "Templates" from getting included in the resultant document, you may mark its fpcBlokType attribute to Ignore. You need to include only those node-templates, which you plan to use in your mindmap. Rest can be removed altogether. The details of syntax and semantics applicable to define such templates can be found in this [discussion thread](https://github.com/freeplane/freeplane/discussions/2365#discussioncomment-12807085).
 
@@ -143,22 +148,32 @@ Executing `fp-convert -h` results in its help-text getting displayed.
 ---
 
 ```txt
-usage: fp-convert [-h] [-k] [-d]
-                  [-f <font-family-name:font-family-options>]
-                  [-c <config-file-path>]
-                  [-g <config-file-path>]
+
+usage: fp-convert [-h] [-k] [-f <font-family-name:font-family-options>]
+                  [-c <config-file-to-be-used>] [-d]
+                  [-g <sample-config-file-to-be-created>]
+                  [-i <sample-mindmap-to-be-created>] [-v]
                   [mindmap_file] [output_file]
 
 Program to convert a Freeplane mindmap's content into a print-quality PDF
-document. If only relative file-paths are used to define the resources (like
-images) used in the mindmap, then run this program from within the folder in
-which the mindmap file is situated. In case absolute paths are used in the
-resource-paths within the mindmap, then this program can be executed from
-anywhere, as long as appropriate input and output file-paths are provided to
-it. By supplying option -k, the TeX file generated by this program can be
-preserved for inspection and further customization of the document.
-The generated TeX file can be recompiled using the program pdflatex in any
-folder on the same machine on which fp-convert was executed to generate it.
+document. If only relative file-paths are used in the mindmap to define
+required resources like images, then run this program from within the
+directory in which the mindmap file is situated. Otherwise, if absolute paths
+are used in the resource-paths within the mindmap, then this program can be
+executed from anywhere, as long as full paths of input and output files are
+provided to it. By supplying option -i, a sample mindmap can be generated
+which can be opened and modified in Freeplane mindmapping tool. This file
+contains samples of all node-templates supported by fp-convert. Use
+Freeplane's dynamic type creator plugin to use these templates while preparing
+the content in the mindmap. By supplying option -k, the TeX file generated by
+this program can be preserved for inspection and further customization of the
+document. The generated TeX file can be recompiled using the program pdflatex
+in any folder on the same machine on which fp-convert was executed to generate
+it, except that it won't contain the images created dynamically by fp-convert
+(like UML usecase diagrams). This drawback would be taken care of in future
+releases. By supplying option -g, a sample configuration file can be created.
+It can be used to customize the styles and other parameters of the document
+generated by this program.
 
 positional arguments:
   mindmap_file          input freeplane mindmap file-path
@@ -166,35 +181,40 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-  -v, --version         show the version-number of fp-convert and exit
-  -k, --keep-tex        keep intermediate TeX/LaTeX file for further review
-  -f <font-family-name:font-family-options>, --font-family <font-family-name:font-family-options>
+  -k, --keep-tex        keep intermediate TeX/LaTeX file
+  -f, --font-family <font-family-name:font-family-options>
                         font-family to be used while building the PDF file
                         Correct LaTeX options are required to be passed-on
                         while supplying this parameter. Incorrect options, if
                         supplied, would result in TeX-compilation failures.
                         The option -k can be used to debug such issues by
                         preserving the resultant TeX file for further
-                        inspection. Some of the valid values are given below
-                        roboto (The Roboto family of fonts to be used),
-                        roboto:sfdefault (The Roboto family along with LaTeX
-                        option sfdefault),
+                        inspection. Examples: roboto (The Roboto family of
+                        fonts to be used), roboto:sfdefault (The Roboto family
+                        along with LaTeX option sfdefault),
                         roboto:sfdefault:scaled=1.1 (The Roboto family along
                         with LaTeX options sfdefault and scaled=1.1 which are
-                        applicable on this font family),
-                        roboto:scaled=1.1 (The Roboto family of fonts scaled to
-                        1.1), etc.
+                        applicable on this font family), roboto:scaled=1.1
+                        (The Roboto family of fonts scaled to 1.1), etc.
                         Please ensure that invalid options for any font-family
                         do not get supplied here.
-  -c <config-file-path>, --config <config-file-path>
+  -c, --config <config-file-to-be-used>
                         path to the YAML file with pertinent configuration
-                        parameters required for converting a mindmap to PDF
-                        document
+                        parameters along with their default values which are
+                        required for converting a mindmap to PDF document
   -d, --debug           preserve all intermediate files for debugging purpose
-  -g <config-file-path>, --generate-config <config-file-path>
+  -g, --generate-config <sample-config-file-to-be-created>
                         generates a sample configuration file of YAML type
                         which contains all pertinent configuration parameters
                         with their default values
+  -i, --init-mindmap <sample-mindmap-to-be-created>
+                        generates a sample Freeplane mindmap file with
+                        applicable placeholder-texts which can be used as base
+                        to start an fp-convert compatible documentation
+                        project. It contains template-nodes required to
+                        generate various content-blocks of the docuement using
+                        Freeplane's dynamic type creator plugin.
+  -v, --version         print the version-number of fp-convert and exit
 ```
 
 ---
