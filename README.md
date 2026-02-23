@@ -1,4 +1,4 @@
-version: 0.4.3
+version: 0.4.4
 
 # fp-convert 
 
@@ -69,7 +69,7 @@ Some may suggest to opt for markdown text, instead of LaTeX. But the documents g
 
 Besides such verbosity required in LaTeX, it is also a pain to create and maintain cross references among sections, tables, lists etc. It requires large amount of text-elements to define labels and hyperlinks. Besides that, one needs to know basic concepts of TeX quite well to debug issues which may crop up during the compilation of the document. These problems can be avoided by avoiding direct use of LaTeX and using fp-convert instead.
 
-## Swiss Army Knife for Documentation
+## Swiss Army Knife of Documentation
 
 The solution to these kinds of problems lies in selecting two separate tools for writing and reading. One can use a mindmap to capture and maintain the information, where it allows the author to focus on specific nodes while writing. By linking these nodes together, one can create a well cross-referenced document, without taking much pain. The nodes of the mindmap requires certain kinds of annotations, which can easily be provided by using suitable template in the same mindmap. New annotated nodes can be created quickly using the excellent [Dynamic Types Creator](https://github.com/i-plasm/freeplane-types-creator) script built for Freeplane by the open source community.
 

@@ -70,6 +70,10 @@ valid_node_type_codes = {
         },
         "attr": "ignore",
     },
+    "pb": {  # Pagebreak-Block
+        "icons": set(),
+        "attr": "pagebreak",
+    },
     "im": {  # Image
         "icons": {
             "image",
@@ -185,6 +189,7 @@ def node_type_detector_factory(
 is_ordered_list_type = node_type_detector_factory("ol")
 is_unordered_list_type = node_type_detector_factory("ul")
 is_ignore_type = node_type_detector_factory("ig")
+is_pagebreak_type = node_type_detector_factory("pb")
 is_image_type = node_type_detector_factory("im")
 is_stopframe_type = node_type_detector_factory("sf")
 is_trackchanges_type = node_type_detector_factory("tc")
@@ -1172,6 +1177,25 @@ def cleanup_for_linkname(text: str) -> str:
     """
     return re.split(ref_pat, text.split(":")[0])[0]
 
+def build_table_field_name(node: Node) -> str:
+    """
+    Build the text of a table or field-name from the supplied node which
+    is part of a path containing dbschema.
+
+    Parameters
+    ----------
+    node : Node
+        The node from which the table-field text is to be built.
+    Returns
+    -------
+    str 
+        The table or field-name text.
+    """
+    if is_dbschema_type(node.parent.parent):  # The node is a table-field
+        return f"{str(node.parent)}:{str(node).split(':', 1)[0]}"
+    else:  # The node is either a table, or dbschema node is farther than expected
+        return str(node)
+
 def expand_macros(text: str, node: Node, ctx: DocContext):
     """
     Function to expand macros to get applicable reference-details. It is
@@ -1201,9 +1225,22 @@ def expand_macros(text: str, node: Node, ctx: DocContext):
         refs = dict()
         if node.arrowlinks:
             for idx, node_to in enumerate(node.arrowlinks):
-                refs[fr"%ref{idx+1}%"] = Command(
-                    "hyperlink",
-                    arguments=(get_label(node_to.id), cleanup_for_linkname(trunc32(str(node_to)))))
+                if dbschema_exists_in_parent_path(node_to):
+                    refs[fr"%ref{idx+1}%"] = Command(
+                        "hyperlink",
+                        arguments=(
+                            get_label(node_to.id),
+                            trunc32(build_table_field_name(node_to))
+                        )
+                    )
+                else:
+                    refs[fr"%ref{idx+1}%"] = Command(
+                        "hyperlink",
+                        arguments=(
+                            get_label(node_to.id),
+                            cleanup_for_linkname(trunc32(str(node_to)))
+                        )
+                    )
         else:
             raise InvalidRefException(
                 f"Node [{str(node)}(ID: {node.id})] without any "
@@ -1765,6 +1802,50 @@ def dump(x: LatexObject|NE|str):
         return x.dumps()
     else:
         return str(x)
+
+def ignored_node_exists_in_parent_path(node: Node) -> bool:
+    """
+    Check if one of the parent or grand parents of the supplied node
+    were ignored while rendering the document.
+    Parameters:
+    node: Node
+        The node whose parent-path is to be checked.
+    Returns:
+    bool
+        True if the supplied node's parent or grand parents were ever
+        ignored while selecting the nodes to render the document.
+    """
+    if is_ignore_type(node):
+        return True
+
+    if node.parent:
+        return ignored_node_exists_in_parent_path(node.parent)
+    else:
+        # This is root-node. So no ignored nodes existed in the parent-path
+        return False
+
+
+def dbschema_exists_in_parent_path(node: Node) -> bool:
+    """
+    Check if one of the parent or grand parents of the supplied node
+    were of a dbschema type.
+    Parameters:
+    node: Node
+        The node whose parent-path is to be checked.
+    Returns:
+    bool
+        True if the supplied node's parent or grand parents were ever of
+        a dbschema type, False otherwise.
+    """
+    if is_dbschema_type(node):
+        return True
+
+    if node.parent:
+        return dbschema_exists_in_parent_path(node.parent)
+    else:
+        # This is root-node, so no dbschema-type node existed in the path.
+        return False
+
 
 def list_exists_in_parent_path(
         node: Node, builders: Dict[str, Callable]) -> bool:

@@ -217,7 +217,7 @@ class DBTableField:
                         "Use 'default xxx' or 'default=xxx', or remove the keyword "
                         "'default'."
                     )
-                self.default = EL(parts[1].strip())
+                self.default = EL(re.split(' +', part, 1)[1].strip())
                 continue
 
             # Type with optional size/precision: varchar(64), int[11], decimal(10,2)

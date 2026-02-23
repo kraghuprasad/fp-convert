@@ -39,6 +39,8 @@ from fp_convert.utils.helpers import (
     build_latex_figure_object,
     build_row_notes,
     build_ucaction_tabular_segments,
+    dbschema_exists_in_parent_path,
+    ignored_node_exists_in_parent_path,
     get_references,
     get_direction,
     get_flag_refs,
@@ -57,6 +59,7 @@ from fp_convert.utils.helpers import (
     list_exists_in_parent_path,
     retrieve_generic_table_data,
     is_ignore_type,
+    is_pagebreak_type,
     is_ucaction_type,
     is_ucpackage_type,
     is_stopframe_type,
@@ -705,6 +708,13 @@ def build_dbschema_block(
 
     dbtables = list()
     for table in node.children:
+        if is_pagebreak_type(table):
+            dbtables.append("pagebreak")
+            continue
+
+        if is_ignore_type(table):
+            continue
+
         fblocks = get_flag_blocks(table, doc.config, doc.ctx)
         ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
         frefs = get_flag_refs(table, doc.config, doc.ctx)
@@ -752,10 +762,14 @@ def build_dbschema_block(
 
     # Build blocks for tables
     for dbtable in dbtables:
-        mp1 = MiniPage(width=NE(r"0.65\linewidth"), pos="t")
+        if dbtable == "pagebreak":
+            ret.append(Command("newpage"))
+            continue
+
+        dbtable.rmargin_notes = list()
+        mp1 = MiniPage(width=NE(r"\linewidth"), pos="t")
         mp1.append(NE(r"\reversemarginpar"))
         mp1.append(NE(r"\small"))
-        # mp1.append(NE(fr'\hypertarget{{{dbtable.label}}}{{}}'))
         mp1.append(NE(fr'\hypertarget{{{get_label(dbtable.node.id)}}}{{}}'))
         mp1.append(NE(fr"\rowcolors{{2}}{{{doc.ctx.regcol(doc.config.dbschema.tbl_rowcolor_1)}}}"))
         mp1.append(NE(fr"{{{doc.ctx.regcol(doc.config.dbschema.tbl_rowcolor_2)}}}"))
@@ -793,11 +807,17 @@ def build_dbschema_block(
                         cell_content = fr"{cell_content} \tiny{{\faArrowUp}}"
                     if tbfield.node.arrowlinked:
                         cell_content = fr"\hypertarget{{{get_label(tbfield.node.id)}}}{{{cell_content}}}"
-                        margin_notes = list()
+                        lmargin_notes = list()  # margin notes on left
                         for arrowlink in tbfield.node.arrowlinked:
-                            margin_notes.append(fr"\tiny{{$\Lsh$ \hyperlink{{{get_label(arrowlink.id)}}}{{{EL(arrowlink.parent)}: {EL(arrowlink).split(":")[0]}}}}}")
-                        if len(margin_notes) > 0:
-                            cell_content = fr"{cell_content} \marginnote{{{NE(r"\newline ".join(margin_notes))}}}"
+                            if not ignored_node_exists_in_parent_path(arrowlink):
+                                if dbschema_exists_in_parent_path(arrowlink):
+                                    lmargin_notes.append(fr"\tiny{{$\Lsh$ \hyperlink{{{get_label(arrowlink.id)}}}{{{EL(arrowlink.parent)}: {EL(arrowlink).split(":")[0]}}}}}")
+                                else:
+                                    dbtable.rmargin_notes.append(fr"\tiny{{$\Lsh$ \hyperlink{{{get_label(arrowlink.id)}}}{{{EL(arrowlink.parent)}: {EL(arrowlink).split(":")[0]}}}}}")
+                        if len(lmargin_notes) > 0:
+                            cell_content = fr"{cell_content} \marginnote{{{NE(r"\newline ".join(lmargin_notes))}}}"
+                        # if len(rmargin_notes) > 0:
+                        #     cell_content = fr"{cell_content} \reversemarginpar \marginnote{{{NE(r"\newline ".join(rmargin_notes))}}} \reversemarginpar"
                     elif tbfield.node.arrowlinks:
                         if len(tbfield.node.arrowlinks) > 1:
                             raise InvalidRefException(fr"More than one arrowlinks found for field {tbfield.name} in table {dbtable.name}")
@@ -816,21 +836,23 @@ def build_dbschema_block(
         tab_mp1.add_hline(color=doc.ctx.regcol(doc.config.dbschema.tbl_header_line_color))
         mp1.append(tab_mp1)
         mp1.append(NE(r"\reversemarginpar"))
-        # for tbfield in dbtable:
-        #     doc.ctx.flush_margin_comments(tbfield.frefs, mp1)
 
-        mp2 = MiniPage(width=NE(r"0.3\linewidth"), pos="t")
-        mp2.append(NE(r"\vspace{0.75em}"))
-        mp2.append(NE(r"\vspace{0pt}%"))
-        mp2.append(NE(r"\tinytosmall"))
+        if field_notes or dbtable.notes:
+            itmz = DBItemize(options=(  # Requires LaTeX package enumitem for the following
+                    NE(f"labelsep={doc.config.dbschema.bullet_label_separation}"),
+                    "nolistsep",
+                    "noitemsep"
+                )
+            )
+        else:
+            itmz = None
+
+        if len(dbtable.notes) > 0:
+            for note in dbtable.notes:
+                if nt := str.strip(note):
+                    itmz.add_item(EL(nt))
 
         if field_notes:
-            itmz = DBItemize(options=(
-                # Requires LaTeX enumitem package
-                NE(f"labelsep={doc.config.dbschema.bullet_label_separation}"),
-                "nolistsep",
-                "noitemsep")
-            )
             for field_name in field_notes.keys():
                 if len(field_notes[field_name]) > 1:
                     itmz.add_item(NE(verbatim(field_name+": ")))
@@ -840,7 +862,6 @@ def build_dbschema_block(
                         "nolistsep",
                         "noitemsep")
                     )
-                    # inner_itmz = Itemize(options=(NE("leftmargin=*")))
                     for line in field_notes[field_name]:
                         inner_itmz.add_item(EL(line))
                     itmz.append(NE(r"\item[]"))
@@ -851,44 +872,30 @@ def build_dbschema_block(
                             fr"{verbatim(field_name)}: {EL(field_notes[field_name][0])}"
                         )
                     )
-            mp2.append(itmz)
 
         ret.append(Command(
             "item", 
             NE(fr"{dbtable.ftext}\xspace\textbf{{\textcolor{{{doc.ctx.regcol(doc.config.dbschema.table_name_text_color)}}}{{{EL(dbtable.name)}}}}}")
         ))
-        ret.append(NE(r"\par\nointerlineskip\nopagebreak"))
 
+        ret.append(NE(r"\par\nointerlineskip\nopagebreak"))
         ret.append(mp1)  # Table's field-specifications
+
+        # All non-foreign key references for this table
+        ret.append(NE(fr"\marginnote{{{NE(r"\newline ".join(dbtable.rmargin_notes))}}}"))
+        ret.append(NE(r"\small"))
+
+        ret.append(NE(r"\normalsize"))
         doc.ctx.flush_margin_comments(dbtable.frefs, ret)
-        ret.append(Command("hspace", "0.75em"))
-        ret.append(mp2)  # Fields' notes
 
         # Render all trackchanges related backreferences for this table
         for tbfield in dbtable:
             doc.ctx.flush_margin_comments(tbfield.frefs, ret)
-
-        # Render table-level notes, if available
-        if len(dbtable.notes) > 0:
-            mp3 = MiniPage(width=NE(r"\linewidth"), pos="t")
-            mp3.append(NE(r"\tinytosmall"))
-            mp3.append(Command("vspace", "1em"))
-            itmz = Itemize(options=(  # Requires LaTeX package enumitem for the following
-                    NE(f"labelsep={doc.config.dbschema.bullet_label_separation}"),
-                    "nolistsep",
-                    "noitemsep"
-                )
-            )
-            for note in dbtable.notes:
-                if nt := str.strip(note):
-                    itmz.add_item(EL(nt))
-            mp3.append(itmz)
-            # mp3.append(NE(r"\vspace{1em}"))
-            ret.append(Command("newline"))
-            ret.append(mp3)
+        if itmz:
+            ret.append(NE(r"\small"))
+            ret.append(itmz)  # Fields' notes
 
     ret.append(Command("end", "enumerate"))
-    # ret.append(NE(r"\normalmarginpar"))
     return ret
 
 @track_processed_nodes
