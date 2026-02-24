@@ -71,6 +71,7 @@ from fp_convert.utils.helpers import (
     get_fpc_notes_position,
     get_fpc_risk_types,
     get_fpc_show_caption,
+    trunc18,
 )
 
 from fp_convert.utils.dbs import (
@@ -811,9 +812,9 @@ def build_dbschema_block(
                         for arrowlink in tbfield.node.arrowlinked:
                             if not ignored_node_exists_in_parent_path(arrowlink):
                                 if dbschema_exists_in_parent_path(arrowlink):
-                                    lmargin_notes.append(fr"\tiny{{$\Lsh$ \hyperlink{{{get_label(arrowlink.id)}}}{{{EL(arrowlink.parent)}: {EL(arrowlink).split(":")[0]}}}}}")
+                                    lmargin_notes.append(fr"\tiny{{$\Lsh$ \hyperlink{{{get_label(arrowlink.id)}}}{{{EL(arrowlink.parent)}: {EL(arrowlink).split(':')[0]}}}}}")
                                 else:
-                                    dbtable.rmargin_notes.append(fr"\tiny{{$\Lsh$ \hyperlink{{{get_label(arrowlink.id)}}}{{{EL(arrowlink.parent)}: {EL(arrowlink).split(":")[0]}}}}}")
+                                    dbtable.rmargin_notes.append(fr"\tiny{{$\Lsh$ \hyperlink{{{get_label(arrowlink.id)}}}{{{EL(trunc18(str(arrowlink))).split(':')[0]}}}}}")
                         if len(lmargin_notes) > 0:
                             cell_content = fr"{cell_content} \marginnote{{{NE(r"\newline ".join(lmargin_notes))}}}"
                         # if len(rmargin_notes) > 0:
