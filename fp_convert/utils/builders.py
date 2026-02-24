@@ -882,10 +882,8 @@ def build_dbschema_block(
         ret.append(mp1)  # Table's field-specifications
 
         # All non-foreign key references for this table
-        ret.append(NE(fr"\marginnote{{{NE(r"\newline ".join(dbtable.rmargin_notes))}}}"))
-        ret.append(NE(r"\small"))
+        ret.append(NE(fr"\marginnote{{{NE(r'\newline '.join(dbtable.rmargin_notes))}}}"))
 
-        ret.append(NE(r"\normalsize"))
         doc.ctx.flush_margin_comments(dbtable.frefs, ret)
 
         # Render all trackchanges related backreferences for this table
@@ -894,6 +892,8 @@ def build_dbschema_block(
         if itmz:
             ret.append(NE(r"\small"))
             ret.append(itmz)  # Fields' notes
+            ret.append(NE(r"\normalsize"))
+
 
     ret.append(Command("end", "enumerate"))
     return ret

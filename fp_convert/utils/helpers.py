@@ -1191,10 +1191,15 @@ def build_table_field_name(node: Node) -> str:
     str 
         The table or field-name text.
     """
-    if is_dbschema_type(node.parent.parent):  # The node is a table-field
+    # Check if supplied node is a table-field by jumping and checking two levels back
+    if node.parent and node.parent.parent and is_dbschema_type(node.parent.parent):
         return f"{str(node.parent)}:{str(node).split(':', 1)[0]}"
-    else:  # The node is either a table, or dbschema node is farther than expected
-        return str(node)
+
+    # Here supplied node is either a table-node, or DBSchema node is not at
+    # the expected position in the node hierarchy. In the latter case, it
+    # should be fixed in the mindmap. But in both the cases, content to be
+    # returned is same.
+    return str(node)
 
 def expand_macros(text: str, node: Node, ctx: DocContext):
     """
