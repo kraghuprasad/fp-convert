@@ -8,10 +8,12 @@ This document provides detailed information on how to prepare the Freeplane base
 
 While writing any document, ideally its content should be maintained separately from the standard meta-data like page-geometry, logo-images and their dimensions, colors of various artifacts etc. In fp-convert's ecosystem, all page-layout and styling related metadata is managed via special classes like Config class whose attributes are specific to the types of content-block getting rendered in the PDF. Primary attributes of Config class are data classes, and their list is given below, which holds the applicable configuration-parameters required to build respective content-blocks in the document:
 
+- Class
 - ColorBox
 - DBSchema
 - FancyBox
 - FancyBox2
+- Interface
 - Main
 - StopFrame
 - Table
@@ -457,21 +459,21 @@ In software design specifications, Interface is commonly used. The node containi
 
 | |
 |:-:|
-|![Class creation in the mindmap - Classname and Arguments](images/class1_mm.png)|
+|![Class creation in the mindmap with Classname and Arguments](images/class_1_mm.png)|
 
 | |
 |:-:|
-|![Class creation in the mindmap - Classname and Functions](images/class2_mm.png)|
+|![Class creation in the mindmap with Classname and Functions](images/class_2_mm.png)|
 
 Class-definitions too can be rendered properly using appropriate annotations as shown above. The generate following content in the generated PDF.
 
 | |
 |:-:|
-|![Class-definitions getting rendered in PDF - part 1](images/class1_pdf.png)|
+|![Class-definitions getting rendered in PDF part 1](images/class_1_pdf.png)|
 
 | |
 |:-:|
-|![Class-definitions getting rendered in PDF - part 2](images/class1_pdf.png)|
+|![Class-definitions getting rendered in PDF part 2](images/class_2_pdf.png)|
 
 ## Database Schema
 
