@@ -177,10 +177,22 @@ fancybox2:
     table2_width: '\textwidth' # width for child-node-content
     hrule_width: '0.4pt' # width of horizontal rule inside this box
 
-translations:   # Translations for auto-filled segments of the document
+# Translations for auto-filled segments of the document. Use your own
+# language-specific translations here.
+translations:
   deliverable: 'Deliverable'
   deliverable_id: 'Deliverable-ID'
   accountable: 'Accountability'
   delivery_date: 'Date of Delivery'
   risk_types: 'Risk-Types'
   risk_id: 'Risk-ID'
+  klass: 'Class'
+  interface: 'Interface'
+  arguments: 'Arguments'
+  constants: 'Constants'
+  functions: 'Functions'
+  attributes: 'Attributes'
+  exceptions: 'Exceptions'
+  returns: 'Returns'
+  void: 'void'
+  none: 'None'

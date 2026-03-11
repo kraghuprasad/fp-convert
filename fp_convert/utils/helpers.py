@@ -5,7 +5,7 @@ from decimal import Decimal
 import inspect
 import re
 from dataclasses import dataclass, field
-from pathlib import Path, PurePosixPath
+from pathlib import Path, PureWindowsPath
 import subprocess
 from types import ModuleType
 from typing import Any, List, Dict, Callable, Optional, Set, Literal
@@ -96,6 +96,10 @@ valid_node_type_codes = {
         "icons": {"links/file/xml", "links/file/json", "links/file/html"},
         "attr": "verbatim",
     },
+    "vn": {  # VerbatimNotes
+        "icons": set(),
+        "attr": "verbatimnotes",
+    },
     "tb": {  # Tabular
         "icons": {
             "links/file/generic",
@@ -127,6 +131,26 @@ valid_node_type_codes = {
     "td": {  # Table-Data
         "icons": set(),
         "attr": "tabledata",
+    },
+    "rt": {  # Returns
+        "icons": set(),
+        "attr": "returns",
+    },
+    "cl": {  # Class
+        "icons": set(),
+        "attr": "class",
+    },
+    "if": {  # Interface
+        "icons": set(),
+        "attr": "interface",
+    },
+    "fn": {  # Function
+        "icons": set(),
+        "attr": "function",
+    },
+    "ex": {  # Exception
+        "icons": set(),
+        "attr": "exception",
     },
 }
 
@@ -194,6 +218,7 @@ is_image_type = node_type_detector_factory("im")
 is_stopframe_type = node_type_detector_factory("sf")
 is_trackchanges_type = node_type_detector_factory("tc")
 is_verbatim_type = node_type_detector_factory("vb")
+is_verbatimnotes_type = node_type_detector_factory("vn")
 is_tabular_type = node_type_detector_factory("tb")
 is_dbschema_type = node_type_detector_factory("db")
 is_ucpackage_type = node_type_detector_factory("up")
@@ -201,6 +226,11 @@ is_ucactors_type = node_type_detector_factory("ur")
 is_ucaction_type = node_type_detector_factory("ua")
 is_columnheaders_type = node_type_detector_factory("ch")
 is_tabledata_type = node_type_detector_factory("td")
+is_returns_type = node_type_detector_factory("rt")
+is_class_type = node_type_detector_factory("cl")
+is_interface_type = node_type_detector_factory("if")
+is_function_type = node_type_detector_factory("fn")
+is_exception_type = node_type_detector_factory("ex")
 
 
 # Valid attributes for mindmap-nodes
@@ -217,6 +247,10 @@ valid_node_attr_names = {
     "UCPDirection",
     "ColumnType",
     "SumIt",
+    "DataType",
+    "Message",
+    "Visibility",
+    "Returns",
 }
 
 def fpc_attr_fetcher_factory(
@@ -288,6 +322,26 @@ get_fpc_show_caption = fpc_attr_fetcher_factory("ShowCaption")
 get_fpc_ucp_direction = fpc_attr_fetcher_factory("UCPDirection")
 get_fpc_column_type = fpc_attr_fetcher_factory("ColumnType")
 get_fpc_sum_it = fpc_attr_fetcher_factory("SumIt")
+get_fpc_data_type = fpc_attr_fetcher_factory("DataType", False)
+get_fpc_message = fpc_attr_fetcher_factory("Message")
+get_fpc_visibility = fpc_attr_fetcher_factory("Visibility")
+get_fpc_returns = fpc_attr_fetcher_factory("Returns", False)
+
+def to_posix_path(any_path: str) -> str:
+    """
+    Convert the input path to a POSIX path.
+
+    Parameters
+    ----------
+    any_path : str
+        The input path to convert.
+
+    Returns
+    -------
+    str
+        The POSIX path.
+    """
+    return PureWindowsPath(any_path).as_posix()
 
 def get_direction(direction: str) -> Literal["n", "s", "e", "w"]:
     """
@@ -762,7 +816,7 @@ trunc18 = special_truncator_factory(18)
 
 
 def build_latex_figure_object(
-    image_path: PurePosixPath,
+    image_path: Path,
     image_width: str,
     image_caption: str | None = None,
     image_position: str = "!htb",
@@ -773,8 +827,8 @@ def build_latex_figure_object(
 
     Parameters
     ----------
-    image_path: PurePosixPath
-        A PurePosixPath object pointing to the image file. The pdflatex wants
+    image_path: Path
+        A Path object pointing to the image file. The pdflatex wants
         pure posix paths only.
     image_width: str
         The width of the image expected in output.
@@ -793,7 +847,7 @@ def build_latex_figure_object(
             rf"""
 \begin{{center}}%
 \tcbox{{\includegraphics[%
-width={image_width}]{{{image_path.as_posix()}}}}}%
+width={image_width}]{{{to_posix_path(image_path)}}}}}%
 \end{{center}}%"""
         )
     )  # Build a boxed figure
@@ -1539,7 +1593,6 @@ def get_node_text_blocks(
         node_content = str.strip(content[0])
 
     ret.extend(expand_macros(node_content, node, ctx))
-    # ret.append("\n")
     ctx.flush_margin_comments(frefs, ret)
     return ret
 
@@ -1907,3 +1960,10 @@ def build_row_notes(notes: list[tuple[Node, list[str]]]) -> LatexObject:
                 for item_list in pair[1]:
                     ret.append(pair[1][0][0])
     return ret
+
+
+def texttt(s: str | NE, escape: bool = True) -> NE:
+    """Format text as typewriter/monospace using \\texttt{}."""
+    if escape:
+        s = EL(s)
+    return NE(fr'\texttt{{{s}}}')

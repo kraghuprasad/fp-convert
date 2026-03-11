@@ -57,7 +57,7 @@
   </body>
 </html></richcontent>
 <hook NAME="MapStyle" background="#f5f5dcff">
-    <properties edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" showTagCategories="false" show_icon_for_attributes="true" auto_compact_layout="true" show_notes_in_map="true" show_tags="UNDER_NODES" show_note_icons="true" followedMapLastTime="1767727458000" fit_to_viewport="false" show_icons="BESIDE_NODES"/>
+    <properties edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" showTagCategories="false" show_icon_for_attributes="true" auto_compact_layout="true" show_notes_in_map="true" show_tags="UNDER_NODES" show_note_icons="true" followedMapLastTime="1771102098000" fit_to_viewport="false" show_icons="BESIDE_NODES"/>
     <tags category_separator="::"/>
 
 <map_styles>
@@ -65,7 +65,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-7.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-10.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -814,7 +814,7 @@
 <attribute NAME="created" VALUE="22-07-25"/>
 <node TEXT="Authentication module" POSITION="bottom_or_right" ID="ID_1760718219" CREATED="1751711748373" MODIFIED="1753256467872"/>
 <node TEXT="Authorization module" POSITION="bottom_or_right" ID="ID_1373216334" CREATED="1751711759206" MODIFIED="1764587620657">
-<arrowlink DESTINATION="ID_450138178" STARTINCLINATION="182.99999 pt;-5.25 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
+<arrowlink DESTINATION="ID_450138178" STARTINCLINATION="182.99999 pt;-4.5 pt;" ENDINCLINATION="81.75 pt;19.5 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>

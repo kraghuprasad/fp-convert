@@ -118,3 +118,9 @@ class FileConversionException(FPConvertException):
     """Raised when a file conversion operation fails."""
 
     pass
+
+class InvalidNodePositionException(FPConvertException):
+    """Raised when a node is found at a position in node-hierarchy which
+    doesn't make any sense."""
+
+    pass

@@ -4,7 +4,7 @@ Various builders for the components of the LaTeX document.
 import re
 from dateutil import parser as dateparser
 from typing import Dict, List, Set, Optional, Callable
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 from collections import OrderedDict
 from freeplane import Node
 from pylatex import (
@@ -33,13 +33,20 @@ from fp_convert.utils.decorators import (
 from fp_convert.docs import GeneralDoc
 from fp_convert.config import Config
 from fp_convert.errors import (
-    FileConversionException, InvalidFPCBlockTypeException, InvalidNodeException, InvalidParameterException, InvalidRefException, UnsupportedFileException
+    FileConversionException,
+    InvalidFPCBlockTypeException,
+    InvalidNodeException,
+    InvalidParameterException,
+    InvalidRefException,
+    UnsupportedFileException,
+    InvalidNodePositionException,
 )
 from fp_convert.utils.helpers import (
     build_latex_figure_object,
     build_row_notes,
     build_ucaction_tabular_segments,
     dbschema_exists_in_parent_path,
+    expand_macros,
     ignored_node_exists_in_parent_path,
     get_references,
     get_direction,
@@ -52,8 +59,10 @@ from fp_convert.utils.helpers import (
     get_processed_note_lines,
     get_stopframe_block,
     is_actor_node,
+    is_class_type,
     puml2svg,
     retrieve_note_lines,
+    texttt,
     to_bool,
     dump,
     list_exists_in_parent_path,
@@ -63,6 +72,7 @@ from fp_convert.utils.helpers import (
     is_ucaction_type,
     is_ucpackage_type,
     is_stopframe_type,
+    is_interface_type,
     get_fpc_accountables,
     get_fpc_block_type,
     get_fpc_delivery_date,
@@ -79,6 +89,11 @@ from fp_convert.utils.dbs import (
     DBTable,
     DBTableField,
 )
+
+from fp_convert.utils.softdev import (
+    Klass, Exc, build_klass, build_function,
+)
+
 from fp_convert.utils.uml.plantuml import (
     Actor,
     ActorFactory,
@@ -93,13 +108,13 @@ from fp_convert.utils.uml.plantuml import (
 # Such function-names must contain only two underscores(_) in it, which
 # should enclose the value of respective fpcBlokType attribute used in
 # the node.
-builder_func_pat = re.compile(r'^build_([^_]+)_block$')  
+builder_func_pat = re.compile(r'^build_([^_]+)_block$')
 
 def enter_floating_environment(doc: GeneralDoc) -> None:
     """
     It is executed when a floating environment is going to be encountered.
     It maintains the call-count which gets decreased only when the method
-    # exiting_floating_environment is called.
+    exit_floating_environment is called.
 
     Parameters
     ----------
@@ -111,7 +126,7 @@ def enter_floating_environment(doc: GeneralDoc) -> None:
     None
     """
     doc.ctx.in_floating_environment.append(1)
-    
+
 def exit_floating_environment(
         doc: GeneralDoc,
         ret: List[str|LatexObject|NE]) -> None:
@@ -249,7 +264,7 @@ def build_risk_block(
         return ret
     if ht := get_hypertarget(node, doc.ctx):
         ret.append(ht)
-    
+
     # Show risk-id in title-box
     title = [
         Command("tinytosmall"),
@@ -360,7 +375,7 @@ def build_block_from_node(
     """
     Function to check the build-type requested, and raise error if incorrect
     type were requested.
-    
+
     Parameters
     ----------
     node : Node
@@ -469,10 +484,10 @@ def build_deliverable_block(
     delivery_details = list()
     if node.notes:
         delivery_details.extend(get_processed_note_lines(node, doc.ctx))
-    
+
     title = [
         Command("tinytosmall"),
-        NE(bold(doc.config.translations.deliverable_id)),  
+        NE(bold(doc.config.translations.deliverable_id)),
         ": ", NE(r"\xspace"),
         # EL(deliverable_id) if to_bool(node.attributes.get("fpcIsActive", "yes")) \
         EL(deliverable_id) if to_bool(get_fpc_is_active(node, "yes")) \
@@ -595,7 +610,7 @@ def build_pagebreak_block(
     -------
     list[str|LatexObject|NE]
         A list containing a \newpage command.
-    
+
     """
     if is_ignore_type(node):  # do not proceed if node is to be ignored
         return list()
@@ -750,7 +765,7 @@ def build_dbschema_block(
 
     if not dbtables:
         return ret
-   
+
     ret.append(Command("begin", "enumerate"))
 
     # Ordering of attributes of fields in displayed table
@@ -875,7 +890,7 @@ def build_dbschema_block(
                     )
 
         ret.append(Command(
-            "item", 
+            "item",
             NE(fr"{dbtable.ftext}\xspace\textbf{{\textcolor{{{doc.ctx.regcol(doc.config.dbschema.table_name_text_color)}}}{{{EL(dbtable.name)}}}}}")
         ))
 
@@ -975,9 +990,7 @@ def build_plaintext_block(
         note_text_blocks = get_stopframe_block(node, doc.ctx)
     else:
         note_text_blocks = get_note_text_blocks(node, doc.config, doc.ctx)
-    notes_position = get_direction(
-        # node.attributes.get("fpcNotesPosition", "n"))
-        get_fpc_notes_position(node, "n"))
+    notes_position = get_direction(get_fpc_notes_position(node, "n"))
     if notes_position == "n":  # notes of node should appear before children
         ret.append(Command("par"))
         ret.extend(note_text_blocks)
@@ -1021,7 +1034,7 @@ def _construct_list_of_type(
     -------
     list[str|LatexObject|NE]
         A list of strings, LaTeX objects, or NE objects representing the
-        content of the unordered-list 
+        content of the unordered-list
     """
 
     if list_type not in ["ul", "ol"]:
@@ -1035,7 +1048,7 @@ def _construct_list_of_type(
         return ret
     if ht := get_hypertarget(node, doc.ctx):
         ret.append(ht)
-        
+
     # Register current list-type which would be used by appropriate builder
     # functions of child nodes to identify the type of list to be built, if
     # none were specified explicitly.
@@ -1049,7 +1062,7 @@ def _construct_list_of_type(
     # Build current node's text-blocks based on above conditions.
     if list_exists_in_parent_path(node.parent, builders):
         node_text_blocks = get_node_text_blocks(node, doc.config, doc.ctx)
-        note_position = get_fpc_notes_position(node, "n")
+        note_position = get_direction(get_fpc_notes_position(node, "north"))
     else:
         fblocks = get_flag_blocks(node, doc.config, doc.ctx)
         ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
@@ -1063,7 +1076,8 @@ def _construct_list_of_type(
         note_position = "n"
 
     # Build current node's note-blocks.
-    note_text_blocks = get_note_text_blocks(node, doc.config, doc.ctx)
+    note_text_blocks = [Command("par"), ]
+    note_text_blocks.extend(get_note_text_blocks(node, doc.config, doc.ctx))
 
     # Now build children-blocks, if any, using suitable builder functions and
     # create a unified list of all childred and grandchildren.
@@ -1082,8 +1096,6 @@ def _construct_list_of_type(
                 continue
             block_type = get_fpc_block_type(child, "plaintext")
             child_content = [Command("item"), ]
-            # child_content.extend(
-            #     builders[block_type](child, doc, depth, builders))
             child_content.extend(
                 build_block_of_type(block_type, child, doc, depth, builders)
             )
@@ -1098,7 +1110,7 @@ def _construct_list_of_type(
     # ret.append(node_text_blocks) if type(node_text_blocks) is not list \
     #     else ret.extend(node_text_blocks)
     ret.extend(node_text_blocks)
-    
+
     # # Add required back-references to the ret list
     # doc.ctx.flush_margin_comments(
     #     get_flag_refs(node, doc.config, doc.ctx), ret)
@@ -1140,7 +1152,7 @@ def build_unorderedlist_block(
     -------
     list[str|LatexObject|NE]
         A list of strings, LaTeX objects, or NE objects representing the
-        content of the unordered-list 
+        content of the unordered-list
     """
     return _construct_list_of_type("ul", node, doc, depth, builders)
 
@@ -1169,10 +1181,10 @@ def build_orderedlist_block(
     -------
     list[str|LatexObject|NE]
         A list of strings, LaTeX objects, or NE objects representing the
-        content of the ordered-list 
+        content of the ordered-list
     """
     return _construct_list_of_type("ol", node, doc, depth, builders)
-    
+
 @track_processed_nodes
 def build_image_block(
         node: Node,
@@ -1209,11 +1221,11 @@ def build_image_block(
         ret.append(ht)
 
     # img_path = self.get_absolute_file_path(Path(node.imagepath))
-    img_path = doc.get_absolute_file_path(PurePosixPath(node.imagepath))
+    img_path = doc.get_absolute_file_path(Path(node.imagepath))
 
     f_ext = img_path.suffix.lower()
     if f_ext == ".svg":  # SVG images need conversion to PDF
-        new_img_path = PurePosixPath(str(doc.ctx.images_dir), img_path.stem+".pdf")
+        new_img_path = Path(str(doc.ctx.images_dir), img_path.stem+".pdf")
 
         # Convert SVG image to PDF
         try:
@@ -1242,8 +1254,7 @@ def build_image_block(
 
     note_text = get_processed_note_lines(node, doc.ctx)
     if len(note_text):  # if notes exist, render its content
-        notes_position = get_direction(
-            get_fpc_notes_position(node, "s"))
+        notes_position = get_direction(get_fpc_notes_position(node, "south"))
         if notes_position == "n":
             ret.extend(note_text[0])
             for line in note_text[1:]:
@@ -1336,8 +1347,7 @@ def build_verbatim_block(
         doc.ctx.flush_margin_comments(backrefs, ret)
 
     if len(note_lines):
-        notes_position = get_direction(
-            get_fpc_notes_position(node, "s"))
+        notes_position = get_direction(get_fpc_notes_position(node, "south"))
         if  notes_position == "s":
             ret.extend(content)
             for line in note_lines:
@@ -1403,7 +1413,7 @@ def build_verbatimnotes_block(
     # ret.extend(get_node_text_blocks(node, doc.config, doc.ctx))
     node_text_blocks = get_node_text_blocks(node, doc.config, doc.ctx)
     note_text_blocks = list()
-    note_position = get_fpc_notes_position(node, "n")
+    note_position = get_direction(get_fpc_notes_position(node, "north"))
 
     if node.notes:
         note_lines = list()
@@ -1414,23 +1424,26 @@ def build_verbatimnotes_block(
                 note_lines.append(str(line[6:])) if idx != 0 else note_lines.append(str(line))
         # ret.append(NE(fr'\begin{{verbatim}}{"\n".join(note_lines)}\end{{verbatim}}'))
         note_text_blocks.append(NE(fr'\begin{{verbatim}}{"\n".join(note_lines)}\end{{verbatim}}'))
-    
+
     # Now process children, if any. If parent-node contained any list
     # then children too would be of same type, even though the current
     # node is specified to be of VerbatimNotes type.
     children_block = list()
     list_type = doc.ctx.list_type_stack[-1] if doc.ctx.list_type_stack else "ul"  # default to "ul" if stack is empty
     if node.children:
+        # TODO: Probably following method-invocation can be replaced everywhere
+        # with a much simpler test of doc.ctx.list_type_stack being non-empty,
+        # which would indicate presence of a single or nested list.
         if list_exists_in_parent_path(node.parent, builders):
             # Initialize the list-type based on the parent's list-type
             begin_cmd = Command("begin", "itemize") if list_type == "ul" \
                 else Command("begin", "enumerate")
             end_cmd = Command("end", "itemize") if list_type == "ul" \
                 else Command("end", "enumerate")
-        else: # Use default unordered list-type 
+        else: # Use default unordered list-type
             begin_cmd = Command("begin", "itemize")
             end_cmd = Command("end", "itemize")
-        
+
         # Register the current list-type
         doc.ctx.list_type_stack.append(list_type)
 
@@ -1633,7 +1646,7 @@ def build_default_block(
 
     if ht := get_hypertarget(node, doc.ctx):
         ret.append(ht)
-    
+
     fblocks = get_flag_blocks(node, doc.config, doc.ctx)
     ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
 
@@ -1654,7 +1667,7 @@ def build_default_block(
 
     # Add backreferences to that node, if any
     doc.ctx.flush_margin_comments(get_references(node, back_ref=True), ret)
-    
+
     # Process children (if any) too in the same manner
     if node.children:
         for child in node.children:
@@ -1772,7 +1785,7 @@ def build_tabular_block(
 
     # Section-notes are collected now
     section_note_lines = get_processed_note_lines(node, doc.ctx)
-    notes_position = get_direction(get_fpc_notes_position(node, "n"))
+    notes_position = get_direction(get_fpc_notes_position(node, "north"))
     if notes_position == "n":
         for line in section_note_lines:
             ret.extend(line)
@@ -1802,17 +1815,387 @@ def build_tabular_block(
     # Now return the full block's content
     return ret
 
+@track_processed_nodes
+def build_class_block(
+        node: Node,
+        doc: GeneralDoc,
+        depth: int,
+        builders: Dict[str, Callable]
+    ) -> List[str|LatexObject|NE]:
+    """
+    Generate the class-block for rendering in LaTeX using the contents of the
+    supplied node and its children.
+
+    Parameters
+    ----------
+    node : Node
+        The node containing the information of class
+    doc : GeneralDoc
+        The document being built
+    depth : int
+        Depth of the node supplied in the mindmap
+    builders: Dict[str, Callable]
+        A dictionary of builders to be used for building the document
+        components. The keys are the node types and values are the
+        corresponding builder functions.
+    """
+    ret = list()
+    if is_ignore_type(node):
+        return ret
+
+    if ht := get_hypertarget(node, doc.ctx):
+        ret.append(ht)
+
+    fblocks = get_flag_blocks(node, doc.config, doc.ctx)
+    ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
+    frefs = get_flag_refs(node, doc.config, doc.ctx)
+
+    klass: Klass = build_klass(node)
+
+    # The class block can be used to render class as well as interface-type blocks.
+    # So label them based on node-type.
+    if is_class_type(node):
+        label = doc.config.translations.klass
+    elif is_interface_type(node):
+        label = doc.config.translations.interface
+    else:
+        # Unknown node-type
+        raise InvalidNodeException(
+            f'Content of node "{str(Node)} (ID: {node.id})" '
+            'can not be processed. Only Class and Interface types supported here.'
+        )
+
+    # If class-type node is part of the list, then create an \item for rendering
+    if list_exists_in_parent_path(node.parent, builders):
+        # ret.append(Command("item"))
+        if ftext:
+            ret.append(
+                NE(
+                    fr"\textbf{{{ftext}\xspace {label} {EL(klass.name)}}}"
+                )
+            )
+        else:
+            ret.append(
+                NE(
+                    fr"\textbf{{{label} {EL(klass.name)}}}"
+                )
+            )
+    else: # Otherwise, create a new section/subsection/subsubsection kind of block
+        if ftext:
+            ret.append(
+                doc.sections[depth](
+                    NE(fr"{ftext}\xspace {label} {EL(klass.name)}"), label=False))
+        else:
+            ret.append(doc.sections[depth](NE(fr"{label} {EL(klass.name)}"), label=False))
+
+    if len(frefs):
+        doc.ctx.flush_margin_comments(frefs, ret)
+
+    # Add backreferences to that node, if any
+    doc.ctx.flush_margin_comments(get_references(node, back_ref=True), ret)
+
+    # Render description of the class-block
+    klass_description = get_processed_note_lines(klass.node, doc.ctx)
+    if klass.description:
+        if list_exists_in_parent_path(node.parent, builders):
+            # Since list-item line has already been consumed by class-name, the descritpion
+            # should start in a new paragraph.
+            ret.append(Command("par"))
+        ret.extend(klass_description[0])
+        for line in klass_description[1:]:
+            ret.append(Command("par"))
+            ret.extend(line)
+
+    # Render attributes of the class-block
+    if klass.attributes:
+        ret.append(Command("par"))
+        ret.append(Command("vspace", (NE(r"0.25\baselineskip"))))
+        if is_class_type(node):
+            ret.append(bold(doc.config.translations.attributes))
+        elif is_interface_type(node):
+            ret.append(bold(doc.config.translations.constants))
+        else:
+            # Unknown node-type
+            raise InvalidNodeException(
+                f'Content of node "{str(Node)} (ID: {node.id})" '
+                'can not be processed. Only Class and Interface types supported here.'
+            )
+
+        if klass.attributes_description:
+            desc_lines = retrieve_note_lines(klass.attributes_description)
+            for line in desc_lines:
+                ret.append(Command("par"))
+                ret.extend(expand_macros(line, klass.attributes_node, doc.ctx))
+
+        ret.append(Command("begin", "itemize"))
+        for attribute in klass.attributes:
+            ret.append(Command("item"))
+            # ret.append(verbatim(f"{attribute.visibility} "))
+            # ret.append(verbatim(attribute.name))
+            # ret.append(verbatim(fr": {attribute.data_type}"))
+            ret.append(
+                NE(
+                    f"{verbatim(attribute.visibility)} "
+                    f"{verbatim(attribute.name)}: "
+                    f"{verbatim(attribute.data_type)}"
+                )
+            )
+
+            # Changeset section specific backreferences
+            doc.ctx.flush_margin_comments(
+                get_flag_refs(attribute.node, doc.config, doc.ctx), ret)
+
+            # Add backreferences to that node, if any
+            doc.ctx.flush_margin_comments(get_references(attribute.node, back_ref=True), ret)
+
+            if attribute.description:
+                for line in retrieve_note_lines(attribute.description):
+                    ret.append(Command("par"))
+                    ret.extend(expand_macros(line, attribute.node, doc.ctx))
+        ret.append(Command("end", "itemize"))
+
+    # Render methods/functions of the class-block
+    if klass.functions:
+        ret.append(Command("par"))
+        ret.append(Command("vspace", (NE(r"0.25\baselineskip"))))
+        ret.append(bold(doc.config.translations.functions))
+
+        if klass.functions_description:
+            desc_lines = retrieve_note_lines(klass.functions_description)
+            ret.append(Command('par'))
+            for line in desc_lines:
+                ret.extend(expand_macros(line, klass.functions_node, doc.ctx))
+
+        doc.ctx.list_type_stack.append("ol")
+        ret.append(Command("begin", "enumerate"))
+        for function in klass.functions:
+            ret.extend(build_function_block(function.node, doc, depth, builders))
+        ret.append(Command("end", "enumerate"))
+        doc.ctx.list_type_stack.pop()
+
+    return ret
+
+@track_processed_nodes
+def build_function_block(
+        node: Node,
+        doc: GeneralDoc,
+        depth: int,
+        builders: Dict[str, Callable]
+    ) -> List[str|LatexObject|NE]:
+    """
+    Build a block of text in LaTeX for the function using the content
+    of supplied node and its children.
+
+    Parameters
+    ----------
+    node : Node
+        The node containing the information of function
+    doc : GeneralDoc
+        The document being built
+    depth : int
+        Depth of the node supplied in the mindmap
+    builders: Dict[str, Callable]
+        A dictionary of builders to be used for building the document
+        components. The keys are the node types and values are the
+        corresponding builder functions
+    """
+    ret = list()
+    if is_ignore_type(node):
+        return ret
+
+    if ht := get_hypertarget(node, doc.ctx):
+        ret.append(ht)
+
+    function = build_function(node)
+    # function_signature = fr"{function.visibility} {verbatim(str(function))} \faLongArrowRight + {verbatim(function.returns) if function.returns else verbatim(doc.config.translations.void)}"
+    function_signature = (
+        fr"{texttt(function.visibility)} {texttt(EL(function))} $\to$ "
+        f"{texttt(str(
+            function.returns.data_type)) if function.returns.data_type else texttt(
+                doc.config.translations.void)}"
+    )
+
+    fblocks = get_flag_blocks(node, doc.config, doc.ctx)
+    ftext = " ".join([dump(b) for b in fblocks]) if fblocks else ""
+    frefs = get_flag_refs(node, doc.config, doc.ctx)
+
+    # if list_exists_in_parent_path(node.parent, builders):
+    if doc.ctx.list_type_stack:
+        ret.append(Command("item"))
+        # ret.append(NE(ftext + fr'\xspace \large{{{function_signature}}}'))
+        ret.append(NE(ftext + fr'\xspace {function_signature}'))
+        ret.append(Command("par"))
+    else:  # A section/subsection/subsubsection kind of block
+        # ret.append(doc.sections[depth](NE(ftext + fr'\xspace \large{{{function_signature}}}'), label=False))
+        ret.append(doc.sections[depth](NE(ftext + fr'\xspace {function_signature}'), label=False))
+
+    # Changeset section specific backreferences
+    if len(frefs):
+        doc.ctx.flush_margin_comments(frefs, ret)
+
+    # Add backreferences to that node, if any
+    doc.ctx.flush_margin_comments(get_references(node, back_ref=True), ret)
+
+    # Argument-list of function-nodes
+    if function.arguments:
+        ret.append(Command("small"))
+        ret.append(bold(doc.config.translations.arguments))
+        ret.append(Command("normalsize"))
+        ret.append(Command("begin", "itemize"))
+        for argument in function.arguments:
+            ret.append(Command("item"))
+            ret.append(verbatim(argument.name))
+            ret.append(": ")
+            ret.append(verbatim(argument.data_type))
+
+            if ht := get_hypertarget(function.node, doc.ctx):
+                ret.append(ht)
+
+            # Changeset section specific backreferences
+            doc.ctx.flush_margin_comments(
+                get_flag_refs(argument.node, doc.config, doc.ctx), ret)
+
+            # Add backreferences to that node, if any
+            doc.ctx.flush_margin_comments(get_references(argument.node, back_ref=True), ret)
+
+            if argument.description:
+                for line in retrieve_note_lines(argument.description):
+                    ret.append(Command("par"))
+                    ret.extend(expand_macros(line, argument.node, doc.ctx))
+            if argument.options:
+                ret.append(Command("begin", "enumerate"))
+                doc.ctx.list_type_stack.append("ol")
+                for option in argument.options:
+                    ret.append(Command("item"))
+                    # The options are expected to contain notes to be rendered in the
+                    # fixed fonts (verbatim mode).
+                    ret.extend(build_verbatimnotes_block(option, doc, depth+1, builders))
+                ret.append(Command("end", "enumerate"))
+                doc.ctx.list_type_stack.pop()
+        ret.append(Command("end", "itemize"))
+    
+    if function.returns:
+        # ret.append(Command("par"))
+        ret.append(Command("small"))
+        ret.append(bold(doc.config.translations.returns))
+        ret.append(Command("normalsize"))
+        ret.append(": ")
+        ret.append(
+            verbatim(
+                function.returns.data_type if function.returns.data_type else doc.config.translations.void
+            )
+        )
+        if function.returns.notes:
+            ret.append(Command("par"))
+            ret.extend(
+                get_note_text_blocks(
+                    function.returns.node, doc.config, doc.ctx
+                )
+            )
+
+        if function.returns.options:
+            ret.append(Command("begin", "enumerate"))
+            doc.ctx.list_type_stack.append("ol")
+            for option in function.returns.options:
+                ret.append(Command("item"))
+                # The options are expected to contain verbatim notes.
+                ret.extend(build_verbatimnotes_block(option, doc, depth, builders))
+            ret.append(Command("end", "enumerate"))
+            doc.ctx.list_type_stack.pop()
+    else:
+        ret.append(bold(doc.config.translations.returns))
+        ret.append(": ")
+        ret.append(doc.config.translations.void)
+
+    # Exception-list of function-nodes
+    if function.exceptions:
+        ret.append(Command("par"))
+        ret.append(Command("small"))
+        ret.append(bold(doc.config.translations.exceptions))
+        ret.append(Command("normalsize"))
+        ret.append(Command("begin", "itemize"))
+        for exception in function.exceptions:
+            ret.append(Command("item"))
+            ret.extend(get_node_text_blocks(exception.node, doc.config, doc.ctx))
+
+            # Changeset section specific backreferences
+            doc.ctx.flush_margin_comments(
+                get_flag_refs(exception.node, doc.config, doc.ctx), ret)
+
+            # Add backreferences to that node, if any
+            doc.ctx.flush_margin_comments(get_references(exception.node, back_ref=True), ret)
+
+            if exception.description:
+                ret.append(Command("par"))
+                ret.extend(get_note_text_blocks(exception.node, doc.config, doc.ctx))
+        ret.append(Command("end", "itemize"))
+
+    # Note-text(description) of function-nodes
+    if function.description:
+        ret.append(Command("par"))
+        ret.extend(get_note_text_blocks(function.node, doc.config, doc.ctx))
+
+    return ret
+
+ 
 # Reusing some of the existing builder functions for certain block-types
 build_meeting_block = build_default_block
 build_project_block = build_default_block
 build_modules_block = build_default_block
+build_attributes_block = build_default_block
+build_functions_block = build_default_block
 build_risks_block = build_orderedlist_block
 build_agenda_block = build_orderedlist_block
 build_actions_block = build_orderedlist_block
 build_requirements_block = build_orderedlist_block
 build_ucactors_block = build_unorderedlist_block
 build_participants_block = build_orderedlist_block
+build_interface_block = build_class_block
 
 # Few canonical names of list-blocks
 build_ol_block = build_orderedlist_block
 build_ul_block = build_unorderedlist_block
+
+# Dummy builders for certain fpcBlockType values which are found in the
+# incorrect positions in the mindmap. These blocks are not rendered in a
+# standalone manner. They should have been children of some other node-types.
+@track_processed_nodes
+def build_misplaced_block(
+        node: Node,
+        doc: GeneralDoc,
+        depth: int,
+        builders: Dict[str, Callable]
+    ) -> List[str|LatexObject|NE]:
+
+    # First list down misplaceable block-types and their expected
+    # parent-types.
+    misplaceable_block_types = {
+        "arguments": "Funciton",
+        "argument": "Arguments",
+        "returns": "Function",
+        "exceptions": "Function",
+        "exception": "Exceptions",
+        "attributes": "Class",
+        #"functions": "Class",  # Functions can be standalone too, so not part of it.
+        #"function": "Functions",  # Functions can be standalone too, so not part of it.
+    }
+    node_type = get_fpc_block_type(node) 
+    if node_type in misplaceable_block_types:
+        raise InvalidNodePositionException(
+            f'Node "{str(node)}(ID: {node.id})" of type "{node_type}" is '
+            f'not a child of a node of type {misplaceable_block_types[node_type]}. '
+            'It can not exist independently.'
+        )
+    raise InvalidNodePositionException(
+        f'Node "{str(node)}(ID: {node.id})" of type "{node_type}" can '
+        'not exist independently at its current position.'
+    )
+
+# Few more canonical names of (misplaced) block-builders
+build_arguments_block = build_misplaced_block
+build_constants_block = build_misplaced_block
+build_argument_block = build_misplaced_block
+build_returns_block = build_misplaced_block
+build_exceptions_block = build_misplaced_block
+build_exception_block = build_misplaced_block
+build_attributes_block = build_misplaced_block

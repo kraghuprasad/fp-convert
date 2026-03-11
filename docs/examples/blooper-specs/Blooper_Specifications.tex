@@ -414,16 +414,19 @@ Following table summarizes the details contained in various versions of this doc
   "message": "Invalid field supplied"\newline%
 \}}\\%
 \hypertarget{CSREF:7}{}%
-\tinytosmall{\hyperlink{ID:979518749}{8}}&\textcolor{cobalt}%
-{\tiny{\faPlus\xspace NEW}}&\tinytosmall{BlooperDB}\\%
+\tinytosmall{\hyperlink{ID:1640027012}{8}}&\textcolor{red!80!gray}%
+{\tiny{\faCut\xspace CUT}}&\tinytosmall{deactivate}\\%
 \hypertarget{CSREF:8}{}%
-\tinytosmall{\hyperlink{ID:1667528672}{9}}&\textcolor{cobalt}%
-{\tiny{\faPlus\xspace NEW}}&\tinytosmall{code: varchar(8), null}\\%
+\tinytosmall{\hyperlink{ID:979518749}{9}}&\textcolor{cobalt}%
+{\tiny{\faPlus\xspace NEW}}&\tinytosmall{BlooperDB}\\%
 \hypertarget{CSREF:9}{}%
-\tinytosmall{\hyperlink{ID:495321104}{10}}&\textcolor{red!80!gray}%
-{\tiny{\faCut\xspace CUT}}&\tinytosmall{description: varchar(128), default null}\\%
+\tinytosmall{\hyperlink{ID:1667528672}{10}}&\textcolor{cobalt}%
+{\tiny{\faPlus\xspace NEW}}&\tinytosmall{code: varchar(8), null}\\%
 \hypertarget{CSREF:10}{}%
-\tinytosmall{\hyperlink{ID:1385303489}{11}}&\textcolor{red!80!gray}%
+\tinytosmall{\hyperlink{ID:495321104}{11}}&\textcolor{red!80!gray}%
+{\tiny{\faCut\xspace CUT}}&\tinytosmall{description: varchar(128), default null}\\%
+\hypertarget{CSREF:11}{}%
+\tinytosmall{\hyperlink{ID:1385303489}{12}}&\textcolor{red!80!gray}%
 {\tiny{\faCut\xspace CUT}}&\tinytosmall{blooper\_views}\\%
 \end{longtable}%
 \newpage%
@@ -449,6 +452,7 @@ This module defines the user{-}registration aspect of the Blooper. Anonymous use
 \subsubsection{Requirement Specifications}%
 
 %
+\par%
 Following requrements specifications are applicable to the user{-}registration module of the application.%
 \begin{enumerate}%
 \item%
@@ -600,6 +604,7 @@ No two users using this application can have same mobile number.%
 \subparagraph{Buttons}%
 
 %
+\par%
 Following buttons are expected to be made available on the screen.%
 \begin{enumerate}%
 \item%
@@ -613,6 +618,7 @@ Registers the new user.%
 \hypertarget{ID:1542674567}{}%
 \textbf{Normal Flow}%
 %
+\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:471928457}{}%
@@ -627,6 +633,7 @@ If everything is in order, then system create new user{-}account.%
 \hypertarget{ID:69944687}{}%
 \textbf{Exception Flow}%
 %
+\par%
 If one or more validations fail, then system displays validation error with following details.%
 \begin{enumerate}%
 \item%
@@ -650,6 +657,7 @@ Reset all fields of the registration form.%
 \hypertarget{ID:1022856176}{}%
 \textbf{Normal Flow}%
 %
+\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:1807251594}{}%
@@ -663,6 +671,7 @@ Clean{-}up contents of all fields.%
 \subparagraph{Links}%
 
 %
+\par%
 Following hyperlinks are expected to be present on the screen.%
 \begin{itemize}%
 \item%
@@ -698,6 +707,7 @@ width=0.6\textwidth]{/home/raghu/secure/Projects/fp-convert/docs/examples/bloope
 \subparagraph{Buttons}%
 
 %
+\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:1484951126}{}%
@@ -838,6 +848,7 @@ Fourth note for Row 3.%
 \subsubsection{Subsubsection 3.1.4}%
 
 %
+\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:1166720504}{}%
@@ -851,18 +862,23 @@ List Item 3.1.4.2%
 \item%
 \hypertarget{ID:294846838}{}%
 List Item 3.1.4.2.1%
+\par%
 \item%
 \hypertarget{ID:1248298506}{}%
 List Item 3.1.4.2.2%
+\par%
 \item%
 \hypertarget{ID:926781396}{}%
 List Item 3.1.4.2.3%
+\par%
 \item%
 \hypertarget{ID:875624035}{}%
 List Item 3.1.4.2.4%
+\par%
 \item%
 \hypertarget{ID:60753193}{}%
 List Item 3.1.4.2.5%
+\par%
 \end{enumerate}%
 \item%
 \hypertarget{ID:1923967880}{}%
@@ -872,9 +888,11 @@ List Item 3.1.4.3%
 \item%
 \hypertarget{ID:1803494736}{}%
 List Item 3.1.4.3.1%
+\par%
 \item%
 \hypertarget{ID:569835838}{}%
 List Item 3.1.4.3.2%
+\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:1569258615}{}%
@@ -914,6 +932,7 @@ List Item 3.1.4.3.2.6%
 \item%
 \hypertarget{ID:1554918225}{}%
 List Item 3.1.4.3.3%
+\par%
 \savecurrentfontsize%
 \begin{mdframed}[style=StopFrame,skipabove=\baselineskip]%
 Be warned!!!%
@@ -922,6 +941,7 @@ Be warned!!!%
 \item%
 \hypertarget{ID:708635400}{}%
 List Item 3.1.4.3.4%
+\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:1989216770}{}%
@@ -954,7 +974,7 @@ Following use{-}cases are applicable for the Blooper App.%
 This package contains usecases pertaining to the administrative activities of the application.%
 \hypertarget{ID:1708326071}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-9tvkf64u/images/ID_1708326071.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-3a3_me36/images/ID_1708326071.pdf}\end{center}%
 \small%
 \begin{longtable}{|p{0.15\textwidth} p{0.78\textwidth}|}%
 \hline%
@@ -1004,7 +1024,7 @@ This package contains usecases pertaining to the administrative activities of th
 This package defines usecases involved in generation of bloopers.%
 \hypertarget{ID:336619791}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-9tvkf64u/images/ID_336619791.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-3a3_me36/images/ID_336619791.pdf}\end{center}%
 \hypertarget{ID:1662234785}{}%
 \subsubsection{Blooper Control}%
 
@@ -1012,7 +1032,7 @@ This package defines usecases involved in generation of bloopers.%
 Following are the usecases pertaining to controlling bloopers.%
 \hypertarget{ID:980625400}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-9tvkf64u/images/ID_980625400.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-3a3_me36/images/ID_980625400.pdf}\end{center}%
 \small%
 \begin{longtable}{|p{0.15\textwidth} p{0.78\textwidth}|}%
 \hline%
@@ -1037,7 +1057,7 @@ Following are the usecases pertaining to controlling bloopers.%
 All report{-}related usecases are collected here.%
 \hypertarget{ID:1950237555}{}%
 \noindent%
-\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-9tvkf64u/images/ID_1950237555.pdf}\end{center}%
+\begin{center}\includegraphics[width=0.9\textwidth]{/tmp/fp-convert-3a3_me36/images/ID_1950237555.pdf}\end{center}%
 \hypertarget{ID:441564016}{}%
 \section{Effort Estimations}%
 
@@ -1119,6 +1139,7 @@ Following table summarizes the approximate efforts (in person{-}hours) required 
 \section{Risks}%
 
 %
+\par%
 Following risks are identified for this project.%
 \begin{enumerate}%
 \item%
@@ -1441,6 +1462,7 @@ Please refer %
 \subparagraph{Buttons}%
 
 %
+\par%
 \begin{itemize}%
 \item%
 \hypertarget{ID:1511731551}{}%
@@ -1462,11 +1484,13 @@ The %
 \textbf{API Endpoint}%
 : %
 /api/v1/users/register%
+\par%
 \item%
 \hypertarget{ID:1268680316}{}%
 \textbf{Method}%
 : %
 POST%
+\par%
 HTTP POST method is used on this API endpoint for the intended result.%
 \par%
 POST method requires input data to be sent in HTTP request{-}body itself.%
@@ -1474,6 +1498,7 @@ POST method requires input data to be sent in HTTP request{-}body itself.%
 \hypertarget{ID:399010225}{}%
 \textbf{Input}%
 %
+\par%
 Input formats are described below.%
 \begin{itemize}%
 \item%
@@ -1507,6 +1532,7 @@ It is also possible that some partial data is supplied by ignoring optional deta
 \hypertarget{ID:362544910}{}%
 \textbf{Normal Output}%
 %
+\par%
 \begin{itemize}%
 \item%
 \hypertarget{ID:21800491}{}%
@@ -1522,6 +1548,7 @@ It is also possible that some partial data is supplied by ignoring optional deta
 \hypertarget{ID:1159276885}{}%
 \textbf{Exception Output}%
 %
+\par%
 \begin{itemize}%
 \item%
 \hypertarget{ID:641988819}{}%
@@ -1568,12 +1595,14 @@ On{-}click, it empties all the fields of the form as also explained in %
 \textbf{Method}%
 : %
 Javascript function to reset all form{-}fields.%
+\par%
 \end{itemize}%
 \end{itemize}%
 \hypertarget{ID:417855629}{}%
 \subparagraph{Links}%
 
 %
+\par%
 \begin{itemize}%
 \item%
 \hypertarget{ID:1684803624}{}%
@@ -1603,6 +1632,7 @@ This hyperlink takes the user to an external site, which is official website of 
 \subparagraph{Buttons}%
 
 %
+\par%
 \begin{enumerate}%
 \item%
 \hypertarget{ID:1751968326}{}%
@@ -1618,179 +1648,314 @@ Clicking on this button takes the user to the login page.%
 \par%
 \end{enumerate}%
 \hypertarget{ID:1181162309}{}%
-\subsubsection{Classes}%
+\subsubsection{Interfaces \& Classes}%
 
 %
 Following classes are used in this module.%
-\hypertarget{ID:769627122}{}%
-\paragraph{User}%
+\hypertarget{ID:358586165}{}%
+\paragraph{Interface AuthUser}%
 
 %
-The User class acts mostly like a data container, in which all user{-}related attributes are captured. But at the same time it allows certain methods like deactivate() to exist which, as its name suggests, deactivates the underlying user{-}account.%
-\hypertarget{ID:1735010627}{}%
-\subparagraph{Attributes}%
-
-%
-Following attributes are defined in the User class:%
+\par%
+\vspace{0.25\baselineskip}%
+\textbf{Constants}%
 \begin{itemize}%
 \item%
-\hypertarget{ID:1844661890}{}%
-\textbf{username}%
-: %
-A string containing the username which is used to login to the application.%
+\verb|public| \verb|AUTH_BACKEND_TYPES|: \verb|string|%
 \par%
+A list of authentication backend{-}types which are supported at present.%
+\end{itemize}%
+\par%
+\vspace{0.25\baselineskip}%
+\textbf{Functions}%
+\begin{enumerate}%
+\hypertarget{ID:569129145}{}%
 \item%
-\hypertarget{ID:1299979721}{}%
-\textbf{password\_hash}%
-: %
-A string containing the hash of the user{-}password generated by bcrypt%
+\xspace \texttt{public} \texttt{activate()} $\to$ \texttt{void}%
 \par%
+\small%
+\textbf{Returns}%
+\normalsize%
+: %
+\verb|void|%
+\par%
+Activate the user by setting its status to 'A'.%
+\hypertarget{ID:711327396}{}%
 \item%
-\hypertarget{ID:1081071464}{}%
-\textbf{email}%
-: %
-A string containing the email address of the user%
+\xspace \texttt{public} \texttt{deactivate()} $\to$ \texttt{void}%
 \par%
+\small%
+\textbf{Returns}%
+\normalsize%
+: %
+\verb|void|%
+\par%
+Deactivates the user by setting its status to 'I'.%
+\hypertarget{ID:162567505}{}%
 \item%
-\hypertarget{ID:1823299193}{}%
-\textbf{status}%
-: %
-A string which has following valid values:%
+\xspace \texttt{public} \texttt{add\_authbackend(auth\_backend)} $\to$ \texttt{void}%
 \par%
+\small%
+\textbf{Arguments}%
+\normalsize%
 \begin{itemize}%
 \item%
-\hypertarget{ID:1441197924}{}%
-\textbf{A}%
+\verb|auth_backend|%
 : %
-Active%
-\item%
-\hypertarget{ID:1105028337}{}%
-\textbf{I}%
-: %
-Inactive%
-\item%
-\hypertarget{ID:446076673}{}%
-\textbf{D}%
-: %
-Deleted%
+\verb|AuthBackend|%
+\par%
+An instance of AuthBackend class is used to associated this user{-}account with supplied backend.%
 \end{itemize}%
+\small%
+\textbf{Returns}%
+\normalsize%
+: %
+\verb|void|%
+\par%
+\small%
+\textbf{Exceptions}%
+\normalsize%
+\begin{itemize}%
+\item%
+CONFLICT (409)%
+\par%
+Supplied authentication backend is already mapped to this user.%
 \end{itemize}%
-\hypertarget{ID:1216735107}{}%
-\subparagraph{Methods}%
+\hypertarget{ID:547111468}{}%
+\item%
+\xspace \texttt{public} \texttt{remove\_authbackend(auth\_backend)} $\to$ \texttt{void}%
+\par%
+\small%
+\textbf{Arguments}%
+\normalsize%
+\begin{itemize}%
+\item%
+\verb|auth_backend|%
+: %
+\verb|AuthBackend|%
+\par%
+Supplied authentication backend to be unmapped from this user.%
+\end{itemize}%
+\small%
+\textbf{Returns}%
+\normalsize%
+: %
+\verb|void|%
+\par%
+\small%
+\textbf{Exceptions}%
+\normalsize%
+\begin{itemize}%
+\item%
+MISSING (404)%
+\par%
+Supplied AuthBackend instance is not mapped with the user.%
+\end{itemize}%
+\end{enumerate}%
+\hypertarget{ID:1177272789}{}%
+\paragraph{Class User}%
 
 %
-Details of~~methods defined for this class are given below.%
+It contains details of the user using the application.%
+\par%
+Please note that this class represents a user of the application, not an employee.%
+\par%
+\vspace{0.25\baselineskip}%
+\textbf{Attributes}%
+\par%
+Following attributes are defined for this class.%
+\par%
+Some of the attributes might be having default values.%
+\begin{itemize}%
+\item%
+\verb|private| \verb|display_name|: \verb|string|%
+\item%
+\verb|private| \verb|username|: \verb|string|%
+\par%
+Login{-}id of the user.%
+\item%
+\verb|private| \verb|password_hash|: \verb|string|%
+\par%
+The hash of the user{-}password created using bcrypt.%
+\item%
+\verb|private| \verb|email|: \verb|string|%
+\par%
+The email address of the user.%
+\item%
+\verb|private| \verb|status|: \verb|char|%
+\par%
+Valid values are (A)ctive, (I)nactive, and (D)eleted.%
+\end{itemize}%
+\par%
+\vspace{0.25\baselineskip}%
+\textbf{Functions}%
+\par%
+Following functions are defined for this class.%
+\begin{enumerate}%
+\hypertarget{ID:1640027012}{}%
+\item%
+\textcolor{red!80!gray}{%
+{\rotatebox{10}{\tiny{\textbf{CUT}}}}%
+{\faCut}}\xspace \texttt{public} \texttt{deactivate()} $\to$ \texttt{void}%
+\par%
+\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:7}{Track Changes: 8}}}%
+\small%
+\textbf{Returns}%
+\normalsize%
+: %
+\verb|void|%
+\par%
+Invoking this function deactivates the account of the underlying user by setting its attribute status to I.%
+\hypertarget{ID:1805978470}{}%
+\item%
+\xspace \texttt{public} \texttt{fetch\_bloopers(creation\_date, cost)} $\to$ \texttt{{[}Bloopers{]}}%
+\par%
+\small%
+\textbf{Arguments}%
+\normalsize%
+\begin{itemize}%
+\item%
+\verb|creation_date|%
+: %
+\verb|date|%
+\par%
+Default value is Null.%
+\item%
+\verb|cost|%
+: %
+\verb|decimal|%
 \begin{enumerate}%
 \item%
-\hypertarget{ID:534947597}{}%
-get\_current\_blooper\_count()%
-\begin{itemize}%
-\item%
-\hypertarget{ID:1579955282}{}%
-\textbf{Type}%
-: %
-Public%
-\par%
-\item%
-\hypertarget{ID:1758420829}{}%
-\textbf{Arguments}%
-: %
-None%
-\par%
-\item%
-\hypertarget{ID:1951265888}{}%
-\textbf{Returns}%
-: %
-A number indicating the current blooper{-}counts of the user%
-\par%
-\item%
-\hypertarget{ID:1891638076}{}%
-\textbf{Raises}%
-: %
-Nothing%
-\par%
-No exceptions are raised in this method.%
+\hypertarget{ID:186245446}{}%
+A sample of cost is £200.%
+\end{enumerate}%
 \end{itemize}%
-\item%
-\hypertarget{ID:551725938}{}%
-get\_reportees()%
-\begin{itemize}%
-\item%
-\hypertarget{ID:943550741}{}%
-\textbf{Type}%
-: %
-Public%
-\par%
-\item%
-\hypertarget{ID:248920619}{}%
-\textbf{Arguments}%
-: %
-None%
-\par%
-\item%
-\hypertarget{ID:1676819113}{}%
+\small%
 \textbf{Returns}%
+\normalsize%
 : %
-It returns a JSON string containing the User objects associated with the reportees of this user. A sample JSON string is given below.%
+\verb|[Bloopers]|%
+\begin{enumerate}%
+\item%
+\hypertarget{ID:63165276}{}%
+A sample of returned value is given below%
 \begin{verbatim}[
   {
-    "username": "Jagmeet Chautala",
-    "email": "jagmeetc@clueless.dev"
+    "id": 438,
+    "name": "Mild catastrophy in the kitchen",
+    "handled": true
   },
   {
-    "username": "Madhuri Varma",
-    "email": "madhuri.verma@clueless.dev"
+    "id: 491,
+    "name": "Destroyed non-stick cookware",
+    "handled": true
   }
 ]\end{verbatim}%
-\item%
-\hypertarget{ID:236083018}{}%
-\textbf{Raises}%
-%
+\end{enumerate}%
 \par%
+\small%
+\textbf{Exceptions}%
+\normalsize%
 \begin{itemize}%
 \item%
-\hypertarget{ID:1007325261}{}%
-\textbf{NotFound}%
-: %
-No reportees are found for this user.%
+MISSING (404)%
 \end{itemize}%
-\end{itemize}%
+\hypertarget{ID:1458157979}{}%
 \item%
-\hypertarget{ID:838820146}{}%
-deactivate()%
-Deactivates the user{-}account by setting its attribute "status" to "I".%
-\begin{itemize}%
-\item%
-\hypertarget{ID:1773996792}{}%
-\textbf{Type}%
-: %
-Public%
+\xspace \texttt{public} \texttt{getSalary()} $\to$ \texttt{Decimal}%
 \par%
-\item%
-\hypertarget{ID:1448632089}{}%
-\textbf{Arguments}%
-: %
-None%
-\par%
-\item%
-\hypertarget{ID:804888589}{}%
+\small%
 \textbf{Returns}%
+\normalsize%
 : %
-Nothing%
+\verb|Decimal|%
 \par%
-\item%
-\hypertarget{ID:935430280}{}%
-\textbf{Raises}%
-%
+The salary of the employee.%
 \par%
+\small%
+\textbf{Exceptions}%
+\normalsize%
 \begin{itemize}%
 \item%
-\hypertarget{ID:1171585127}{}%
-\textbf{OperationFailed}%
+FORBIDDEN (403)%
+\par%
+Not allowed to fetch salary{-}details.%
+\end{itemize}%
+\end{enumerate}%
+\hypertarget{ID:894245470}{}%
+\subsubsection{Exim Module}%
+
+%
+This module imports and exports data of various entities.%
+\hypertarget{ID:1375483315}{}%
+\paragraph{\xspace \texttt{public} \texttt{import\_users(url)} $\to$ \texttt{void}}%
+
+%
+\small%
+\textbf{Arguments}%
+\normalsize%
+\begin{itemize}%
+\item%
+\verb|url|%
 : %
-The user{-}record is already inactive.%
+\verb|string|%
+\par%
+Few sample URLs are given below:%
+\begin{enumerate}%
+\item%
+\hypertarget{ID:92983384}{}%
+Sample URL (external)%
+\begin{verbatim}https://example.com/import-users\end{verbatim}%
+\item%
+\hypertarget{ID:423601549}{}%
+Sample URL (internal)%
+\begin{verbatim}https://intranet.example.com/users-import\end{verbatim}%
+\end{enumerate}%
 \end{itemize}%
+\small%
+\textbf{Returns}%
+\normalsize%
+: %
+\verb|void|%
+\par%
+\small%
+\textbf{Exceptions}%
+\normalsize%
+\begin{itemize}%
+\item%
+SYSERROR (500)%
+\par%
+Failed to fetch the user{-}data.%
 \end{itemize}%
+\par%
+This function fetches the user{-}records from supplied API and imports them in to the database of the application.%
+\hypertarget{ID:241763498}{}%
+\paragraph{\xspace \texttt{public} \texttt{export\_users()} $\to$ \texttt{Hashmap}}%
+
+%
+\small%
+\textbf{Returns}%
+\normalsize%
+: %
+\verb|Hashmap|%
+\begin{enumerate}%
+\item%
+\hypertarget{ID:1020430619}{}%
+A sample list of users are given below.%
+\begin{verbatim}[
+  {
+    "id": 482,
+    "name": "Thembeka",
+    "employee_no": "ET49",
+    "status": "A"
+  },
+  {
+    "id": 181,
+    "name": "Melony D'cruz",
+    "employee_no": "EG32",
+    "status": "I"
+  }
+]\end{verbatim}%
 \end{enumerate}%
 \hypertarget{ID:1722806927}{}%
 \subsection{Subsection 7.2}%
@@ -1834,7 +1999,7 @@ Following details are pertinent to the RDBS schema used in Blooper App.%
 {\faPlus}}BlooperDB}%
 
 %
-\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:7}{Track Changes: 8}}}%
+\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:8}{Track Changes: 9}}}%
 \par%
 BlooperDB is the name of the database stored in HisSQL.%
 \par%
@@ -1866,7 +2031,6 @@ Following are the tables defined in this database. The specifications of the fie
 \end{tabularx}%
 \reversemarginpar%
 \end{minipage}%
-\marginnote{}%
 \marginnote{}%
 \small%
 \begin{dbitemize}[labelsep=0.3em,nolistsep,noitemsep]%
@@ -1903,7 +2067,6 @@ Following are the tables defined in this database. The specifications of the fie
 \reversemarginpar%
 \end{minipage}%
 \marginnote{}%
-\marginnote{}%
 \small%
 \begin{dbitemize}[labelsep=0.3em,nolistsep,noitemsep]%
 \item%
@@ -1934,7 +2097,6 @@ Following are the tables defined in this database. The specifications of the fie
 \end{tabularx}%
 \reversemarginpar%
 \end{minipage}%
-\marginnote{}%
 \marginnote{}%
 \small%
 \begin{dbitemize}[labelsep=0.3em,nolistsep,noitemsep]%
@@ -1971,7 +2133,6 @@ The "since" field indicates a date when a particular administrator was mapped to
 \reversemarginpar%
 \end{minipage}%
 \marginnote{}%
-\marginnote{}%
 \item{\xspace\textbf{\textcolor{darkblue}{locations}}}%
 \par\nointerlineskip\nopagebreak%
 \begin{minipage}[t]{\linewidth}%
@@ -1995,7 +2156,6 @@ The "since" field indicates a date when a particular administrator was mapped to
 \end{tabularx}%
 \reversemarginpar%
 \end{minipage}%
-\marginnote{}%
 \marginnote{}%
 \small%
 \begin{dbitemize}[labelsep=0.3em,nolistsep,noitemsep]%
@@ -2030,8 +2190,7 @@ Unique(name, state\_id)%
 \reversemarginpar%
 \end{minipage}%
 \marginnote{}%
-\marginnote{}%
-\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:8}{Track Changes: 9}}}%
+\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:9}{Track Changes: 10}}}%
 \small%
 \begin{dbitemize}[labelsep=0.3em,nolistsep,noitemsep]%
 \item%
@@ -2067,8 +2226,7 @@ Unique(country\_id, name)%
 \reversemarginpar%
 \end{minipage}%
 \marginnote{}%
-\marginnote{}%
-\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:9}{Track Changes: 10}}}%
+\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:10}{Track Changes: 11}}}%
 \small%
 \begin{dbitemize}[labelsep=0.3em,nolistsep,noitemsep]%
 \item%
@@ -2102,9 +2260,7 @@ Unique(country\_id, name)%
 \reversemarginpar%
 \end{minipage}%
 \marginnote{}%
-\marginnote{}%
-\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:10}{Track Changes: 11}}}%
-\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:10}{Track Changes: 11}}}%
+\margincomment{\tiny{$\Lsh$ \hyperlink{CSREF:11}{Track Changes: 12}}}%
 \item{\xspace\textbf{\textcolor{darkblue}{bloopers}}}%
 \par\nointerlineskip\nopagebreak%
 \begin{minipage}[t]{\linewidth}%
@@ -2132,7 +2288,6 @@ Unique(country\_id, name)%
 \end{tabularx}%
 \reversemarginpar%
 \end{minipage}%
-\marginnote{}%
 \marginnote{}%
 \small%
 \begin{dbitemize}[labelsep=0.3em,nolistsep,noitemsep]%
@@ -2168,6 +2323,6 @@ Kubernetes too can be used to manage the deployment of these applications.%
 \end{large}%
 
 %
-\tiny{(Document prepared on 24 February, 2026 at 12:25:44 PM IST)}%
+\tiny{(Document prepared on 10 March, 2026 at 04:58:47 PM IST)}%
 \end{center}%
 \end{document}

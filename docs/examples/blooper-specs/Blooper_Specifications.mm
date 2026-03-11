@@ -62,8 +62,8 @@
     </p>
   </body>
 </html></richcontent>
-<hook NAME="MapStyle" background="#f5f5dcff" zoom="1.1">
-    <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_notes_in_map="true" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1767727458000" fit_to_viewport="false" show_icons="BESIDE_NODES" showTagCategories="false"/>
+<hook NAME="MapStyle" background="#f5f5dcff" zoom="0.82644624">
+    <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_notes_in_map="true" show_tags="UNDER_NODES" show_note_icons="true" associatedTemplateLocation="template:/light_sepia_template.mm" followedTemplateLocation="template:/light_sepia_template.mm" followedMapLastTime="1771102098000" fit_to_viewport="false" show_icons="BESIDE_NODES" showTagCategories="false"/>
     <tags category_separator="::"/>
 
 <map_styles>
@@ -71,7 +71,7 @@
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="bottom_or_right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="default" ID="ID_1558627382" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#2c2b29" BACKGROUND_COLOR="#eedfcc" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="8 pt" SHAPE_VERTICAL_MARGIN="5 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1.9 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#f0f0f0" BORDER_DASH_LIKE_EDGE="true" BORDER_DASH="SOLID" VGAP_QUANTITY="3 pt">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-3 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1558627382" STARTINCLINATION="81.75 pt;-6 pt;" ENDINCLINATION="81.75 pt;19.5 pt;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="9" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
 <edge STYLE="bezier" COLOR="#2e3440" WIDTH="3" DASH="SOLID"/>
 <richcontent TYPE="DETAILS" CONTENT-TYPE="plain/auto"/>
@@ -1881,7 +1881,7 @@
 </html></richcontent>
 </node>
 </node>
-<node TEXT="Program Specifications" FOLDED="true" POSITION="top_or_left" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1753291423003">
+<node TEXT="Program Specifications" FOLDED="true" POSITION="top_or_left" ID="ID_76613715" CREATED="1727287696924" MODIFIED="1772562414435" HGAP_QUANTITY="34.25 pt">
 <node TEXT="User-registration Module" FOLDED="true" ID="ID_1020423966" CREATED="1727287734464" MODIFIED="1770190923217" VGAP_QUANTITY="3 pt">
 <arrowlink DESTINATION="ID_86526980" STARTINCLINATION="456.74999 pt;278.99999 pt;" ENDINCLINATION="377.24999 pt;83.25 pt;"/>
 <richcontent TYPE="NOTE">
@@ -2040,7 +2040,7 @@
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="90.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="UnorderedList"/>
 <node TEXT="Login:" ID="ID_1684803624" CREATED="1729102382065" MODIFIED="1738900662380">
-<arrowlink DESTINATION="ID_571525042" STARTINCLINATION="81.75 pt;0 pt;" ENDINCLINATION="293.24999 pt;-63 pt;"/>
+<arrowlink DESTINATION="ID_571525042" STARTINCLINATION="81.75 pt;0 pt;" ENDINCLINATION="293.24999 pt;-57.75 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -2068,7 +2068,7 @@
 </node>
 </node>
 <node TEXT="Error-Message Box for Existing Record" FOLDED="true" POSITION="bottom_or_right" ID="ID_983817740" CREATED="1729333564187" MODIFIED="1738900651702">
-<arrowlink DESTINATION="ID_1641632316" STARTINCLINATION="118.5 pt;38.25 pt;" ENDINCLINATION="284.24999 pt;-105.75 pt;"/>
+<arrowlink DESTINATION="ID_1641632316" STARTINCLINATION="118.5 pt;38.25 pt;" ENDINCLINATION="284.24999 pt;-100.5 pt;"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -2088,7 +2088,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Classes" FOLDED="true" ID="ID_1181162309" CREATED="1752078894829" MODIFIED="1770192062568" VSHIFT_QUANTITY="-6.75 pt">
+<node TEXT="Interfaces &amp; Classes" FOLDED="true" ID="ID_1181162309" CREATED="1752078894829" MODIFIED="1773124984336" VSHIFT_QUANTITY="-6.75 pt">
 <attribute_layout NAME_WIDTH="92.25 pt" VALUE_WIDTH="90.75 pt"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -2101,23 +2101,21 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="User" FOLDED="true" ID="ID_769627122" CREATED="1770190994891" MODIFIED="1770363547939"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      The User class acts mostly like a data container, in which all user-related attributes are captured. But at the same time it allows certain methods like deactivate() to exist which, as its name suggests, deactivates the underlying user-account.
-    </p>
-  </body>
-</html></richcontent>
-<node TEXT="Attributes" FOLDED="true" ID="ID_1735010627" CREATED="1752078894829" MODIFIED="1770192477789">
-<attribute_layout NAME_WIDTH="92.25 pt" VALUE_WIDTH="90.75 pt"/>
-<attribute NAME="fpcBlockType" VALUE="UnorderedList"/>
-<attribute NAME="fpcNotesPosition" VALUE="south"/>
-<attribute NAME="Template" VALUE="Unordered List"/>
-<attribute NAME="created" VALUE="04-02-26"/>
+<node TEXT="AuthUser" FOLDED="true" ID="ID_358586165" CREATED="1773124404590" MODIFIED="1773125558335" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="70.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Interface"/>
+<attribute NAME="Template" VALUE="Interface"/>
+<attribute NAME="created" VALUE="10-03-26"/>
+<node TEXT="Constants" FOLDED="true" ID="ID_384652506" CREATED="1772519035321" MODIFIED="1773125026900">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="74.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Constants"/>
+<node TEXT="AUTH_BACKEND_TYPES" ID="ID_948607814" CREATED="1772519285948" MODIFIED="1773125994650">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Attribute"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="fpcDataType" VALUE="string"/>
+<attribute NAME="Template" VALUE="Constant"/>
+<attribute NAME="created" VALUE="10-03-26"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -2125,25 +2123,21 @@
   </head>
   <body>
     <p>
-      &#xa0;Following attributes are defined in the User class:
+      A list of authentication backend-types which are supported at present.
     </p>
   </body>
 </html></richcontent>
-<node TEXT="username: A string containing the username which is used to login to the application." ID="ID_1844661890" CREATED="1770191153381" MODIFIED="1770191239502"/>
-<node TEXT="password_hash: A string containing the hash of the user-password generated by bcrypt" ID="ID_1299979721" CREATED="1770191165638" MODIFIED="1770195413865"/>
-<node TEXT="email: A string containing the email address of the user" ID="ID_1081071464" CREATED="1770191195250" MODIFIED="1770191213903"/>
-<node TEXT="status: A string which has following valid values:" FOLDED="true" ID="ID_1823299193" CREATED="1770191242542" MODIFIED="1770191255254">
-<node TEXT="A: Active" ID="ID_1441197924" CREATED="1770191255692" MODIFIED="1770191260695"/>
-<node TEXT="I: Inactive" ID="ID_1105028337" CREATED="1770191261640" MODIFIED="1770191266104"/>
-<node TEXT="D: Deleted" ID="ID_446076673" CREATED="1770191266772" MODIFIED="1770191270130"/>
 </node>
 </node>
-<node TEXT="Methods" FOLDED="true" ID="ID_1216735107" CREATED="1752078851995" MODIFIED="1770192512972">
-<attribute_layout NAME_WIDTH="111 pt" VALUE_WIDTH="78.75 pt"/>
-<attribute NAME="fpcBlockType" VALUE="OrderedList"/>
-<attribute NAME="fpcNotesPosition" VALUE="north"/>
-<attribute NAME="Template" VALUE="Ordered List"/>
-<attribute NAME="created" VALUE="04-02-26"/>
+<node TEXT="Functions" FOLDED="true" ID="ID_59405780" CREATED="1772519069272" MODIFIED="1773125675170" VSHIFT_QUANTITY="-32.25 pt" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="68.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Functions"/>
+<node TEXT="activate" FOLDED="true" ID="ID_569129145" CREATED="1772521474398" MODIFIED="1773125640049" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Function"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="Template" VALUE="Function"/>
+<attribute NAME="created" VALUE="10-03-26"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -2151,42 +2145,401 @@
   </head>
   <body>
     <p>
-      Details of&#xa0;&#xa0;methods defined for this class are given below.
+      Activate the user by setting its status to 'A'.
     </p>
   </body>
 </html></richcontent>
-<node TEXT="get_current_blooper_count()" FOLDED="true" ID="ID_534947597" CREATED="1770115425348" MODIFIED="1770191358350">
-<attribute_layout NAME_WIDTH="81 pt" VALUE_WIDTH="85.5 pt"/>
-<attribute NAME="fpcBlockType" VALUE="UnorderedList"/>
-<attribute NAME="Template" VALUE="Method"/>
-<attribute NAME="created" VALUE="04-02-26"/>
-<node TEXT="Type: Public" ID="ID_1579955282" CREATED="1769778931688" MODIFIED="1770117507369"/>
-<node TEXT="Arguments: None" ID="ID_1758420829" CREATED="1769778845310" MODIFIED="1770191369853"/>
-<node TEXT="Returns: A number indicating the current blooper-counts of the user" ID="ID_1951265888" CREATED="1769778951380" MODIFIED="1770192577663"/>
-<node TEXT="Raises: Nothing" ID="ID_1891638076" CREATED="1769778960538" MODIFIED="1770191433979"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      No exceptions are raised in this method.
-    </p>
-  </body>
-</html></richcontent>
+<node TEXT="Arguments" ID="ID_129428561" CREATED="1772521746313" MODIFIED="1772521802996">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
 </node>
+<node TEXT="Exceptions" ID="ID_1898494542" CREATED="1772522492600" MODIFIED="1772563606161" VSHIFT_QUANTITY="-0 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
 </node>
-<node TEXT="get_reportees()" FOLDED="true" ID="ID_551725938" CREATED="1770115425348" MODIFIED="1770191469661">
-<attribute_layout NAME_WIDTH="81 pt" VALUE_WIDTH="85.5 pt"/>
-<attribute NAME="fpcBlockType" VALUE="UnorderedList"/>
-<attribute NAME="Template" VALUE="Method"/>
-<attribute NAME="created" VALUE="04-02-26"/>
-<node TEXT="Type: Public" ID="ID_943550741" CREATED="1769778931688" MODIFIED="1770117507369"/>
-<node TEXT="Arguments: None" ID="ID_248920619" CREATED="1769778845310" MODIFIED="1770191369853"/>
-<node TEXT="Returns: It returns a JSON string containing the User objects associated with the reportees of this user. A sample JSON string is given below." ID="ID_1676819113" CREATED="1769778951380" MODIFIED="1770363648260">
+<node TEXT="Returns" ID="ID_910417231" CREATED="1772563578551" MODIFIED="1772889323347">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="97.5 pt"/>
-<attribute NAME="fpcBlockType" VALUE="VerbatimNotes"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE=""/>
+</node>
+</node>
+<node TEXT="deactivate" FOLDED="true" ID="ID_711327396" CREATED="1772521474398" MODIFIED="1773125675167" HGAP_QUANTITY="12.5 pt" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Function"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="Template" VALUE="Function"/>
+<attribute NAME="created" VALUE="10-03-26"/>
 <richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Deactivates the user by setting its status to 'I'.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Arguments" ID="ID_937911377" CREATED="1772521746313" MODIFIED="1772521802996">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
+</node>
+<node TEXT="Exceptions" ID="ID_705262929" CREATED="1772522492600" MODIFIED="1772563606161" VSHIFT_QUANTITY="-0 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
+</node>
+<node TEXT="Returns" ID="ID_448485691" CREATED="1772563578551" MODIFIED="1772889323347">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="97.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE=""/>
+</node>
+</node>
+<node TEXT="add_authbackend" FOLDED="true" ID="ID_162567505" CREATED="1772521474398" MODIFIED="1773130057404" HGAP_QUANTITY="14 pt" VSHIFT_QUANTITY="2.25 pt" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Function"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="Template" VALUE="Function"/>
+<attribute NAME="created" VALUE="10-03-26"/>
+<node TEXT="Arguments" FOLDED="true" ID="ID_1877090969" CREATED="1772521746313" MODIFIED="1772521802996">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
+<node TEXT="auth_backend" ID="ID_1697378179" CREATED="1772519285948" MODIFIED="1773125746209">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Argument"/>
+<attribute NAME="fpcDataType" VALUE="AuthBackend"/>
+<attribute NAME="Template" VALUE="Argument"/>
+<attribute NAME="created" VALUE="10-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      An instance of AuthBackend class is used to associated this user-account with supplied backend.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="Exceptions" FOLDED="true" ID="ID_1064674967" CREATED="1772522492600" MODIFIED="1772563606161" VSHIFT_QUANTITY="-0 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
+<node TEXT="CONFLICT (409)" ID="ID_1061644259" CREATED="1772527006599" MODIFIED="1773126256557">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exception"/>
+<attribute NAME="fpcMessage" VALUE=""/>
+<attribute NAME="Template" VALUE="Exception"/>
+<attribute NAME="created" VALUE="10-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Supplied authentication backend is already mapped to this user.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="Returns" ID="ID_1523581712" CREATED="1772563578551" MODIFIED="1772889323347">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="97.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE=""/>
+</node>
+</node>
+<node TEXT="remove_authbackend" FOLDED="true" ID="ID_547111468" CREATED="1772521474398" MODIFIED="1773125829853" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Function"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="Template" VALUE="Function"/>
+<attribute NAME="created" VALUE="10-03-26"/>
+<node TEXT="Arguments" FOLDED="true" ID="ID_446045498" CREATED="1772521746313" MODIFIED="1772521802996">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
+<node TEXT="auth_backend" ID="ID_1404678872" CREATED="1772519285948" MODIFIED="1773125890423">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Argument"/>
+<attribute NAME="fpcDataType" VALUE="AuthBackend"/>
+<attribute NAME="Template" VALUE="Argument"/>
+<attribute NAME="created" VALUE="10-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Supplied authentication backend to be unmapped from this user.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="Exceptions" FOLDED="true" ID="ID_609812588" CREATED="1772522492600" MODIFIED="1772563606161" VSHIFT_QUANTITY="-0 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
+<node TEXT="MISSING (404)" ID="ID_1436401455" CREATED="1772527006599" MODIFIED="1773125928935">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exception"/>
+<attribute NAME="fpcMessage" VALUE=""/>
+<attribute NAME="Template" VALUE="Exception"/>
+<attribute NAME="created" VALUE="10-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Supplied AuthBackend instance is not mapped with the user.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="Returns" ID="ID_1820154794" CREATED="1772563578551" MODIFIED="1772889323347">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="97.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE=""/>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="User" FOLDED="true" ID="ID_1177272789" CREATED="1772518985791" MODIFIED="1773124962711">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="49.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Class"/>
+<attribute NAME="Template" VALUE="Class"/>
+<attribute NAME="created" VALUE="03-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      It contains details of the user using the application.
+    </p>
+    <p>
+      Please note that this class represents a user of the application, not an employee.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Attributes" FOLDED="true" ID="ID_969449622" CREATED="1772519035321" MODIFIED="1772711886476">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="74.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Attributes"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Following attributes are defined for this class.
+    </p>
+    <p>
+      Some of the attributes might be having default values.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="display_name" ID="ID_806713086" CREATED="1772519285948" MODIFIED="1772562673141">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Attribute"/>
+<attribute NAME="fpcVisibility" VALUE="Private"/>
+<attribute NAME="fpcDataType" VALUE="string"/>
+<attribute NAME="Template" VALUE="Attribute"/>
+<attribute NAME="created" VALUE="04-03-26"/>
+</node>
+<node TEXT="username" ID="ID_318490668" CREATED="1772519285948" MODIFIED="1772562655881">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Attribute"/>
+<attribute NAME="fpcVisibility" VALUE="Private"/>
+<attribute NAME="fpcDataType" VALUE="string"/>
+<attribute NAME="Template" VALUE="Attribute"/>
+<attribute NAME="created" VALUE="03-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Login-id of the user.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="password_hash" ID="ID_727869564" CREATED="1772519285948" MODIFIED="1772562642913">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Attribute"/>
+<attribute NAME="fpcVisibility" VALUE="Private"/>
+<attribute NAME="fpcDataType" VALUE="string"/>
+<attribute NAME="Template" VALUE="Attribute"/>
+<attribute NAME="created" VALUE="03-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The hash of the user-password created using bcrypt.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="email" ID="ID_266458949" CREATED="1772519285948" MODIFIED="1772562618988">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Attribute"/>
+<attribute NAME="fpcVisibility" VALUE="Private"/>
+<attribute NAME="fpcDataType" VALUE="string"/>
+<attribute NAME="Template" VALUE="Attribute"/>
+<attribute NAME="created" VALUE="03-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The email address of the user.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="status" ID="ID_647054644" CREATED="1772519285948" MODIFIED="1772562610680">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Attribute"/>
+<attribute NAME="fpcVisibility" VALUE="Private"/>
+<attribute NAME="fpcDataType" VALUE="char"/>
+<attribute NAME="Template" VALUE="Attribute"/>
+<attribute NAME="created" VALUE="03-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Valid values are (A)ctive, (I)nactive, and (D)eleted.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="Functions" FOLDED="true" ID="ID_25152220" CREATED="1772519069272" MODIFIED="1773045765695">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="68.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Functions"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Following functions are defined for this class.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="deactivate" FOLDED="true" ID="ID_1640027012" CREATED="1772521474398" MODIFIED="1773044473406" VGAP_QUANTITY="3 pt">
+<icon BUILTIN="button_cancel"/>
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Function"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="Template" VALUE="Function"/>
+<attribute NAME="created" VALUE="04-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Invoking this function deactivates the account of the underlying user by setting its attribute status to I.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Arguments" ID="ID_1991646118" CREATED="1772521746313" MODIFIED="1772521802996">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
+</node>
+<node TEXT="Exceptions" ID="ID_1770972723" CREATED="1772522492600" MODIFIED="1772522758028" VSHIFT_QUANTITY="-43.5 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
+</node>
+<node TEXT="Returns" ID="ID_1300777663" CREATED="1772890467267" MODIFIED="1772890488438">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE=""/>
+</node>
+</node>
+<node TEXT="fetch_bloopers" FOLDED="true" ID="ID_1805978470" CREATED="1772521474398" MODIFIED="1772889251908" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Function"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="Template" VALUE="Function"/>
+<attribute NAME="created" VALUE="05-03-26"/>
+<node TEXT="Arguments" FOLDED="true" ID="ID_1204490384" CREATED="1772521746313" MODIFIED="1772703364346">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Filter bloopers by its cost which should be greater than or equal to the supplied value. Default is Null.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="creation_date" ID="ID_1194476372" CREATED="1772519285948" MODIFIED="1772703275537">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Argument"/>
+<attribute NAME="fpcDataType" VALUE="date"/>
+<attribute NAME="Template" VALUE="Argument"/>
+<attribute NAME="created" VALUE="05-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Default value is Null.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="cost" FOLDED="true" ID="ID_645209805" CREATED="1772519285948" MODIFIED="1772703369757">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Argument"/>
+<attribute NAME="fpcDataType" VALUE="decimal"/>
+<attribute NAME="Template" VALUE="Argument"/>
+<attribute NAME="created" VALUE="05-03-26"/>
+<node TEXT="A sample of cost is £200." ID="ID_186245446" CREATED="1772703785671" MODIFIED="1772703836408"/>
+</node>
+</node>
+<node TEXT="Exceptions" FOLDED="true" ID="ID_738944836" CREATED="1772522492600" MODIFIED="1773215905801" HGAP_QUANTITY="65.75 pt" VSHIFT_QUANTITY="-0 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
+<node TEXT="MISSING (404)" ID="ID_958290248" CREATED="1772527006599" MODIFIED="1772705814510">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="117 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exception"/>
+<attribute NAME="fpcMessage" VALUE="No bloopers found."/>
+<attribute NAME="Template" VALUE="Exception"/>
+<attribute NAME="created" VALUE="05-03-26"/>
+</node>
+</node>
+<node TEXT="List of Blooper objects matching the supplied parameters." FOLDED="true" ID="ID_1895496084" CREATED="1772692446593" MODIFIED="1773216100001" HGAP_QUANTITY="14 pt" VSHIFT_QUANTITY="-42 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE="[Bloopers]"/>
+<attribute NAME="Template" VALUE="Returns"/>
+<attribute NAME="created" VALUE="05-03-26"/>
+<node TEXT="A sample of returned value is given below" ID="ID_63165276" CREATED="1772633417770" MODIFIED="1772703772853"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -2199,10 +2552,13 @@
       &#xa0;&#xa0;{
     </p>
     <p>
-      &#xa0;&#xa0;&#xa0;&#xa0;&quot;username&quot;: &quot;Jagmeet Chautala&quot;,
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;id&quot;: 438,
     </p>
     <p>
-      &#xa0;&#xa0;&#xa0;&#xa0;&quot;email&quot;: &quot;jagmeetc@clueless.dev&quot;
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;name&quot;: &quot;Mild catastrophy in the kitchen&quot;,
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;handled&quot;: true
     </p>
     <p>
       &#xa0;&#xa0;},
@@ -2211,10 +2567,13 @@
       &#xa0;&#xa0;{
     </p>
     <p>
-      &#xa0;&#xa0;&#xa0;&#xa0;&quot;username&quot;: &quot;Madhuri Varma&quot;,
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;id: 491,
     </p>
     <p>
-      &#xa0;&#xa0;&#xa0;&#xa0;&quot;email&quot;: &quot;madhuri.verma@clueless.dev&quot;
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;name&quot;: &quot;Destroyed non-stick cookware&quot;,
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;handled&quot;: true
     </p>
     <p>
       &#xa0;&#xa0;}
@@ -2225,15 +2584,27 @@
   </body>
 </html></richcontent>
 </node>
-<node TEXT="Raises:" FOLDED="true" ID="ID_236083018" CREATED="1769778960538" MODIFIED="1770117507373">
-<node TEXT="NotFound: No reportees are found for this user." ID="ID_1007325261" CREATED="1769778991332" MODIFIED="1770192669630"/>
 </node>
 </node>
-<node TEXT="deactivate()" FOLDED="true" ID="ID_838820146" CREATED="1770115425348" MODIFIED="1770195302178">
-<attribute_layout NAME_WIDTH="81 pt" VALUE_WIDTH="85.5 pt"/>
-<attribute NAME="fpcBlockType" VALUE="UnorderedList"/>
-<attribute NAME="Template" VALUE="Method"/>
-<attribute NAME="created" VALUE="04-02-26"/>
+<node TEXT="getSalary" FOLDED="true" ID="ID_1458157979" CREATED="1772521474398" MODIFIED="1772890249072" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Function"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="Template" VALUE="Function"/>
+<attribute NAME="created" VALUE="07-03-26"/>
+<node TEXT="Arguments" ID="ID_394232964" CREATED="1772521746313" MODIFIED="1772521802996">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
+</node>
+<node TEXT="Exceptions" FOLDED="true" ID="ID_858597611" CREATED="1772522492600" MODIFIED="1772563606161" VSHIFT_QUANTITY="-0 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
+<node TEXT="FORBIDDEN (403)" ID="ID_1244913958" CREATED="1772527006599" MODIFIED="1772890353316">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exception"/>
+<attribute NAME="fpcMessage" VALUE=""/>
+<attribute NAME="Template" VALUE="Exception"/>
+<attribute NAME="created" VALUE="07-03-26"/>
 <richcontent TYPE="NOTE">
 <html>
   <head>
@@ -2241,16 +2612,202 @@
   </head>
   <body>
     <p>
-      Deactivates the user-account by setting its attribute &quot;status&quot; to &quot;I&quot;.
+      Not allowed to fetch salary-details.
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Type: Public" ID="ID_1773996792" CREATED="1769778931688" MODIFIED="1770117507369"/>
-<node TEXT="Arguments: None" ID="ID_1448632089" CREATED="1769778845310" MODIFIED="1770191821466"/>
-<node TEXT="Returns: Nothing" ID="ID_804888589" CREATED="1769778951380" MODIFIED="1770117507372"/>
-<node TEXT="Raises:" FOLDED="true" ID="ID_935430280" CREATED="1769778960538" MODIFIED="1770117507373">
-<node TEXT="OperationFailed: The user-record is already inactive." ID="ID_1171585127" CREATED="1769778991332" MODIFIED="1770191859241"/>
 </node>
+</node>
+<node TEXT="Returns" ID="ID_404514779" CREATED="1772563578551" MODIFIED="1772890277799">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="97.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE="Decimal"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The salary of the employee.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="Exim Module" FOLDED="true" ID="ID_894245470" CREATED="1773052284913" MODIFIED="1773063214750" VGAP_QUANTITY="3 pt"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This module imports and exports data of various entities.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="import_users" FOLDED="true" POSITION="top_or_left" ID="ID_1375483315" CREATED="1772521474398" MODIFIED="1773063933537" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Function"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="Template" VALUE="Function"/>
+<attribute NAME="created" VALUE="09-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This function fetches the user-records from supplied API and imports them in to the database of the application.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Arguments" FOLDED="true" ID="ID_1230296241" CREATED="1772521746313" MODIFIED="1772521802996">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
+<node TEXT="url" FOLDED="true" ID="ID_1695790788" CREATED="1772519285948" MODIFIED="1773064248017">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Argument"/>
+<attribute NAME="fpcDataType" VALUE="string"/>
+<attribute NAME="Template" VALUE="Argument"/>
+<attribute NAME="created" VALUE="09-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Few sample URLs are given below:
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Sample URL (external)" ID="ID_92983384" CREATED="1772634722323" MODIFIED="1773064263334"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      https://example.com/import-users
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Sample URL (internal)" ID="ID_423601549" CREATED="1773064263879" MODIFIED="1773064292213"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      https://intranet.example.com/users-import
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+</node>
+<node TEXT="Exceptions" FOLDED="true" ID="ID_309114174" CREATED="1772522492600" MODIFIED="1772563606161" VSHIFT_QUANTITY="-0 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
+<node TEXT="SYSERROR (500)" ID="ID_538313547" CREATED="1772527006599" MODIFIED="1773052032746">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exception"/>
+<attribute NAME="fpcMessage" VALUE="Network error noticed."/>
+<attribute NAME="Template" VALUE="Exception"/>
+<attribute NAME="created" VALUE="09-03-26"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Failed to fetch the user-data.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="Returns" ID="ID_1189547282" CREATED="1772563578551" MODIFIED="1773058009218" VSHIFT_QUANTITY="-52.5 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="97.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE=""/>
+</node>
+</node>
+<node TEXT="export_users" FOLDED="true" ID="ID_241763498" CREATED="1772521474398" MODIFIED="1773059108623" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Function"/>
+<attribute NAME="fpcVisibility" VALUE="Public"/>
+<attribute NAME="Template" VALUE="Function"/>
+<attribute NAME="created" VALUE="09-03-26"/>
+<node TEXT="Arguments" ID="ID_616669395" CREATED="1772521746313" MODIFIED="1772521802996">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
+</node>
+<node TEXT="Exceptions" ID="ID_272124374" CREATED="1772522492600" MODIFIED="1772563606161" VSHIFT_QUANTITY="-0 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
+</node>
+<node TEXT="Returns" FOLDED="true" ID="ID_823468080" CREATED="1772563578551" MODIFIED="1773062833613">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="97.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE="Hashmap"/>
+<node TEXT="A sample list of users are given below." ID="ID_1020430619" CREATED="1773059141112" MODIFIED="1773064078170"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      [
+    </p>
+    <p>
+      &#xa0;&#xa0;{
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;id&quot;: 482,
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;name&quot;: &quot;Thembeka&quot;,
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;employee_no&quot;: &quot;ET49&quot;,
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;status&quot;: &quot;A&quot;
+    </p>
+    <p>
+      &#xa0;&#xa0;},
+    </p>
+    <p>
+      &#xa0;&#xa0;{
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;id&quot;: 181,
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;name&quot;: &quot;Melony D'cruz&quot;,
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;employee_no&quot;: &quot;EG32&quot;,
+    </p>
+    <p>
+      &#xa0;&#xa0;&#xa0;&#xa0;&quot;status&quot;: &quot;I&quot;
+    </p>
+    <p>
+      &#xa0;&#xa0;}
+    </p>
+    <p>
+      ]
+    </p>
+  </body>
+</html></richcontent>
 </node>
 </node>
 </node>
@@ -2265,7 +2822,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Database Schema" POSITION="top_or_left" ID="ID_1060163767" CREATED="1734523313539" MODIFIED="1753291584237" VGAP_QUANTITY="3 pt"><richcontent TYPE="NOTE">
+<node TEXT="Database Schema" FOLDED="true" POSITION="top_or_left" ID="ID_1060163767" CREATED="1734523313539" MODIFIED="1772562420596" HGAP_QUANTITY="39.5 pt" VGAP_QUANTITY="3 pt"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -2276,7 +2833,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="Relational Databases" ID="ID_1430871552" CREATED="1753291311352" MODIFIED="1753291561452">
+<node TEXT="Relational Databases" FOLDED="true" ID="ID_1430871552" CREATED="1753291311352" MODIFIED="1753291561452">
 <attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="74.25 pt"/>
 <richcontent TYPE="NOTE">
 <html>
@@ -2292,7 +2849,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="BlooperDB" ID="ID_979518749" CREATED="1753291311352" MODIFIED="1770886585619">
+<node TEXT="BlooperDB" FOLDED="true" ID="ID_979518749" CREATED="1753291311352" MODIFIED="1770886585619">
 <icon BUILTIN="addition"/>
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="108.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="DBSchema"/>
@@ -2312,7 +2869,7 @@
     </p>
   </body>
 </html></richcontent>
-<node TEXT="users" ID="ID_1108020213" CREATED="1734525632517" MODIFIED="1734525636551">
+<node TEXT="users" FOLDED="true" ID="ID_1108020213" CREATED="1734525632517" MODIFIED="1734525636551">
 <node TEXT="id: int, ai, pk" ID="ID_661330182" CREATED="1734525638576" MODIFIED="1735816322391"/>
 <node TEXT="name: varchar(64), unique, not null" ID="ID_1961443962" CREATED="1734525652428" MODIFIED="1734525666125"/>
 <node TEXT="email: varchar(80), default=null" ID="ID_1939585686" CREATED="1734525668192" MODIFIED="1766405620058"><richcontent TYPE="NOTE">
@@ -2431,7 +2988,7 @@
 <arrowlink DESTINATION="ID_1278481383"/>
 </node>
 </node>
-<node TEXT="states" ID="ID_1271254269" CREATED="1735821275723" MODIFIED="1735821378443"><richcontent TYPE="NOTE">
+<node TEXT="states" FOLDED="true" ID="ID_1271254269" CREATED="1735821275723" MODIFIED="1735821378443"><richcontent TYPE="NOTE">
 <html>
   <head>
 
@@ -2454,7 +3011,7 @@
 <arrowlink DESTINATION="ID_996631835"/>
 </node>
 </node>
-<node TEXT="countries" ID="ID_1605829722" CREATED="1735821321802" MODIFIED="1735821324567">
+<node TEXT="countries" FOLDED="true" ID="ID_1605829722" CREATED="1735821321802" MODIFIED="1735821324567">
 <node TEXT="id: int, ai, pk" ID="ID_996631835" CREATED="1735821325647" MODIFIED="1735821329951"/>
 <node TEXT="code: varchar(4), not null, unique" ID="ID_907782513" CREATED="1735821330442" MODIFIED="1770805673683"><richcontent TYPE="NOTE">
 <html>
@@ -2473,7 +3030,7 @@
 <icon BUILTIN="button_cancel"/>
 </node>
 </node>
-<node TEXT="blooper_views" ID="ID_1385303489" CREATED="1770890037738" MODIFIED="1770890118848">
+<node TEXT="blooper_views" FOLDED="true" ID="ID_1385303489" CREATED="1770890037738" MODIFIED="1770890118848">
 <icon BUILTIN="button_cancel"/>
 <node TEXT="id: int, ai, pk" ID="ID_1902829911" CREATED="1770890042651" MODIFIED="1770890045982"/>
 <node TEXT="blooper_id: int, not null" ID="ID_1757174036" CREATED="1770890048075" MODIFIED="1770890062502">
@@ -2484,7 +3041,7 @@
 </node>
 <node TEXT="viewed_at: datetime, default now(), not null" ID="ID_325945294" CREATED="1770890097683" MODIFIED="1770890109565"/>
 </node>
-<node TEXT="bloopers" ID="ID_1477738033" CREATED="1735816295926" MODIFIED="1736166311327">
+<node TEXT="bloopers" FOLDED="true" ID="ID_1477738033" CREATED="1735816295926" MODIFIED="1736166311327">
 <node TEXT="id: int, ai, pk" ID="ID_1852475439" CREATED="1735816300304" MODIFIED="1735816306052"/>
 <node TEXT="blooped_by: int, not null" ID="ID_1531046400" CREATED="1735816331142" MODIFIED="1753291530947">
 <arrowlink DESTINATION="ID_661330182"/>
@@ -2549,7 +3106,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Deployment Strategies" POSITION="top_or_left" ID="ID_1585346971" CREATED="1735824116778" MODIFIED="1753291423004"><richcontent TYPE="NOTE">
+<node TEXT="Deployment Strategies" POSITION="top_or_left" ID="ID_1585346971" CREATED="1735824116778" MODIFIED="1772562363846" HGAP_QUANTITY="38.75 pt" VSHIFT_QUANTITY="29.25 pt"><richcontent TYPE="NOTE">
 <html>
   <head>
 
@@ -2564,20 +3121,89 @@
   </body>
 </html></richcontent>
 </node>
-<node TEXT="Templates" FOLDED="true" POSITION="top_or_left" ID="ID_1495832884" CREATED="1743571867496" MODIFIED="1767941384072" VGAP_QUANTITY="3 pt"><richcontent TYPE="NOTE">
+<node TEXT="List: Risk Types" FOLDED="true" POSITION="top_or_left" ID="ID_519219886" CREATED="1767779930056" MODIFIED="1772562357456" HGAP_QUANTITY="34.25 pt" VGAP_QUANTITY="3 pt">
+<icon BUILTIN="broken-line"/>
+<richcontent TYPE="NOTE">
 <html>
   <head>
     
   </head>
   <body>
     <p>
-      All applicable templates are stored under this node. It should not be deleted!<br/>Usually this should not be rendered into the resultant document, and hence it is marked to be ignored.
+      These are various known types of risks.
     </p>
   </body>
 </html></richcontent>
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="95.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="UnorderedList"/>
+<node TEXT="Compliance" ID="ID_950899374" CREATED="1747663080364" MODIFIED="1755929843560"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Compliance and legal risks.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Financial" ID="ID_1567580480" CREATED="1747662857393" MODIFIED="1755929843560"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Loss of capital or finances related risks.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Time" ID="ID_485787611" CREATED="1747662944717" MODIFIED="1767941396570" VSHIFT_QUANTITY="-15.75 pt"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Delay in execution or delivery related risks.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="Templates" FOLDED="true" POSITION="top_or_left" ID="ID_145552192" CREATED="1769687790131" MODIFIED="1772562349686" HGAP_QUANTITY="32 pt" VSHIFT_QUANTITY="-3 pt" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Ignore"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The content of this node and its children are not rendered in the file generated by fp-convert.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="MacroGroup: Custom Macros" FOLDED="true" ID="ID_1461784750" CREATED="1746016823611" MODIFIED="1770372142327" VSHIFT_QUANTITY="3.75 pt">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
-<node TEXT="Common Templates" FOLDED="true" ID="ID_1114401410" CREATED="1743571867496" MODIFIED="1766403694189"><richcontent TYPE="NOTE">
+<node TEXT="{{today}}" ID="ID_1199160513" CREATED="1746016958356" MODIFIED="1755929843561"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span style="font-size: 10pt;">new Date().format('dd-MM-yyyy') </span>
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="Common Templates" FOLDED="true" ID="ID_1495832884" CREATED="1743571867496" MODIFIED="1770372142324"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -2672,33 +3298,28 @@
 </node>
 </node>
 </node>
+<node TEXT="Template: Text Column" ID="ID_605681871" CREATED="1770205883622" MODIFIED="1770206527748" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="104.25 pt" VALUE_WIDTH="85.5 pt"/>
+<attribute NAME="*fpcColumnType" VALUE="Text"/>
+<attribute NAME="destinationType" VALUE="Child"/>
+<attribute NAME="defaultText" VALUE="Text-Column"/>
 </node>
-<node TEXT="List Templates" FOLDED="true" ID="ID_1571657878" CREATED="1753974178630" MODIFIED="1766403681016">
-<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
-<attribute NAME="fpcBlockType" VALUE="Ignore"/>
-<richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Templates to render lists.
-    </p>
-  </body>
-</html></richcontent>
-<node TEXT="Template: Ordered List" ID="ID_1846200894" CREATED="1752078851995" MODIFIED="1766403600393">
-<attribute_layout NAME_WIDTH="111 pt" VALUE_WIDTH="78.75 pt"/>
-<attribute NAME="*fpcBlockType" VALUE="OrderedList"/>
-<attribute NAME="*fpcNotesPosition" VALUE="north"/>
+<node TEXT="Template: Number Column" ID="ID_1062803646" CREATED="1770205883622" MODIFIED="1770206533211" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="104.25 pt" VALUE_WIDTH="85.5 pt"/>
+<attribute NAME="*fpcColumnType" VALUE="Number"/>
+<attribute NAME="*fpcSumIt" VALUE="True"/>
+<attribute NAME="destinationType" VALUE="Child"/>
+<attribute NAME="defaultText" VALUE="Text-Column"/>
 </node>
-<node TEXT="Template: Unordered List" ID="ID_1017065751" CREATED="1752078894829" MODIFIED="1769781072940">
-<attribute_layout NAME_WIDTH="92.25 pt" VALUE_WIDTH="90.75 pt"/>
-<attribute NAME="*fpcBlockType" VALUE="UnorderedList"/>
-<attribute NAME="*fpcNotesPosition" VALUE="north"/>
+<node TEXT="Template: Decimal Column" ID="ID_757941202" CREATED="1770205883622" MODIFIED="1770206541529" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="104.25 pt" VALUE_WIDTH="85.5 pt"/>
+<attribute NAME="*fpcColumnType" VALUE="Decimal"/>
+<attribute NAME="*fpcSumIt" VALUE="True"/>
+<attribute NAME="destinationType" VALUE="Child"/>
+<attribute NAME="defaultText" VALUE="Text-Column"/>
 </node>
 </node>
-<node TEXT="Project Templates" FOLDED="true" ID="ID_649403774" CREATED="1743571867496" MODIFIED="1767940502548"><richcontent TYPE="NOTE">
+<node TEXT="Project Templates" FOLDED="true" POSITION="top_or_left" ID="ID_649403774" CREATED="1743571867496" MODIFIED="1770372142328"><richcontent TYPE="NOTE">
 <html>
   <head>
     
@@ -2868,35 +3489,8 @@
 </node>
 </node>
 </node>
-<node TEXT="Template: Database Schema" ID="ID_784160568" CREATED="1753291311352" MODIFIED="1766403655364">
-<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="74.25 pt"/>
-<attribute NAME="*fpcBlockType" VALUE="DBSchema"/>
 </node>
-</node>
-<node TEXT="Specs Templates" FOLDED="true" ID="ID_1396155186" CREATED="1770115385878" MODIFIED="1770117529346">
-<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
-<attribute NAME="fpcBlockType" VALUE="Ignore"/>
-<node TEXT="Template: Method" FOLDED="true" ID="ID_1721941788" CREATED="1770115425348" MODIFIED="1770116008600">
-<attribute_layout NAME_WIDTH="81 pt" VALUE_WIDTH="85.5 pt"/>
-<attribute NAME="*fpcBlockType" VALUE="UnorderedList"/>
-<node TEXT="Type: Public" POSITION="top_or_left" ID="ID_574413296" CREATED="1769778931688" MODIFIED="1770117507369"/>
-<node TEXT="Arguments:" FOLDED="true" POSITION="top_or_left" ID="ID_977861889" CREATED="1769778845310" MODIFIED="1770117507371">
-<node TEXT="arg1:" ID="ID_920324147" CREATED="1769778853649" MODIFIED="1770117521950"/>
-</node>
-<node TEXT="Returns: Nothing" POSITION="top_or_left" ID="ID_1525129679" CREATED="1769778951380" MODIFIED="1770117507372"/>
-<node TEXT="Raises:" FOLDED="true" POSITION="top_or_left" ID="ID_354571878" CREATED="1769778960538" MODIFIED="1770117507373">
-<node TEXT="NotFound:" ID="ID_1581119335" CREATED="1769778991332" MODIFIED="1770117521953"/>
-</node>
-<node TEXT="Template Settings" FOLDED="true" POSITION="top_or_left" ID="ID_1469968066" CREATED="1770115728216" MODIFIED="1770117507374">
-<node TEXT="Title" ID="ID_434744890" CREATED="1770115734563" MODIFIED="1770117521952">
-<attribute_layout NAME_WIDTH="92.25 pt" VALUE_WIDTH="85.5 pt"/>
-<attribute NAME="destinationType" VALUE="core"/>
-<attribute NAME="defaultText" VALUE="method():"/>
-</node>
-</node>
-</node>
-</node>
-<node TEXT="UML Templates" FOLDED="true" ID="ID_171329611" CREATED="1753974321275" MODIFIED="1766403667818">
+<node TEXT="UML Templates" FOLDED="true" POSITION="top_or_left" ID="ID_171329611" CREATED="1753974321275" MODIFIED="1770372142330">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
 <richcontent TYPE="NOTE">
@@ -3019,8 +3613,356 @@
 </node>
 </node>
 </node>
+<node TEXT="List Templates" FOLDED="true" ID="ID_1571657878" CREATED="1753974178630" MODIFIED="1770372142328">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="57.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Ignore"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Templates to render lists.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="Template: Ordered List" ID="ID_1846200894" CREATED="1752078851995" MODIFIED="1766403600393">
+<attribute_layout NAME_WIDTH="111 pt" VALUE_WIDTH="78.75 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="OrderedList"/>
+<attribute NAME="*fpcNotesPosition" VALUE="north"/>
 </node>
-<node TEXT="List: People" FOLDED="true" POSITION="top_or_left" ID="ID_1194669542" CREATED="1767777552916" MODIFIED="1767778306101" VGAP_QUANTITY="3 pt">
+<node TEXT="Template: Unordered List" ID="ID_1017065751" CREATED="1752078894829" MODIFIED="1769781072940">
+<attribute_layout NAME_WIDTH="92.25 pt" VALUE_WIDTH="90.75 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="UnorderedList"/>
+<attribute NAME="*fpcNotesPosition" VALUE="north"/>
+</node>
+</node>
+<node TEXT="Software Design Templates" FOLDED="true" ID="ID_1911892409" CREATED="1772523138831" MODIFIED="1772523156621">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Ignore"/>
+<node TEXT="Template: Database Schema" ID="ID_1334815292" CREATED="1753291311352" MODIFIED="1766403655364">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="74.25 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="DBSchema"/>
+</node>
+<node TEXT="Template: Interface" FOLDED="true" ID="ID_541991724" CREATED="1772518985791" MODIFIED="1772519730457">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="70.5 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="Interface"/>
+<node TEXT="Constants" ID="ID_254208980" CREATED="1772519035321" MODIFIED="1772519541714">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Constants"/>
+</node>
+<node TEXT="Methods" ID="ID_1315822873" CREATED="1772519069272" MODIFIED="1772519087456">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="68.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Methods"/>
+</node>
+</node>
+<node TEXT="Template: Class" FOLDED="true" ID="ID_1833366349" CREATED="1772518985791" MODIFIED="1772519009948">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="49.5 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="Class"/>
+<node TEXT="Attributes" ID="ID_1594877437" CREATED="1772519035321" MODIFIED="1772520789018">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="74.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Attributes"/>
+</node>
+<node TEXT="Functions" ID="ID_617794048" CREATED="1772519069272" MODIFIED="1772522910399">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="68.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Functions"/>
+</node>
+<node TEXT="Template Settings" FOLDED="true" ID="ID_543489111" CREATED="1772520803208" MODIFIED="1772520812775">
+<node TEXT="Name" ID="ID_1164828001" CREATED="1772520813614" MODIFIED="1772520830275">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+<attribute NAME="destinationType" VALUE="core"/>
+</node>
+</node>
+</node>
+<node TEXT="Template: Attribute" FOLDED="true" ID="ID_1987340614" CREATED="1772519285948" MODIFIED="1772521553492">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="Attribute"/>
+<node TEXT="Template Settings" FOLDED="true" POSITION="top_or_left" ID="ID_78436338" CREATED="1772519242324" MODIFIED="1772519254915">
+<node TEXT="Name" ID="ID_1150074692" CREATED="1772520530263" MODIFIED="1772520561094">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+<attribute NAME="destinationType" VALUE="core"/>
+</node>
+<node TEXT="fpcVisibility" FOLDED="true" ID="ID_614218442" CREATED="1772519394360" MODIFIED="1772520312269">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="60.75 pt"/>
+<attribute NAME="destinationType" VALUE="header"/>
+<attribute NAME="comboType" VALUE="closed"/>
+<attribute NAME="defaultText" VALUE="int"/>
+<node TEXT="&amp;List: Visibility" ID="ID_1742062634" CREATED="1772520287410" MODIFIED="1772520450660"/>
+</node>
+<node TEXT="fpcDataType" FOLDED="true" ID="ID_536225102" CREATED="1772519326465" MODIFIED="1772520262219">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="60.75 pt"/>
+<attribute NAME="destinationType" VALUE="header"/>
+<attribute NAME="comboType" VALUE="open"/>
+<attribute NAME="defaultText" VALUE="private"/>
+<node TEXT="&amp;List: Data Types" ID="ID_479006182" CREATED="1772519784607" MODIFIED="1772519801414"/>
+</node>
+</node>
+</node>
+<node TEXT="Template: Function" FOLDED="true" ID="ID_497906692" CREATED="1772521474398" MODIFIED="1772522529767" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="Function"/>
+<node TEXT="Template Settings" FOLDED="true" ID="ID_1414393795" CREATED="1772519242324" MODIFIED="1772519254915">
+<node TEXT="Name" ID="ID_896259586" CREATED="1772520530263" MODIFIED="1772520561094">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+<attribute NAME="destinationType" VALUE="core"/>
+</node>
+<node TEXT="fpcVisibility" FOLDED="true" ID="ID_1449098429" CREATED="1772519394360" MODIFIED="1772520312269">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="60.75 pt"/>
+<attribute NAME="destinationType" VALUE="header"/>
+<attribute NAME="comboType" VALUE="closed"/>
+<attribute NAME="defaultText" VALUE="int"/>
+<node TEXT="&amp;List: Visibility" ID="ID_1057082654" CREATED="1772520287410" MODIFIED="1772520450660"/>
+</node>
+</node>
+<node TEXT="Arguments" ID="ID_1257395351" CREATED="1772521746313" MODIFIED="1772521802996">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="79.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Arguments"/>
+</node>
+<node TEXT="Exceptions" ID="ID_640651993" CREATED="1772522492600" MODIFIED="1772563606161" VSHIFT_QUANTITY="-0 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Exceptions"/>
+</node>
+<node TEXT="Returns" ID="ID_216288180" CREATED="1772563578551" MODIFIED="1772889323347">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="97.5 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Returns"/>
+<attribute NAME="fpcDataType" VALUE=""/>
+</node>
+</node>
+<node TEXT="Template: Argument" FOLDED="true" ID="ID_1477328752" CREATED="1772519285948" MODIFIED="1772521861159">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="Argument"/>
+<node TEXT="Argument Option 1" POSITION="top_or_left" ID="ID_678264811" CREATED="1772634722323" MODIFIED="1772634741917"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Verbatim notes of option 1
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Template Settings" FOLDED="true" POSITION="top_or_left" ID="ID_1470240403" CREATED="1772519242324" MODIFIED="1772521890268" VGAP_QUANTITY="3 pt">
+<node TEXT="Name" ID="ID_801707730" CREATED="1772520530263" MODIFIED="1772521890266" VSHIFT_QUANTITY="34.5 pt">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+<attribute NAME="destinationType" VALUE="core"/>
+</node>
+<node TEXT="fpcDataType" FOLDED="true" ID="ID_1018916346" CREATED="1772519326465" MODIFIED="1772523243383" VSHIFT_QUANTITY="-8.25 pt">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="60.75 pt"/>
+<attribute NAME="destinationType" VALUE="header"/>
+<attribute NAME="comboType" VALUE="open"/>
+<attribute NAME="defaultText" VALUE="private"/>
+<node TEXT="&amp;List: Data Types" ID="ID_1162128698" CREATED="1772519784607" MODIFIED="1772519801414"/>
+<node TEXT="Context" ID="ID_271783207" CREATED="1772523359228" MODIFIED="1772523359228"/>
+<node TEXT="Employee" ID="ID_1345982106" CREATED="1772692710246" MODIFIED="1772692710246"/>
+<node TEXT="AuthBackend" ID="ID_963326004" CREATED="1773125708275" MODIFIED="1773125708275"/>
+</node>
+</node>
+</node>
+<node TEXT="Template: Exception" FOLDED="true" ID="ID_1204257177" CREATED="1772527006599" MODIFIED="1772530094372">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="72 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="Exception"/>
+<attribute NAME="*fpcMessage" VALUE=""/>
+<node TEXT="Template Settings" FOLDED="true" ID="ID_753905457" CREATED="1772519242324" MODIFIED="1772521890268" VGAP_QUANTITY="3 pt">
+<node TEXT="Name" FOLDED="true" ID="ID_53950928" CREATED="1772520530263" MODIFIED="1772527082625" VSHIFT_QUANTITY="34.5 pt">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+<attribute NAME="destinationType" VALUE="core"/>
+<attribute NAME="comboType" VALUE="closed"/>
+<node TEXT="&amp;List: Exceptions" ID="ID_133733428" CREATED="1772527056635" MODIFIED="1772527066283"/>
+</node>
+</node>
+</node>
+<node TEXT="Template: Returns" FOLDED="true" ID="ID_506299113" CREATED="1772692446593" MODIFIED="1772692488312">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="63.75 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="Returns"/>
+<node TEXT="Returned Option 1" POSITION="top_or_left" ID="ID_1906831543" CREATED="1772633417770" MODIFIED="1772633447467"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Verbatim notes of option 1
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Template Settings" FOLDED="true" ID="ID_518237761" CREATED="1772519242324" MODIFIED="1772521890268" VGAP_QUANTITY="3 pt">
+<node TEXT="Returns" ID="ID_1900111800" CREATED="1772520530263" MODIFIED="1772692539045" VSHIFT_QUANTITY="34.5 pt">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+<attribute NAME="destinationType" VALUE="core"/>
+</node>
+</node>
+</node>
+<node TEXT="Template: Interface" FOLDED="true" ID="ID_89668296" CREATED="1773124404590" MODIFIED="1773124427866">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="70.5 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="Interface"/>
+<node TEXT="Constants" ID="ID_1563160981" CREATED="1772519035321" MODIFIED="1773125026900">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="74.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Constants"/>
+</node>
+<node TEXT="Functions" ID="ID_999333487" CREATED="1772519069272" MODIFIED="1772522910399">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="68.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Functions"/>
+</node>
+<node TEXT="Template Settings" FOLDED="true" ID="ID_1464042278" CREATED="1772520803208" MODIFIED="1772520812775">
+<node TEXT="Name" ID="ID_435456892" CREATED="1772520813614" MODIFIED="1772520830275">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+<attribute NAME="destinationType" VALUE="core"/>
+</node>
+</node>
+</node>
+<node TEXT="Template: Constant" FOLDED="true" ID="ID_1650310046" CREATED="1772519285948" MODIFIED="1773125115378">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="69.75 pt"/>
+<attribute NAME="*fpcBlockType" VALUE="Attribute"/>
+<node TEXT="Template Settings" FOLDED="true" POSITION="top_or_left" ID="ID_1711284375" CREATED="1772519242324" MODIFIED="1772519254915">
+<node TEXT="Name" ID="ID_1885744007" CREATED="1772520530263" MODIFIED="1772520561094">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+<attribute NAME="destinationType" VALUE="core"/>
+</node>
+<node TEXT="fpcVisibility" FOLDED="true" ID="ID_348388612" CREATED="1772519394360" MODIFIED="1772520312269">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="60.75 pt"/>
+<attribute NAME="destinationType" VALUE="header"/>
+<attribute NAME="comboType" VALUE="closed"/>
+<attribute NAME="defaultText" VALUE="int"/>
+<node TEXT="&amp;List: Visibility" ID="ID_1828151484" CREATED="1772520287410" MODIFIED="1772520450660"/>
+</node>
+<node TEXT="fpcDataType" FOLDED="true" ID="ID_1352002117" CREATED="1772519326465" MODIFIED="1772520262219">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="60.75 pt"/>
+<attribute NAME="destinationType" VALUE="header"/>
+<attribute NAME="comboType" VALUE="open"/>
+<attribute NAME="defaultText" VALUE="private"/>
+<node TEXT="&amp;List: Data Types" ID="ID_389210999" CREATED="1772519784607" MODIFIED="1772519801414"/>
+</node>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="Template Data" FOLDED="true" POSITION="top_or_left" ID="ID_1188419842" CREATED="1772520980125" MODIFIED="1772561734081" HGAP_QUANTITY="29.75 pt" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Ignore"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This node contains various child nodes used as data in the templates defined here. You need this node too to build your document. You may modify the contents of the children of this node based on your needs, for example, you may replace all English text with the language you are planning to use in your mindmap.
+    </p>
+  </body>
+</html></richcontent>
+<node TEXT="List: Data Types" FOLDED="true" ID="ID_1688780233" CREATED="1772519825838" MODIFIED="1772520922315" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Ignore"/>
+<node TEXT="char" ID="ID_400337430" CREATED="1772519883911" MODIFIED="1772519887283"/>
+<node TEXT="int" ID="ID_1714184081" CREATED="1772519880315" MODIFIED="1772519882962"/>
+<node TEXT="long int" ID="ID_1633491735" CREATED="1772519893545" MODIFIED="1772520950204"/>
+<node TEXT="float" ID="ID_1468784291" CREATED="1772519904034" MODIFIED="1772519905663"/>
+<node TEXT="date" ID="ID_212373293" CREATED="1772520032040" MODIFIED="1772520040429"/>
+<node TEXT="decimal" ID="ID_613744870" CREATED="1772522410216" MODIFIED="1772522410216"/>
+<node TEXT="datetime" ID="ID_831170996" CREATED="1772520042924" MODIFIED="1772520052154"/>
+<node TEXT="string" ID="ID_1570344252" CREATED="1772520912770" MODIFIED="1772563478700" VSHIFT_QUANTITY="-2.25 pt"/>
+<node TEXT="void" ID="ID_1469888293" CREATED="1772522686792" MODIFIED="1772522686792"/>
+<node TEXT="None" ID="ID_530224275" CREATED="1772563491945" MODIFIED="1772563494508"/>
+</node>
+<node TEXT="List: Visibility" FOLDED="true" ID="ID_495358504" CREATED="1772520329117" MODIFIED="1772527121934" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Ignore"/>
+<node TEXT="Public" ID="ID_977163924" CREATED="1772520348075" MODIFIED="1772520353541"/>
+<node TEXT="Private" ID="ID_1435152475" CREATED="1772520354119" MODIFIED="1772520356058"/>
+<node TEXT="Protected" ID="ID_1762811600" CREATED="1772520356543" MODIFIED="1772520363801" VSHIFT_QUANTITY="-14.25 pt"/>
+</node>
+<node TEXT="List: Exceptions" FOLDED="true" ID="ID_1245593938" CREATED="1772527112878" MODIFIED="1772527133551" VGAP_QUANTITY="3 pt">
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Ignore"/>
+<node TEXT="MULTICHOICES (300)" POSITION="top_or_left" ID="ID_199543984" CREATED="1769260949471" MODIFIED="1772528062575">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="45 pt"/>
+</node>
+<node TEXT="RELOCATED (301)" ID="ID_1639704960" CREATED="1769260934684" MODIFIED="1772528059788">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="45 pt"/>
+</node>
+<node TEXT="DISPLACED (302)" ID="ID_588874147" CREATED="1769260934684" MODIFIED="1772528057133">
+<attribute_layout NAME_WIDTH="93.75 pt" VALUE_WIDTH="45 pt"/>
+</node>
+<node TEXT="UNAUTHORIZED (401)" ID="ID_314180146" CREATED="1769155651549" MODIFIED="1772528054500">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+</node>
+<node TEXT="REVOKED (401)" ID="ID_202038417" CREATED="1769155651549" MODIFIED="1772528067770">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+</node>
+<node TEXT="FORBIDDEN (403)" ID="ID_522079043" CREATED="1769155651549" MODIFIED="1772528070228">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+</node>
+<node TEXT="MISSING (404)" ID="ID_53256956" CREATED="1769155651549" MODIFIED="1772528072798">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+</node>
+<node TEXT="CONFLICT (409)" ID="ID_1733419097" CREATED="1772562944474" MODIFIED="1772562952118"/>
+<node TEXT="SYSERROR (500)" ID="ID_350979903" CREATED="1769155651549" MODIFIED="1772528077440">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+</node>
+<node TEXT="INITFAILED (500)" ID="ID_418876826" CREATED="1769155651549" MODIFIED="1772528080038">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+</node>
+<node TEXT="QUERYERROR (510)" ID="ID_19031077" CREATED="1769155651549" MODIFIED="1772528082150">
+<attribute_layout NAME_WIDTH="101.25 pt" VALUE_WIDTH="48 pt"/>
+</node>
+</node>
+<node TEXT="List: Risk Types" FOLDED="true" ID="ID_1862848855" CREATED="1747662701353" MODIFIED="1772519876108" VGAP_QUANTITY="3 pt">
+<icon BUILTIN="broken-line"/>
+<richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      These are various known types of risks. [The content of this node is not rendered. You should replace it with your own content.]
+    </p>
+  </body>
+</html></richcontent>
+<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="90.75 pt"/>
+<attribute NAME="fpcBlockType" VALUE="Ignore"/>
+<node TEXT="Compliance" ID="ID_1148171795" CREATED="1747663080364" MODIFIED="1755929843560"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Compliance and legal risks.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Financial" ID="ID_877451006" CREATED="1747662857393" MODIFIED="1755929843560"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Loss of capital or finances related risks.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node TEXT="Time" ID="ID_1054774291" CREATED="1747662944717" MODIFIED="1772519876106" VSHIFT_QUANTITY="-26.25 pt"><richcontent TYPE="NOTE">
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Delay in execution or delivery related risks.
+    </p>
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node TEXT="List: People" FOLDED="true" ID="ID_1194669542" CREATED="1767777552916" MODIFIED="1767778306101" VGAP_QUANTITY="3 pt">
 <attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="59.25 pt"/>
 <attribute NAME="fpcBlockType" VALUE="Ignore"/>
 <richcontent TYPE="NOTE">
@@ -3043,57 +3985,6 @@
 <node TEXT="Ramji D&apos;souza" ID="ID_753122102" CREATED="1767777724146" MODIFIED="1767777731842"/>
 <node TEXT="Shabnam Ansari" ID="ID_1592579590" CREATED="1767777732871" MODIFIED="1767777741943"/>
 <node TEXT="Uday Khedekar" ID="ID_1920240564" CREATED="1767777716694" MODIFIED="1767778149450" VSHIFT_QUANTITY="-35.25 pt"/>
-</node>
-<node TEXT="List: Risk Types" FOLDED="true" POSITION="top_or_left" ID="ID_519219886" CREATED="1767779930056" MODIFIED="1767780023261" VGAP_QUANTITY="3 pt">
-<icon BUILTIN="broken-line"/>
-<richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      These are various known types of risks.
-    </p>
-  </body>
-</html></richcontent>
-<attribute_layout NAME_WIDTH="88.5 pt" VALUE_WIDTH="95.25 pt"/>
-<attribute NAME="fpcBlockType" VALUE="UnorderedList"/>
-<node TEXT="Compliance" ID="ID_950899374" CREATED="1747663080364" MODIFIED="1755929843560"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Compliance and legal risks.
-    </p>
-  </body>
-</html></richcontent>
-</node>
-<node TEXT="Financial" ID="ID_1567580480" CREATED="1747662857393" MODIFIED="1755929843560"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Loss of capital or finances related risks.
-    </p>
-  </body>
-</html></richcontent>
-</node>
-<node TEXT="Time" ID="ID_485787611" CREATED="1747662944717" MODIFIED="1767941396570" VSHIFT_QUANTITY="-15.75 pt"><richcontent TYPE="NOTE">
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Delay in execution or delivery related risks.
-    </p>
-  </body>
-</html></richcontent>
 </node>
 </node>
 </node>

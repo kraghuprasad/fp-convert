@@ -302,6 +302,16 @@ class Translations:
     delivery_date: str = r"Date of Delivery"
     risk_types: str = r"Risk-Types"
     risk_id: str = r"Risk-ID"
+    klass: str = r"Class"
+    interface: str = r"Interface"
+    arguments: str = r"Arguments"
+    constants: str = r"Constants"
+    functions: str = r"Functions"
+    attributes: str = r"Attributes"
+    exceptions: str = r"Exceptions"
+    returns: str = r"Returns"
+    void: str = r"void"
+    none: str = r"None"
 
 config_classes = [
     Main, StopFrame, Table, DBSchema, UML, ColorBox, FancyBox,

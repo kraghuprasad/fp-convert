@@ -99,7 +99,7 @@ this program.
         supplied here.
         """
         ),
-        default=None,
+        default="nunito",
     )
     parser.add_argument(
         "-c",

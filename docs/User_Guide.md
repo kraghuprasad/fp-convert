@@ -441,6 +441,38 @@ If some kind of warning-text is to be rendered, then that node should be annotat
 |:-:|
 |![Warning getting rendered in PDF](images/warning_pdf.png)|
 
+## Interfaces
+
+| |
+|:-:|
+|![Interface creation in the mindmap](images/interface_mm.png)|
+
+In software design specifications, Interface is commonly used. The node containing the interface-definitions should be specially annotated with "Interface", as shown above. There are a couple of other annotations too to render constants and functions defined under the Interface. They are shown in the same diagram. This generates following content in the PDF document.
+
+| |
+|:-:|
+|![Interface-definitions getting rendered in PDF](images/interface_pdf.png)|
+
+## Classes
+
+| |
+|:-:|
+|![Class creation in the mindmap - Classname and Arguments](images/class1_mm.png)|
+
+| |
+|:-:|
+|![Class creation in the mindmap - Classname and Functions](images/class2_mm.png)|
+
+Class-definitions too can be rendered properly using appropriate annotations as shown above. The generate following content in the generated PDF.
+
+| |
+|:-:|
+|![Class-definitions getting rendered in PDF - part 1](images/class1_pdf.png)|
+
+| |
+|:-:|
+|![Class-definitions getting rendered in PDF - part 2](images/class1_pdf.png)|
+
 ## Database Schema
 
 | |
