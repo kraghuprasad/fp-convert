@@ -207,8 +207,8 @@ class UML:
     component_background_color: str = r"#ffffff" # white background for component
     component_border_color: str = r"#000000"     # black border for component
     component_color: str = r"#d0d0d0"            # gray for component
-    connector_line_type: str = r"default"          # default, ortho or polyline
-    default_text_alignment: str = r"left"          # left, center or right
+    connector_line_type: str = r"default"        # default, ortho or polyline
+    default_text_alignment: str = r"left"        # left, center or right
     note_background_color: str = r"#f7f3de"      # light yellow background for note
     note_border_color: str = r"#867c1c"          # blackish yellow border for note
     note_color: str = r"#c0c0c0"                 # light gray for note
@@ -216,7 +216,10 @@ class UML:
     plantuml_cmd: str = r"plantuml"       # command name (relies on PATH environment) or OS dependent full path
     usecase_border_color: str = r"#0542C5"       # dark blue for usecase border
     usecase_color: str = r"#b1dafc"              # darker shade of blue for usecase
-    usecase_diagram_width: str = r"0.9\textwidth" # width of usecase diagram
+    usecase_diagram_width: str = r"0.9\textwidth"# width of usecase diagram
+    usecase_details_block: str = 'list'         # Allowed values: 'list', 'table'
+    uccond_bulletlbl_separation: str = r"0.3em"  # Bullet-label separation in condition listing
+    ucflow_bulletlbl_separation: str = r"0.5em"  # Bullet-label separation in flow listing
 
 class ColorBox:
     """
@@ -296,22 +299,23 @@ class Translations:
     """
     The translation-texts for automatically generated text segments
     """
-    deliverable: str = r"Deliverable"
-    deliverable_id: str = r"Deliverable-ID"
-    accountable: str = "Accountability"
-    delivery_date: str = r"Date of Delivery"
-    risk_types: str = r"Risk-Types"
-    risk_id: str = r"Risk-ID"
-    klass: str = r"Class"
-    interface: str = r"Interface"
+    accountable: str = r"Accountability"
     arguments: str = r"Arguments"
-    constants: str = r"Constants"
-    functions: str = r"Functions"
     attributes: str = r"Attributes"
+    constants: str = r"Constants"
+    deliverable_id: str = r"Deliverable-ID"
+    deliverable: str = r"Deliverable"
+    delivery_date: str = r"Date of Delivery"
     exceptions: str = r"Exceptions"
-    returns: str = r"Returns"
-    void: str = r"void"
+    functions: str = r"Functions"
+    interface: str = r"Interface"
+    klass: str = r"Class"
     none: str = r"None"
+    returns: str = r"Returns"
+    risk_id: str = r"Risk-ID"
+    risk_types: str = r"Risk-Types"
+    usecase: str = r'Usecase'
+    void: str = r"void"
 
 config_classes = [
     Main, StopFrame, Table, DBSchema, UML, ColorBox, FancyBox,

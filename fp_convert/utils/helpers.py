@@ -15,6 +15,7 @@ from freeplane import Node
 from pylatex import (
     Command,
     Figure,
+    Enumerate,
     Itemize,
     LongTable,
     MdFramed,
@@ -1775,14 +1776,104 @@ def puml2svg(puml_cmd: str, puml_file: Path, output_dir: Path) -> None:
             stderr=f"PlantUML conversion failed: {e.stderr}"
         )
 
-def build_ucaction_tabular_segments(action_nodes: List[Node]) -> List[LongTable] | None:
+def build_usecase_list_segments(action_nodes: List[Node], config: Config) -> List[NE|str] | None:
+    """
+    Build and return the nested lists required to render the details of Usecase Action.
+
+    Parameters:
+        action_nodes: List[Node]
+            The list of nodes whose content is to be used to build the list.
+        config: Config
+            A Config object.
+
+    Returns:
+        List[NE|str] or None
+    """
+    uc_translation = config.translations.usecase
+    ret: List[NE|str] = list()
+    # The logic here closely follows build_usecase_tabular_segments,
+    # but produces nested LaTeX lists rather than LongTable objects.
+    # from pylatex import Itemize, NoEscape as NE
+    outer_list = Enumerate(
+        options=(
+            NE(r'label=\textbf{\arabic*.}'),
+        )
+    )
+
+    usecase_details_exist = False
+    for action_node in action_nodes:
+        if is_ignore_type(action_node) or not action_node.children:
+            continue  # Skip if ignored or has no child conditions
+
+        # For this condition, create a sub-item (condition as a label)
+        # cond_list = Itemize()
+        cond_list = Itemize(options=(
+            NE(f"labelsep={config.uml.uccond_bulletlbl_separation}"),
+            NE("leftmargin=*"),
+            "nolistsep",
+            "noitemsep")
+        )
+        usecase_conditions_exist = False
+        # For each condition (child of the action)
+        for condition in action_node.children:
+            if is_ignore_type(condition):
+                continue
+
+            flows = [flow for flow in condition.children if not is_ignore_type(flow)]
+            if not flows:
+                continue
+
+            cond_list.add_item(NE(bold(str(condition))))
+
+            # Flows as sub-items under the condition
+            flow_list = Enumerate(
+                options=(
+                    NE(r'label=\arabic*.'),
+                    NE(f"labelsep={config.uml.ucflow_bulletlbl_separation}"),
+                )
+            )
+            usecase_flows_exist = False
+            for flow in flows:
+                if is_ignore_type(flow):
+                    continue
+                flow_list.add_item(NE(str(flow)))
+                usecase_flows_exist = True
+
+            # Attach flows (if present)
+            if usecase_flows_exist:
+                # In LaTeX, a nested `itemize` can appear directly after an `\item` and is
+                # treated as part of that item, so appending the environment is sufficient.
+                cond_list.append(flow_list)
+                usecase_conditions_exist = True
+
+        # Append the condition (with its flows) into the action's outer list
+        if usecase_conditions_exist:
+            # Outer item for the action node (the name/label/title of the action)
+            if uc_translation:
+                outer_list.add_item(NE(bold(f"{uc_translation}: {str(action_node)}")))
+            else:
+                outer_list.add_item(NE(bold(str(action_node))))
+            outer_list.append(cond_list)
+            usecase_details_exist = True
+
+    if usecase_details_exist:
+        ret.append(outer_list)
+
+    if ret:
+        return ret
+    return None
+
+def build_usecase_tabular_segments(action_nodes: List[Node], config: Config) -> List[LongTable] | None:
     """
     Build and return a tabular segment for the usecase actions.
 
     Parameters:
     action_nodes: List[Node]
         List of action nodes to be included in the tabular segment.
+    config: Config
+        A Config object.
     """
+    uc_translation = config.translations.usecase
     ret: List[LongTable] = []
     for action_node in action_nodes:
         if is_ignore_type(action_node) or not action_node.children:
@@ -1811,7 +1902,15 @@ def build_ucaction_tabular_segments(action_nodes: List[Node]) -> List[LongTable]
             # "ll"
         )
         tbl.add_hline()
-        tbl.add_row((MultiColumn(2, align='|c|', data=str(action_node)),))
+        if uc_translation:
+            tbl.add_row(
+                (MultiColumn(
+                    2, align='|c|',
+                    data=f"{uc_translation}: {str(action_node)}"
+                ),)
+            )
+        else:
+            tbl.add_row((MultiColumn(2, align='|c|', data=str(action_node)),))
         tbl.end_table_header()
         tbl.add_hline()
 

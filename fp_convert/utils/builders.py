@@ -15,7 +15,6 @@ from pylatex import (
     Tabularx,
 )
 from pylatex.base_classes import LatexObject
-from pylatex.table import Tabular
 from pylatex.utils import (
     bold,
     NoEscape as NE,
@@ -44,7 +43,8 @@ from fp_convert.errors import (
 from fp_convert.utils.helpers import (
     build_latex_figure_object,
     build_row_notes,
-    build_ucaction_tabular_segments,
+    build_usecase_list_segments,
+    build_usecase_tabular_segments,
     dbschema_exists_in_parent_path,
     expand_macros,
     ignored_node_exists_in_parent_path,
@@ -910,7 +910,6 @@ def build_dbschema_block(
             ret.append(itmz)  # Fields' notes
             ret.append(NE(r"\normalsize"))
 
-
     ret.append(Command("end", "enumerate"))
     return ret
 
@@ -1597,12 +1596,28 @@ def build_ucpackage_block(
         )
         ret.append(img_segment)
 
-        # Build tabular segment for the usecase-details
-        tbl_segment = build_ucaction_tabular_segments(action_nodes)
-        if tbl_segment:
-            # Small font-size for the usecase details
-            ret.append(NE(r"\small"))
-            ret.extend(tbl_segment)
+        # Build list segment for the usecase-action-details
+        if doc.config.uml.usecase_details_block == 'list':
+            usecase_details_block = build_usecase_list_segments(
+                action_nodes,
+                doc.config
+            )
+        elif doc.config.uml.usecase_details_block == 'table':
+            usecase_details_block = build_usecase_tabular_segments(
+                action_nodes,
+                doc.config
+            )
+        else:
+            raise InvalidParameterException(
+                f"Supplied configuration parameter '{doc.config.uml.usecase_details_block}' "
+                "for 'uml:usecase_details_block' is not valid. It should be either 'list', "
+                "or 'table'. Or this parameter should be removed from the supplied YAML based "
+                "configuration file altogether; in which case the list would be rendered by "
+                "default for this segment."
+            )
+        if usecase_details_block:
+            ret.append(NE(r"\small"))  # Small font-size for the usecase details
+            ret.extend(usecase_details_block)
             ret.append(NE(r"\normalsize"))
     return ret
 
@@ -1736,7 +1751,7 @@ def build_tabular_block(
     # "alingments", "headers", "rows", "hts", "totals", "notes", "tblprops"
     tbl_data = retrieve_generic_table_data(node, doc.ctx)
 
-    tab = Tabular("".join(tbl_data["alignments"]), pos="c")
+    tab = LongTable("".join(tbl_data["alignments"]), pos="c")
     tab.add_hline(color=doc.ctx.regcol(doc.config.table.line_color))
     row = [
         NE(

@@ -109,6 +109,9 @@ uml:
   usecase_border_color: '#0542C5' # Border color of UML usecase diagram
   usecase_color: '#b1dafc' # Color of UML usecase diagram
   usecase_diagram_width: '0.9\textwidth' # Width of UML usecase diagram
+  usecase_details_block: 'list' # Allowed values: 'list', 'table'
+  uccond_bulletlbl_separation: '0.3em'  # Bullet-label separation in condition listing
+  ucflow_bulletlbl_separation: '0.5em'  # Bullet-label separation in flow listing
 
 # Colorbox specific parameters
 colorbox:
@@ -180,19 +183,20 @@ fancybox2:
 # Translations for auto-filled segments of the document. Use your own
 # language-specific translations here.
 translations:
+  accountable: 'Accountability'
+  arguments: 'Arguments'
+  attributes: 'Attributes'
+  constants: 'Constants'
   deliverable: 'Deliverable'
   deliverable_id: 'Deliverable-ID'
-  accountable: 'Accountability'
   delivery_date: 'Date of Delivery'
-  risk_types: 'Risk-Types'
-  risk_id: 'Risk-ID'
-  klass: 'Class'
-  interface: 'Interface'
-  arguments: 'Arguments'
-  constants: 'Constants'
-  functions: 'Functions'
-  attributes: 'Attributes'
   exceptions: 'Exceptions'
-  returns: 'Returns'
-  void: 'void'
+  functions: 'Functions'
+  interface: 'Interface'
+  klass: 'Class'
   none: 'None'
+  returns: 'Returns'
+  risk_id: 'Risk-ID'
+  risk_types: 'Risk-Types'
+  usecase: 'Usecase'
+  void: 'void'
